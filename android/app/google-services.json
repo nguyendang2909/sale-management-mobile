@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "472228192707",
+    "project_id": "ezdating-23371",
+    "storage_bucket": "ezdating-23371.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:472228192707:android:28b4b6f8abc1fe32d1dd76",
+        "android_client_info": {
+          "package_name": "com.ezchatka"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "472228192707-bcrpiijqj3abbhhsat79mfct4n0m62g9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ezchatka",
+            "certificate_hash": "39c2da8ff423f3d6171c514f2b5dadc565c10c65"
+          }
+        },
+        {
+          "client_id": "472228192707-vu70qsfcfo00vm1hnd0acehs9sf5s4mp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDBFH5i8El43tRm2sG4-IljhyC9raz3e-g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "472228192707-i4gmpdobh3dlnhropgsvknkf3kbievlg.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "472228192707-dfdqpak3msbj8v7aiahe0ckps986rl39.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.ezchatka"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

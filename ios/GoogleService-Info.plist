@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>472228192707-dfdqpak3msbj8v7aiahe0ckps986rl39.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.472228192707-dfdqpak3msbj8v7aiahe0ckps986rl39</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>472228192707-bcrpiijqj3abbhhsat79mfct4n0m62g9.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDVURz9OsZcSxNLqtqeQrdAJwlWbfdc35s</string>
+	<key>GCM_SENDER_ID</key>
+	<string>472228192707</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.ezchatka</string>
+	<key>PROJECT_ID</key>
+	<string>ezdating-23371</string>
+	<key>STORAGE_BUCKET</key>
+	<string>ezdating-23371.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false/>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false/>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true/>
+	<key>IS_GCM_ENABLED</key>
+	<true/>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true/>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:472228192707:ios:0d3ae97e65501e02d1dd76</string>
+</dict>
+</plist>
