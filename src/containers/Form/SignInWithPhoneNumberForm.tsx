@@ -4,23 +4,20 @@ import { useNavigation } from '@react-navigation/native';
 import { useFormik } from 'formik';
 import { isValidPhoneNumber } from 'libphonenumber-js/max';
 import _ from 'lodash';
-import { FormControl, HStack, Icon, Input, WarningOutlineIcon } from 'native-base';
+import { FormControl, Input, WarningOutlineIcon } from 'native-base';
 import React, { FC, useState } from 'react';
-import { TouchableOpacity } from 'react-native';
-import CountryPicker, { Country, CountryCode } from 'react-native-country-picker-modal';
-import FeatherIcons from 'react-native-vector-icons/Feather';
 import { LoadingButton } from 'src/components/button';
-import { useMessages } from 'src/hooks';
+import { SCREENS } from 'src/constants';
+import { useAppDispatch, useMessages } from 'src/hooks';
 import { messages } from 'src/locales/messages';
-import { flexDirectionRow, flexGrow, marginBottom, marginTop, width, widthFull } from 'src/styles';
+import { flexGrow, marginBottom, marginTop, widthFull } from 'src/styles';
 import { spacing } from 'src/theme';
 import { FormParams, TxKey } from 'src/types';
 
 export const SignInWithPhoneNumberForm: FC = () => {
+  const dispatch = useAppDispatch();
   const { formatMessage } = useMessages();
   const { navigate } = useNavigation();
-  const [isOpenSearchCountry, setOpenSearchCountry] = useState<boolean>(false);
-  const [countryCode, setCountryCode] = useState<CountryCode>('VN');
   const [errorCode, setErrorCode] = useState<TxKey | undefined>();
 
   // function onAuthStateChanged(user: unknown) {
@@ -34,21 +31,22 @@ export const SignInWithPhoneNumberForm: FC = () => {
 
   const formik = useFormik<FormParams.SignInWithPhoneNumber>({
     initialValues: {
-      dialCode: '+84',
-      countryCode: 'VN',
+      phoneCode: '+84',
       phoneNumber: '',
     },
     onSubmit: async values => {
       setErrorCode(undefined);
       try {
-        const { phoneNumber, dialCode, countryCode } = values;
-        const fullPhoneNumber = `${dialCode}${phoneNumber}`.replaceAll(' ', '');
-        if (!isValidPhoneNumber(fullPhoneNumber, countryCode)) {
+        const { phoneNumber, phoneCode } = values;
+        const fullPhoneNumber = `${phoneCode}${
+          phoneNumber.startsWith('0') ? phoneNumber.slice(1) : phoneNumber
+        }`.replaceAll(' ', '');
+        if (!isValidPhoneNumber(fullPhoneNumber, 'VN')) {
           setErrorCode('Please enter a valid phone number!');
           return;
         }
         const confirmation = await auth().signInWithPhoneNumber(fullPhoneNumber);
-        navigate('SignInWithOtpPhoneNumber', {
+        navigate(SCREENS.SignInWithOtpPhoneNumber, {
           otpConfirm: confirmation,
           user: { phoneNumber: fullPhoneNumber },
         });
@@ -62,18 +60,9 @@ export const SignInWithPhoneNumberForm: FC = () => {
     formik.handleSubmit();
   };
 
-  const handleCloseSearchCountry = () => {
-    setOpenSearchCountry(false);
-  };
-
-  const handleOpenSearchCountry = () => {
-    setOpenSearchCountry(true);
-  };
-
-  const handleSelectCountry = (country: Country) => {
-    formik.setFieldValue('dialCode', `+${country.callingCode[0]}`);
-    formik.setFieldValue('countryCode', country.cca2);
-    setCountryCode(country.cca2);
+  const onChangeText = (text: string) => {
+    setErrorCode(undefined);
+    formik.setFieldValue('phoneNumber', text);
   };
 
   return (
@@ -82,54 +71,19 @@ export const SignInWithPhoneNumberForm: FC = () => {
         <View style={marginBottom(spacing.lg)}>
           <View style={widthFull}>
             <FormControl style={widthFull} isInvalid={!!errorCode} isRequired>
-              <FormControl.Label>{formatMessage('Phone number')}</FormControl.Label>
-              <HStack space={4} style={[flexDirectionRow, widthFull]}>
-                <View style={width(120)}>
-                  <TouchableOpacity onPress={handleOpenSearchCountry}>
-                    <Input
-                      height={12}
-                      size="xl"
-                      testID="dialCode"
-                      variant="underlined"
-                      isReadOnly
-                      value={formik.values.dialCode}
-                      onPressIn={handleOpenSearchCountry}
-                      InputLeftElement={
-                        <CountryPicker
-                          onClose={handleCloseSearchCountry}
-                          visible={isOpenSearchCountry}
-                          countryCode={countryCode}
-                          withFilter
-                          withCallingCode
-                          withFlag={true}
-                          onSelect={handleSelectCountry}
-                        />
-                      }
-                      InputRightElement={
-                        <Icon
-                          as={<FeatherIcons name="chevron-down" />}
-                          size={5}
-                          ml="2"
-                          color="muted.400"
-                        />
-                      }
-                    ></Input>
-                  </TouchableOpacity>
-                </View>
-
-                <View style={flexGrow}>
-                  <Input
-                    height={12}
-                    size="xl"
-                    testID="phoneNumber"
-                    variant="underlined"
-                    onChangeText={formik.handleChange('phoneNumber')}
-                    placeholder={formatMessage('Phone number')}
-                    onBlur={formik.handleBlur('phoneNumber')}
-                    autoFocus
-                  ></Input>
-                </View>
-              </HStack>
+              <FormControl.Label>Số điện thoại</FormControl.Label>
+              <View style={flexGrow}>
+                <Input
+                  height={12}
+                  size="xl"
+                  testID="phoneNumber"
+                  variant="underlined"
+                  onChangeText={onChangeText}
+                  placeholder="Ví dụ: 0971231234"
+                  onBlur={formik.handleBlur('phoneNumber')}
+                  autoFocus
+                ></Input>
+              </View>
 
               <View>
                 <FormControl.ErrorMessage
@@ -145,7 +99,7 @@ export const SignInWithPhoneNumberForm: FC = () => {
 
         <View style={marginTop(spacing.lg)}>
           <LoadingButton onPress={handlePressSubmit} isLoading={formik.isSubmitting}>
-            {formatMessage('Next')}
+            Tiếp tục
           </LoadingButton>
         </View>
       </View>

@@ -1,4 +1,3 @@
-import { CountryCode } from 'libphonenumber-js';
 import { Image } from 'react-native-image-crop-picker';
 
 import { Gender, RelationshipGoal } from './data.type';
@@ -13,21 +12,15 @@ export declare namespace FormParams {
   };
 
   type SignInWithPhoneNumber = {
-    dialCode: string;
+    phoneCode: string;
     phoneNumber: string;
-    countryCode: CountryCode;
   };
 
   type CreateProfile = {
-    nickname?: string;
-    birthday?: string;
-    gender?: Gender;
-    relationshipGoal?: RelationshipGoal;
-    introduce?: string;
-    countryIso2: string;
-    stateId?: string;
-    learningTarget?: string;
-    teachingSubject?: string;
+    phoneNumber?: string;
+    phoneCode?: string;
+    email?: string;
+    shopTitle?: string;
   };
 
   type UpdateProfilePhoto = {

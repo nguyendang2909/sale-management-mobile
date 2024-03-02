@@ -16,7 +16,6 @@ export declare namespace AppStore {
     refreshToken?: string;
     isLogged?: boolean;
     profile: Partial<Entity.Profile>;
-    profileFilter: Partial<Entity.ProfileFilter>;
     user: Partial<Entity.User>;
     osPermissions?: {
       locationService?: AuthorizationResult;

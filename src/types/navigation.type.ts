@@ -5,12 +5,18 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { Entity } from './entities.type';
 
 export type HomeTabParamList = {
-  DatingSwipe: undefined;
-  DatingNearby: undefined;
-  Conversations: undefined;
-  Profile: undefined;
-  Star: undefined;
-  Subjects: undefined;
+  MANAGEMENT: undefined;
+  ORDER: undefined;
+  REPORT: undefined;
+  TABLE: undefined;
+  SELL: undefined;
+  PAY_BOOK: undefined;
+  RECEIPT_AND_EXPENSE: undefined;
+  // ONLINE_STORE: undefined,
+  CUSTOMER: undefined;
+  WAREHOUSE: undefined;
+  MESSAGE: undefined;
+  PRODUCT: undefined;
 };
 
 export type AppStackParamList = {

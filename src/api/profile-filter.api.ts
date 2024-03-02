@@ -1,5 +1,5 @@
 import { API_ENDPOINTS } from 'src/config/config.api';
-import { API_TAGS } from 'src/constants/constants';
+import { PROVIDE_TAGS } from 'src/constants/constants';
 import { ApiRequest, ApiResponse } from 'src/types';
 
 import { api } from './api';
@@ -12,7 +12,7 @@ const profileFiltersApi = api.injectEndpoints({
         url: API_ENDPOINTS.PROFILE_FILTERS.ME,
         method: 'GET',
       }),
-      providesTags: [API_TAGS.MY_PROFILE_FILTER],
+      providesTags: [PROVIDE_TAGS.MY_PROFILE_FILTER],
     }),
 
     updateMyProfileFilter: builder.mutation<ApiResponse.Logged, ApiRequest.UpdateProfileFilter>({
@@ -25,7 +25,7 @@ const profileFiltersApi = api.injectEndpoints({
         if (error) {
           return [];
         }
-        return [API_TAGS.MY_PROFILE_FILTER];
+        return [PROVIDE_TAGS.MY_PROFILE_FILTER];
       },
     }),
   }),

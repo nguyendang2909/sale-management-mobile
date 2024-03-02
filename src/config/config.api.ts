@@ -1,10 +1,12 @@
+import { API_TAGS } from 'src/constants';
+
 export const API_ENDPOINTS = {
   AUTH: {
     SIGN_IN: {
       APPLE: '/auth/sign-in/apple',
       FACEBOOK: '/auth/sign-in/facebook',
       GOOGLE: '/auth/sign-in/google',
-      PHONE_NUMBER: '/auth/sign-in/phone-number',
+      PHONE: '/auth/sign-in/phone',
     },
     LOGOUT: '/auth/logout',
     TOKENS: {
@@ -13,6 +15,9 @@ export const API_ENDPOINTS = {
   },
   CONVERSATIONS: {
     INDEX: '/conversations',
+  },
+  SHOPS: {
+    INDEX: '/shops',
   },
   LIKES: {
     INDEX: '/likes',
@@ -57,5 +62,17 @@ export const API_ENDPOINTS = {
   },
   VIEWS: {
     INDEX: '/views',
+  },
+  ME: {
+    INDEX: API_TAGS.ME,
+  },
+  PRODUCTS: {
+    INDEX: API_TAGS.PRODUCTS,
+  },
+  CATEGORIES: {
+    INDEX: API_TAGS.CATEGORIES,
+  },
+  ORDERS: {
+    INDEX: API_TAGS.ORDERS,
   },
 };

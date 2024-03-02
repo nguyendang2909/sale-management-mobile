@@ -1,6 +1,6 @@
 import { Platform } from 'react-native';
 import { API_ENDPOINTS } from 'src/config/config.api';
-import { API_TAGS } from 'src/constants/constants';
+import { PROVIDE_TAGS } from 'src/constants/constants';
 import { ApiRequest, ApiResponse } from 'src/types';
 
 import { api } from './api';
@@ -8,15 +8,6 @@ import { api } from './api';
 const profilesApi = api.injectEndpoints({
   endpoints: builder => ({
     // Profile
-    getMyProfile: builder.query<ApiResponse.Profile, void>({
-      query: () => {
-        return {
-          url: API_ENDPOINTS.PROFILES.ME.INDEX,
-          method: 'GET',
-        };
-      },
-      providesTags: [API_TAGS.MY_PROFILE],
-    }),
 
     fetchMyProfile: builder.mutation<ApiResponse.Profile, void>({
       query: () => ({
@@ -35,16 +26,8 @@ const profilesApi = api.injectEndpoints({
         if (error) {
           return [];
         }
-        return [API_TAGS.MY_PROFILE];
+        return [PROVIDE_TAGS.MY_PROFILE];
       },
-    }),
-
-    createBasicProfile: builder.mutation<ApiResponse.Profile, ApiRequest.CreateProfile>({
-      query: body => ({
-        url: API_ENDPOINTS.PROFILES.ME.BASIC,
-        method: 'POST',
-        body,
-      }),
     }),
 
     // NearbyUser
@@ -121,7 +104,7 @@ const profilesApi = api.injectEndpoints({
         if (error) {
           return [];
         }
-        return [API_TAGS.MY_PROFILE];
+        return [PROVIDE_TAGS.MY_PROFILE];
       },
     }),
 
@@ -137,9 +120,7 @@ const profilesApi = api.injectEndpoints({
 });
 
 export const {
-  useGetMyProfileQuery,
   useUpdateProfileMutation,
-  useCreateBasicProfileMutation,
   useRefreshNearbyProfilesQuery,
   useGetNewestNearbyProfilesMutation,
   useGetNextNearbyProfilesMutation,

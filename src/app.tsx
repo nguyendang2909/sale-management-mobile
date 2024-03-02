@@ -5,6 +5,7 @@ import { Suspense, useRef } from 'react';
 import { IntlProvider } from 'react-intl';
 import RNBootSplash from 'react-native-bootsplash';
 import { Host } from 'react-native-portalize';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import Toast from 'react-native-toast-message';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
@@ -32,34 +33,36 @@ export default function App() {
         <PersistGate loading={null} persistor={persistor}>
           <IntlProvider defaultLocale="en" locale="en" messages={translators.en}>
             <ConnectSocket />
-            <GluestackUIProvider config={gluestackConfig}>
-              <NativeBaseProvider theme={defaultTheme} config={nativeBaseConfig}>
-                <NavigationContainer
-                  ref={navigationRef}
-                  onReady={onNavigationContainerReady}
-                  onStateChange={async () => {
-                    const previousRouteName = currentRouteRef.current;
-                    const currentRouteName = navigationRef.current?.getCurrentRoute()?.name || '';
+            <SafeAreaProvider>
+              <GluestackUIProvider config={gluestackConfig}>
+                <NativeBaseProvider theme={defaultTheme} config={nativeBaseConfig}>
+                  <NavigationContainer
+                    ref={navigationRef}
+                    onReady={onNavigationContainerReady}
+                    onStateChange={async () => {
+                      const previousRouteName = currentRouteRef.current;
+                      const currentRouteName = navigationRef.current?.getCurrentRoute()?.name || '';
 
-                    if (previousRouteName !== currentRouteName) {
-                      currentRouteRef.current = currentRouteName;
+                      if (previousRouteName !== currentRouteName) {
+                        currentRouteRef.current = currentRouteName;
 
-                      // await analytics().logScreenView({ screen_name: currentRouteName });
-                    }
-                  }}
-                  linking={{
-                    prefixes: ['/'],
-                  }}
-                >
-                  <Host>
-                    <Suspense>
-                      <Main />
-                      <Toast />
-                    </Suspense>
-                  </Host>
-                </NavigationContainer>
-              </NativeBaseProvider>
-            </GluestackUIProvider>
+                        // await analytics().logScreenView({ screen_name: currentRouteName });
+                      }
+                    }}
+                    linking={{
+                      prefixes: ['/'],
+                    }}
+                  >
+                    <Host>
+                      <Suspense>
+                        <Main />
+                        <Toast />
+                      </Suspense>
+                    </Host>
+                  </NavigationContainer>
+                </NativeBaseProvider>
+              </GluestackUIProvider>
+            </SafeAreaProvider>
           </IntlProvider>
         </PersistGate>
       </Provider>

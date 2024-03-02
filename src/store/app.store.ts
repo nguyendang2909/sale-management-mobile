@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import moment from 'moment';
 import { AuthorizationResult } from 'react-native-geolocation-service';
-import { profileEndpoints, profileFilterEndpoints } from 'src/api';
+import { meEndpoints } from 'src/api/me.api';
 import { ApiResponse, AppStore, Entity } from 'src/types';
 
 const initialState: AppStore.AppState = {
@@ -13,7 +13,6 @@ const initialState: AppStore.AppState = {
   socket: {
     connectedAt: moment().toISOString(),
   },
-  profileFilter: {},
 };
 
 export const appSlice = createSlice({
@@ -26,9 +25,7 @@ export const appSlice = createSlice({
     setProfile: (state, { payload }: PayloadAction<Entity.Profile>) => {
       state.profile = payload;
     },
-    setProfileFilter: (state, { payload }: PayloadAction<Entity.ProfileFilter>) => {
-      state.profileFilter = payload;
-    },
+
     updateAccessToken: (state, { payload }: PayloadAction<ApiResponse.Tokens>) => {
       if (payload.accessToken) {
         state.accessToken = payload.accessToken;
@@ -43,7 +40,6 @@ export const appSlice = createSlice({
       state.profile = {};
       state.user = {};
       state.socket = {};
-      state.profileFilter = {};
     },
     setOsLocationPermission: (state, action: PayloadAction<AuthorizationResult>) => {
       if (state.osPermissions) {
@@ -59,22 +55,9 @@ export const appSlice = createSlice({
     },
   },
   extraReducers: builder => {
-    builder
-      .addMatcher(profileEndpoints.getMyProfile.matchFulfilled, (state, { payload: { data } }) => {
-        state.profile = data;
-      })
-      .addMatcher(
-        profileFilterEndpoints.getMyProfileFilter.matchFulfilled,
-        (state, { payload: { data } }) => {
-          state.profileFilter = data;
-        },
-      )
-      .addMatcher(
-        profileEndpoints.createBasicProfile.matchFulfilled,
-        (state, { payload: { data } }) => {
-          state.profile = data;
-        },
-      );
+    builder.addMatcher(meEndpoints.getMe.matchFulfilled, (state, { payload: { data } }) => {
+      state.user = data;
+    });
   },
 });
 

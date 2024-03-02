@@ -1,6 +1,7 @@
 import { Box, Heading, Text, View } from '@gluestack-ui/themed';
 import React, { FC } from 'react';
 import { SafeAreaView } from 'react-native';
+import { APP_NAME } from 'src/constants/constants';
 import { SignInWithPhoneNumberForm } from 'src/containers/Form/SignInWithPhoneNumberForm';
 import { BackIconButton } from 'src/containers/IconButton/BackIconButton';
 import { useMessages } from 'src/hooks';
@@ -19,8 +20,8 @@ export const SignInWithPhoneNumberScreen: FC<FCProps> = _props => {
           <View>
             <BackIconButton></BackIconButton>
           </View>
-          <Heading size="2xl">{formatMessage('What is your phone number?')}</Heading>
-          <Text>{formatMessage('Please input the phone number to sign in')}</Text>
+          <Heading size="2xl">Đăng nhập</Heading>
+          <Text>Vui lòng nhập số điện thoại để tiếp tục</Text>
         </View>
 
         <View mt={24} flexGrow={1}>
@@ -30,7 +31,7 @@ export const SignInWithPhoneNumberScreen: FC<FCProps> = _props => {
         </View>
 
         <View>
-          <Text textAlign="center">{formatMessage('AppName')}</Text>
+          <Text textAlign="center">{APP_NAME}</Text>
         </View>
       </Box>
 

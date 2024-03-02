@@ -69,7 +69,7 @@ export const SignInWithAppleButton: FC<FCProps> = ({ setLoading }) => {
           @ts-ignore */}
           <ButtonIcon color="$black" mr={8} as={FontAwesome} name="apple"></ButtonIcon>
         </View>
-        <ButtonText color="$black">{formatMessage('Sign in with Apple')}</ButtonText>
+        <ButtonText color="$black">Tiếp tục với Apple</ButtonText>
       </Button>
     </>
   );

@@ -4,11 +4,10 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { GradientIcon, MaterialIcons } from 'src/components';
 import { APP_CONFIG } from 'src/config/config.app';
-import { UpdateGeolocation } from 'src/containers/Home/UpdateGeoLocation';
+import { DEFAULT_NAVIGATORS } from 'src/constants/constants';
 import { useMessages } from 'src/hooks';
 import { ConversationsScreen } from 'src/screens/Conversations/ConversationsScreen';
 import { ProfileScreen } from 'src/screens/Me/ProfileScreen';
-import { SubjectsScreen } from 'src/screens/subjects/subjects-screen';
 import { backgroundColor, borderTopColor } from 'src/styles';
 import { colors } from 'src/theme';
 import { AppStackScreenProps, HomeTabParamList } from 'src/types';
@@ -24,7 +23,6 @@ export const HomeNavigator: FC<FCProps> = () => {
 
   return (
     <>
-      <UpdateGeolocation />
       <Tab.Navigator
         screenOptions={{
           headerShown: false,
@@ -41,28 +39,35 @@ export const HomeNavigator: FC<FCProps> = () => {
             lineHeight: 16,
             flex: 1,
           },
+          tabBarShowLabel: true,
         }}
       >
-        <Tab.Screen
-          name="Subjects"
-          component={SubjectsScreen}
-          options={{
-            tabBarShowLabel: false,
-            //   tabBarLabel: formatMessage('Nearby'),
-            tabBarIcon: ({ focused }) => (
-              <GradientIcon
-                {...(!focused
-                  ? {
-                      colors: [colors.palette.neutral500, colors.palette.neutral500],
-                    }
-                  : {})}
-                size={30}
-                name="book"
-                icon={MaterialIcons}
-              />
-            ),
-          }}
-        />
+        {DEFAULT_NAVIGATORS.map(e => {
+          return (
+            <Tab.Screen
+              key={e.id}
+              name={e.name}
+              component={e.screen}
+              options={{
+                // tabBarShowLabel: true,
+                tabBarLabel: e.title,
+                tabBarIcon: ({ focused }) => (
+                  <GradientIcon
+                    {...(!focused
+                      ? {
+                          colors: [colors.palette.neutral500, colors.palette.neutral500],
+                        }
+                      : {})}
+                    size={30}
+                    name="book"
+                    icon={MaterialIcons}
+                  />
+                ),
+              }}
+            ></Tab.Screen>
+          );
+        })}
+
         {/* <Tab.Screen
           name="DatingNearby"
           component={DatingNearbyScreen}
@@ -127,7 +132,7 @@ export const HomeNavigator: FC<FCProps> = () => {
           name="Conversations"
           component={ConversationsScreen}
           options={{
-            tabBarShowLabel: false,
+            // tabBarShowLabel: false,
             tabBarLabel: formatMessage('Messages'),
             tabBarIcon: ({ focused }) => (
               <GradientIcon
@@ -147,7 +152,7 @@ export const HomeNavigator: FC<FCProps> = () => {
           name="Profile"
           component={ProfileScreen}
           options={{
-            tabBarShowLabel: false,
+            // tabBarShowLabel: false,
             tabBarLabel: formatMessage('Profile'),
             tabBarIcon: ({ focused }) => (
               <GradientIcon

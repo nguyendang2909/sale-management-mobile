@@ -5,7 +5,11 @@
 //   phD = 'phD',
 // }
 
-import { RelationshipGoal, RelationshipStatus, TxKey } from '../types';
+import { FC } from 'react';
+import { Management } from 'src/screens/management/management';
+import { Products } from 'src/screens/products/products';
+
+import { HomeTabParamList, RelationshipGoal, RelationshipStatus, TxKey } from '../types';
 import { RELATIONSHIP_GOALS, RELATIONSHIP_STATUSES } from './data.constant';
 
 // export enum ESmoking {
@@ -45,6 +49,7 @@ import { RELATIONSHIP_GOALS, RELATIONSHIP_STATUSES } from './data.constant';
 //   Private = 'private',
 // }
 
+// TODO: Remove
 export const AGES = {
   MIN: 18,
   MAX: 100,
@@ -127,19 +132,20 @@ export const RELATIONSHIP_STATUS_MESSAGES: Record<RelationshipStatus, TxKey> = {
   [RELATIONSHIP_STATUSES.SINGLE_MOM_DAD]: 'Single mom/dad',
 };
 
-export const API_TAGS = {
-  MY_USER: 'my_user',
+export const PROVIDE_TAGS = {
+  ME: 'me',
   MY_PROFILE_FILTER: 'my_profile_filter',
   MY_PROFILE: 'my_profile',
   NEARBY_PROFILES: 'nearby_profiles',
 } as const;
 
-export const ARR_API_TAGS = Object.values(API_TAGS);
+export const ARR_PROVIDE_TAGS = Object.values(PROVIDE_TAGS);
 
 export const API_METHODS = {
   POST: 'POST',
   GET: 'GET',
   PATCH: 'PATCH',
+  PUT: 'PUT',
   DELETE: 'DELETE',
 };
 
@@ -150,3 +156,110 @@ export const SIGN_IN_METHODS = {
 };
 
 export const DEFAULT_LANGUAGE = 'en';
+
+export const APP_NAME = 'iBán hàng';
+
+export const NAVIGATORS = {
+  MANAGEMENT: 'management',
+  ORDER: 'order',
+  REPORT: 'report',
+  TABLE: 'table',
+  SELL: 'sell',
+  PAY_BOOK: 'pay_book',
+  RECEIPT_AND_EXPENSE: 'receipt_and_expense',
+  // ONLINE_STORE: 'online_store',
+  CUSTOMER: 'customer',
+  WAREHOUSE: 'warehouse',
+  MESSAGE: 'message',
+  PRODUCT: 'product',
+} as const;
+
+export const ARR_NAVIGATORS = [
+  {
+    id: NAVIGATORS.MANAGEMENT,
+    name: 'MANAGEMENT',
+    title: 'Quản lý',
+  },
+  {
+    id: NAVIGATORS.ORDER,
+    name: 'ORDER',
+    title: 'Đơn hàng',
+  },
+  {
+    id: NAVIGATORS.REPORT,
+    name: 'REPORT',
+    title: 'Báo cáo',
+  },
+  {
+    id: NAVIGATORS.TABLE,
+    name: 'TABLE',
+    title: 'Bàn',
+  },
+  {
+    id: NAVIGATORS.SELL,
+    name: 'SELL',
+    title: 'Bán hàng',
+  },
+  {
+    id: NAVIGATORS.PAY_BOOK,
+    name: 'PAY_BOOK',
+    title: 'Sổ nợ',
+  },
+  {
+    id: NAVIGATORS.RECEIPT_AND_EXPENSE,
+    name: 'RECEIPT_AND_EXPENSE',
+    title: 'Thu chi',
+  },
+  {
+    id: NAVIGATORS.CUSTOMER,
+    name: 'CUSTOMER',
+    title: 'Khách hàng',
+  },
+  {
+    id: NAVIGATORS.WAREHOUSE,
+    name: 'WAREHOUSE',
+    title: 'Kho hàng',
+  },
+  {
+    id: NAVIGATORS.MESSAGE,
+    name: 'MESSAGE',
+    title: 'Tin nhắn',
+  },
+  {
+    id: NAVIGATORS.PRODUCT,
+    name: 'PRODUCT',
+    title: 'Sản phẩm',
+  },
+];
+
+export const DEFAULT_NAVIGATORS: {
+  id: string;
+  name: keyof HomeTabParamList;
+  title: string;
+  screen: FC;
+}[] = [
+  {
+    id: NAVIGATORS.MANAGEMENT,
+    name: 'MANAGEMENT',
+    title: 'Quản lý',
+    screen: Management,
+  },
+  {
+    id: NAVIGATORS.PRODUCT,
+    name: 'PRODUCT',
+    title: 'Sản phẩm',
+    screen: Products,
+  },
+  {
+    id: NAVIGATORS.ORDER,
+    name: 'ORDER',
+    title: 'Đơn hàng',
+    screen: Management,
+  },
+  {
+    id: NAVIGATORS.CUSTOMER,
+    name: 'CUSTOMER',
+    title: 'Khách hàng',
+    screen: Management,
+  },
+];

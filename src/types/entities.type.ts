@@ -1,17 +1,21 @@
+/* eslint-disable no-use-before-define */
 import {
   EducationLevel,
   Gender,
   MediaFileType,
   Membership,
+  OrderStatus,
   RelationshipGoal,
   RelationshipStatus,
-  UserRole,
+  Role,
+  StockTrackingMethod,
   UserStatus,
+  WorkingTimeType,
 } from './data.type';
 
 export declare namespace Entity {
   type BaseEntity = {
-    _id: string;
+    id: string;
     createdAt?: string;
     updatedAt?: string;
   };
@@ -23,12 +27,13 @@ export declare namespace Entity {
   };
 
   type User = BaseEntity & {
-    coins?: number;
     email?: string;
+    appleId?: string;
     phoneNumber?: string;
-    role?: UserRole;
-    weight: number;
+    phoneCode?: string;
+    role?: Role;
     status?: UserStatus;
+    fullName?: string;
   };
 
   type Country = BaseEntity & {
@@ -128,4 +133,95 @@ export declare namespace Entity {
     targetProfile?: Profile;
     isLiked?: boolean;
   };
+
+  type Shop = BaseEntity &
+    Partial<{
+      user: User;
+      userId: string;
+      title: string;
+      phoneNumber?: string;
+      phoneCode?: string;
+      address: string;
+      description?: string;
+      workingTimeType: WorkingTimeType;
+      openTime?: string;
+      closeTime?: string;
+      businessTypes?: string[];
+    }>;
+
+  type Product = BaseEntity &
+    Partial<{
+      user?: User;
+      userId: string;
+      title: string;
+      price: number;
+      capitalPrice?: number;
+      promotionalPrice?: number;
+      wholesalePrice?: number;
+      minWholesalePriceQuantity?: number;
+      isInStock?: boolean;
+      sku?: string;
+      barcode?: string;
+      stock?: number;
+      stockTrackingMethod: StockTrackingMethod;
+      description?: string;
+      label?: string;
+      images?: string[];
+      productCategories?: ProductCategory[];
+      categories?: Category[];
+    }>;
+
+  type Category = BaseEntity &
+    Partial<{
+      user: User;
+      userId: string;
+      title: string;
+      orderPosition: string;
+      productCategories: ProductCategory[];
+    }>;
+
+  type ProductCategory = BaseEntity &
+    Partial<{
+      product: Product;
+      productId: string;
+      category: Category;
+      categoryId: string;
+    }>;
+
+  type Order = BaseEntity &
+    Partial<{
+      user?: User;
+      userId: string;
+      customer?: Customer;
+      customerId: string;
+      status: OrderStatus;
+      lastChangedStatus: Date;
+      paymentMethod: string;
+      price: number;
+      promotionPrice?: number;
+      deliveryMethod: string;
+      products?: OrderProduct[];
+    }>;
+
+  type Customer = BaseEntity &
+    Partial<{
+      user: User;
+      userId: string;
+      fullName: string;
+      phoneCode: string;
+      phoneNumber: string;
+      orders: Order[];
+    }>;
+
+  type OrderProduct = BaseEntity &
+    Partial<{
+      product?: Product;
+      productId?: string;
+      order?: Order;
+      orderId?: string;
+      quantity: number;
+      price: number;
+      promotionPrice?: number;
+      isWholeSale: boolean;
+    }>;
 }

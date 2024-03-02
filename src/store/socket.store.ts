@@ -167,15 +167,15 @@ export function* sendMessage(data: PayloadAction<SocketRequest.SendMessage>) {
 
   const currentUserId: string = yield select(state => state.app.profile._id);
 
-  yield put(
-    messageActions.sendMsg({
-      _id: payload.uuid,
-      text: payload.text,
-      _matchId: payload.matchId,
-      uuid: payload.uuid,
-      _userId: currentUserId,
-    }),
-  );
+  // yield put(
+  //   messageActions.sendMsg({
+  //     _id: payload.uuid,
+  //     text: payload.text,
+  //     _matchId: payload.matchId,
+  //     uuid: payload.uuid,
+  //     _userId: currentUserId,
+  //   }),
+  // );
 }
 
 export function* readMessage(data: PayloadAction<SocketRequest.ReadMessage>) {

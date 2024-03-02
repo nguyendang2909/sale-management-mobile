@@ -1,6 +1,6 @@
 import { Platform } from 'react-native';
 import { API_ENDPOINTS } from 'src/config/config.api';
-import { API_TAGS } from 'src/constants/constants';
+import { PROVIDE_TAGS } from 'src/constants/constants';
 import { ApiRequest, ApiResponse } from 'src/types';
 
 import { api } from './api';
@@ -29,7 +29,7 @@ const mediaFilesApi = api.injectEndpoints({
         if (error) {
           return [];
         }
-        return [API_TAGS.MY_PROFILE];
+        return [PROVIDE_TAGS.MY_PROFILE];
       },
     }),
 
@@ -42,7 +42,7 @@ const mediaFilesApi = api.injectEndpoints({
         if (error) {
           return [];
         }
-        return [API_TAGS.MY_PROFILE];
+        return [PROVIDE_TAGS.MY_PROFILE];
       },
     }),
   }),

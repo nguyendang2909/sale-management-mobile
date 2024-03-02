@@ -1,6 +1,6 @@
 import { Image } from 'react-native-image-crop-picker';
 
-import { DevicePlatform, Gender, RelationshipGoal, RelationshipStatus } from './data.type';
+import { DevicePlatform, Gender, RelationshipGoal, StockTrackingMethod } from './data.type';
 import { Entity } from './entities.type';
 
 export declare namespace ApiRequest {
@@ -10,7 +10,7 @@ export declare namespace ApiRequest {
 
   type Pagination = {
     _next?: string;
-    _prev?: string;
+    // _prev?: string;
   };
 
   type FindMany<T> = Pagination & T;
@@ -60,33 +60,6 @@ export declare namespace ApiRequest {
     refreshToken: string;
   };
 
-  type UpdateProfile = Partial<{
-    birthday?: string;
-    company?: string;
-    // drinking?: EDrinking;
-    // educationLevel?: EEducationLevel;
-    gender?: Gender;
-    jobTitle?: string;
-    height?: number;
-    hideAge?: boolean;
-    hideDistance?: boolean;
-    introduce?: string;
-    languages?: string[];
-    nickname?: string;
-    latitude?: number;
-    longitude?: number;
-    photos?: string[];
-    school?: string;
-    relationshipGoal: RelationshipGoal;
-    relationshipStatus: RelationshipStatus;
-    weight?: number;
-    stateId?: string;
-    // smoking?: ESmoking;
-    // workout?: EWorkout;
-    learningTarget?: string;
-    teachingSubject?: string;
-  }>;
-
   type UpdateProfileFilter = {
     gender?: Gender;
     maxDistance?: number;
@@ -95,15 +68,9 @@ export declare namespace ApiRequest {
     relationshipGoal?: RelationshipGoal;
   };
 
-  type CreateProfile = {
-    nickname: string;
-    gender: Gender;
-    birthday: string;
-    relationshipGoal: RelationshipGoal;
-    introduce?: string;
-    stateId: string;
-    learningTarget?: string;
-    teachingSubject?: string;
+  type CreateMe = {
+    email?: string;
+    shopTitle?: string;
   };
 
   type SearchUsersNearby = Pagination;
@@ -127,15 +94,45 @@ export declare namespace ApiRequest {
 
   type FindManyNextSwipeProfiles = Pagination;
 
-  type SendLike = {
-    targetUserId: string;
+  type CreateProduct = {
+    title: string;
+    imageIds?: string[];
+    price: number;
+    capitalPrice: number;
+    promotionalPrice?: number;
+    wholesalePrice?: number;
+    minWholesalePriceQuantity?: number;
+    sku?: string;
+    barcode?: string;
+    stockTrackingMethod?: StockTrackingMethod;
+    isInStock?: boolean;
+    stock?: number;
+    description?: string;
+    label?: string;
   };
+
+  type UpdateProduct = {};
+
+  type CreateCategory = {
+    title: string;
+  };
+
+  type UpdateCategory = Partial<CreateCategory>;
 
   type SendView = {
     targetUserId: string;
   };
 
-  type FindManyLikedMe = Pagination;
+  type FindAllProducts = {
+    search?: string;
+    categoryId?: string;
+  };
+
+  type FindManyProducts = FindAllProducts & Pagination;
+
+  type FindManyCategories = Pagination;
+
+  type FindManyShops = Pagination;
 
   type CreateMatch = {
     targetUserId: string;
@@ -168,17 +165,17 @@ export declare namespace ApiResponse {
     type: string;
   };
 
-  type Match = FetchData<Entity.Match>;
+  type Product = FetchData<Entity.Match>;
 
-  type Matches = PaginatedResponse<Entity.Match>;
+  type Products = PaginatedResponse<Entity.Product>;
 
-  type Views = PaginatedResponse<Entity.View>;
+  type Category = FetchData<Entity.Category>;
 
-  type View = FetchData<Entity.View>;
+  type Categories = PaginatedResponse<Entity.Category>;
 
-  type Profiles = PaginatedResponse<Entity.Profile>;
+  type Shops = PaginatedResponse<Entity.Shop>;
 
-  type Unmatch = FetchData<{ _id?: string }>;
+  type Shop = FetchData<Entity.Shop>;
 
   type SuccessResponse = FetchData<{ success: boolean }>;
 

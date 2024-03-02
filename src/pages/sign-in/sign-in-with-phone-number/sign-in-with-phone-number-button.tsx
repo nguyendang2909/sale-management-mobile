@@ -34,7 +34,7 @@ export const SignInWithPhoneNumberButton: FC<FCProps> = ({ setLoading }) => {
           @ts-ignore */}
           <ButtonIcon mr={8} as={FontAwesome} name="mobile-phone"></ButtonIcon>
         </View>
-        <ButtonText>{formatMessage('Sign in with phone number')}</ButtonText>
+        <ButtonText>Tiếp tục với số điện thoại</ButtonText>
       </Button>
     </>
   );

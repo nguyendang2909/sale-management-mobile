@@ -51,7 +51,7 @@ export const SignInWithGoogleButton: FC<FCProps> = ({ setLoading }) => {
           @ts-ignore */}
           <ButtonIcon mr={8} as={FontAwesome} name="google"></ButtonIcon>
         </View>
-        <ButtonText>{formatMessage('Sign in with Google')}</ButtonText>
+        <ButtonText>Tiếp tục với Google</ButtonText>
       </Button>
     </>
   );

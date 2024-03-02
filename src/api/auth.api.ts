@@ -1,14 +1,14 @@
 import { API_ENDPOINTS } from 'src/config';
+import { API_METHODS } from 'src/constants/constants';
 import { ApiRequest, ApiResponse } from 'src/types';
 
 import { api } from './api';
-import { API_METHODS } from 'src/constants/constants';
 
 const authApi = api.injectEndpoints({
   endpoints: builder => ({
     signInWithPhoneNumber: builder.mutation<ApiResponse.Logged, ApiRequest.SignInWithPhoneNumber>({
       query: body => ({
-        url: API_ENDPOINTS.AUTH.SIGN_IN.PHONE_NUMBER,
+        url: API_ENDPOINTS.AUTH.SIGN_IN.PHONE,
         method: 'POST',
         body,
       }),

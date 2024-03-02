@@ -1,17 +1,15 @@
 import { View } from '@gluestack-ui/themed';
 import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
-import { useNavigation } from '@react-navigation/native';
 import { Box, FormControl, Heading, HStack, Text, WarningOutlineIcon } from 'native-base';
 import React, { FC, useEffect, useState } from 'react';
 import { Keyboard, Pressable } from 'react-native';
-import { useDispatch } from 'react-redux';
 import { useSignInWithPhoneNumberMutation } from 'src/api';
 import { LoadingLayout } from 'src/components';
 import { LoadingButton } from 'src/components/button';
 import { AnimatedOtpInput } from 'src/components/input/animated-otp-input';
 import { SCREENS } from 'src/constants';
 import { BackIconButton } from 'src/containers/IconButton/BackIconButton';
-import { useMessages } from 'src/hooks';
+import { useAppDispatch, useMessages } from 'src/hooks';
 import { goBack } from 'src/navigations/navigation-ref';
 import { appActions } from 'src/store/app.store';
 import {
@@ -41,8 +39,7 @@ export const SignInWithOtpPhoneNumberScreen: FC<FCProps> = props => {
   const { formatMessage } = useMessages();
   const { otpConfirm, user } = props.route.params;
   const [signInWithPhoneNumberMutation] = useSignInWithPhoneNumberMutation();
-  const dispatch = useDispatch();
-  const navigation = useNavigation();
+  const dispatch = useAppDispatch();
 
   const [isSubmiting, setIsSubmitting] = useState<boolean>(false);
   const [isError, setError] = useState<boolean>(false);

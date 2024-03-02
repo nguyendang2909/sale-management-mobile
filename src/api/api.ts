@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { Mutex } from 'async-mutex';
 import queryString from 'query-string';
-import { ARR_API_TAGS } from 'src/constants/constants';
+import { ARR_PROVIDE_TAGS } from 'src/constants/constants';
 import { appActions } from 'src/store/app.store';
 import { ApiResponse, AppStore } from 'src/types';
 
@@ -42,21 +42,20 @@ export const api = createApi({
         const release = await mutex.acquire();
         try {
           const refreshToken = (baseQueryApi.getState() as AppStore.RootState).app?.refreshToken;
-          const refreshResult = (
-            await baseQuery(
-              {
-                method: 'POST',
-                url: API_ENDPOINTS.AUTH.TOKENS.ACCESS_TOKEN,
-                body: {
-                  refreshToken,
-                },
+          const refreshResult = (await baseQuery(
+            {
+              method: 'POST',
+              url: API_ENDPOINTS.AUTH.TOKENS.ACCESS_TOKEN,
+              body: {
+                refreshToken,
               },
-              baseQueryApi,
-              extraOptions,
-            )
-          ).data as ApiResponse.FetchData<ApiResponse.Tokens>;
-          if (refreshResult.data) {
-            baseQueryApi.dispatch(appActions.updateAccessToken(refreshResult.data));
+            },
+            baseQueryApi,
+            extraOptions,
+          )) as { data?: ApiResponse.FetchData<ApiResponse.Tokens> };
+          const refreshData = refreshResult.data;
+          if (refreshData?.data) {
+            baseQueryApi.dispatch(appActions.updateAccessToken(refreshData.data));
             result = await baseQuery(args, baseQueryApi, extraOptions);
           } else {
             baseQueryApi.dispatch(appActions.logout());
@@ -73,7 +72,7 @@ export const api = createApi({
 
     return result;
   },
-  tagTypes: ARR_API_TAGS,
+  tagTypes: ARR_PROVIDE_TAGS,
   endpoints: _builder => ({}),
 });
 

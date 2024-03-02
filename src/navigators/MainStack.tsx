@@ -1,7 +1,5 @@
 import React from 'react';
 import { SCREENS } from 'src/constants';
-import { ConnectProfile } from 'src/containers/Connect/ConnectProfile';
-import { PrefetchData } from 'src/containers/Prefetch/PrefetchData';
 import {
   CreateBasicPhotosScreen,
   CreateBasicProfileScreen,
@@ -29,8 +27,8 @@ import { Stack } from './Stack';
 export const MainStack: React.FC = () => {
   return (
     <>
-      <ConnectProfile />
-      <PrefetchData />
+      {/* <ConnectProfile />
+      <PrefetchData /> */}
       <Stack.Navigator
         screenOptions={{
           headerShown: false,
