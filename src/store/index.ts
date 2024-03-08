@@ -16,13 +16,7 @@ import { thunk } from 'redux-thunk';
 
 import { api } from '../api';
 import { appReducer } from './app.store';
-import { likedMeReducer } from './liked-me/liked-me.store';
-import { likeReducer } from './likes.store';
-import { matchReducer } from './match/match.store';
-import { messageReducer } from './message/message.store';
-import { nearbyProfileReducer } from './nearby-profile/nearby-profile.store';
 import { appSaga } from './saga';
-import { swipeProfileReducer } from './swipe-profile';
 // import theme from './theme';
 import { userReducer } from './user.store';
 
@@ -32,14 +26,9 @@ const sagaMiddleware = createSagaMiddleware(reduxSagaMonitorOptions);
 const reducers = combineReducers({
   // theme,
   [api.reducerPath]: api.reducer,
-  match: matchReducer,
   user: userReducer,
   app: appReducer,
-  like: likeReducer,
-  likedMe: likedMeReducer,
-  nearbyUser: nearbyProfileReducer,
-  swipeUser: swipeProfileReducer,
-  message: messageReducer,
+  // message: messageReducer,
 });
 
 const persistedReducer = persistReducer(

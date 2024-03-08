@@ -3,8 +3,9 @@ import { appleAuth } from '@invertase/react-native-apple-authentication';
 import React, { FC, useEffect } from 'react';
 import Toast from 'react-native-toast-message';
 import { useDispatch } from 'react-redux';
-import { useSignInWithAppleMutation } from 'src/api';
+import { useSignInMutation } from 'src/api';
 import { FontAwesome } from 'src/components';
+import { AUTH_GRANT_TYPES } from 'src/constants';
 import { useMessages } from 'src/hooks';
 import { appActions } from 'src/store/app.store';
 
@@ -14,7 +15,7 @@ type FCProps = {
 
 export const SignInWithAppleButton: FC<FCProps> = ({ setLoading }) => {
   const { formatMessage, formatErrorMessage } = useMessages();
-  const [signInWithApple] = useSignInWithAppleMutation();
+  const [signIn] = useSignInMutation();
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -43,8 +44,9 @@ export const SignInWithAppleButton: FC<FCProps> = ({ setLoading }) => {
         credentialState === appleAuth.State.AUTHORIZED &&
         appleAuthRequestResponse.identityToken
       ) {
-        const signInResponse = await signInWithApple({
+        const signInResponse = await signIn({
           token: appleAuthRequestResponse.identityToken,
+          grantType: AUTH_GRANT_TYPES.APPLE,
         }).unwrap();
         dispatch(appActions.updateAccessToken(signInResponse.data));
         return;

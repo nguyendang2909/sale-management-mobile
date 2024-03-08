@@ -8,7 +8,6 @@ import {
   RelationshipGoal,
   RelationshipStatus,
   Role,
-  StockTrackingMethod,
   UserStatus,
   WorkingTimeType,
 } from './data.type';
@@ -163,7 +162,7 @@ export declare namespace Entity {
       sku?: string;
       barcode?: string;
       stock?: number;
-      stockTrackingMethod: StockTrackingMethod;
+      isTrackingStock?: boolean;
       description?: string;
       label?: string;
       images?: string[];

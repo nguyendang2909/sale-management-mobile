@@ -1,5 +1,6 @@
-import { StatusBar } from '@gluestack-ui/themed';
+import { Box, StatusBar, Text } from '@gluestack-ui/themed';
 import { Header } from 'src/components';
+import { CreateProductFab } from 'src/pages/products/buttons/create-product-fab';
 
 export const Products = () => {
   return (
@@ -12,6 +13,11 @@ export const Products = () => {
         //   navigate.navigate(SCREENS.DATING_NEARBY_FILTER);
         // }}
       />
+      <Box flex={1}>
+        <Text>asdasds</Text>
+
+        <CreateProductFab />
+      </Box>
     </>
   );
 };

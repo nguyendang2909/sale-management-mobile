@@ -62,6 +62,7 @@ export type AppStackParamList = {
   SUBJECT: {
     subject: string;
   };
+  CREATE_PRODUCT: undefined;
 };
 
 export type AppStackScreenProps<T extends keyof AppStackParamList> = NativeStackScreenProps<

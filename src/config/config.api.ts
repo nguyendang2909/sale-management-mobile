@@ -2,12 +2,7 @@ import { API_TAGS } from 'src/constants';
 
 export const API_ENDPOINTS = {
   AUTH: {
-    SIGN_IN: {
-      APPLE: '/auth/sign-in/apple',
-      FACEBOOK: '/auth/sign-in/facebook',
-      GOOGLE: '/auth/sign-in/google',
-      PHONE: '/auth/sign-in/phone',
-    },
+    SIGN_IN: `${API_TAGS.AUTH}${API_TAGS.SIGN_IN}`,
     LOGOUT: '/auth/logout',
     TOKENS: {
       ACCESS_TOKEN: '/auth/tokens/access-token',

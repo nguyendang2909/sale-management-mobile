@@ -45,6 +45,7 @@ export const SignInWithPhoneNumberForm: FC = () => {
           setErrorCode('Please enter a valid phone number!');
           return;
         }
+
         const confirmation = await auth().signInWithPhoneNumber(fullPhoneNumber);
         navigate(SCREENS.SignInWithOtpPhoneNumber, {
           otpConfirm: confirmation,

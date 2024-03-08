@@ -1,6 +1,6 @@
 import { Image } from 'react-native-image-crop-picker';
 
-import { Gender, RelationshipGoal } from './data.type';
+import { Gender, RelationshipGoal, StockTrackingMethod } from './data.type';
 import { ApiRequest } from './fe.type';
 
 export declare namespace FormParams {
@@ -16,11 +16,21 @@ export declare namespace FormParams {
     phoneNumber: string;
   };
 
-  type CreateProfile = {
-    phoneNumber?: string;
-    phoneCode?: string;
-    email?: string;
-    shopTitle?: string;
+  type CreateProduct = {
+    title: string;
+    imageIds?: string[];
+    price: number;
+    capitalPrice?: string;
+    promotionalPrice?: string;
+    wholesalePrice?: string;
+    minWholesalePriceQuantity?: number;
+    sku?: string;
+    barcode?: string;
+    isTrackingStock?: StockTrackingMethod;
+    isInStock?: boolean;
+    stock?: number;
+    description?: string;
+    label?: string;
   };
 
   type UpdateProfilePhoto = {

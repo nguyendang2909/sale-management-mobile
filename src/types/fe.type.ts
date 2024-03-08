@@ -1,6 +1,12 @@
 import { Image } from 'react-native-image-crop-picker';
 
-import { DevicePlatform, Gender, RelationshipGoal, StockTrackingMethod } from './data.type';
+import {
+  AuthGrantType,
+  DevicePlatform,
+  Gender,
+  RelationshipGoal,
+  StockTrackingMethod,
+} from './data.type';
 import { Entity } from './entities.type';
 
 export declare namespace ApiRequest {
@@ -19,8 +25,9 @@ export declare namespace ApiRequest {
     phoneNumber: string;
   };
 
-  type SignInWithPhoneNumber = {
-    token: string;
+  type SignIn = {
+    grantType: AuthGrantType;
+    token?: string;
   };
 
   type SignInWithGoogle = {

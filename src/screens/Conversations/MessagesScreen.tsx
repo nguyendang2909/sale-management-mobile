@@ -3,7 +3,7 @@ import { StatusBar } from 'native-base';
 import React, { FC, useMemo } from 'react';
 import { ViewSafeArea } from 'src/components';
 import { useAppSelector } from 'src/hooks';
-import { useMatch } from 'src/hooks/useMatch';
+import { useMatch } from 'src/hooks/temp/useMatch';
 import { MessagesChat } from 'src/pages/Messages/MessagesChat';
 import { MessagesHeader } from 'src/pages/Messages/MessagesHeader';
 import { AppStackScreenProps, ChatUser } from 'src/types';

@@ -2,8 +2,9 @@ import { Button, ButtonIcon, ButtonText, View } from '@gluestack-ui/themed';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import React, { FC, useEffect } from 'react';
 import Toast from 'react-native-toast-message';
-import { useSignInWithGoogleMutation } from 'src/api';
+import { useSignInMutation } from 'src/api';
 import { FontAwesome } from 'src/components';
+import { AUTH_GRANT_TYPES } from 'src/constants';
 import { useMessages } from 'src/hooks';
 import { dispatch } from 'src/store';
 import { appActions } from 'src/store/app.store';
@@ -14,7 +15,7 @@ type FCProps = {
 
 export const SignInWithGoogleButton: FC<FCProps> = ({ setLoading }) => {
   const { formatMessage } = useMessages();
-  const [signIn] = useSignInWithGoogleMutation();
+  const [signIn] = useSignInMutation();
 
   useEffect(() => {
     GoogleSignin.configure({
@@ -34,7 +35,10 @@ export const SignInWithGoogleButton: FC<FCProps> = ({ setLoading }) => {
         Toast.show({ text1: formatMessage('Oops, something went wrong. Please try again.') });
         return;
       }
-      const signInResponse = await signIn({ token: idToken }).unwrap();
+      const signInResponse = await signIn({
+        token: idToken,
+        grantType: AUTH_GRANT_TYPES.GOOGLE,
+      }).unwrap();
       dispatch(appActions.updateAccessToken(signInResponse.data));
     } catch (error) {
       Toast.show({ text1: formatMessage('Oops, something went wrong. Please try again.') });

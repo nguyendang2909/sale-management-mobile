@@ -17,6 +17,7 @@ import { EditInfoLocationScreen } from 'src/screens/Me/EditInfoLocationScreen';
 import { LikedMeScreen } from 'src/screens/Me/LikedMeScreen';
 import { ProfileSettingScreen } from 'src/screens/Me/ProfileSettingScreen';
 import { MainScreen } from 'src/screens/Pre/MainScreen';
+import { CreateProduct } from 'src/screens/products/create-product';
 import { LikedMeProfileScreen } from 'src/screens/Star/LikedMeProfileScreen';
 import { SubjectScreen } from 'src/screens/subjects/subject-screen';
 import { colors } from 'src/theme';
@@ -56,6 +57,8 @@ export const MainStack: React.FC = () => {
           ></Stack.Screen>
           <Stack.Screen name={SCREENS.EDIT_INFO_LOCATION} component={EditInfoLocationScreen} />
           <Stack.Screen name={SCREENS.SUBJECT} component={SubjectScreen} />
+          {/* Product */}
+          <Stack.Screen name={SCREENS.CREATE_PRODUCT} component={CreateProduct} />
         </Stack.Group>
 
         <Stack.Group

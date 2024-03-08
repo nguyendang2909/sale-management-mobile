@@ -8,7 +8,7 @@ import {
   StyleSheet,
 } from 'react-native';
 import { LinearGradient } from 'src/components';
-import { useLikedMe } from 'src/hooks/useLikedMe';
+import { useLikedMe } from 'src/hooks/temp/useLikedMe';
 import { Entity } from 'src/types';
 import { mediaFileUtil } from 'src/utils';
 import { scrollUtil } from 'src/utils/scroll.util';

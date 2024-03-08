@@ -3,11 +3,11 @@ import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
 import { Box, FormControl, Heading, HStack, Text, WarningOutlineIcon } from 'native-base';
 import React, { FC, useEffect, useState } from 'react';
 import { Keyboard, Pressable } from 'react-native';
-import { useSignInWithPhoneNumberMutation } from 'src/api';
+import { useSignInMutation } from 'src/api';
 import { LoadingLayout } from 'src/components';
 import { LoadingButton } from 'src/components/button';
 import { AnimatedOtpInput } from 'src/components/input/animated-otp-input';
-import { SCREENS } from 'src/constants';
+import { AUTH_GRANT_TYPES, SCREENS } from 'src/constants';
 import { BackIconButton } from 'src/containers/IconButton/BackIconButton';
 import { useAppDispatch, useMessages } from 'src/hooks';
 import { goBack } from 'src/navigations/navigation-ref';
@@ -38,7 +38,7 @@ const OTP_MAX_LENGTH = 6;
 export const SignInWithOtpPhoneNumberScreen: FC<FCProps> = props => {
   const { formatMessage } = useMessages();
   const { otpConfirm, user } = props.route.params;
-  const [signInWithPhoneNumberMutation] = useSignInWithPhoneNumberMutation();
+  const [signIn] = useSignInMutation();
   const dispatch = useAppDispatch();
 
   const [isSubmiting, setIsSubmitting] = useState<boolean>(false);
@@ -60,8 +60,9 @@ export const SignInWithOtpPhoneNumberScreen: FC<FCProps> = props => {
         return;
       }
       const idToken = await credential.user.getIdToken();
-      const signInResponse = await signInWithPhoneNumberMutation({
+      const signInResponse = await signIn({
         token: idToken,
+        grantType: AUTH_GRANT_TYPES.PHONE_TOKEN,
       }).unwrap();
       dispatch(appActions.updateAccessToken(signInResponse.data));
     } catch (err) {

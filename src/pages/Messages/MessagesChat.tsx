@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux';
 import { ChatSpinner } from 'src/containers/Messages/ChatSpinner';
 import { RenderAvatar } from 'src/containers/Messages/RenderAvatar';
 import { RenderMessage } from 'src/containers/Messages/RenderMessage';
-import { useChatMessages } from 'src/hooks/useChatMessages';
+import { useChatMessages } from 'src/hooks/temp/useChatMessages';
 import { socketStoreActions } from 'src/store/socket.store';
 import { ChatUser } from 'src/types';
 import { scrollUtil } from 'src/utils/scroll.util';

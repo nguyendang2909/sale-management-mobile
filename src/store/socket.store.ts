@@ -9,8 +9,6 @@ import { SOCKET_TO_CLIENT_EVENTS, SOCKET_TO_SERVER_EVENTS } from 'src/constants'
 import { AppStore, Entity, SocketRequest } from 'src/types';
 
 import { appActions } from './app.store';
-import { likedMeActions } from './liked-me';
-import { matchActions } from './match';
 import { messageActions } from './message/message.store';
 
 let socket: Socket;

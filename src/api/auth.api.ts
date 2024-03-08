@@ -6,33 +6,9 @@ import { api } from './api';
 
 const authApi = api.injectEndpoints({
   endpoints: builder => ({
-    signInWithPhoneNumber: builder.mutation<ApiResponse.Logged, ApiRequest.SignInWithPhoneNumber>({
+    signIn: builder.mutation<ApiResponse.Logged, ApiRequest.SignIn>({
       query: body => ({
-        url: API_ENDPOINTS.AUTH.SIGN_IN.PHONE,
-        method: 'POST',
-        body,
-      }),
-    }),
-
-    signInWithGoogle: builder.mutation<ApiResponse.Logged, ApiRequest.SignInWithGoogle>({
-      query: body => ({
-        url: API_ENDPOINTS.AUTH.SIGN_IN.GOOGLE,
-        method: 'POST',
-        body,
-      }),
-    }),
-
-    signInWithApple: builder.mutation<ApiResponse.Logged, ApiRequest.SignInWithApple>({
-      query: body => ({
-        url: API_ENDPOINTS.AUTH.SIGN_IN.APPLE,
-        method: 'POST',
-        body,
-      }),
-    }),
-
-    signInWithFacebook: builder.mutation<ApiResponse.Logged, ApiRequest.SignInWithFacebook>({
-      query: body => ({
-        url: API_ENDPOINTS.AUTH.SIGN_IN.FACEBOOK,
+        url: API_ENDPOINTS.AUTH.SIGN_IN,
         method: 'POST',
         body,
       }),
@@ -60,10 +36,7 @@ const authApi = api.injectEndpoints({
 });
 
 export const {
-  useSignInWithAppleMutation,
-  useSignInWithPhoneNumberMutation,
-  useSignInWithFacebookMutation,
-  useSignInWithGoogleMutation,
+  useSignInMutation,
   useLogoutMutation,
   useRefreshAccessTokenMutation,
   endpoints: authEndpoints,

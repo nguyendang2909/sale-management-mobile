@@ -5,7 +5,7 @@ import { NativeScrollEvent, NativeSyntheticEvent, RefreshControl } from 'react-n
 import { LoadingOverlay } from 'src/components';
 import { MEMBERSHIPS } from 'src/constants';
 import { useAppSelector, useMessages } from 'src/hooks';
-import { useLikedMe } from 'src/hooks/useLikedMe';
+import { useLikedMe } from 'src/hooks/temp/useLikedMe';
 import { Entity } from 'src/types';
 import { scrollUtil } from 'src/utils/scroll.util';
 

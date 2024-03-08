@@ -7,11 +7,6 @@ import {
   Heading,
   Text,
 } from '@gluestack-ui/themed';
-import { ARR_RELATIONSHIP_GOALS } from 'src/constants';
-import { RELATIONSHIP_GOAL_MESSAGES } from 'src/constants/constants';
-import { useDisclose } from 'src/hooks';
-import { useMessages } from 'src/hooks/useMessages';
-import { RelationshipGoal } from 'src/types';
 import {
   ChevronDownIcon,
   FormControl,
@@ -22,6 +17,11 @@ import {
   WarningOutlineIcon,
 } from 'native-base';
 import React, { useState } from 'react';
+import { ARR_RELATIONSHIP_GOALS } from 'src/constants';
+import { RELATIONSHIP_GOAL_MESSAGES } from 'src/constants/constants';
+import { useDisclose } from 'src/hooks';
+import { useMessages } from 'src/hooks/useMessages';
+import { RelationshipGoal } from 'src/types';
 
 type FCProps = {
   error?: string;
