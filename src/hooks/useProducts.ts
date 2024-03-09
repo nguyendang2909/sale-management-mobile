@@ -9,7 +9,7 @@ export const useProducts = () => {
   const data = useAppSelector(s => s.product.data);
   const dispatch = useAppDispatch();
 
-  const { data: fetchData, refetch } = useFetchAllProductsQuery({});
+  const { data: fetchData, refetch, isFetching } = useFetchAllProductsQuery({});
 
   useEffect(() => {
     if (fetchData?.data) {
@@ -20,5 +20,6 @@ export const useProducts = () => {
   return {
     data,
     refetch,
+    isFetching,
   };
 };
