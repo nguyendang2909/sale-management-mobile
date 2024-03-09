@@ -105,7 +105,7 @@ export declare namespace ApiRequest {
     title: string;
     imageIds?: string[];
     price: number;
-    capitalPrice: number;
+    capitalPrice?: number;
     promotionalPrice?: number;
     wholesalePrice?: number;
     minWholesalePriceQuantity?: number;
@@ -116,6 +116,7 @@ export declare namespace ApiRequest {
     stock?: number;
     description?: string;
     label?: string;
+    unit?: string;
   };
 
   type UpdateProduct = {};
@@ -203,6 +204,8 @@ export declare namespace ApiResponse {
   type UploadedFileListData = FetchData<Entity.MediaFile[]>;
 
   type User = FetchData<Entity.User>;
+
+  type Setting = FetchData<Entity.Setting>;
 
   type Profile = FetchData<Entity.Profile>;
 

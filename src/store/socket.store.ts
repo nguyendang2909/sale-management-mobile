@@ -8,7 +8,7 @@ import Config from 'src/config';
 import { SOCKET_TO_CLIENT_EVENTS, SOCKET_TO_SERVER_EVENTS } from 'src/constants';
 import { AppStore, Entity, SocketRequest } from 'src/types';
 
-import { appActions } from './app.store';
+import { appActions } from './app/app.store';
 import { messageActions } from './message/message.store';
 
 let socket: Socket;
@@ -163,7 +163,7 @@ export function* sendMessage(data: PayloadAction<SocketRequest.SendMessage>) {
 
   socket.emit(SOCKET_TO_SERVER_EVENTS.SEND_MESSAGE, payload);
 
-  const currentUserId: string = yield select(state => state.app.profile._id);
+  // const currentUserId: string = yield select(state => state.app.profile._id);
 
   // yield put(
   //   messageActions.sendMsg({
@@ -181,5 +181,5 @@ export function* readMessage(data: PayloadAction<SocketRequest.ReadMessage>) {
 
   socket.emit(SOCKET_TO_SERVER_EVENTS.READ_MESSAGE, payload);
 
-  yield put(matchActions.readMessage(payload));
+  // yield put(matchActions.readMessage(payload));
 }

@@ -29,8 +29,11 @@ export const API_TAGS = {
   BULK: '/bulk',
   IMAGE: '/image',
   AVATAR: '/avatar',
-  SETTING: '/setting',
+  SETTINGS: '/settings',
   SIGN_IN: '/sign-in',
+  REFRESH_TOKENS: '/refresh-tokens',
+  LOGOUT: '/logout',
+  ALL: '/all',
 };
 
 export const BUSINESS_CATEGORIES = {
@@ -96,7 +99,4 @@ export const ORDER_STATUSES = {
 export const AUTH_GRANT_TYPES = {
   // PHONE_PASSWORD: 'phone_password',
   PHONE_TOKEN: 'phone_token',
-  GOOGLE: 'google',
-  APPLE: 'apple',
-  FACEBOOK: 'facebook',
 } as const;

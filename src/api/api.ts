@@ -1,8 +1,8 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { Mutex } from 'async-mutex';
 import queryString from 'query-string';
-import { ARR_PROVIDE_TAGS } from 'src/constants/constants';
-import { appActions } from 'src/store/app.store';
+import { API_METHODS, ARR_PROVIDE_TAGS } from 'src/constants/constants';
+import { appActions } from 'src/store/app/app.store';
 import { ApiResponse, AppStore } from 'src/types';
 
 import Config, { API_ENDPOINTS } from '../config';
@@ -44,8 +44,8 @@ export const api = createApi({
           const refreshToken = (baseQueryApi.getState() as AppStore.RootState).app?.refreshToken;
           const refreshResult = (await baseQuery(
             {
-              method: 'POST',
-              url: API_ENDPOINTS.AUTH.TOKENS.ACCESS_TOKEN,
+              method: API_METHODS.POST,
+              url: API_ENDPOINTS.AUTH.REFRESH_TOKENS,
               body: {
                 refreshToken,
               },

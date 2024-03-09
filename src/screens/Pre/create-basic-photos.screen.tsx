@@ -20,7 +20,7 @@ import { PhotoRequestPermission } from 'src/containers/Photos/PhotoRequestPermis
 import { useAppSelector, useMessages } from 'src/hooks';
 import { goBack } from 'src/navigations/navigation-ref';
 import { ProfileEditMediaFileCard } from 'src/pages/profile-edit/ProfileEditPhotos/MediaFileCard';
-import { appActions } from 'src/store/app.store';
+import { appActions } from 'src/store/app/app.store';
 import { flexDirectionRow, flexGrow, flexWrapWrap, padding, width } from 'src/styles';
 import { spacing } from 'src/theme';
 import { AppStackScreenProps } from 'src/types';

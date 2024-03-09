@@ -223,4 +223,16 @@ export declare namespace Entity {
       promotionPrice?: number;
       isWholeSale: boolean;
     }>;
+
+  type Setting = BaseEntity &
+    Partial<{
+      showTrackingStockNotification: boolean;
+      showCreateProductImage: boolean;
+      showCreateProductUnit: boolean;
+      showCreateProductDescription: boolean;
+      showCreateProductPromotionPrice: boolean;
+      showCreateProductWholesalePrice: boolean;
+      showCreateProductTrackingStock: boolean;
+      showCreateProductBarcode: boolean;
+    }>;
 }

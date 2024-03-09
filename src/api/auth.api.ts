@@ -22,12 +22,9 @@ const authApi = api.injectEndpoints({
       }),
     }),
 
-    refreshAccessToken: builder.mutation<
-      ApiResponse.RefreshAccessToken,
-      ApiRequest.RefreshAccessToken
-    >({
+    refreshTokens: builder.mutation<ApiResponse.RefreshAccessToken, ApiRequest.RefreshAccessToken>({
       query: body => ({
-        url: API_ENDPOINTS.AUTH.TOKENS.ACCESS_TOKEN,
+        url: API_ENDPOINTS.AUTH.REFRESH_TOKENS,
         method: API_METHODS.POST,
         body,
       }),
@@ -38,6 +35,6 @@ const authApi = api.injectEndpoints({
 export const {
   useSignInMutation,
   useLogoutMutation,
-  useRefreshAccessTokenMutation,
+  useRefreshTokensMutation,
   endpoints: authEndpoints,
 } = authApi;

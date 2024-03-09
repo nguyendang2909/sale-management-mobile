@@ -14,14 +14,21 @@ const productApi = api.injectEndpoints({
       }),
     }),
 
-    findProducts: builder.query<ApiResponse.Products, ApiRequest.FindManyProducts>({
+    fetchAllProducts: builder.query<ApiResponse.Products, ApiRequest.FindManyProducts>({
+      query: () => ({
+        url: API_ENDPOINTS.PRODUCTS.ALL,
+        method: API_METHODS.GET,
+      }),
+    }),
+
+    fetchProducts: builder.query<ApiResponse.Products, ApiRequest.FindManyProducts>({
       query: () => ({
         url: API_ENDPOINTS.PRODUCTS.INDEX,
         method: API_METHODS.GET,
       }),
     }),
 
-    findProduct: builder.query<ApiResponse.Product, string>({
+    fetchProduct: builder.query<ApiResponse.Product, string>({
       query: () => ({
         url: API_ENDPOINTS.PRODUCTS.INDEX,
         method: API_METHODS.GET,
@@ -47,8 +54,9 @@ const productApi = api.injectEndpoints({
 
 export const {
   useCreateProductMutation,
-  useFindProductQuery,
-  useFindProductsQuery,
+  useFetchAllProductsQuery,
+  useFetchProductsQuery,
+  useFetchProductQuery,
   useUpdateProductMutation,
   useDeleteProductMutation,
   endpoints: productEndpoints,

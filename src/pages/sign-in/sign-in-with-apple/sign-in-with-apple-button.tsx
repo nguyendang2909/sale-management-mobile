@@ -7,7 +7,7 @@ import { useSignInMutation } from 'src/api';
 import { FontAwesome } from 'src/components';
 import { AUTH_GRANT_TYPES } from 'src/constants';
 import { useMessages } from 'src/hooks';
-import { appActions } from 'src/store/app.store';
+import { appActions } from 'src/store/app/app.store';
 
 type FCProps = {
   setLoading: (e: boolean) => void;

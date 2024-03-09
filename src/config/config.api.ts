@@ -3,10 +3,8 @@ import { API_TAGS } from 'src/constants';
 export const API_ENDPOINTS = {
   AUTH: {
     SIGN_IN: `${API_TAGS.AUTH}${API_TAGS.SIGN_IN}`,
-    LOGOUT: '/auth/logout',
-    TOKENS: {
-      ACCESS_TOKEN: '/auth/tokens/access-token',
-    },
+    LOGOUT: `${API_TAGS.AUTH}${API_TAGS.LOGOUT}`,
+    REFRESH_TOKENS: `${API_TAGS.AUTH}${API_TAGS.REFRESH_TOKENS}`,
   },
   CONVERSATIONS: {
     INDEX: '/conversations',
@@ -60,9 +58,11 @@ export const API_ENDPOINTS = {
   },
   ME: {
     INDEX: API_TAGS.ME,
+    SETTINGS: `${API_TAGS.ME}${API_TAGS.SETTINGS}`,
   },
   PRODUCTS: {
     INDEX: API_TAGS.PRODUCTS,
+    ALL: `${API_TAGS.PRODUCTS}${API_TAGS.ALL}`,
   },
   CATEGORIES: {
     INDEX: API_TAGS.CATEGORIES,

@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { AppStore } from 'src/types';
 
-import { appActions } from '../app.store';
+import { appActions } from '../app/app.store';
 
 const initialState: AppStore.LikesState = {};
 

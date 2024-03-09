@@ -473,6 +473,10 @@ export const messages = defineMessages({
     defaultMessage: 'Sign in with Apple',
     id: '3dc99ec621',
   },
+  'Product already exists': {
+    defaultMessage: 'Sản phẩm đã tồn tại',
+    id: 'fb1eeb3fb3',
+  },
 });
 
 export default messages;

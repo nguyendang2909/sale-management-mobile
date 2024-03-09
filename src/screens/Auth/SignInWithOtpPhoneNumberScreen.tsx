@@ -11,7 +11,7 @@ import { AUTH_GRANT_TYPES, SCREENS } from 'src/constants';
 import { BackIconButton } from 'src/containers/IconButton/BackIconButton';
 import { useAppDispatch, useMessages } from 'src/hooks';
 import { goBack } from 'src/navigations/navigation-ref';
-import { appActions } from 'src/store/app.store';
+import { appActions } from 'src/store/app/app.store';
 import {
   flexGrow,
   marginTop,

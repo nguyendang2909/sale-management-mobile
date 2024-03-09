@@ -19,10 +19,10 @@ export declare namespace FormParams {
   type CreateProduct = {
     title: string;
     imageIds?: string[];
-    price: number;
-    capitalPrice?: string;
-    promotionalPrice?: string;
-    wholesalePrice?: string;
+    price?: number;
+    capitalPrice?: number;
+    promotionalPrice?: number;
+    wholesalePrice?: number;
     minWholesalePriceQuantity?: number;
     sku?: string;
     barcode?: string;
@@ -31,6 +31,8 @@ export declare namespace FormParams {
     stock?: number;
     description?: string;
     label?: string;
+    unit?: string;
+    createMore: boolean;
   };
 
   type UpdateProfilePhoto = {

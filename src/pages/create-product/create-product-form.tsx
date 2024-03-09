@@ -26,14 +26,14 @@ import {
   LoadingLayout,
   MaterialIcons,
 } from 'src/components';
-import { SCREENS } from 'src/constants';
+import { HOME_SCREENS, SCREENS } from 'src/constants';
 import { useMessages } from 'src/hooks';
 import { flexGrow } from 'src/styles';
-import { FormParams } from 'src/types';
+import { ApiRequest, FormParams } from 'src/types';
 import * as Yup from 'yup';
 
 export const CreateProductForm: FC = () => {
-  const { formatMessage } = useMessages();
+  const { formatMessage, formatErrorMessage } = useMessages();
   const [createProduct] = useCreateProductMutation();
   const navigation = useNavigation();
 
@@ -41,29 +41,55 @@ export const CreateProductForm: FC = () => {
     initialValues: {
       title: '',
       price: undefined,
-      capitalPrice: '',
-      promotionalPrice: '',
-      wholesalePrice: '',
+      capitalPrice: undefined,
+      promotionalPrice: undefined,
+      wholesalePrice: undefined,
       isInStock: true,
       isTrackingStock: false,
       sku: '',
+      unit: '',
+      createMore: false,
     },
     enableReinitialize: true,
     validationSchema: Yup.object().shape({
-      title: Yup.string().min(10).required('Thông tin bắt buộc'),
-      price: Yup.number().notOneOf([0]).required('Thông tin bắt buộc'),
+      title: Yup.string().min(1).required('Thông tin bắt buộc'),
+      price: Yup.number().positive().notOneOf([0]).required('Thông tin bắt buộc'),
+      capitalPrice: Yup.number().positive().optional(),
+      promotionPrice: Yup.number().positive().optional(),
+      wholesalePrice: Yup.number().positive().optional(),
+      isInStock: Yup.boolean().optional(),
+      isTrackingStock: Yup.boolean().optional(),
+      sku: Yup.string().max(200).optional(),
+      unit: Yup.string().max(50).optional(),
     }),
     onSubmit: async values => {
       try {
-        await createProduct(_.pickBy(values, _.identity)).unwrap();
-        navigation.dispatch(StackActions.replace(SCREENS.Home, { screen: 'DatingSwipe' }));
+        const { createMore, ...restValues } = values;
+        const payload = _.pickBy<ApiRequest.CreateProduct>(restValues, _.identity);
+        // @ts-ignore
+        await createProduct(payload).unwrap();
+        if (createMore) {
+          formik.resetForm();
+          return;
+        }
+        navigation.dispatch(StackActions.replace(SCREENS.Home, { screen: HOME_SCREENS.PRODUCT }));
       } catch (error) {
         Toast.show({
-          text1: formatMessage('Oops, something went wrong. Please try again.'),
+          text1: formatErrorMessage(error),
         });
       }
     },
   });
+
+  const handleCreateProduct = async () => {
+    formik.setFieldValue('createMore', false);
+    formik.handleSubmit();
+  };
+
+  const handleCreateMoreProduct = () => {
+    formik.setFieldValue('createMore', true);
+    formik.handleSubmit();
+  };
 
   const handleChangeTrackingStock = (e: boolean) => {
     formik.setFieldValue('isTrackingStock', e);
@@ -92,20 +118,27 @@ export const CreateProductForm: FC = () => {
                   <View flexDirection="row" columnGap={16}>
                     <View flex={1}>
                       <FormControlInput
+                        isRequired={true}
                         label="Giá bán"
-                        value={formik.values.title}
-                        onChange={formik.handleChange('title')}
+                        inputMode="numeric"
+                        value={formik.values.price?.toString()}
+                        onChange={e => {
+                          formik.setFieldValue('price', e ? +e : undefined);
+                        }}
                         placeholder="0.0"
-                        error={formik.touched.title ? formik.errors.title : undefined}
+                        error={formik.touched.price ? formik.errors.price : undefined}
                       />
                     </View>
                     <View flex={1}>
                       <FormControlInput
                         label="Giá vốn"
-                        value={formik.values.title}
-                        onChange={formik.handleChange('title')}
+                        inputMode="numeric"
+                        value={formik.values.capitalPrice?.toString()}
+                        onChange={e => {
+                          formik.setFieldValue('capitalPrice', e ? +e : undefined);
+                        }}
                         placeholder="0.0"
-                        error={formik.touched.title ? formik.errors.title : undefined}
+                        error={formik.touched.capitalPrice ? formik.errors.capitalPrice : undefined}
                       />
                     </View>
                   </View>
@@ -113,22 +146,26 @@ export const CreateProductForm: FC = () => {
 
                 <View mb={16}>
                   <FormControlInput
-                    isRequired
                     label="Giá khuyến mãi"
-                    value={formik.values.title}
-                    onChange={formik.handleChange('title')}
-                    placeholder="Ví dụ: Tương ớt Chinsu"
-                    error={formik.touched.title ? formik.errors.title : undefined}
+                    inputMode="numeric"
+                    value={formik.values.promotionalPrice?.toString()}
+                    onChange={e => {
+                      formik.setFieldValue('promotionalPrice', e ? +e : undefined);
+                    }}
+                    placeholder="0.0"
+                    error={
+                      formik.touched.promotionalPrice ? formik.errors.promotionalPrice : undefined
+                    }
                   />
                 </View>
 
                 <View mb={16}>
                   <FormControlInput
                     label="Đơn vị"
-                    value={formik.values.title}
-                    onChange={formik.handleChange('title')}
-                    placeholder="Ví dụ: 1 vỉ"
-                    error={formik.touched.title ? formik.errors.title : undefined}
+                    value={formik.values.unit}
+                    onChange={formik.handleChange('unit')}
+                    placeholder="Ví dụ: vỉ"
+                    error={formik.touched.unit ? formik.errors.unit : undefined}
                   />
                 </View>
 
@@ -145,6 +182,8 @@ export const CreateProductForm: FC = () => {
                       </View>
                       <View>
                         <Button variant="outline">
+                          {/* 
+                        //@ts-ignore */}
                           <ButtonIcon as={FontAwesome} name="plus"></ButtonIcon>
                           <ButtonText>Tạo danh mục</ButtonText>
                         </Button>
@@ -177,24 +216,15 @@ export const CreateProductForm: FC = () => {
               </View>
             </ScrollView>
 
-            <View px={16}>
+            <View px={16} py={16}>
               <View flexDirection="row" columnGap={16}>
                 <View flex={1}>
-                  <Button
-                    variant="outline"
-                    onPress={() => {
-                      formik.handleSubmit();
-                    }}
-                  >
+                  <Button variant="outline" onPress={handleCreateMoreProduct}>
                     <ButtonText>Tạo thêm</ButtonText>
                   </Button>
                 </View>
                 <View flex={1}>
-                  <Button
-                    onPress={() => {
-                      formik.handleSubmit();
-                    }}
-                  >
+                  <Button onPress={handleCreateProduct}>
                     <ButtonText>Hoàn tất</ButtonText>
                   </Button>
                 </View>

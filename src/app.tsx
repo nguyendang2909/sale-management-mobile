@@ -15,7 +15,7 @@ import { ConnectSocket } from './containers/Connect/ConnectSocket';
 import { translators } from './locales';
 import { navigationRef } from './navigations/navigation-ref';
 import { Main } from './navigators/main';
-import { persistor, store } from './store';
+import { persistor, store } from './store/store';
 import { gluestackConfig } from './theme';
 import { defaultTheme } from './theme/default-theme';
 

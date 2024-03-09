@@ -4,7 +4,7 @@ import { messageEndpoints } from 'src/api';
 import { messagesService } from 'src/services';
 import { AppStore, Entity } from 'src/types';
 
-import { appActions } from '../app.store';
+import { appActions } from '../app/app.store';
 
 const initialState: AppStore.MessageState = {
   data: {},

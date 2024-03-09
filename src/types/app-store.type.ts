@@ -2,7 +2,7 @@ import { Action } from '@reduxjs/toolkit';
 import { AuthorizationResult } from 'react-native-geolocation-service';
 import { IMessage } from 'react-native-gifted-chat';
 import { ThunkAction } from 'redux-thunk';
-import { store } from 'src/store';
+import { store } from 'src/store/store';
 
 import { Entity } from './entities.type';
 
@@ -11,11 +11,12 @@ export declare namespace AppStore {
 
   type AppDispatch = typeof store.dispatch;
 
+  type Setting = Partial<Entity.Setting>;
+
   type AppState = {
     accessToken?: string;
     refreshToken?: string;
     isLogged?: boolean;
-    profile: Partial<Entity.Profile>;
     user: Partial<Entity.User>;
     osPermissions?: {
       locationService?: AuthorizationResult;
@@ -23,6 +24,7 @@ export declare namespace AppStore {
     socket: {
       connectedAt?: string;
     };
+    settings: Setting;
   };
 
   type ConversationState = {
@@ -89,12 +91,10 @@ export declare namespace AppStore {
     };
   };
 
-  type LikesState = {
-    data?: Entity.View[];
-  };
+  type Product = Entity.Product;
 
-  type LikedMeState = {
-    data: View[];
+  type ProductStore = {
+    data: Product[];
     info: {
       lastRefreshedAt?: string;
       isReachedEnd?: boolean;

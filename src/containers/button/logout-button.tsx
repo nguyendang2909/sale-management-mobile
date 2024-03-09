@@ -6,7 +6,7 @@ import { api, useLogoutMutation } from 'src/api';
 import { LoadingButton } from 'src/components/button';
 import { useAppSelector } from 'src/hooks';
 import { messages } from 'src/locales/messages';
-import { appActions } from 'src/store/app.store';
+import { appActions } from 'src/store/app/app.store';
 
 type FC = React.ComponentProps<typeof Button>;
 
