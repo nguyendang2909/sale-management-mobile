@@ -16,6 +16,7 @@ import { thunk } from 'redux-thunk';
 
 import { api } from '../api';
 import { appReducer } from './app/app.store';
+import { categoryReducer } from './category';
 import { productReducer } from './product';
 import { appSaga } from './saga';
 // import theme from './theme';
@@ -30,6 +31,7 @@ const reducers = combineReducers({
   user: userReducer,
   app: appReducer,
   product: productReducer,
+  category: categoryReducer,
   // message: messageReducer,
 });
 
@@ -37,7 +39,7 @@ const persistedReducer = persistReducer(
   {
     key: 'root',
     storage: AsyncStorage,
-    whitelist: ['theme', 'app', 'message', 'product'],
+    whitelist: ['theme', 'app', 'message', 'product', 'category'],
   },
   reducers,
 );

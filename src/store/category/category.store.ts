@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { productEndpoints } from 'src/api';
+import { categoryEndpoints } from 'src/api';
 import { AppStore, Entity } from 'src/types';
-import { productUtil } from 'src/utils/product.util';
+import { categoryUtil } from 'src/utils/category.util';
 
 import { appActions } from '../app/app.store';
 
@@ -10,11 +10,11 @@ const initialState: AppStore.CategoryStore = {
   info: {},
 };
 
-export const productSlice = createSlice({
-  name: 'product',
+export const categorySlice = createSlice({
+  name: 'category',
   initialState,
   reducers: {
-    setProducts: (state, { payload }: PayloadAction<Entity.Product[]>) => {
+    setCategories: (state, { payload }: PayloadAction<Entity.Category[]>) => {
       state.data = payload;
     },
   },
@@ -26,14 +26,17 @@ export const productSlice = createSlice({
 
     builder
       .addMatcher(
-        productEndpoints.fetchAllProducts.matchFulfilled,
+        categoryEndpoints.fetchAllCategories.matchFulfilled,
         (state, { payload: { data } }) => {
-          state.data = productUtil.formatManyAndSort(data, state.data);
+          state.data = categoryUtil.formatManyAndSort(data, state.data);
         },
       )
-      .addMatcher(productEndpoints.createProduct.matchFulfilled, (state, { payload: { data } }) => {
-        state.data = productUtil.formatManyAndSort([data], state.data);
-      });
+      .addMatcher(
+        categoryEndpoints.createCategory.matchFulfilled,
+        (state, { payload: { data } }) => {
+          state.data = categoryUtil.formatManyAndSort([data], state.data);
+        },
+      );
     //   .addMatcher(
     //     likeEndpoints.getNextLikedMe.matchFulfilled,
     //     (state, { payload: { data, pagination } }) => {
@@ -57,6 +60,6 @@ export const productSlice = createSlice({
   },
 });
 
-export const productActions = productSlice.actions;
+export const categoryActions = categorySlice.actions;
 
-export const productReducer = productSlice.reducer;
+export const categoryReducer = categorySlice.reducer;

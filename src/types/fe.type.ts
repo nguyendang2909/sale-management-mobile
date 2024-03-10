@@ -132,13 +132,17 @@ export declare namespace ApiRequest {
   };
 
   type FindAllProducts = {
-    search?: string;
+    searchText?: string;
     categoryId?: string;
   };
 
   type FindManyProducts = FindAllProducts & Pagination;
 
-  type FindManyCategories = Pagination;
+  type FindAllCategories = {
+    title?: string;
+  };
+
+  type FindManyCategories = Pagination & FindAllCategories;
 
   type FindManyShops = Pagination;
 

@@ -14,7 +14,7 @@ const productApi = api.injectEndpoints({
       }),
     }),
 
-    fetchAllProducts: builder.query<ApiResponse.Products, ApiRequest.FindManyProducts>({
+    fetchAllProducts: builder.query<ApiResponse.Products, ApiRequest.FindAllProducts>({
       query: () => ({
         url: API_ENDPOINTS.PRODUCTS.ALL,
         method: API_METHODS.GET,

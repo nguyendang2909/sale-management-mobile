@@ -11,8 +11,6 @@ export const ProductsFlatList = () => {
     refetch: refetchProducts,
   } = useProducts();
 
-  console.log(111, products);
-
   return (
     <>
       <FlatList

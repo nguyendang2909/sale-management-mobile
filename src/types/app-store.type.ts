@@ -93,8 +93,18 @@ export declare namespace AppStore {
 
   type Product = Entity.Product;
 
+  type Category = Entity.Category;
+
   type ProductStore = {
     data: Product[];
+    info: {
+      lastRefreshedAt?: string;
+      isReachedEnd?: boolean;
+    };
+  };
+
+  type CategoryStore = {
+    data: Category[];
     info: {
       lastRefreshedAt?: string;
       isReachedEnd?: boolean;

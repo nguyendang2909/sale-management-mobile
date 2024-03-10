@@ -36,16 +36,16 @@ export const Button = createStyle({
   variants: {
     action: {
       primary: {
-        bg: '$red600',
+        bg: '$primary600',
         borderColor: '$primary300',
 
         ':hover': {
-          bg: '$red700',
+          bg: '$primary600',
           borderColor: '$primary400',
         },
 
         ':active': {
-          bg: '$red800',
+          bg: '$primary700',
           borderColor: '$primary700',
         },
 

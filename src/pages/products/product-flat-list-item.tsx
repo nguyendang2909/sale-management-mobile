@@ -1,7 +1,7 @@
-import { HStack, Icon, Pressable, Text, View, VStack } from '@gluestack-ui/themed';
+import { HStack, Pressable, Text, View, VStack } from '@gluestack-ui/themed';
 import _ from 'lodash';
 import { FC } from 'react';
-import { MaterialCommunityIcons } from 'src/components';
+import { EmptyProductIconBox } from 'src/containers/icon/empty-product-icon-box';
 import { AppStore } from 'src/types';
 import { priceUtil } from 'src/utils';
 
@@ -29,29 +29,7 @@ export const ProductFlatListItem: FC<FCProps> = ({ product }) => {
             mb={16}
           >
             <HStack columnGap={8}>
-              <View>
-                {image ? (
-                  <></>
-                ) : (
-                  <View
-                    height={64}
-                    width={64}
-                    borderRadius={8}
-                    borderColor="$coolGray200"
-                    borderWidth={1}
-                    bgColor="$coolGray100"
-                    alignItems="center"
-                    justifyContent="center"
-                  >
-                    <Icon
-                      as={MaterialCommunityIcons}
-                      name="food-outline"
-                      color="$coolGray500"
-                      size={28}
-                    />
-                  </View>
-                )}
-              </View>
+              <View>{image ? <></> : <EmptyProductIconBox />}</View>
               <VStack>
                 <View height={22}>
                   <Text lineHeight={22} numberOfLines={1}>

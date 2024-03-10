@@ -6,7 +6,7 @@ import { api } from './api';
 
 const categoryApi = api.injectEndpoints({
   endpoints: builder => ({
-    createCategory: builder.mutation<ApiResponse.Product, ApiRequest.CreateCategory>({
+    createCategory: builder.mutation<ApiResponse.Category, ApiRequest.CreateCategory>({
       query: body => ({
         url: API_ENDPOINTS.CATEGORIES.INDEX,
         method: API_METHODS.POST,
@@ -14,14 +14,21 @@ const categoryApi = api.injectEndpoints({
       }),
     }),
 
-    findCategories: builder.query<ApiResponse.Categories, ApiRequest.FindManyCategories>({
+    fetchAllCategories: builder.query<ApiResponse.Categories, ApiRequest.FindAllCategories>({
+      query: () => ({
+        url: API_ENDPOINTS.CATEGORIES.ALL,
+        method: API_METHODS.GET,
+      }),
+    }),
+
+    fetchCategories: builder.query<ApiResponse.Categories, ApiRequest.FindManyCategories>({
       query: () => ({
         url: API_ENDPOINTS.CATEGORIES.INDEX,
         method: API_METHODS.GET,
       }),
     }),
 
-    findCategory: builder.query<ApiResponse.Category, string>({
+    fetchCategory: builder.query<ApiResponse.Category, string>({
       query: () => ({
         url: API_ENDPOINTS.CATEGORIES.INDEX,
         method: API_METHODS.GET,
@@ -47,8 +54,10 @@ const categoryApi = api.injectEndpoints({
 
 export const {
   useCreateCategoryMutation,
-  useFindCategoriesQuery,
-  useFindCategoryQuery,
+  useFetchAllCategoriesQuery,
+  useFetchCategoriesQuery,
+  useLazyFetchAllCategoriesQuery,
+  useFetchCategoryQuery,
   useUpdateCategoryMutation,
   useDeleteCategoryMutation,
   endpoints: categoryEndpoints,

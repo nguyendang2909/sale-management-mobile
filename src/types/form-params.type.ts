@@ -33,6 +33,11 @@ export declare namespace FormParams {
     label?: string;
     unit?: string;
     createMore: boolean;
+    categoryIds: string[];
+  };
+
+  type CreateCategory = {
+    title: string;
   };
 
   type UpdateProfilePhoto = {

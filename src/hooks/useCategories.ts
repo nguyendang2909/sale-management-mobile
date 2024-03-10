@@ -1,11 +1,11 @@
-import { useFetchAllProductsQuery } from 'src/api';
+import { useFetchAllCategoriesQuery } from 'src/api';
 
 import { useAppSelector } from './useAppSelector';
 
-export const useProducts = () => {
+export const useCategories = () => {
   const data = useAppSelector(s => s.product.data);
 
-  const { refetch, isFetching } = useFetchAllProductsQuery({});
+  const { refetch, isFetching } = useFetchAllCategoriesQuery({});
 
   return {
     data,
