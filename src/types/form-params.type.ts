@@ -40,6 +40,12 @@ export declare namespace FormParams {
     title: string;
   };
 
+  type CreateCustomer = {
+    fullName: string;
+    phoneCode: string;
+    phoneNumber: string;
+  };
+
   type UpdateProfilePhoto = {
     photos: Image[];
   };

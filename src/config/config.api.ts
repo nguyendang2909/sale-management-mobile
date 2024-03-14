@@ -71,4 +71,8 @@ export const API_ENDPOINTS = {
   ORDERS: {
     INDEX: API_TAGS.ORDERS,
   },
+  CUSTOMERS: {
+    INDEX: API_TAGS.CUSTOMERS,
+    ALL: `${API_TAGS.CUSTOMERS}${API_TAGS.ALL}`,
+  },
 };

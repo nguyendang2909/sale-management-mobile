@@ -1,16 +1,5 @@
 /* eslint-disable no-use-before-define */
-import {
-  EducationLevel,
-  Gender,
-  MediaFileType,
-  Membership,
-  OrderStatus,
-  RelationshipGoal,
-  RelationshipStatus,
-  Role,
-  UserStatus,
-  WorkingTimeType,
-} from './data.type';
+import { Role, UserStatus, WorkingTimeType } from './data.type';
 
 export declare namespace Entity {
   type BaseEntity = {

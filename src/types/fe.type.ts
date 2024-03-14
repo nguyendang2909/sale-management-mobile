@@ -121,11 +121,23 @@ export declare namespace ApiRequest {
 
   type UpdateProduct = {};
 
+  type CreateCustomer = {
+    fullName: string;
+    phoneCode?: string;
+    phoneNumber?: string;
+  };
+
+  type UpdateCustomer = Partial<CreateCustomer>;
+
   type CreateCategory = {
     title: string;
   };
 
   type UpdateCategory = Partial<CreateCategory>;
+
+  type FindAllCustomers = {
+    searchText?: string;
+  };
 
   type SendView = {
     targetUserId: string;
@@ -188,6 +200,10 @@ export declare namespace ApiResponse {
   type Shops = PaginatedResponse<Entity.Shop>;
 
   type Shop = FetchData<Entity.Shop>;
+
+  type Customer = FetchData<Entity.Customer>;
+
+  type Customers = PaginatedResponse<Entity.Customer>;
 
   type SuccessResponse = FetchData<{ success: boolean }>;
 

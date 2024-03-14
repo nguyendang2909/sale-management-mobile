@@ -95,6 +95,8 @@ export declare namespace AppStore {
 
   type Category = Entity.Category;
 
+  type Customer = Entity.Customer;
+
   type ProductStore = {
     data: Product[];
     info: {
@@ -105,6 +107,14 @@ export declare namespace AppStore {
 
   type CategoryStore = {
     data: Category[];
+    info: {
+      lastRefreshedAt?: string;
+      isReachedEnd?: boolean;
+    };
+  };
+
+  type CustomerStore = {
+    data: Customer[];
     info: {
       lastRefreshedAt?: string;
       isReachedEnd?: boolean;

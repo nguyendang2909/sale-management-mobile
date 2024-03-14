@@ -6,6 +6,7 @@
 // }
 
 import { FC } from 'react';
+import { CustomersScreen } from 'src/screens/customers/customers.screen';
 import { Management } from 'src/screens/management/management';
 import { Products } from 'src/screens/products/products';
 
@@ -170,6 +171,6 @@ export const DEFAULT_NAVIGATORS: {
     id: NAVIGATORS.CUSTOMER,
     name: 'CUSTOMER',
     title: 'Khách hàng',
-    screen: Management,
+    screen: CustomersScreen,
   },
 ];

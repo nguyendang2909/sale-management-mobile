@@ -1,6 +1,7 @@
 export * from './api';
 export * from './auth.api';
 export * from './category.api';
+export * from './customer.api';
 export * from './likes.api';
 export * from './matches.api';
 export * from './media-files.api';

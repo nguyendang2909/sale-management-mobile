@@ -34,6 +34,7 @@ export const API_TAGS = {
   REFRESH_TOKENS: '/refresh-tokens',
   LOGOUT: '/logout',
   ALL: '/all',
+  CUSTOMERS: '/customers',
 };
 
 export const BUSINESS_CATEGORIES = {

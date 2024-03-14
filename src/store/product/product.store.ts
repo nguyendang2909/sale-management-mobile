@@ -5,7 +5,7 @@ import { productUtil } from 'src/utils/product.util';
 
 import { appActions } from '../app/app.store';
 
-const initialState: AppStore.CategoryStore = {
+const initialState: AppStore.ProductStore = {
   data: [],
   info: {},
 };
