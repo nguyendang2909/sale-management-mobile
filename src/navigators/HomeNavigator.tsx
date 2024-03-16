@@ -4,7 +4,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { GradientIcon, MaterialIcons } from 'src/components';
 import { APP_CONFIG } from 'src/config/config.app';
-import { DEFAULT_NAVIGATORS } from 'src/constants/constants';
+import { DEFAULT_NAVIGATORS } from 'src/constants';
 import { useMessages } from 'src/hooks';
 import { ConversationsScreen } from 'src/screens/Conversations/ConversationsScreen';
 import { ProfileScreen } from 'src/screens/Me/ProfileScreen';
@@ -49,6 +49,7 @@ export const HomeNavigator: FC<FCProps> = () => {
               name={e.name}
               component={e.screen}
               options={{
+                // headerShown: false,
                 // tabBarShowLabel: true,
                 tabBarLabel: e.title,
                 tabBarIcon: ({ focused }) => (

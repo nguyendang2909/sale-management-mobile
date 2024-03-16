@@ -38,6 +38,7 @@ export const CreateCustomerModal: FC<FCProps> = ({ onClose }) => {
           payload.phoneNumber = phoneUtil.getPhoneNumber(values.phoneNumber);
         }
         await createCustomer(payload).unwrap();
+        formik.resetForm();
         onClose();
       } catch (error) {
         Toast.show({

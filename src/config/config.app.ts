@@ -12,7 +12,7 @@ export const APP_CONFIG = {
       HEIGHT: 56,
     },
     BOTTOM_BAR: {
-      HEIGHT: 48,
+      HEIGHT: 64,
     },
   },
 };

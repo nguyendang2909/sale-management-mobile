@@ -1,18 +1,18 @@
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { useWindowDimensions } from 'react-native';
 
-import { CustomerGroupTab } from './customer-group-tab';
-import { CustomerTab } from './customer-tab';
+import { CategoryTab } from './category-tab/category-tab';
+import { ProductTab } from './product-tab/product-tab';
 
 const Tab = createMaterialTopTabNavigator();
 
-export const CustomerTabs = () => {
+export const ProductTabs = () => {
   const layout = useWindowDimensions();
 
   return (
     <Tab.Navigator initialLayout={{ width: layout.width }}>
-      <Tab.Screen name="Khách hàng" component={CustomerTab} />
-      <Tab.Screen name="Nhóm khách hàng" component={CustomerGroupTab} />
+      <Tab.Screen name="Sản phẩm" component={ProductTab} />
+      <Tab.Screen name="Danh mục" component={CategoryTab} />
     </Tab.Navigator>
   );
 };

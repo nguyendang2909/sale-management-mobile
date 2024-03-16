@@ -1,11 +1,12 @@
-import { Box, StatusBar, Text } from '@gluestack-ui/themed';
+import { Box, StatusBar, View } from '@gluestack-ui/themed';
 import React from 'react';
 import { Header } from 'src/components';
-import { CreateProductFab } from 'src/pages/products/buttons/create-product-fab';
-import { ProductTabs } from 'src/pages/products/tabs/product-tabs';
+import { ProductTabs } from 'src/pages/products/product-tabs';
+
 export const Products = () => {
   return (
     <>
+      <View></View>
       <StatusBar barStyle="default" />
       <Header
         title="Sản phẩm"
@@ -15,11 +16,8 @@ export const Products = () => {
         // }}
       />
       <Box flex={1}>
-        <Text>asdasds</Text>
         <ProductTabs />
         {/* <ProductsFlatList /> */}
-
-        <CreateProductFab />
       </Box>
     </>
   );

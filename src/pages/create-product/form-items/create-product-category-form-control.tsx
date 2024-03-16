@@ -11,7 +11,7 @@ import {
 } from '@gluestack-ui/themed';
 import { FormControl } from 'native-base';
 import { FC } from 'react';
-import { Modal, TouchableOpacity } from 'react-native';
+import { TouchableOpacity } from 'react-native';
 import { FontAwesome, MaterialIcons } from 'src/components';
 import { SelectCategoriesActionsheetContent } from 'src/containers/actionsheet/select-category-item';
 import { CreateCategoryModal } from 'src/containers/Modal/create-category-modal';
@@ -78,11 +78,7 @@ export const CreateProductCategoryFormControl: FC<FCProps> = ({ value, setCatego
         </View>
       </FormControl>
 
-      <Modal animationType="slide" visible={isOpenCreateCategory}>
-        <View flex={1}>
-          <CreateCategoryModal onClose={onCloseCreateCategory} />
-        </View>
-      </Modal>
+      <CreateCategoryModal onClose={onCloseCreateCategory} isVisible={isOpenCreateCategory} />
 
       <Actionsheet isOpen={isOpenSelectCategories} onClose={onCloseSelectCategories}>
         <SelectCategoriesActionsheetContent
