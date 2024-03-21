@@ -1,12 +1,11 @@
-import { Box, StatusBar, View } from '@gluestack-ui/themed';
+import { Box, StatusBar } from '@gluestack-ui/themed';
 import React from 'react';
 import { Header } from 'src/components';
 import { ProductTabs } from 'src/pages/products/product-tabs';
 
-export const Products = () => {
+export const ProductsScreen = () => {
   return (
     <>
-      <View></View>
       <StatusBar barStyle="default" />
       <Header
         title="Sản phẩm"

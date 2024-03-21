@@ -1,12 +1,6 @@
 import { Image } from 'react-native-image-crop-picker';
 
-import {
-  AuthGrantType,
-  DevicePlatform,
-  Gender,
-  RelationshipGoal,
-  StockTrackingMethod,
-} from './data.type';
+import { AuthGrantType, DevicePlatform } from './data.type';
 import { Entity } from './entities.type';
 
 export declare namespace ApiRequest {
@@ -65,14 +59,6 @@ export declare namespace ApiRequest {
 
   type RefreshAccessToken = {
     refreshToken: string;
-  };
-
-  type UpdateProfileFilter = {
-    gender?: Gender;
-    maxDistance?: number;
-    minAge?: number;
-    maxAge?: number;
-    relationshipGoal?: RelationshipGoal;
   };
 
   type CreateMe = {
@@ -139,6 +125,15 @@ export declare namespace ApiRequest {
     searchText?: string;
   };
 
+  type CreateOrderItem = {};
+
+  type CreateOrder = {
+    status: OrderStatus;
+    paymentMethod?: string;
+    deliveryMethod?: string;
+    items: { productId: string }[];
+  };
+
   type SendView = {
     targetUserId: string;
   };
@@ -157,6 +152,10 @@ export declare namespace ApiRequest {
   type FindManyCategories = Pagination & FindAllCategories;
 
   type FindManyShops = Pagination;
+
+  type FindAllOrders = {};
+
+  type FindManyOrders = FindAllOrders & Pagination;
 
   type CreateMatch = {
     targetUserId: string;
@@ -205,6 +204,10 @@ export declare namespace ApiResponse {
 
   type Customers = PaginatedResponse<Entity.Customer>;
 
+  type Order = FetchData<Entity.Order>;
+
+  type Orders = PaginatedResponse<Entity.Order>;
+
   type SuccessResponse = FetchData<{ success: boolean }>;
 
   type RefreshAccessToken = FetchData<{ accessToken: string }>;
@@ -227,9 +230,7 @@ export declare namespace ApiResponse {
 
   type Setting = FetchData<Entity.Setting>;
 
-  type Profile = FetchData<Entity.Profile>;
-
-  type ProfileFilterData = FetchData<Entity.ProfileFilter>;
+  type ProductImage = FetchData<Entity.ProductImage>;
 
   type Logged = FetchData<{
     accessToken: string;

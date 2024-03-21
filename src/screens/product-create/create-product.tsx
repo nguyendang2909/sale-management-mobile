@@ -1,7 +1,7 @@
 import { StatusBar, View } from '@gluestack-ui/themed';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { CreateProductForm } from 'src/pages/create-product/create-product-form';
-import { CreateProductHeader } from 'src/pages/create-product/create-product-header';
+import { CreateProductForm } from 'src/screens/product-create/components/create-product-form';
+import { CreateProductHeader } from 'src/screens/product-create/components/create-product-header';
 
 export const CreateProduct = () => {
   return (

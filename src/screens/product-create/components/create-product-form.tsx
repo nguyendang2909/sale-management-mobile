@@ -22,9 +22,10 @@ import { HOME_SCREENS, SCREENS } from 'src/constants';
 import { useMessages } from 'src/hooks';
 import { useCategories } from 'src/hooks/useCategories';
 import { flexGrow } from 'src/styles';
-import { ApiRequest, FormParams } from 'src/types';
+import { ApiRequest, Entity, FormParams } from 'src/types';
 import * as Yup from 'yup';
 
+import { CreateProductImageCards } from './create-product-images/create-product-image-cards';
 import { CreateProductCategoryFormControl } from './form-items/create-product-category-form-control';
 
 export const CreateProductForm: FC = () => {
@@ -46,6 +47,7 @@ export const CreateProductForm: FC = () => {
       unit: '',
       createMore: false,
       categoryIds: [],
+      images: [],
     },
     enableReinitialize: true,
     validationSchema: Yup.object().shape({
@@ -62,9 +64,11 @@ export const CreateProductForm: FC = () => {
     }),
     onSubmit: async values => {
       try {
-        const { createMore, ...restValues } = values;
-        const payload = _.pickBy<ApiRequest.CreateProduct>(restValues, _.identity);
-        // @ts-ignore
+        const { createMore, images, price, ...restValues } = values;
+        const payload: ApiRequest.CreateProduct = { ...restValues, price: price! };
+        if (images.length) {
+          payload.imageIds = images.map(e => e.id);
+        }
         await createProduct(payload).unwrap();
         if (createMore) {
           formik.resetForm();
@@ -78,8 +82,24 @@ export const CreateProductForm: FC = () => {
       }
     },
   });
-
   const { setFieldValue } = formik;
+
+  const addImage = useCallback(
+    async (e: Entity.ProductImage) => {
+      setFieldValue('images', [...formik.values.images, e]);
+    },
+    [formik.values.images, setFieldValue],
+  );
+
+  const deleteImage = useCallback(
+    (id: string) => {
+      setFieldValue(
+        'images',
+        formik.values.images.filter(e => e.id !== id),
+      );
+    },
+    [formik.values.images, setFieldValue],
+  );
 
   const handleCreateProduct = async () => {
     formik.setFieldValue('createMore', false);
@@ -125,6 +145,21 @@ export const CreateProductForm: FC = () => {
                       placeholder="Ví dụ: Tương ớt Chinsu"
                       error={formik.touched.title ? formik.errors.title : undefined}
                     />
+                  </View>
+
+                  <View mb={16}>
+                    <View>
+                      <FormControlLabel>
+                        <FormControlLabelText>Ảnh</FormControlLabelText>
+                      </FormControlLabel>
+                    </View>
+                    <View mt={8}>
+                      <CreateProductImageCards
+                        images={formik.values.images}
+                        addImage={addImage}
+                        deleteImage={deleteImage}
+                      />
+                    </View>
                   </View>
 
                   <View mb={16}>

@@ -1,3 +1,4 @@
+import { ActionSheetProvider } from '@expo/react-native-action-sheet';
 import { GluestackUIProvider } from '@gluestack-ui/themed';
 import { NavigationContainer } from '@react-navigation/native';
 import { NativeBaseProvider } from 'native-base';
@@ -34,34 +35,37 @@ export default function App() {
           <IntlProvider defaultLocale="en" locale="en" messages={translators.en}>
             <ConnectSocket />
             <SafeAreaProvider>
-              <GluestackUIProvider config={gluestackConfig}>
-                <NativeBaseProvider theme={defaultTheme} config={nativeBaseConfig}>
-                  <NavigationContainer
-                    ref={navigationRef}
-                    onReady={onNavigationContainerReady}
-                    onStateChange={async () => {
-                      const previousRouteName = currentRouteRef.current;
-                      const currentRouteName = navigationRef.current?.getCurrentRoute()?.name || '';
+              <ActionSheetProvider>
+                <GluestackUIProvider config={gluestackConfig}>
+                  <NativeBaseProvider theme={defaultTheme} config={nativeBaseConfig}>
+                    <NavigationContainer
+                      ref={navigationRef}
+                      onReady={onNavigationContainerReady}
+                      onStateChange={async () => {
+                        const previousRouteName = currentRouteRef.current;
+                        const currentRouteName =
+                          navigationRef.current?.getCurrentRoute()?.name || '';
 
-                      if (previousRouteName !== currentRouteName) {
-                        currentRouteRef.current = currentRouteName;
+                        if (previousRouteName !== currentRouteName) {
+                          currentRouteRef.current = currentRouteName;
 
-                        // await analytics().logScreenView({ screen_name: currentRouteName });
-                      }
-                    }}
-                    linking={{
-                      prefixes: ['/'],
-                    }}
-                  >
-                    <Host>
-                      <Suspense>
-                        <Main />
-                        <Toast />
-                      </Suspense>
-                    </Host>
-                  </NavigationContainer>
-                </NativeBaseProvider>
-              </GluestackUIProvider>
+                          // await analytics().logScreenView({ screen_name: currentRouteName });
+                        }
+                      }}
+                      linking={{
+                        prefixes: ['/'],
+                      }}
+                    >
+                      <Host>
+                        <Suspense>
+                          <Main />
+                          <Toast />
+                        </Suspense>
+                      </Host>
+                    </NavigationContainer>
+                  </NativeBaseProvider>
+                </GluestackUIProvider>
+              </ActionSheetProvider>
             </SafeAreaProvider>
           </IntlProvider>
         </PersistGate>

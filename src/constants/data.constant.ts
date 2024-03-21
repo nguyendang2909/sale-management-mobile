@@ -27,7 +27,7 @@ export const API_TAGS = {
   ORDERS: '/orders',
   HEALTH: '/health',
   BULK: '/bulk',
-  IMAGE: '/image',
+  IMAGES: '/images',
   AVATAR: '/avatar',
   SETTINGS: '/settings',
   SIGN_IN: '/sign-in',

@@ -1,13 +1,12 @@
+import { Icon } from '@gluestack-ui/themed';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import _ from 'lodash';
 import React, { FC } from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import { GradientIcon, MaterialIcons } from 'src/components';
 import { APP_CONFIG } from 'src/config/config.app';
-import { DEFAULT_NAVIGATORS } from 'src/constants';
+import { DEFAULT_NAVIGATOR, NAVIGATOR_DATA } from 'src/constants';
+import { BOTTOM_NAVIGATOR_NAMES } from 'src/constants/constants';
 import { useMessages } from 'src/hooks';
-import { ConversationsScreen } from 'src/screens/Conversations/ConversationsScreen';
-import { ProfileScreen } from 'src/screens/Me/ProfileScreen';
 import { backgroundColor, borderTopColor } from 'src/styles';
 import { colors } from 'src/theme';
 import { AppStackScreenProps, HomeTabParamList } from 'src/types';
@@ -20,6 +19,18 @@ export const HomeNavigator: FC<FCProps> = () => {
   const { formatMessage } = useMessages();
 
   const { bottom } = useSafeAreaInsets();
+
+  const screens = [BOTTOM_NAVIGATOR_NAMES.PRODUCT, BOTTOM_NAVIGATOR_NAMES.CUSTOMER];
+
+  console.log(111, Object.values(_.omit(NAVIGATOR_DATA, screens)));
+
+  const navigators = [
+    ...DEFAULT_NAVIGATOR,
+    ...screens.map(e => {
+      return { ...NAVIGATOR_DATA[e], isShow: true };
+    }),
+    // Object.values(_.omit(NAVIGATOR_DATA, screens)),
+  ];
 
   return (
     <>
@@ -42,7 +53,8 @@ export const HomeNavigator: FC<FCProps> = () => {
           tabBarShowLabel: true,
         }}
       >
-        {DEFAULT_NAVIGATORS.map(e => {
+        {navigators.map(e => {
+          const ItemIcon = e.icon;
           return (
             <Tab.Screen
               key={e.id}
@@ -53,16 +65,7 @@ export const HomeNavigator: FC<FCProps> = () => {
                 // tabBarShowLabel: true,
                 tabBarLabel: e.title,
                 tabBarIcon: ({ focused }) => (
-                  <GradientIcon
-                    {...(!focused
-                      ? {
-                          colors: [colors.palette.neutral500, colors.palette.neutral500],
-                        }
-                      : {})}
-                    size={30}
-                    name="book"
-                    icon={MaterialIcons}
-                  />
+                  <Icon as={ItemIcon} width={20} height={20} fill="$blue700" />
                 ),
               }}
             ></Tab.Screen>
@@ -129,7 +132,7 @@ export const HomeNavigator: FC<FCProps> = () => {
             ),
           }}
         /> */}
-        <Tab.Screen
+        {/* <Tab.Screen
           name="Conversations"
           component={ConversationsScreen}
           options={{
@@ -168,7 +171,7 @@ export const HomeNavigator: FC<FCProps> = () => {
               />
             ),
           }}
-        />
+        /> */}
       </Tab.Navigator>
     </>
   );

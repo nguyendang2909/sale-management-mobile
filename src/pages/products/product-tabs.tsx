@@ -10,9 +10,11 @@ export const ProductTabs = () => {
   const layout = useWindowDimensions();
 
   return (
-    <Tab.Navigator initialLayout={{ width: layout.width }}>
-      <Tab.Screen name="Sản phẩm" component={ProductTab} />
-      <Tab.Screen name="Danh mục" component={CategoryTab} />
-    </Tab.Navigator>
+    <>
+      <Tab.Navigator initialLayout={{ width: layout.width }}>
+        <Tab.Screen name="product" component={ProductTab} options={{ tabBarLabel: 'Sản phẩm' }} />
+        <Tab.Screen name="category" component={CategoryTab} options={{ tabBarLabel: 'Danh mục' }} />
+      </Tab.Navigator>
+    </>
   );
 };

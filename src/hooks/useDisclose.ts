@@ -12,7 +12,7 @@ export function useDisclose(initState?: boolean) {
   };
 
   const onToggle = () => {
-    setIsOpen(!isOpen);
+    setIsOpen(prev => !prev);
   };
 
   return {

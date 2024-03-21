@@ -2,6 +2,7 @@ import { FirebaseAuthTypes } from '@react-native-firebase/auth';
 import { NavigatorScreenParams } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
+import { AppStore } from './app-store.type';
 import { Entity } from './entities.type';
 
 export type HomeTabParamList = {
@@ -10,7 +11,7 @@ export type HomeTabParamList = {
   REPORT: undefined;
   TABLE: undefined;
   SELL: undefined;
-  PAY_BOOK: undefined;
+  DEBT_BOOK: undefined;
   RECEIPT_AND_EXPENSE: undefined;
   // ONLINE_STORE: undefined,
   CUSTOMER: undefined;
@@ -63,6 +64,9 @@ export type AppStackParamList = {
     subject: string;
   };
   CREATE_PRODUCT: undefined;
+  PRODUCT_DETAIL: {
+    detail: AppStore.Product;
+  };
 };
 
 export type AppStackScreenProps<T extends keyof AppStackParamList> = NativeStackScreenProps<

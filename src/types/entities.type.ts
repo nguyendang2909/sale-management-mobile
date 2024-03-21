@@ -1,5 +1,5 @@
 /* eslint-disable no-use-before-define */
-import { Role, UserStatus, WorkingTimeType } from './data.type';
+import { OrderStatus, Role, UserStatus, WorkingTimeType } from './data.type';
 
 export declare namespace Entity {
   type BaseEntity = {
@@ -57,45 +57,6 @@ export declare namespace Entity {
     sourceId?: string;
   };
 
-  type Profile = BaseEntity & {
-    age?: number;
-    birthday?: string;
-    company?: string;
-    educationLevel?: EducationLevel;
-    gender?: Gender;
-    geolocation?: {
-      coordinates?: [number, number];
-      type?: 'Point';
-    };
-    height?: number;
-    introduce?: string;
-    jobTitle?: string;
-    hideAge?: boolean;
-    hideDistance?: boolean;
-    lastActivatedAt?: Date;
-    languages?: string[];
-    mediaFiles?: MediaFile[];
-    membership?: Membership;
-    nickname?: string;
-    relationshipGoal?: RelationshipGoal;
-    relationshipStatus?: RelationshipStatus;
-    school?: string;
-    weight?: number;
-    distance?: number;
-    state?: State;
-    learningTarget?: string;
-    teachingSubject?: string;
-  };
-
-  type ProfileFilter = BaseEntity &
-    Partial<{
-      gender: Gender;
-      maxDistance: number;
-      maxAge: number;
-      minAge: number;
-      relationshipGoal?: RelationshipGoal;
-    }>;
-
   type Message = BaseEntity & {
     _matchId?: string;
     _userId?: string;
@@ -107,19 +68,6 @@ export declare namespace Entity {
     text?: string;
     uuid?: string;
     video?: string;
-  };
-
-  type Match = BaseEntity & {
-    lastMessage?: Message;
-    userOneRead?: boolean;
-    read?: boolean;
-    targetProfile: Profile;
-  };
-
-  type View = BaseEntity & {
-    profile?: Profile;
-    targetProfile?: Profile;
-    isLiked?: boolean;
   };
 
   type Shop = BaseEntity &
@@ -154,9 +102,18 @@ export declare namespace Entity {
       isTrackingStock?: boolean;
       description?: string;
       label?: string;
-      images?: string[];
-      productCategories?: ProductCategory[];
+      imagePaths?: string[];
+      productsCategories?: ProductCategory[];
       categories?: Category[];
+      images: ProductImage[];
+      unit: string;
+    }>;
+
+  type ProductImage = BaseEntity &
+    Partial<{
+      product?: Product;
+      productId?: string;
+      path: string;
     }>;
 
   type Category = BaseEntity &
@@ -188,7 +145,7 @@ export declare namespace Entity {
       price: number;
       promotionPrice?: number;
       deliveryMethod: string;
-      products?: OrderProduct[];
+      ordersProducts?: OrderProduct[];
     }>;
 
   type Customer = BaseEntity &

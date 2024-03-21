@@ -63,75 +63,28 @@ export const DEFAULT_LANGUAGE = 'en';
 
 export const APP_NAME = 'iBán hàng';
 
-export const NAVIGATORS = {
-  MANAGEMENT: 'management',
-  ORDER: 'order',
-  REPORT: 'report',
-  TABLE: 'table',
-  SELL: 'sell',
-  PAY_BOOK: 'pay_book',
-  RECEIPT_AND_EXPENSE: 'receipt_and_expense',
+export const BOTTOM_NAVIGATOR_NAMES = {
+  ORDER: 'ORDER',
+  REPORT: 'REPORT',
+  TABLE: 'TABLE',
+  SELL: 'SELL',
+  DEBT_BOOK: 'DEBT_BOOK',
+  RECEIPT_AND_EXPENSE: 'RECEIPT_AND_EXPENSE',
   // ONLINE_STORE: 'online_store',
-  CUSTOMER: 'customer',
-  WAREHOUSE: 'warehouse',
-  MESSAGE: 'message',
-  PRODUCT: 'product',
+  CUSTOMER: 'CUSTOMER',
+  WAREHOUSE: 'WAREHOUSE',
+  MESSAGE: 'MESSAGE',
+  PRODUCT: 'PRODUCT',
 } as const;
 
-export const ARR_NAVIGATORS = [
-  {
-    id: NAVIGATORS.MANAGEMENT,
-    name: 'MANAGEMENT',
-    title: 'Quản lý',
-  },
-  {
-    id: NAVIGATORS.ORDER,
-    name: 'ORDER',
-    title: 'Đơn hàng',
-  },
-  {
-    id: NAVIGATORS.REPORT,
-    name: 'REPORT',
-    title: 'Báo cáo',
-  },
-  {
-    id: NAVIGATORS.TABLE,
-    name: 'TABLE',
-    title: 'Bàn',
-  },
-  {
-    id: NAVIGATORS.SELL,
-    name: 'SELL',
-    title: 'Bán hàng',
-  },
-  {
-    id: NAVIGATORS.PAY_BOOK,
-    name: 'PAY_BOOK',
-    title: 'Sổ nợ',
-  },
-  {
-    id: NAVIGATORS.RECEIPT_AND_EXPENSE,
-    name: 'RECEIPT_AND_EXPENSE',
-    title: 'Thu chi',
-  },
-  {
-    id: NAVIGATORS.CUSTOMER,
-    name: 'CUSTOMER',
-    title: 'Khách hàng',
-  },
-  {
-    id: NAVIGATORS.WAREHOUSE,
-    name: 'WAREHOUSE',
-    title: 'Kho hàng',
-  },
-  {
-    id: NAVIGATORS.MESSAGE,
-    name: 'MESSAGE',
-    title: 'Tin nhắn',
-  },
-  {
-    id: NAVIGATORS.PRODUCT,
-    name: 'PRODUCT',
-    title: 'Sản phẩm',
-  },
-];
+export const PRODUCT_SORT_TYPES = {
+  IN_STOCK_ASC: 'in_stock_asc',
+  IN_STOCK_DESC: 'in_stock_desc',
+  TITLE_ASC: 'title_asc',
+  TITLE_DESC: 'title_desc',
+  PRICE_ASC: 'price_asc',
+  PRICE_DESC: 'price_desc',
+  NEWEST: 'newst',
+  OLDEST: 'oldest',
+  CUSTOM: 'custom',
+} as const;

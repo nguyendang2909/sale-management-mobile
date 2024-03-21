@@ -6,6 +6,7 @@ export * from './likes.api';
 export * from './matches.api';
 export * from './media-files.api';
 export * from './messages.api';
+export * from './order.api';
 export * from './product.api';
 export * from './profile-filter.api';
 export * from './profiles.api';

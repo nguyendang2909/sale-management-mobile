@@ -1,3 +1,4 @@
+import { Platform } from 'react-native';
 import { API_ENDPOINTS } from 'src/config/config.api';
 import { API_METHODS } from 'src/constants/constants';
 import { ApiRequest, ApiResponse } from 'src/types';
@@ -49,6 +50,31 @@ const productApi = api.injectEndpoints({
         method: API_METHODS.DELETE,
       }),
     }),
+
+    uploadProductImage: builder.mutation<ApiResponse.ProductImage, ApiRequest.UploadPhoto>({
+      query: body => {
+        const { file } = body;
+        const formData = new FormData();
+        // @ts-ignore
+        formData.append('file', {
+          uri: Platform.OS === 'ios' ? `file:///${file.path}` : file.path,
+          type: 'image/jpeg',
+          name: 'image.jpg',
+        });
+        return {
+          url: API_ENDPOINTS.PRODUCTS.IMAGES,
+          method: API_METHODS.POST,
+          body: formData,
+        };
+      },
+    }),
+
+    deleteProductImage: builder.mutation<void, string>({
+      query: id => ({
+        url: `${API_ENDPOINTS.PRODUCTS.IMAGES}/${id}`,
+        method: API_METHODS.DELETE,
+      }),
+    }),
   }),
 });
 
@@ -59,5 +85,7 @@ export const {
   useFetchProductQuery,
   useUpdateProductMutation,
   useDeleteProductMutation,
+  useUploadProductImageMutation,
+  useDeleteProductImageMutation,
   endpoints: productEndpoints,
 } = productApi;

@@ -1,7 +1,9 @@
 import { HStack, Pressable, Text, View, VStack } from '@gluestack-ui/themed';
+import { useNavigation } from '@react-navigation/native';
 import _ from 'lodash';
 import { FC } from 'react';
-import { EmptyProductIconBox } from 'src/containers/icon/empty-product-icon-box';
+import { SCREENS } from 'src/constants';
+import { ProductIconBox } from 'src/containers/icon/product-icon-box';
 import { AppStore } from 'src/types';
 import { priceUtil } from 'src/utils';
 
@@ -10,9 +12,12 @@ type FCProps = {
 };
 
 export const ProductFlatListItem: FC<FCProps> = ({ product }) => {
-  const image = _.get(product, 'images[0]');
+  const imagePath = _.first(product.imagePaths);
+  console.log(product.imagePaths);
+
+  const navigation = useNavigation();
   const handlePress = () => {
-    console.log(111);
+    navigation.navigate(SCREENS.PRODUCT_DETAIL, { detail: product });
   };
 
   return (
@@ -25,11 +30,13 @@ export const ProductFlatListItem: FC<FCProps> = ({ product }) => {
             borderColor="$coolGray200"
             p={8}
             bg={pressed ? '$coolGray200' : '$white'}
-            mx={8}
+            mx={16}
             mb={16}
           >
             <HStack columnGap={8}>
-              <View>{image ? <></> : <EmptyProductIconBox />}</View>
+              <View>
+                <ProductIconBox url={imagePath} />
+              </View>
               <VStack>
                 <View height={22}>
                   <Text lineHeight={22} numberOfLines={1}>

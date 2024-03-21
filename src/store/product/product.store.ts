@@ -17,6 +17,9 @@ export const productSlice = createSlice({
     setProducts: (state, { payload }: PayloadAction<Entity.Product[]>) => {
       state.data = payload;
     },
+    deleteProductById: (state, { payload }: PayloadAction<string>) => {
+      state.data = state.data.filter(e => e.id !== payload);
+    },
   },
   extraReducers: builder => {
     builder.addCase(appActions.logout, state => {
@@ -34,6 +37,7 @@ export const productSlice = createSlice({
       .addMatcher(productEndpoints.createProduct.matchFulfilled, (state, { payload: { data } }) => {
         state.data = productUtil.formatManyAndSort([data], state.data);
       });
+
     //   .addMatcher(
     //     likeEndpoints.getNextLikedMe.matchFulfilled,
     //     (state, { payload: { data, pagination } }) => {
