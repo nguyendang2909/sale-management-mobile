@@ -22,7 +22,7 @@ export const SubjectInfo = () => {
     { skip: !subject },
   );
 
-  console.log(111, data?.data);
+  // console.log(111, data?.data);
 
   const handleCloseProfileDetail = useCallback(() => {
     setProfile(null);

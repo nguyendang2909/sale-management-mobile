@@ -1,17 +1,23 @@
 import { HStack, Pressable, Text, View, VStack } from '@gluestack-ui/themed';
+import { useNavigation } from '@react-navigation/native';
 import _ from 'lodash';
 import { FC } from 'react';
-import { EmptyProductIconBox } from 'src/containers/icon/empty-product-icon-box';
+import { SCREENS } from 'src/constants';
+import { ProductIconBox } from 'src/containers/icon/product-icon-box';
 import { AppStore } from 'src/types';
+import { priceUtil } from 'src/utils';
 
 type FCProps = {
-  category: AppStore.Category;
+  product: AppStore.Product;
 };
 
-export const CategoryFlatListItem: FC<FCProps> = ({ category }) => {
-  const image = _.get(category, 'images[0]');
+export const ProductFlatListItem: FC<FCProps> = ({ product }) => {
+  const imagePath = _.first(product.imagePaths);
+  // console.log(product.imagePaths);
+
+  const navigation = useNavigation();
   const handlePress = () => {
-    console.log(111);
+    navigation.navigate(SCREENS.PRODUCT_DETAIL, { detail: product });
   };
 
   return (
@@ -24,15 +30,17 @@ export const CategoryFlatListItem: FC<FCProps> = ({ category }) => {
             borderColor="$coolGray200"
             p={8}
             bg={pressed ? '$coolGray200' : '$white'}
-            mx={8}
+            mx={16}
             mb={16}
           >
             <HStack columnGap={8}>
-              <View>{image ? <></> : <EmptyProductIconBox />}</View>
+              <View>
+                <ProductIconBox url={imagePath} />
+              </View>
               <VStack>
                 <View height={22}>
                   <Text lineHeight={22} numberOfLines={1}>
-                    {category.title}
+                    {product.title}
                   </Text>
                 </View>
                 <View height={21}>
@@ -40,7 +48,7 @@ export const CategoryFlatListItem: FC<FCProps> = ({ category }) => {
                 </View>
                 <View height={21}>
                   <Text lineHeight={21} color="$red600">
-                    0 sản phẩm
+                    {!!product.price && priceUtil.format(product.price)}
                   </Text>
                 </View>
               </VStack>

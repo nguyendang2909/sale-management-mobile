@@ -30,11 +30,10 @@ class ProductUtil extends BaseUtil {
   ) {
     let products = _.chain(data);
     if (searchText) {
+      const textRegExp = new RegExp(searchText);
+
       products = products.filter(e => {
-        return (
-          (!!e.title && new RegExp(e.title, 'i').test(e.title)) ||
-          (!!e.sku && new RegExp(e.sku, 'i').test(e.sku))
-        );
+        return (!!e.title && textRegExp.test(e.title)) || (!!e.sku && textRegExp.test(e.sku));
       });
     }
     if (sortBy) {

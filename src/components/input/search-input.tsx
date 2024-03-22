@@ -1,19 +1,35 @@
 import { Input, InputField, InputIcon, InputSlot, SearchIcon } from '@gluestack-ui/themed';
-import { FC } from 'react';
+import { FC, useEffect, useRef } from 'react';
+import { TextInput } from 'react-native';
 
 type FCProps = {
   placeholder?: string;
   onChangeText?: (text: string) => void;
+  focusable?: boolean;
 };
 
-export const SearchInput: FC<FCProps> = ({ placeholder, onChangeText }) => {
+export const SearchInput: FC<FCProps> = ({ placeholder, onChangeText, focusable }) => {
+  const textInputRef = useRef<TextInput>();
+
+  useEffect(() => {
+    if (textInputRef.current && textInputRef.current.focus) {
+      textInputRef.current.focus();
+    }
+  }, []);
+
   return (
     <>
       <Input>
         <InputSlot pl="$3">
           <InputIcon as={SearchIcon} />
         </InputSlot>
-        <InputField placeholder={placeholder || 'Tìm kiếm'} onChangeText={onChangeText} />
+        <InputField
+          // @ts-ignore
+          ref={textInputRef}
+          focusable={focusable}
+          placeholder={placeholder || 'Tìm kiếm'}
+          onChangeText={onChangeText}
+        />
       </Input>
     </>
   );

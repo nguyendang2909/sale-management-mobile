@@ -18,7 +18,7 @@ export const LikedMeProfileScreen: React.FC<FCProps> = props => {
   const like = useAppSelector(s => s.likedMe.data.find(e => e._id === shortLike._id)) || shortLike;
 
   useEffect(() => {
-    console.log(111);
+    // console.log(111);
     if (shortLike.profile?._id) {
       sendView({ targetUserId: shortLike.profile?._id });
     }

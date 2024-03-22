@@ -22,6 +22,18 @@ class CategoryUtil extends BaseUtil {
   formatManyAndSort(news: Entity.Category[], olds: AppStore.Category[]) {
     return _.chain(news).map(this.formatOne).concat(olds).uniqBy('id').orderBy('id', 'asc').value();
   }
+
+  filter(data: AppStore.Category[], { searchText }: { searchText?: string }) {
+    let categories = _.chain(data);
+    if (searchText) {
+      const textRegExp = new RegExp(searchText);
+      categories = categories.filter(e => {
+        return !!e.title && textRegExp.test(e.title);
+      });
+    }
+
+    return categories.value();
+  }
 }
 
 export const categoryUtil = new CategoryUtil();

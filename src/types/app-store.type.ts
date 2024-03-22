@@ -4,6 +4,7 @@ import { IMessage } from 'react-native-gifted-chat';
 import { ThunkAction } from 'redux-thunk';
 import { store } from 'src/store/store';
 
+import { ProductSortType } from './common.type';
 import { Entity } from './entities.type';
 
 export declare namespace AppStore {
@@ -25,6 +26,16 @@ export declare namespace AppStore {
       connectedAt?: string;
     };
     settings: Setting;
+  };
+
+  type Cache = {
+    product: {
+      searchText: string;
+      sortType: ProductSortType;
+    };
+    category: {
+      searchText: string;
+    };
   };
 
   type ConversationState = {

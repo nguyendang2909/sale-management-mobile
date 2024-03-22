@@ -16,6 +16,7 @@ import { thunk } from 'redux-thunk';
 
 import { api } from '../api';
 import { appReducer } from './app/app.store';
+import { cacheReducer } from './cache';
 import { categoryReducer } from './category';
 import { customerReducer } from './customer';
 import { productReducer } from './product';
@@ -35,6 +36,7 @@ const reducers = combineReducers({
   product: productReducer,
   category: categoryReducer,
   customer: customerReducer,
+  cache: cacheReducer,
   // message: messageReducer,
 });
 

@@ -1,6 +1,5 @@
 import { Icon } from '@gluestack-ui/themed';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import _ from 'lodash';
 import React, { FC } from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { APP_CONFIG } from 'src/config/config.app';
@@ -21,8 +20,6 @@ export const HomeNavigator: FC<FCProps> = () => {
   const { bottom } = useSafeAreaInsets();
 
   const screens = [BOTTOM_NAVIGATOR_NAMES.PRODUCT, BOTTOM_NAVIGATOR_NAMES.CUSTOMER];
-
-  console.log(111, Object.values(_.omit(NAVIGATOR_DATA, screens)));
 
   const navigators = [
     ...DEFAULT_NAVIGATOR,

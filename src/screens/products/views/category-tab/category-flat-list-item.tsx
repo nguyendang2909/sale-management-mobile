@@ -1,23 +1,17 @@
 import { HStack, Pressable, Text, View, VStack } from '@gluestack-ui/themed';
-import { useNavigation } from '@react-navigation/native';
 import _ from 'lodash';
 import { FC } from 'react';
-import { SCREENS } from 'src/constants';
-import { ProductIconBox } from 'src/containers/icon/product-icon-box';
+import { EmptyProductIconBox } from 'src/containers/icon/empty-product-icon-box';
 import { AppStore } from 'src/types';
-import { priceUtil } from 'src/utils';
 
 type FCProps = {
-  product: AppStore.Product;
+  category: AppStore.Category;
 };
 
-export const ProductFlatListItem: FC<FCProps> = ({ product }) => {
-  const imagePath = _.first(product.imagePaths);
-  console.log(product.imagePaths);
-
-  const navigation = useNavigation();
+export const CategoryFlatListItem: FC<FCProps> = ({ category }) => {
+  const image = _.get(category, 'images[0]');
   const handlePress = () => {
-    navigation.navigate(SCREENS.PRODUCT_DETAIL, { detail: product });
+    // console.log(111);
   };
 
   return (
@@ -30,17 +24,15 @@ export const ProductFlatListItem: FC<FCProps> = ({ product }) => {
             borderColor="$coolGray200"
             p={8}
             bg={pressed ? '$coolGray200' : '$white'}
-            mx={16}
+            mx={8}
             mb={16}
           >
             <HStack columnGap={8}>
-              <View>
-                <ProductIconBox url={imagePath} />
-              </View>
+              <View>{image ? <></> : <EmptyProductIconBox />}</View>
               <VStack>
                 <View height={22}>
                   <Text lineHeight={22} numberOfLines={1}>
-                    {product.title}
+                    {category.title}
                   </Text>
                 </View>
                 <View height={21}>
@@ -48,7 +40,7 @@ export const ProductFlatListItem: FC<FCProps> = ({ product }) => {
                 </View>
                 <View height={21}>
                   <Text lineHeight={21} color="$red600">
-                    {!!product.price && priceUtil.format(product.price)}
+                    0 sản phẩm
                   </Text>
                 </View>
               </VStack>
