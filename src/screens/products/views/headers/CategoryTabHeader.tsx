@@ -44,9 +44,9 @@ export const CategoryTabHeader = () => {
                 ) : (
                   <Pressable onPress={handleOpenSearch}>
                     {isSearching ? (
-                      <Icon as={CloseIcon} size="xl" />
+                      <Icon color="$coolGray500" as={CloseIcon} size="xl" />
                     ) : (
-                      <Icon as={SearchIcon} size="xl" />
+                      <Icon color="$coolGray500" as={SearchIcon} size="xl" />
                     )}
                   </Pressable>
                 )}

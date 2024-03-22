@@ -19,15 +19,14 @@ export const CategoryFlatListItem: FC<FCProps> = ({ category }) => {
       {({ pressed }) => {
         return (
           <View
-            borderWidth={1}
-            borderRadius={8}
-            borderColor="$coolGray200"
-            p={8}
+            // borderWidth={1}
+            // borderRadius={8}
+
             bg={pressed ? '$coolGray200' : '$white'}
-            mx={8}
-            mb={16}
+            px={16}
+            // mb={16}
           >
-            <HStack columnGap={8}>
+            <HStack columnGap={8} borderBottomWidth={1} borderColor="$coolGray200" py={8}>
               <View>{image ? <></> : <EmptyProductIconBox />}</View>
               <VStack>
                 <View height={22}>

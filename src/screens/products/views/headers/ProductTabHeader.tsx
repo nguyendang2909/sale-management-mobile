@@ -80,15 +80,11 @@ export const ProductTabHeader = () => {
 
                 {isSearching ? (
                   <Pressable onPress={handleCloseSearch}>
-                    <Icon as={CloseIcon} size="xl" color="$coolGray500" />
+                    <Icon color="$coolGray500" as={CloseIcon} size="xl" />
                   </Pressable>
                 ) : (
                   <Pressable onPress={handleOpenSearch}>
-                    {isSearching ? (
-                      <Icon as={CloseIcon} size="xl" />
-                    ) : (
-                      <Icon as={SearchIcon} size="xl" />
-                    )}
+                    <Icon color="$coolGray500" as={SearchIcon} size="xl" />
                   </Pressable>
                 )}
               </View>
