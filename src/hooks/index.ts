@@ -4,6 +4,8 @@ export * from './use-geo-location';
 export * from './use-orders';
 export * from './use-product';
 export * from './use-products';
+export * from './use-search-categories';
+export * from './use-search-products';
 export * from './useAppSelector';
 export * from './useDisclose';
 export * from './useMessages';

@@ -1,18 +1,16 @@
 import { View } from '@gluestack-ui/themed';
 import { FlashList } from '@shopify/flash-list';
-import { useMemo } from 'react';
-import { useAppSelector } from 'src/hooks';
-import { useCategories } from 'src/hooks/useCategories';
+import { useSearchCategories } from 'src/hooks';
 import { AppStore } from 'src/types';
-import { categoryUtil } from 'src/utils/category.util';
 
 import { CategoryFlatListItem } from './category-flat-list-item';
 
 export const CategoryFlatList = () => {
-  const { data, isFetching: isFetchingCategories, refetch: refetchCategories } = useCategories();
-  const searchText = useAppSelector(s => s.cache.category.searchText);
-
-  const categories = useMemo(() => categoryUtil.filter(data, { searchText }), [data, searchText]);
+  const {
+    data: categories,
+    isFetching: isFetchingCategories,
+    refetch: refetchCategories,
+  } = useSearchCategories();
 
   return (
     <View flex={1}>

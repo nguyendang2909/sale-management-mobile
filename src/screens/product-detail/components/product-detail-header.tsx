@@ -13,8 +13,8 @@ export const ProductDetailHeader = () => {
   return (
     <>
       <Header
-        title="Chi tiết sản phẩm"
-        leftIcon="caretLeft"
+        leftText="Sản phẩm"
+        title="Chi tiết"
         onLeftPress={onLeftPress}
         // rightIcon="settings"
         // onRightPress={() => {

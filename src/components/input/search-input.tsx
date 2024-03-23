@@ -6,9 +6,17 @@ type FCProps = {
   placeholder?: string;
   onChangeText?: (text: string) => void;
   focusable?: boolean;
+  defaultValue?: string;
+  value?: string;
 };
 
-export const SearchInput: FC<FCProps> = ({ placeholder, onChangeText, focusable }) => {
+export const SearchInput: FC<FCProps> = ({
+  placeholder,
+  onChangeText,
+  focusable,
+  defaultValue,
+  value,
+}) => {
   const textInputRef = useRef<TextInput>();
 
   useEffect(() => {
@@ -29,6 +37,8 @@ export const SearchInput: FC<FCProps> = ({ placeholder, onChangeText, focusable 
           focusable={focusable}
           placeholder={placeholder || 'Tìm kiếm'}
           onChangeText={onChangeText}
+          defaultValue={defaultValue}
+          value={value}
         />
       </Input>
     </>

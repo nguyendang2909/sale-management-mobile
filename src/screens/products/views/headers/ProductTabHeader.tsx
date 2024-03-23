@@ -1,39 +1,15 @@
-import {
-  CloseIcon,
-  Icon,
-  Menu,
-  MenuItem,
-  MenuItemLabel,
-  Pressable,
-  SearchIcon,
-  View,
-} from '@gluestack-ui/themed';
+import { Icon, Menu, MenuItem, MenuItemLabel, Pressable, View } from '@gluestack-ui/themed';
 import { SortAscIcon } from 'lucide-react-native';
-import { useCallback } from 'react';
 import { Header } from 'src/components';
-import { SearchInput } from 'src/components/input/search-input';
 import { PRODUCT_SORT_TYPE_DATA } from 'src/constants';
-import { useAppDispatch, useDisclose } from 'src/hooks';
-import { setProductSearchText, setProductSortType } from 'src/store/cache';
+import { IconButtonSearchProducts } from 'src/containers/icon-button/icon-button-search-products';
+import { SearchInputProducts } from 'src/containers/Input/SearchInputProducts';
+import { useAppDispatch } from 'src/hooks';
+import { setProductSortType } from 'src/store/cache';
 import { ProductSortType } from 'src/types';
 
 export const ProductTabHeader = () => {
   const dispatch = useAppDispatch();
-  //   const searchText = useAppSelector(s => s.cache.product.searchText);
-  const { isOpen: isSearching, onOpen: onOpenSearching, onClose: onCloseSearching } = useDisclose();
-
-  const handleOpenSearch = useCallback(() => {
-    onOpenSearching();
-  }, [onOpenSearching]);
-
-  const handleCloseSearch = useCallback(() => {
-    onCloseSearching();
-    dispatch(setProductSearchText(''));
-  }, [dispatch, onCloseSearching]);
-
-  const handleChangeText = (e: string) => {
-    dispatch(setProductSearchText(e));
-  };
 
   const handleChangeSortType = (e: ProductSortType) => {
     dispatch(setProductSortType(e));
@@ -42,10 +18,10 @@ export const ProductTabHeader = () => {
   return (
     <>
       <Header
-        leftText="Sản phẩm"
+        title="Sản phẩm"
         RightActionComponent={
           <>
-            <View px={16} py={16}>
+            <View pr={8}>
               <View
                 justifyContent="flex-end"
                 alignItems="center"
@@ -77,26 +53,18 @@ export const ProductTabHeader = () => {
                     );
                   })}
                 </Menu>
-
-                {isSearching ? (
-                  <Pressable onPress={handleCloseSearch}>
-                    <Icon color="$coolGray500" as={CloseIcon} size="xl" />
-                  </Pressable>
-                ) : (
-                  <Pressable onPress={handleOpenSearch}>
-                    <Icon color="$coolGray500" as={SearchIcon} size="xl" />
-                  </Pressable>
-                )}
+                <IconButtonSearchProducts />
               </View>
             </View>
           </>
         }
       />
-      {isSearching && (
-        <View px={16} bg="$white">
-          <SearchInput placeholder="Tên sản phẩm, barcode" onChangeText={handleChangeText} />
-        </View>
-      )}
+      <SearchInputProducts
+        viewProps={{
+          px: 16,
+          bg: '$white',
+        }}
+      />
     </>
   );
 };

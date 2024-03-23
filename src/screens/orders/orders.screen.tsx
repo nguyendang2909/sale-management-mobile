@@ -1,8 +1,9 @@
 import { Box, StatusBar } from '@gluestack-ui/themed';
 import React from 'react';
 import { Header } from 'src/components';
-import { CreateCustomerFab } from 'src/pages/customers/create/create-customer-fab';
 import { CustomerTabs } from 'src/pages/customers/tabs/customer-tabs';
+
+import { CreateOrderFab } from '../products/views/buttons/create-order-fab';
 
 export const OrdersScreen = () => {
   return (
@@ -10,6 +11,7 @@ export const OrdersScreen = () => {
       <StatusBar barStyle="default" />
       <Header
         title="Đơn hàng"
+
         // rightIcon="settings"
         // onRightPress={() => {
         //   navigate.navigate(SCREENS.DATING_NEARBY_FILTER);
@@ -19,7 +21,7 @@ export const OrdersScreen = () => {
         <CustomerTabs />
         {/* <ProductsFlatList /> */}
 
-        <CreateCustomerFab />
+        <CreateOrderFab />
       </Box>
     </>
   );

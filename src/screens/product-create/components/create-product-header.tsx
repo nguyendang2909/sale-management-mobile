@@ -1,4 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
+import { ChevronLeft } from 'lucide-react-native';
 import { Header } from 'src/components';
 import { HOME_SCREENS, SCREENS } from 'src/constants';
 
@@ -14,7 +15,7 @@ export const CreateProductHeader = () => {
     <>
       <Header
         title="Thêm sản phẩm"
-        leftIcon="caretLeft"
+        leftIcon={ChevronLeft}
         onLeftPress={onLeftPress}
         // rightIcon="settings"
         // onRightPress={() => {

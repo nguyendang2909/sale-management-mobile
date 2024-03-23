@@ -6,7 +6,7 @@ import { ProductsFlatList } from './product-flat-list';
 export const ProductTab = () => {
   return (
     <View flex={1}>
-      <View flex={1}>
+      <View flex={1} mt={16}>
         <ProductsFlatList />
       </View>
       <CreateProductFab />

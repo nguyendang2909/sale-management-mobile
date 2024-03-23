@@ -32,9 +32,11 @@ export declare namespace AppStore {
     product: {
       searchText: string;
       sortType: ProductSortType;
+      isSearching: boolean;
     };
     category: {
       searchText: string;
+      isSearching: boolean;
     };
   };
 

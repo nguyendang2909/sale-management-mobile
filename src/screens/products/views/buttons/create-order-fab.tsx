@@ -3,11 +3,11 @@ import { useNavigation } from '@react-navigation/native';
 import { Plus } from 'lucide-react-native';
 import { SCREENS } from 'src/constants';
 
-export const CreateProductFab = () => {
+export const CreateOrderFab = () => {
   const navigation = useNavigation();
 
   const handlePress = () => {
-    navigation.navigate(SCREENS.CREATE_PRODUCT);
+    navigation.navigate(SCREENS.CREATE_ORDER);
   };
 
   return (

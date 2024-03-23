@@ -1,7 +1,7 @@
 import { Fab, FabIcon, View } from '@gluestack-ui/themed';
 import { useNavigation } from '@react-navigation/native';
+import { Plus } from 'lucide-react-native';
 import { Modal } from 'react-native';
-import { FontAwesome } from 'src/components';
 import { CreateCustomerModal } from 'src/containers/Modal/create-customer-modal';
 import { useDisclose } from 'src/hooks';
 
@@ -22,9 +22,7 @@ export const CreateCustomerFab = () => {
   return (
     <>
       <Fab onPress={handlePress} bg="$blue500" size="lg" right={16} bottom={24}>
-        {/*
-          @ts-ignore */}
-        <FabIcon as={FontAwesome} name="plus" h="$4" w="$4" />
+        <FabIcon as={Plus} h="$4" w="$4" />
       </Fab>
 
       <Modal animationType="slide" visible={isOpenCreateModal}>

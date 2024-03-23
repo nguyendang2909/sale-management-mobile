@@ -1,14 +1,6 @@
+import { ImageBackground, View } from '@gluestack-ui/themed';
 import * as React from 'react';
-import { ComponentType } from 'react';
-import {
-  Image,
-  ImageStyle,
-  StyleProp,
-  TouchableOpacity,
-  TouchableOpacityProps,
-  View,
-  ViewStyle,
-} from 'react-native';
+import { ImageStyle, StyleProp, TouchableOpacityProps, ViewStyle } from 'react-native';
 
 export const iconRegistry = {
   back: require('../../../assets/icons/back.png'),
@@ -43,7 +35,6 @@ interface IconProps extends TouchableOpacityProps {
   size?: number;
   style?: StyleProp<ImageStyle>;
   containerStyle?: StyleProp<ViewStyle>;
-  onPress?: TouchableOpacityProps['onPress'];
 }
 
 export function BaseIcon(props: IconProps) {
@@ -53,33 +44,22 @@ export function BaseIcon(props: IconProps) {
     size,
     style: $imageStyleOverride,
     containerStyle: $containerStyleOverride,
-    ...WrapperProps
   } = props;
 
-  const isPressable = !!WrapperProps.onPress;
-  // @ts-ignore
-  const Wrapper: ComponentType<TouchableOpacityProps> = WrapperProps?.onPress
-    ? TouchableOpacity
-    : View;
-
   return (
-    <Wrapper
-      accessibilityRole={isPressable ? 'imagebutton' : undefined}
-      {...WrapperProps}
-      style={$containerStyleOverride}
-    >
+    <View style={$containerStyleOverride}>
       {/* 
 // @ts-ignore */}
-      <Image
+      <ImageBackground
         style={[
           $imageStyle,
-          color && { tintColor: color },
-          size && { width: size, height: size },
+          // color && { tintColor: color },
+          // size && { width: size, height: size },
           $imageStyleOverride,
         ]}
         source={iconRegistry[icon]}
       />
-    </Wrapper>
+    </View>
   );
 }
 

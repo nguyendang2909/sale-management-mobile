@@ -16,6 +16,7 @@ import {
 import { EditInfoLocationScreen } from 'src/screens/Me/EditInfoLocationScreen';
 import { LikedMeScreen } from 'src/screens/Me/LikedMeScreen';
 import { ProfileSettingScreen } from 'src/screens/Me/ProfileSettingScreen';
+import { CreateOrder } from 'src/screens/order-create/create-order.screen';
 import { MainScreen } from 'src/screens/Pre/MainScreen';
 import { CreateProduct } from 'src/screens/product-create/create-product';
 import { ProductDetailScreen } from 'src/screens/product-detail/product-detail';
@@ -37,6 +38,7 @@ export const MainStack: React.FC = () => {
           navigationBarColor: colors.background,
         }}
         initialRouteName={SCREENS.Main}
+        // initialRouteName={SCREENS.CREATE_ORDER}
       >
         <Stack.Group>
           <Stack.Screen name={SCREENS.Main} component={MainScreen} />
@@ -63,7 +65,7 @@ export const MainStack: React.FC = () => {
           <Stack.Screen name={SCREENS.PRODUCT_DETAIL} component={ProductDetailScreen} />
 
           {/* Order */}
-          <Stack.Screen name={SCREENS.CREATE_ORDER} component={CreateProduct} />
+          <Stack.Screen name={SCREENS.CREATE_ORDER} component={CreateOrder} />
         </Stack.Group>
 
         <Stack.Group

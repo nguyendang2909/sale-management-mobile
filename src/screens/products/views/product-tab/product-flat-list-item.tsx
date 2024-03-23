@@ -24,16 +24,8 @@ export const ProductFlatListItem: FC<FCProps> = ({ product }) => {
     <Pressable onPress={handlePress}>
       {({ pressed }) => {
         return (
-          <View
-            borderWidth={1}
-            borderRadius={8}
-            borderColor="$coolGray200"
-            p={8}
-            bg={pressed ? '$coolGray200' : '$white'}
-            mx={16}
-            mb={16}
-          >
-            <HStack columnGap={8}>
+          <View bg={pressed ? '$coolGray200' : '$white'} px={16}>
+            <HStack columnGap={8} borderBottomWidth={1} borderColor="$coolGray200" py={8}>
               <View>
                 <ProductIconBox url={imagePath} />
               </View>

@@ -1,5 +1,6 @@
-import { Text, View } from '@gluestack-ui/themed';
-import React, { ReactElement } from 'react';
+import { HStack, Icon, Text, View } from '@gluestack-ui/themed';
+import { ChevronLeft } from 'lucide-react-native';
+import React, { FC, ReactElement } from 'react';
 import {
   StyleProp,
   TextStyle,
@@ -13,7 +14,6 @@ import { TxKey } from 'src/types';
 
 import { colors, spacing } from '../../theme';
 import { ExtendedEdge, useSafeAreaInsetsStyle } from '../../utils/useSafeAreaInsetsStyle';
-import { BaseIcon, IconTypes } from '../icon/base-icon';
 
 export interface HeaderProps {
   titleMode?: 'center' | 'flex';
@@ -24,13 +24,13 @@ export interface HeaderProps {
   backgroundColor?: string;
   title?: string;
   titleTx?: TxKey;
-  leftIcon?: IconTypes;
+  leftIcon?: FC;
   leftIconColor?: string;
   leftText?: string;
   leftTx?: TxKey;
   LeftActionComponent?: ReactElement;
   onLeftPress?: TouchableOpacityProps['onPress'];
-  rightIcon?: IconTypes;
+  rightIcon?: FC;
   rightIconColor?: string;
   rightText?: string;
   rightTx?: TxKey;
@@ -41,7 +41,7 @@ export interface HeaderProps {
 
 interface HeaderActionProps {
   backgroundColor?: string;
-  icon?: IconTypes;
+  icon?: FC;
   iconColor?: string;
   text?: string;
   tx?: TxKey;
@@ -143,7 +143,6 @@ function HeaderAction(props: HeaderActionProps) {
     // txOptions,
     onPress,
     ActionComponent,
-    iconColor,
   } = props;
 
   const { formatMessage } = useMessages();
@@ -152,30 +151,27 @@ function HeaderAction(props: HeaderActionProps) {
 
   if (ActionComponent) return ActionComponent;
 
-  if (content) {
-    return (
-      <TouchableOpacity
-        style={[$actionTextContainer, { backgroundColor }]}
-        onPress={onPress}
-        disabled={!onPress}
-        activeOpacity={0.8}
-      >
-        <Text fontWeight="$medium" size="md" style={$actionText}>
-          {content}
-        </Text>
-      </TouchableOpacity>
-    );
-  }
+  if (content || icon) {
+    const Wrapper = onPress ? TouchableOpacity : View;
 
-  if (icon) {
     return (
-      <BaseIcon
-        size={24}
-        icon={icon}
-        color={iconColor}
-        onPress={onPress}
-        containerStyle={[$actionIconContainer, { backgroundColor }]}
-      />
+      <HStack
+        height="$full"
+        justifyContent="center"
+        alignItems="center"
+        as={Wrapper}
+        {...(onPress ? { onPress } : {})}
+        pl={8}
+      >
+        <Icon as={icon || ChevronLeft} size="xl" color={onPress ? '$primary600' : '$coolGray500'} />
+        {!!content && (
+          <View style={[$actionTextContainer, { backgroundColor }]}>
+            <Text fontWeight="$medium" size="md" color={onPress ? '$primary600' : ''}>
+              {content}
+            </Text>
+          </View>
+        )}
+      </HStack>
     );
   }
 
@@ -190,21 +186,6 @@ const $actionTextContainer: ViewStyle = {
   flexGrow: 0,
   alignItems: 'center',
   justifyContent: 'center',
-  height: '100%',
-  paddingHorizontal: spacing.md,
-  zIndex: 2,
-};
-
-const $actionText: TextStyle = {
-  // color: colors.tint,
-};
-
-const $actionIconContainer: ViewStyle = {
-  flexGrow: 0,
-  alignItems: 'center',
-  justifyContent: 'center',
-  height: '100%',
-  paddingHorizontal: spacing.md,
   zIndex: 2,
 };
 

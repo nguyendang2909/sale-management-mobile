@@ -1,6 +1,7 @@
 import { View } from '@gluestack-ui/themed';
 import { ComponentProps, FC } from 'react';
 import { StyleSheet } from 'react-native';
+import FastImage from 'react-native-fast-image';
 import { CacheImage } from 'src/components';
 import { sizeUtil } from 'src/utils/box-size.util';
 
@@ -29,9 +30,14 @@ export const ProductIconBox: FC<FCprops> = ({ url, size, ...props }) => {
       >
         <EmptyProductIcon size="xl" />
       </View>
+
       {!!url && (
         <View zIndex={10}>
-          <CacheImage style={style.image} url={url}></CacheImage>
+          <CacheImage
+            style={style.image}
+            url={url}
+            resizeMode={FastImage.resizeMode.cover}
+          ></CacheImage>
         </View>
       )}
     </View>
@@ -42,6 +48,8 @@ const style = StyleSheet.create({
   image: {
     // aspectRatio: 640 / 860,
     // borderRadius: 8,
+    height: '100%',
     width: '100%',
+    // height: 500,
   },
 });

@@ -8,9 +8,11 @@ const initialState: AppStore.Cache = {
   product: {
     searchText: '',
     sortType: PRODUCT_SORT_TYPES.CUSTOM,
+    isSearching: false,
   },
   category: {
     searchText: '',
+    isSearching: false,
   },
 };
 
@@ -18,14 +20,37 @@ export const cacheSlice = createSlice({
   name: 'cache',
   initialState,
   reducers: {
+    // Products
     setProductSearchText: (state, { payload }: PayloadAction<string>) => {
-      state.product.searchText = payload;
+      if (state.product.searchText !== payload) {
+        state.product.searchText = payload;
+      }
+    },
+    setSearchProducts: (state, { payload }: PayloadAction<boolean>) => {
+      if (state.product.isSearching !== payload) {
+        state.product.isSearching = payload;
+      }
+      if (!payload && state.product.searchText) {
+        state.product.searchText = '';
+      }
     },
     setProductSortType: (state, { payload }: PayloadAction<ProductSortType>) => {
       state.product.sortType = payload;
     },
+
+    // Categories
     setCategorySearchText: (state, { payload }: PayloadAction<string>) => {
-      state.category.searchText = payload;
+      if (state.category.searchText !== payload) {
+        state.category.searchText = payload;
+      }
+    },
+    setSearchCategories: (state, { payload }: PayloadAction<boolean>) => {
+      if (state.category.isSearching !== payload) {
+        state.category.isSearching = payload;
+      }
+      if (!payload && state.category.searchText) {
+        state.category.searchText = '';
+      }
     },
   },
   extraReducers: builder => {
@@ -33,6 +58,11 @@ export const cacheSlice = createSlice({
       state.product = {
         searchText: '',
         sortType: PRODUCT_SORT_TYPES.CUSTOM,
+        isSearching: false,
+      };
+      state.category = {
+        searchText: '',
+        isSearching: false,
       };
     });
   },
@@ -40,6 +70,12 @@ export const cacheSlice = createSlice({
 
 export const cacheActions = cacheSlice.actions;
 
-export const { setProductSearchText, setProductSortType, setCategorySearchText } = cacheActions;
+export const {
+  setSearchProducts,
+  setProductSearchText,
+  setProductSortType,
+  setCategorySearchText,
+  setSearchCategories,
+} = cacheActions;
 
 export const cacheReducer = cacheSlice.reducer;

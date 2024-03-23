@@ -1,22 +1,14 @@
 import { View } from '@gluestack-ui/themed';
 import { FlashList } from '@shopify/flash-list';
-import { useMemo } from 'react';
-import { useAppSelector } from 'src/hooks';
+import { useSearchProducts } from 'src/hooks';
 import { useProducts } from 'src/hooks/use-products';
 import { AppStore } from 'src/types';
-import { productUtil } from 'src/utils/product.util';
 
 import { ProductFlatListItem } from './product-flat-list-item';
 
 export const ProductsFlatList = () => {
-  const { data, isFetching: isFetchingProducts, refetch: refetchProducts } = useProducts();
-  const searchText = useAppSelector(s => s.cache.product.searchText);
-  const sortBy = useAppSelector(s => s.cache.product.sortType);
-
-  const products = useMemo(
-    () => productUtil.filter(data, { searchText, sortBy }),
-    [data, searchText, sortBy],
-  );
+  const { isFetching: isFetchingProducts, refetch: refetchProducts } = useProducts();
+  const { data: products } = useSearchProducts();
 
   return (
     <View flex={1}>
