@@ -19,7 +19,11 @@ export const HomeNavigator: FC<FCProps> = () => {
 
   const { bottom } = useSafeAreaInsets();
 
-  const screens = [BOTTOM_NAVIGATOR_NAMES.PRODUCT, BOTTOM_NAVIGATOR_NAMES.CUSTOMER];
+  const screens = [
+    BOTTOM_NAVIGATOR_NAMES.PRODUCT,
+    BOTTOM_NAVIGATOR_NAMES.CUSTOMER,
+    BOTTOM_NAVIGATOR_NAMES.ORDER,
+  ];
 
   const navigators = [
     ...DEFAULT_NAVIGATOR,
@@ -62,7 +66,12 @@ export const HomeNavigator: FC<FCProps> = () => {
                 // tabBarShowLabel: true,
                 tabBarLabel: e.title,
                 tabBarIcon: ({ focused }) => (
-                  <Icon as={ItemIcon} width={20} height={20} fill="$blue700" />
+                  <Icon
+                    as={ItemIcon}
+                    width={20}
+                    height={20}
+                    fill={focused ? '$blue700' : '$coolGray500'}
+                  />
                 ),
               }}
             ></Tab.Screen>

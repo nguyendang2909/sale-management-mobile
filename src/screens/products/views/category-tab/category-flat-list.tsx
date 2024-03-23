@@ -27,6 +27,7 @@ export const CategoryFlatList = () => {
           <CategoryFlatListItem category={item} />
         )}
         estimatedItemSize={1}
+        ListFooterComponent={<View height={100}></View>}
       ></FlashList>
     </View>
   );

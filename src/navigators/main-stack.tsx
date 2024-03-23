@@ -61,6 +61,9 @@ export const MainStack: React.FC = () => {
           {/* Product */}
           <Stack.Screen name={SCREENS.CREATE_PRODUCT} component={CreateProduct} />
           <Stack.Screen name={SCREENS.PRODUCT_DETAIL} component={ProductDetailScreen} />
+
+          {/* Order */}
+          <Stack.Screen name={SCREENS.CREATE_ORDER} component={CreateProduct} />
         </Stack.Group>
 
         <Stack.Group
