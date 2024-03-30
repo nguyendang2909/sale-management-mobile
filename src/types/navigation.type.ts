@@ -68,6 +68,7 @@ export type AppStackParamList = {
     detail: AppStore.Product;
   };
   CREATE_ORDER: undefined;
+  PRODUCT_SETTING: undefined;
 };
 
 export type AppStackScreenProps<T extends keyof AppStackParamList> = NativeStackScreenProps<

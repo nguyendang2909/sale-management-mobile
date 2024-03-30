@@ -1,6 +1,6 @@
 import { Image } from 'react-native-image-crop-picker';
 
-import { Gender, RelationshipGoal, StockTrackingMethod } from './data.type';
+import { Gender, RelationshipGoal } from './data.type';
 import { Entity } from './entities.type';
 import { ApiRequest } from './fe.type';
 
@@ -18,41 +18,41 @@ export declare namespace FormParams {
   };
 
   type CreateProduct = {
-    title: string;
-    price?: number;
-    capitalPrice?: number;
-    promotionalPrice?: number;
-    wholesalePrice?: number;
-    minWholesalePriceQuantity?: number;
-    sku?: string;
-    barcode?: string;
-    isTrackingStock?: StockTrackingMethod;
-    isInStock?: boolean;
-    stock?: number;
-    description?: string;
-    label?: string;
-    unit?: string;
     createMore: boolean;
-    categoryIds: string[];
+    title: string;
+    price: number | null;
+    capitalPrice: number | null;
+    promotionalPrice: number | null;
+    wholesalePrice: number | null;
+    minWholesalePriceQuantity: number | null;
+    sku: string;
+    barcode: string;
+    isTrackingStock: boolean;
+    isInStock: boolean;
+    inventory: number | null;
+    description: string;
+    label: string;
+    unit: string;
+    categories: Entity.Category[];
     images: Entity.ProductImage[];
   };
 
   type UpdateProduct = {
     title: string;
-    price: number;
-    capitalPrice?: number;
-    promotionalPrice?: number;
-    wholesalePrice?: number;
-    minWholesalePriceQuantity?: number;
-    sku?: string;
-    barcode?: string;
-    isTrackingStock?: StockTrackingMethod;
-    isInStock?: boolean;
-    stock?: number;
-    description?: string;
-    label?: string;
-    unit?: string;
-    categoryIds: string[];
+    price: number | null;
+    capitalPrice: number | null;
+    promotionalPrice: number | null;
+    wholesalePrice: number | null;
+    minWholesalePriceQuantity: number | null;
+    sku: string;
+    barcode: string;
+    isTrackingStock: boolean;
+    isInStock: boolean;
+    inventory: number | null;
+    description: string;
+    label: string;
+    unit: string;
+    categories: Entity.Category[];
     images: Entity.ProductImage[];
   };
 

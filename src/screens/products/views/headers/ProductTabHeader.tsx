@@ -3,7 +3,7 @@ import { SortAscIcon } from 'lucide-react-native';
 import { Header } from 'src/components';
 import { PRODUCT_SORT_TYPE_DATA } from 'src/constants';
 import { IconButtonSearchProducts } from 'src/containers/icon-button/icon-button-search-products';
-import { SearchInputProducts } from 'src/containers/Input/SearchInputProducts';
+import { SearchInputProducts } from 'src/containers/Input/search-input-products';
 import { useAppDispatch } from 'src/hooks';
 import { setProductSortType } from 'src/store/cache';
 import { ProductSortType } from 'src/types';

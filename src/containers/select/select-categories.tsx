@@ -6,8 +6,8 @@ import { SelectCategoryCheckbox } from './select-category-item';
 
 type FCProps = {
   categories: AppStore.Category[];
-  setCategory: (id: string, value: boolean) => void;
-  value: string[];
+  setCategory: (category: AppStore.Category) => void;
+  value: AppStore.Category[];
 };
 
 export const SelectCategoriesCheckbox: FC<FCProps> = ({ categories, value, setCategory }) => {
@@ -24,7 +24,7 @@ export const SelectCategoriesCheckbox: FC<FCProps> = ({ categories, value, setCa
             key={category.id}
             category={category}
             setCategory={setCategory}
-            value={value.includes(category.id)}
+            value={!!value.find(e => e.id === category.id)}
           />
         );
       })}

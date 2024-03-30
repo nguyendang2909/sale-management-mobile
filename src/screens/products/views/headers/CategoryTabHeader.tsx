@@ -1,7 +1,7 @@
 import { View } from '@gluestack-ui/themed';
 import { Header } from 'src/components';
 import { IconButtonSearchCategories } from 'src/containers/icon-button/icon-button-search-categories';
-import { SearchInputCategories } from 'src/containers/Input/SearchInputCategories';
+import { SearchInputCategories } from 'src/containers/Input/search-input-categories';
 
 export const CategoryTabHeader = () => {
   return (

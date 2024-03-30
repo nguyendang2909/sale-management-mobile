@@ -1,3 +1,4 @@
+export * from './create-product-form.util';
 export * from './media-files.util';
 export * from './price.util';
 export * from './scroll.util';

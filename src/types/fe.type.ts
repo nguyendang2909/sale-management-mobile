@@ -1,6 +1,8 @@
 import { Image } from 'react-native-image-crop-picker';
+import { PRODUCT_SETTINGS } from 'src/constants/constants';
 
-import { AuthGrantType, DevicePlatform } from './data.type';
+import { AppStore } from './app-store.type';
+import { AuthGrantType, DevicePlatform, OrderStatus } from './data.type';
 import { Entity } from './entities.type';
 
 export declare namespace ApiRequest {
@@ -97,12 +99,12 @@ export declare namespace ApiRequest {
     minWholesalePriceQuantity?: number;
     sku?: string;
     barcode?: string;
-    stockTrackingMethod?: StockTrackingMethod;
     isInStock?: boolean;
     stock?: number;
     description?: string;
     label?: string;
     unit?: string;
+    categoryIds?: string[];
   };
 
   type UpdateProduct = {};
@@ -125,13 +127,13 @@ export declare namespace ApiRequest {
     searchText?: string;
   };
 
-  type CreateOrderItem = {};
+  type CreateOrderItem = { productId: string; quantity: number };
 
   type CreateOrder = {
     status: OrderStatus;
     paymentMethod?: string;
     deliveryMethod?: string;
-    items: { productId: string }[];
+    items: CreateOrderItem[];
   };
 
   type SendView = {
@@ -166,6 +168,17 @@ export declare namespace ApiRequest {
     deviceToken: string;
     devicePlatform: DevicePlatform;
   };
+
+  type UpdateSettings = Partial<{
+    showTrackingStockNotification?: boolean;
+    showCreateProductImage?: boolean;
+    showCreateProductUnit?: boolean;
+    showCreateProductDescription: boolean;
+    showCreateProductPromotionPrice: boolean;
+    showCreateProductWholesalePrice: boolean;
+    showCreateProductTrackingStock: boolean;
+    showCreateProductBarcode: boolean;
+  }>;
 }
 
 export declare namespace ApiResponse {
@@ -241,3 +254,16 @@ export declare namespace ApiResponse {
     _matchId: string;
   };
 }
+
+export type ProductSettingKey = keyof Pick<
+  AppStore.Setting,
+  | 'showCreateProductBarcode'
+  | 'showCreateProductImage'
+  | 'showCreateProductDescription'
+  | 'showCreateProductPromotionPrice'
+  // | 'showCreateProductTrackingStock'
+  | 'showCreateProductUnit'
+  // | 'showCreateProductWholesalePrice'
+>;
+
+export type ProductSetting = (typeof PRODUCT_SETTINGS)[keyof typeof PRODUCT_SETTINGS];

@@ -1,7 +1,7 @@
+import { FormControlLabelText, HStack, Icon, Switch, View } from '@gluestack-ui/themed';
+import React from 'react';
 import { useMessages } from 'src/hooks';
 import { TxKey } from 'src/types';
-import { HStack, Icon, Switch, Text, View } from 'native-base';
-import React from 'react';
 
 type FCProps = {
   title?: string;
@@ -21,7 +21,7 @@ export const MenuItemSwitch: React.FC<FCProps> = ({
   const { formatMessage } = useMessages();
 
   return (
-    <View px={4} py={2}>
+    <View py={8}>
       <HStack alignItems="center">
         {!!leftIcon && (
           <View mr={2}>
@@ -31,7 +31,9 @@ export const MenuItemSwitch: React.FC<FCProps> = ({
 
         {(!!title || !!titleTx) && (
           <View>
-            <Text>{title || (!!titleTx && formatMessage(titleTx))}</Text>
+            <FormControlLabelText>
+              {title || (!!titleTx && formatMessage(titleTx))}
+            </FormControlLabelText>
           </View>
         )}
 

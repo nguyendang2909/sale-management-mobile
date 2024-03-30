@@ -5,6 +5,8 @@
 //   phD = 'phD',
 // }
 
+import { ProductSettingKey } from 'src/types';
+
 export const DATE_FORMATS = {
   DATE: 'YYYY-MM-DD',
 };
@@ -88,3 +90,84 @@ export const PRODUCT_SORT_TYPES = {
   OLDEST: 'oldest',
   CUSTOM: 'custom',
 } as const;
+
+export const PRODUCT_SETTINGS: Record<
+  ProductSettingKey,
+  {
+    id: ProductSettingKey;
+    title: string;
+    description: string;
+  }
+> = {
+  showCreateProductImage: {
+    id: 'showCreateProductImage',
+    title: 'Ảnh sản phẩm',
+    description: 'Quản lý ảnh sản phẩm',
+  },
+  showCreateProductUnit: {
+    id: 'showCreateProductUnit',
+    title: 'Đơn vị sản phẩm',
+    description: 'Quản lý đơn vị sản phẩm (lốc, lon ...)',
+  },
+  showCreateProductDescription: {
+    id: 'showCreateProductDescription',
+    title: 'Mô tả sản phẩm',
+    description: 'Quản lý mô tả sản phẩm',
+  },
+  showCreateProductPromotionPrice: {
+    id: 'showCreateProductPromotionPrice',
+    title: 'Giá khuyến mãi',
+    description: 'Quản lý giá khuyến mãi',
+  },
+  // showCreateProductWholesalePrice: {
+  //   id: 'showCreateProductWholesalePrice',
+  //   title: 'Giá sỉ',
+  //   description: 'Quản lý giá sỉ',
+  // },
+  // showCreateProductTrackingStock: {
+  //   id: 'showCreateProductTrackingStock',
+  //   title: 'Theo dõi tồn kho',
+  //   description: 'Quản lý số lượng sản phẩm',
+  // },
+  showCreateProductBarcode: {
+    id: 'showCreateProductBarcode',
+    title: 'Mã vạch',
+    description: 'Quản lý mã vạch',
+  },
+} as const;
+
+export const ARR_PRODUCT_SETTINGS = Object.values(PRODUCT_SETTINGS);
+
+export const PRODUCT_GENERAL_SETTINGS = {
+  id: 'general_settings',
+  title: 'Thông tin chung',
+  menu: [
+    PRODUCT_SETTINGS.showCreateProductImage,
+    PRODUCT_SETTINGS.showCreateProductUnit,
+    PRODUCT_SETTINGS.showCreateProductDescription,
+  ],
+};
+
+export const PRODUCT_PRICE_SETTINGS = {
+  id: 'price_settings',
+  title: 'Giá sản phẩm',
+  menu: [
+    PRODUCT_SETTINGS.showCreateProductPromotionPrice,
+    // PRODUCT_SETTINGS.showCreateProductWholesalePrice,
+  ],
+};
+
+export const PRODUCT_INVENTORY_SETTINGS = {
+  id: 'inventory_settings',
+  title: 'Tồn kho',
+  menu: [
+    // PRODUCT_SETTINGS.showCreateProductTrackingStock,
+    PRODUCT_SETTINGS.showCreateProductBarcode,
+  ],
+};
+
+export const PRODUCT_SETTING_MENU = [
+  PRODUCT_GENERAL_SETTINGS,
+  PRODUCT_PRICE_SETTINGS,
+  PRODUCT_INVENTORY_SETTINGS,
+];

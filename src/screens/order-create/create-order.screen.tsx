@@ -1,7 +1,6 @@
-import { StatusBar, View } from '@gluestack-ui/themed';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { StatusBar } from '@gluestack-ui/themed';
 
-import { CreateOrderPickProducts } from './views/form/create-order-pick-products';
+import { PickProducts } from './views/form/pick-product-list';
 import { CreateOrderHeader } from './views/header/create-order-header';
 
 export const CreateOrder = () => {
@@ -10,11 +9,7 @@ export const CreateOrder = () => {
       <StatusBar barStyle="default" />
       <CreateOrderHeader />
 
-      {/* 
-      //@ts-ignore */}
-      <View as={SafeAreaView} edges={['bottom']} flex={1}>
-        <CreateOrderPickProducts />
-      </View>
+      <PickProducts />
     </>
   );
 };

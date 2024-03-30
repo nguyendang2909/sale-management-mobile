@@ -30,17 +30,17 @@ const productApi = api.injectEndpoints({
     }),
 
     fetchProduct: builder.query<ApiResponse.Product, string>({
-      query: () => ({
-        url: API_ENDPOINTS.PRODUCTS.INDEX,
+      query: id => ({
+        url: API_ENDPOINTS.PRODUCTS.INDEX + '/' + id,
         method: API_METHODS.GET,
       }),
     }),
 
-    updateProduct: builder.mutation<void, { id: string; payload: ApiRequest.UpdateProduct }>({
-      query: params => ({
-        url: API_ENDPOINTS.PRODUCTS.INDEX,
-        method: API_METHODS.PUT,
-        params,
+    updateProduct: builder.mutation<void, { id: string; body: ApiRequest.UpdateProduct }>({
+      query: ({ id, body }) => ({
+        url: API_ENDPOINTS.PRODUCTS.INDEX + '/' + id,
+        method: API_METHODS.PATCH,
+        body,
       }),
     }),
 

@@ -1,6 +1,6 @@
 import { API_ENDPOINTS } from 'src/config';
 import { API_METHODS } from 'src/constants/constants';
-import { ApiResponse } from 'src/types';
+import { ApiRequest, ApiResponse } from 'src/types';
 
 import { api } from './api';
 
@@ -12,7 +12,18 @@ const usersApi = api.injectEndpoints({
         method: API_METHODS.GET,
       }),
     }),
+    updateSettings: builder.mutation<ApiResponse.Setting, ApiRequest.UpdateSettings>({
+      query: body => ({
+        url: API_ENDPOINTS.ME.SETTINGS,
+        method: API_METHODS.PATCH,
+        body,
+      }),
+    }),
   }),
 });
 
-export const { endpoints: settingEndpoints, useFetchSettingsQuery } = usersApi;
+export const {
+  endpoints: settingEndpoints,
+  useFetchSettingsQuery,
+  useUpdateSettingsMutation,
+} = usersApi;

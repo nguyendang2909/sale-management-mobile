@@ -20,6 +20,7 @@ import { CreateOrder } from 'src/screens/order-create/create-order.screen';
 import { MainScreen } from 'src/screens/Pre/MainScreen';
 import { CreateProduct } from 'src/screens/product-create/create-product';
 import { ProductDetailScreen } from 'src/screens/product-detail/product-detail';
+import { ProductSettingScreen } from 'src/screens/product-setting/product-setting.screen';
 import { LikedMeProfileScreen } from 'src/screens/Star/LikedMeProfileScreen';
 import { SubjectScreen } from 'src/screens/subjects/subject-screen';
 import { colors } from 'src/theme';
@@ -36,6 +37,7 @@ export const MainStack: React.FC = () => {
         screenOptions={{
           headerShown: false,
           navigationBarColor: colors.background,
+          orientation: 'portrait',
         }}
         initialRouteName={SCREENS.Main}
         // initialRouteName={SCREENS.CREATE_ORDER}
@@ -63,6 +65,7 @@ export const MainStack: React.FC = () => {
           {/* Product */}
           <Stack.Screen name={SCREENS.CREATE_PRODUCT} component={CreateProduct} />
           <Stack.Screen name={SCREENS.PRODUCT_DETAIL} component={ProductDetailScreen} />
+          <Stack.Screen name={SCREENS.PRODUCT_SETTING} component={ProductSettingScreen} />
 
           {/* Order */}
           <Stack.Screen name={SCREENS.CREATE_ORDER} component={CreateOrder} />

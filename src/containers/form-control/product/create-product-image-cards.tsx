@@ -5,7 +5,7 @@ import { Platform } from 'react-native';
 import ImageCropPicker from 'react-native-image-crop-picker';
 import { check, PERMISSIONS, request, RESULTS } from 'react-native-permissions';
 import Toast from 'react-native-toast-message';
-import { useDeleteProductImageMutation, useUploadProductImageMutation } from 'src/api';
+import { useUploadProductImageMutation } from 'src/api';
 import { useMessages } from 'src/hooks';
 import { Entity } from 'src/types';
 
@@ -15,13 +15,12 @@ import { ProductImageCard } from './product-image-card';
 type FCProps = {
   images: Entity.ProductImage[];
   addImage: (image: Entity.ProductImage) => void;
-  deleteImage: (id: string) => void;
+  deleteImage: (image: Entity.ProductImage) => void;
 };
 
 export const CreateProductImageCards: React.FC<FCProps> = ({ images, addImage, deleteImage }) => {
   const { formatMessage, formatErrorMessage } = useMessages();
   const [uploadProductImage] = useUploadProductImageMutation();
-  const [deleteProductImage] = useDeleteProductImageMutation();
   const [isLoading, setLoading] = useState<boolean>(false);
 
   const { showActionSheetWithOptions } = useActionSheet();
@@ -44,7 +43,7 @@ export const CreateProductImageCards: React.FC<FCProps> = ({ images, addImage, d
     );
   };
 
-  const handlePressUploadedImage = (id: string) => {
+  const handlePressUploadedImage = (image: Entity.ProductImage) => {
     showActionSheetWithOptions(
       {
         showSeparators: true,
@@ -55,7 +54,7 @@ export const CreateProductImageCards: React.FC<FCProps> = ({ images, addImage, d
       selectedIndex => {
         switch (selectedIndex) {
           case 0:
-            deleteImage(id);
+            deleteImage(image);
             break;
         }
       },

@@ -21,8 +21,8 @@ import { SelectCategoriesCheckbox } from '../select/select-categories';
 
 type FCProps = {
   categories: AppStore.Category[];
-  setCategory: (id: string, value: boolean) => void;
-  value: string[];
+  setCategory: (e: AppStore.Category) => void;
+  value: AppStore.Category[];
   onOpenCreateCategory: () => void;
 };
 

@@ -5,13 +5,13 @@ import { aspectRatio, backgroundColor, borderColor, borderRadius } from 'src/sty
 import { Entity } from 'src/types';
 
 type FCProps = {
-  onPress: (id: string) => void;
+  onPress: (image: Entity.ProductImage) => void;
   image: Entity.ProductImage;
 };
 
 export const ProductImageCard: React.FC<FCProps> = ({ onPress, image }) => {
   const handlePress = () => {
-    onPress(image.id);
+    onPress(image);
   };
 
   return (

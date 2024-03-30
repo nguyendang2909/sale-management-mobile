@@ -11,7 +11,6 @@ export declare namespace Entity {
   type MediaFile = BaseEntity & {
     key: string;
     location: string;
-    type: MediaFileType;
   };
 
   type User = BaseEntity & {
@@ -98,14 +97,14 @@ export declare namespace Entity {
       isInStock?: boolean;
       sku?: string;
       barcode?: string;
-      stock?: number;
+      inventory?: number;
       isTrackingStock?: boolean;
       description?: string;
       label?: string;
-      imagePaths?: string[];
       productsCategories?: ProductCategory[];
       categories?: Category[];
       images: ProductImage[];
+      imagePaths: ProductImage[];
       unit: string;
     }>;
 
@@ -177,8 +176,8 @@ export declare namespace Entity {
       showCreateProductUnit: boolean;
       showCreateProductDescription: boolean;
       showCreateProductPromotionPrice: boolean;
-      showCreateProductWholesalePrice: boolean;
-      showCreateProductTrackingStock: boolean;
+      // showCreateProductWholesalePrice: boolean;
+      // showCreateProductTrackingStock: boolean;
       showCreateProductBarcode: boolean;
     }>;
 }

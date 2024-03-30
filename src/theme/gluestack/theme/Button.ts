@@ -510,6 +510,20 @@ export const Button = createStyle({
     },
 
     size: {
+      xxsRounded: {
+        px: '$2',
+        h: '$2',
+        _icon: {
+          props: {
+            size: 'xs',
+          },
+        },
+        _text: {
+          props: {
+            size: 'xs',
+          },
+        },
+      },
       xs: {
         px: '$3.5',
         h: '$8',

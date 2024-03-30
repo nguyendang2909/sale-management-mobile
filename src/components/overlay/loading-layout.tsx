@@ -11,7 +11,7 @@ export const LoadingLayout: FC<FCProps> = ({ isLoading }) => {
   }
   return (
     <View
-      zIndex={999}
+      zIndex={10}
       position="absolute"
       height="$full"
       width="$full"

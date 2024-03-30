@@ -9,18 +9,20 @@ import {
   ScrollView,
   View,
 } from '@gluestack-ui/themed';
+import { Menu } from 'lucide-react-native';
 import { FormControl } from 'native-base';
 import { FC } from 'react';
 import { TouchableOpacity } from 'react-native';
-import { FontAwesome, MaterialIcons } from 'src/components';
+import { FontAwesome } from 'src/components';
 import { SelectCategoriesActionsheetContent } from 'src/containers/actionsheet/select-category-item';
 import { CreateCategoryModal } from 'src/containers/Modal/create-category-modal';
 import { SelectCategoriesCheckbox } from 'src/containers/select/select-categories';
 import { useAppSelector, useDisclose } from 'src/hooks';
+import { AppStore } from 'src/types';
 
 type FCProps = {
-  value: string[];
-  setCategory: (categoryId: string, value: boolean) => void;
+  value: AppStore.Category[];
+  setCategory: (category: AppStore.Category) => void;
 };
 
 export const CreateProductCategoryFormControl: FC<FCProps> = ({ value, setCategory }) => {
@@ -53,9 +55,7 @@ export const CreateProductCategoryFormControl: FC<FCProps> = ({ value, setCatego
             <View flexDirection="row" alignItems="center" columnGap={8} rowGap={8} py={16}>
               <View>
                 <TouchableOpacity onPress={handlePressCategoryNavMenu}>
-                  {/* 
-                            //@ts-ignore */}
-                  <Icon as={MaterialIcons} name="menu" size="xl" />
+                  <Icon as={Menu} size="xl" />
                 </TouchableOpacity>
               </View>
               <View>

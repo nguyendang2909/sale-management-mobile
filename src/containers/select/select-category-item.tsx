@@ -4,14 +4,14 @@ import { AppStore } from 'src/types';
 
 type FCProps = {
   category: AppStore.Category;
-  setCategory: (id: string, value: boolean) => void;
+  setCategory: (category: AppStore.Category) => void;
   value: boolean;
 };
 
 export const SelectCategoryCheckbox: FC<FCProps> = ({ category, setCategory, value }) => {
   const handlePress = useCallback(() => {
-    setCategory(category.id, !value);
-  }, [category.id, setCategory, value]);
+    setCategory(category);
+  }, [category, setCategory]);
 
   return (
     <>

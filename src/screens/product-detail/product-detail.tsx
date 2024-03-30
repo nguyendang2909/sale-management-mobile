@@ -19,4 +19,4 @@ export const ProductDetailScreen: FC<FCProps> = props => {
       </View>
     </>
   );
-}
+};

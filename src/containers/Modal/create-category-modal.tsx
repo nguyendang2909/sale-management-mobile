@@ -1,4 +1,4 @@
-import { Button, ButtonText, View } from '@gluestack-ui/themed';
+import { Button, ButtonText, CloseIcon, View } from '@gluestack-ui/themed';
 import { useFormik } from 'formik';
 import { FC } from 'react';
 import { Modal } from 'react-native';
@@ -46,7 +46,7 @@ export const CreateCategoryModal: FC<FCProps> = ({ onClose, isVisible }) => {
     <Modal animationType="slide" visible={isVisible}>
       <View flex={1}>
         <Header
-          leftIcon="x"
+          leftIcon={CloseIcon}
           onLeftPress={onClose}
           title="Tạo danh mục"
           RightActionComponent={

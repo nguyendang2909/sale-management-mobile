@@ -26,10 +26,6 @@ export const FormControlSwitch: FC<FCProps> = ({
 }) => {
   const { formatMessage } = useMessages();
 
-  const handleValueChange = (e: boolean) => {
-    setValue(e);
-  };
-
   return (
     <FormControl flexDirection="row" justifyContent="space-between">
       <FormControlLabel>
@@ -37,9 +33,10 @@ export const FormControlSwitch: FC<FCProps> = ({
       </FormControlLabel>
       <View>
         <Switch
+          size="sm"
           value={value}
           defaultValue={defaultValue}
-          onValueChange={handleValueChange}
+          onValueChange={setValue}
         ></Switch>
       </View>
     </FormControl>

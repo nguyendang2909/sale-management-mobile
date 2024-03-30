@@ -17,7 +17,7 @@ import { MaterialIcons } from '../icon';
 
 type FCProps = {
   label: string;
-  onChange: (nickname: string) => void;
+  onChange: (e: string) => void;
   value?: string;
   error?: string;
   maxLength?: number;
@@ -25,6 +25,8 @@ type FCProps = {
   testID?: string;
   isRequired?: boolean;
   inputMode?: InputModeOptions | undefined;
+  onBlur?: () => void;
+  focusable?: boolean;
 };
 
 export const FormControlInput: React.FC<FCProps> = ({
@@ -37,6 +39,8 @@ export const FormControlInput: React.FC<FCProps> = ({
   testID,
   isRequired,
   inputMode,
+  onBlur,
+  focusable,
 }) => {
   return (
     <FormControl {...(isRequired ? { isRequired } : {})} isInvalid={!!error}>
@@ -46,11 +50,13 @@ export const FormControlInput: React.FC<FCProps> = ({
         </FormControlLabel>
         <Input size="lg" testID={testID} variant="underlined">
           <InputField
+            focusable={focusable}
             inputMode={inputMode}
             value={value}
             onChangeText={onChange}
             placeholder={placeholder}
             maxLength={maxLength}
+            onBlur={onBlur}
           ></InputField>
         </Input>
         <View pb={12}>

@@ -37,8 +37,13 @@ export const appSlice = createSlice({
       state.socket = {};
       state.settings = {};
     },
+
     setSocketConnected: state => {
       state.socket.connectedAt = moment().toDate().toISOString();
+    },
+
+    updateSettings: (state, { payload }: PayloadAction<Partial<AppStore.Setting>>) => {
+      state.settings = { ...state.settings, ...payload };
     },
   },
   extraReducers: builder => {

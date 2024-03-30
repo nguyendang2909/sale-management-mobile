@@ -21,12 +21,12 @@ const categoryApi = api.injectEndpoints({
       }),
     }),
 
-    fetchCategories: builder.query<ApiResponse.Categories, ApiRequest.FindManyCategories>({
-      query: () => ({
-        url: API_ENDPOINTS.CATEGORIES.INDEX,
-        method: API_METHODS.GET,
-      }),
-    }),
+    // fetchCategories: builder.query<ApiResponse.Categories, ApiRequest.FindManyCategories>({
+    //   query: () => ({
+    //     url: API_ENDPOINTS.CATEGORIES.INDEX,
+    //     method: API_METHODS.GET,
+    //   }),
+    // }),
 
     fetchCategory: builder.query<ApiResponse.Category, string>({
       query: () => ({
@@ -55,7 +55,7 @@ const categoryApi = api.injectEndpoints({
 export const {
   useCreateCategoryMutation,
   useFetchAllCategoriesQuery,
-  useFetchCategoriesQuery,
+  // useFetchCategoriesQuery,
   useLazyFetchAllCategoriesQuery,
   useFetchCategoryQuery,
   useUpdateCategoryMutation,
