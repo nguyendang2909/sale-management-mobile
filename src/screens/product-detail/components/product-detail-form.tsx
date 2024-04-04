@@ -7,6 +7,7 @@ import { Platform } from 'react-native';
 import Toast from 'react-native-toast-message';
 import { useDeleteProductMutation, useUpdateProductMutation } from 'src/api';
 import { LoadingScreen } from 'src/components/screen/loading-screen';
+import { HOME_SCREENS } from 'src/constants';
 import { FormControlProductAdditional } from 'src/containers/form-control/product/form-control-product-additonal';
 import { FormControlProductCapitalPrice } from 'src/containers/form-control/product/form-control-product-capital-price';
 import { FormControlProductCategories } from 'src/containers/form-control/product/form-control-product-categories';
@@ -158,6 +159,7 @@ export const ProductDetailForm: FC<FCProps> = ({ detail }) => {
       await updateProductMutation({ id: product.id, body }).unwrap();
       await refetchProduct();
       Toast.show({ text1: 'Cập nhật sản phẩm thành công', type: 'success' });
+      navigation.navigate(HOME_SCREENS.PRODUCT);
     } catch (error) {
       Toast.show({
         text1: formatErrorMessage(error),

@@ -13,7 +13,8 @@ type FCProps = {
 
 export const ProductFlatListItem: FC<FCProps> = ({ product }) => {
   const imagePath = _.first(product.imagePaths);
-  // console.log(product.imagePaths);
+
+  console.log(111, imagePath);
 
   const navigation = useNavigation();
   const handlePress = () => {
@@ -27,7 +28,7 @@ export const ProductFlatListItem: FC<FCProps> = ({ product }) => {
           <View bg={pressed ? '$coolGray200' : '$white'} px={16}>
             <HStack columnGap={8} borderBottomWidth={1} borderColor="$coolGray200" py={8}>
               <View>
-                <ProductIconBox url={imagePath} />
+                <ProductIconBox url={imagePath?.path} />
               </View>
               <VStack>
                 <View height={22}>
