@@ -1,30 +1,27 @@
-import {
-  FormControl,
-  FormControlLabel,
-  FormControlLabelText,
-  Heading,
-  Icon,
-  KeyboardAvoidingView,
-  ScrollView,
-  Switch,
-  View,
-} from '@gluestack-ui/themed';
+import { KeyboardAvoidingView, ScrollView, Text, View } from '@gluestack-ui/themed';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { StackActions, useNavigation } from '@react-navigation/native';
-import { Settings } from 'lucide-react-native';
-import React, { FC, useCallback, useEffect, useMemo, useState } from 'react';
-import { Controller, SubmitHandler, useForm } from 'react-hook-form';
+import { useNavigation } from '@react-navigation/native';
+import React, { FC, useEffect, useMemo, useState } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { Platform } from 'react-native';
 import Toast from 'react-native-toast-message';
 import { useDeleteProductMutation, useUpdateProductMutation } from 'src/api';
-import { FormControlInput, FormControlSwitch } from 'src/components';
 import { LoadingScreen } from 'src/components/screen/loading-screen';
-import { HOME_SCREENS, SCREENS } from 'src/constants';
+import { FormControlProductAdditional } from 'src/containers/form-control/product/form-control-product-additonal';
+import { FormControlProductCapitalPrice } from 'src/containers/form-control/product/form-control-product-capital-price';
+import { FormControlProductCategories } from 'src/containers/form-control/product/form-control-product-categories';
+import { FormControlProductImages } from 'src/containers/form-control/product/form-control-product-images';
+import { FormControlProductInStock } from 'src/containers/form-control/product/form-control-product-in-stock';
+import { FormControlProductInventory } from 'src/containers/form-control/product/form-control-product-inventory';
+import { FormControlProductPrice } from 'src/containers/form-control/product/form-control-product-price';
+import { FormControlProductPromotionalPrice } from 'src/containers/form-control/product/form-control-product-promotional-price';
+import { FormControlProductSku } from 'src/containers/form-control/product/form-control-product-sku';
+import { FormControlProductTitle } from 'src/containers/form-control/product/form-control-product-title';
+import { FormControlProductTrackingStock } from 'src/containers/form-control/product/form-control-product-tracking-stock';
+import { FormControlProductUnit } from 'src/containers/form-control/product/form-control-product-unit';
 import { useAppDispatch, useMessages, useProduct, useSettings } from 'src/hooks';
 import { useCategories } from 'src/hooks/useCategories';
-import { CreateProductImageCards } from 'src/containers/form-control/product/create-product-image-cards';
-import { flexGrow } from 'src/styles';
-import { ApiRequest, AppStore, Entity, FormParams } from 'src/types';
+import { ApiRequest, AppStore, FormParams } from 'src/types';
 import * as Yup from 'yup';
 
 import { ProductDetailFooter } from './product-detail-footer';
@@ -34,7 +31,11 @@ type FCProps = {
 };
 export const ProductDetailForm: FC<FCProps> = ({ detail }) => {
   useCategories();
-  const { data: product, isFetching: isFetchingProduct } = useProduct({ detail });
+  const {
+    data: product,
+    isFetching: isFetchingProduct,
+    refetch: refetchProduct,
+  } = useProduct({ detail });
   const { data: settings } = useSettings();
 
   const [deleteProductMutation] = useDeleteProductMutation();
@@ -140,74 +141,27 @@ export const ProductDetailForm: FC<FCProps> = ({ detail }) => {
 
   useEffect(() => {
     if (product) {
-      reset();
+      reset(defaultValues);
     }
-  }, [reset, product]);
+  }, [defaultValues, product, reset]);
 
   const onSubmit: SubmitHandler<FormParams.UpdateProduct> = async values => {
-    console.log(111);
     try {
-      const { images, price, ...restValues } = values;
-      const payload: ApiRequest.CreateProduct = { ...restValues, price: price! };
+      const { images, price, categories, ...restValues } = values;
+      const body: ApiRequest.UpdateProduct = { ...restValues, price: price! };
       if (images?.length) {
-        payload.imageIds = images.map(e => e.id);
+        body.imageIds = images.map(e => e.id);
       }
-      await updateProductMutation({ id: product.id, payload }).unwrap();
-      navigation.dispatch(StackActions.replace(SCREENS.Home, { screen: HOME_SCREENS.PRODUCT }));
+      if (categories.length) {
+        body.categoryIds = categories.map(e => e.id);
+      }
+      await updateProductMutation({ id: product.id, body }).unwrap();
+      await refetchProduct();
+      Toast.show({ text1: 'Cập nhật sản phẩm thành công', type: 'success' });
     } catch (error) {
       Toast.show({
         text1: formatErrorMessage(error),
       });
-    }
-  };
-
-  const addImage = useCallback(
-    async (e: Entity.ProductImage) => {
-      const prevImages = getValues('images');
-      setValue('images', [...prevImages, e]);
-    },
-    [getValues, setValue],
-  );
-
-  const deleteImage = useCallback(
-    (id: string) => {
-      const prevImages = getValues('images');
-      setValue(
-        'images',
-        prevImages.filter(e => e.id !== id),
-      );
-    },
-    [getValues, setValue],
-  );
-
-  const addCategory = useCallback(
-    async (e: Entity.ProductImage) => {
-      const prevState = getValues('categories');
-      setValue('categories', [...prevState, e]);
-    },
-    [getValues, setValue],
-  );
-
-  const deleteCategory = useCallback(
-    (id: string) => {
-      const prevState = getValues('categories');
-      setValue(
-        'categories',
-        prevState.filter(e => e.id !== id),
-      );
-    },
-    [getValues, setValue],
-  );
-
-  const setCategory = (category: AppStore.Category) => {
-    const prevState = getValues('categories');
-    if (prevState.find(e => e.id === category.id)) {
-      setValue(
-        'categories',
-        prevState.filter(e => e.id !== category.id),
-      );
-    } else {
-      setValue('categories', [...prevState, category]);
     }
   };
 
@@ -218,196 +172,72 @@ export const ProductDetailForm: FC<FCProps> = ({ detail }) => {
         <View flex={1}>
           <View flex={1}>
             <View flex={1}>
-              <ScrollView style={flexGrow}>
+              <ScrollView flex={1}>
                 <View px={16} py={8} bgColor="$white" mb={16}>
-                  <View mb={16}>
-                    <Controller
-                      control={control}
-                      name="title"
-                      rules={{ required: true }}
-                      render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
-                        <FormControlInput
-                          isRequired
-                          label="Tên sản phẩm"
-                          value={value}
-                          onChange={onChange}
-                          placeholder="Ví dụ: Tương ớt Chinsu"
-                          onBlur={onBlur}
-                          error={error?.message}
-                        />
-                      )}
-                    ></Controller>
+                  <View>
+                    <FormControlProductTitle control={control} />
                   </View>
-
-                  <View mb={16}>
-                    <View>
-                      <FormControlLabel>
-                        <FormControlLabelText>Ảnh</FormControlLabelText>
-                      </FormControlLabel>
+                  {(!!settings.showCreateProductImage || !!getValues('images').length) && (
+                    <View mt={16}>
+                      <FormControlProductImages control={control} />
                     </View>
-                    <View mt={8}>
-                      <Controller
-                        control={control}
-                        name="images"
-                        rules={{ required: true }}
-                        render={({ field: { value } }) => (
-                          <CreateProductImageCards
-                            images={value}
-                            addImage={addImage}
-                            deleteImage={deleteImage}
-                          />
-                        )}
-                      ></Controller>
-                    </View>
-                  </View>
-
-                  <View mb={16}>
+                  )}
+                  <View mt={16}>
                     <View flexDirection="row" columnGap={16}>
                       <View flex={1}>
-                        <Controller
-                          control={control}
-                          name="price"
-                          rules={{ required: true }}
-                          render={({ field, fieldState }) => (
-                            <FormControlInput
-                              isRequired={true}
-                              label="Giá bán"
-                              inputMode="numeric"
-                              value={field.value?.toString()}
-                              onChange={e => {
-                                field.onChange(e ? +e : null);
-                              }}
-                              onBlur={field.onBlur}
-                              placeholder="0.0"
-                              error={fieldState.error?.message}
-                            />
-                          )}
-                        ></Controller>
+                        <FormControlProductPrice control={control} />
                       </View>
                       <View flex={1}>
-                        <Controller
-                          control={control}
-                          name="capitalPrice"
-                          rules={{ required: true }}
-                          render={({ field, fieldState }) => (
-                            <FormControlInput
-                              label="Giá vốn"
-                              inputMode="numeric"
-                              value={field.value?.toString()}
-                              onChange={e => {
-                                field.onChange(e ? +e : undefined);
-                              }}
-                              placeholder="0.0"
-                              error={fieldState.error?.message}
-                            />
-                          )}
-                        ></Controller>
+                        <FormControlProductCapitalPrice control={control} />
                       </View>
                     </View>
                   </View>
-
-                  <View mb={16}>
-                    <Controller
-                      control={control}
-                      name="promotionalPrice"
-                      rules={{ required: true }}
-                      render={({ field, fieldState }) => (
-                        <FormControlInput
-                          label="Giá khuyến mãi"
-                          inputMode="numeric"
-                          value={field.value?.toString()}
-                          onChange={e => {
-                            field.onChange(e ? +e : undefined);
-                          }}
-                          placeholder="0.0"
-                          error={fieldState.error?.message}
-                        />
-                      )}
-                    ></Controller>
-                  </View>
-
-                  <View mb={16}>
-                    <Controller
-                      control={control}
-                      name="unit"
-                      rules={{ required: true }}
-                      render={({ field, fieldState }) => (
-                        <FormControlInput
-                          label="Đơn vị"
-                          value={field.value}
-                          onChange={field.onChange}
-                          placeholder="Ví dụ: vỉ"
-                          error={fieldState.error?.message}
-                        />
-                      )}
-                    ></Controller>
-                  </View>
-
-                  <View mb={16}>
-                    {/* <Controller
-                      control={control}
-                      name="categories"
-                      rules={{ required: true }}
-                      render={({ field, fieldState }) => (
-                        <CreateProductCategoryFormControl
-                          value={field.value}
-                          setCategory={setCategoryId}
-                        />
-                      )}
-                    ></Controller> */}
+                  {(!!settings.showCreateProductPromotionPrice ||
+                    !!getValues('promotionalPrice')) && (
+                    <View mt={16}>
+                      <FormControlProductPromotionalPrice control={control} />
+                    </View>
+                  )}
+                  {(!!settings.showCreateProductUnit || !!getValues('unit')) && (
+                    <View mt={16}>
+                      <FormControlProductUnit control={control} />
+                    </View>
+                  )}
+                  <View mt={16}>
+                    <FormControlProductCategories control={control} />
                   </View>
                 </View>
                 <View px={16} py={16} bgColor="$white">
                   <View>
-                    <Heading>Quản lý tồn kho</Heading>
+                    <Text fontWeight="$bold">Quản lý tồn kho</Text>
                   </View>
                   <View mt={16}>
-                    <FormControl flexDirection="row" justifyContent="space-between">
-                      <FormControlLabel>
-                        <FormControlLabelText>Còn hàng</FormControlLabelText>
-                      </FormControlLabel>
-                      <View>
-                        <Switch></Switch>
-                      </View>
-                    </FormControl>
+                    <FormControlProductSku control={control} />
                   </View>
+                  {!isTrackingStock && (
+                    <View mt={16}>
+                      <FormControlProductInStock control={control} />
+                    </View>
+                  )}
                   <View mt={16}>
-                    <Controller
-                      control={control}
-                      name="isTrackingStock"
-                      rules={{ required: true }}
-                      render={({ field }) => (
-                        <FormControlSwitch
-                          title="Theo dõi tồn kho"
-                          value={field.value}
-                          setValue={field.onChange}
-                        />
-                      )}
-                    ></Controller>
+                    <FormControlProductTrackingStock control={control} />
                   </View>
                   {!!isTrackingStock && (
-                    <Controller
-                      control={control}
-                      name="inventory"
-                      rules={{ required: true }}
-                      render={({ field }) => (
-                        <FormControlInput
-                          label="Số lượng trong kho"
-                          value={field.value?.toString()}
-                          onChange={e => {
-                            field.onChange(e ? +e : undefined);
-                          }}
-                          focusable={true}
-                        />
-                      )}
-                    ></Controller>
+                    <View mt={16}>
+                      <FormControlProductInventory control={control} />
+                    </View>
                   )}
                 </View>
-                <View mt={16} px={16}>
-                  <Icon as={Settings} size="lg" />
-                  {/* {settings.showCreateProductTrackingStock ? } */}
+                <View mt={16}>
+                  <View px={16}>
+                    <View>
+                      <Text>Thêm</Text>
+                    </View>
+                    <View flexDirection="row">
+                      <FormControlProductAdditional />
+                    </View>
+                  </View>
                 </View>
-                <View mt={48}></View>
               </ScrollView>
 
               <ProductDetailFooter

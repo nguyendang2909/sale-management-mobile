@@ -107,7 +107,7 @@ export declare namespace ApiRequest {
     categoryIds?: string[];
   };
 
-  type UpdateProduct = {};
+  type UpdateProduct = Partial<CreateProduct>;
 
   type CreateCustomer = {
     fullName: string;
