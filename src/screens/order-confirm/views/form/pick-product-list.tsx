@@ -48,8 +48,8 @@ export const PickProducts = () => {
           return prev;
         }
         if (
-          !_.isNil(objProducts[productId].quantity) &&
-          objProducts[productId].quantity! <= (prev[productId] || 0)
+          !_.isNil(objProducts[productId].inventory) &&
+          objProducts[productId].inventory! <= (prev[productId] || 0)
         ) {
           Toast.show({ text1: 'Vượt quá số lượng sản phẩm tồn kho', type: 'error' });
           return prev;
