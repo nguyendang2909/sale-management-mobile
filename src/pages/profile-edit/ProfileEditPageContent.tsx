@@ -25,7 +25,6 @@ export const ProfileEditPageContent: React.FC = () => {
 
   const handleEditProfile = async (payload: ApiRequest.UpdateProfile) => {
     try {
-      // console.log(111, payload);
       await updateProfile(payload).unwrap();
     } catch (err) {
       Toast.show({

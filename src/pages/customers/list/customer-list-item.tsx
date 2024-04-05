@@ -16,9 +16,7 @@ type FCProps = {
 };
 
 export const CustomerListItem: FC<FCProps> = ({ customer }) => {
-  const handlePress = () => {
-    // console.log(111);
-  };
+  const handlePress = () => {};
 
   return (
     <>

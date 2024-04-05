@@ -102,6 +102,26 @@ class ProductUtil extends BaseUtil {
         };
     }
   }
+
+  getPriceWithQuantity(product: AppStore.Product, quantity: number = 0): number {
+    if (!quantity) {
+      return 0;
+    }
+    if (
+      product.wholesalePrice &&
+      product.minWholesalePriceQuantity &&
+      product.minWholesalePriceQuantity <= quantity
+    ) {
+      return product.wholesalePrice * quantity;
+    }
+    if (product.promotionalPrice) {
+      return product.promotionalPrice * quantity;
+    }
+    if (product.price) {
+      return product.price * quantity;
+    }
+    return 0;
+  }
 }
 
 export const productUtil = new ProductUtil();

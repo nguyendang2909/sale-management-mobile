@@ -51,7 +51,7 @@ export const PickProduct: FC<FCProps> = ({ product, quantity, onAdd, onSubtract,
       <View bg="$white" px={16}>
         <HStack columnGap={8} borderBottomWidth={1} borderColor="$coolGray200" py={8}>
           <View>
-            <ProductIconBox url={imagePath?.path} />
+            <ProductIconBox url={imagePath} />
           </View>
           <VStack>
             <View height={22}>

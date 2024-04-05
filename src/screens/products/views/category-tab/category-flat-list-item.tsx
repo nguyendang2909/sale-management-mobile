@@ -10,9 +10,7 @@ type FCProps = {
 
 export const CategoryFlatListItem: FC<FCProps> = ({ category }) => {
   const image = _.get(category, 'images[0]');
-  const handlePress = () => {
-    // console.log(111);
-  };
+  const handlePress = () => {};
 
   return (
     <Pressable onPress={handlePress}>

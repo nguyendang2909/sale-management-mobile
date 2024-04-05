@@ -1,12 +1,10 @@
 import { Button, ButtonIcon, ButtonText, HStack, View } from '@gluestack-ui/themed';
-import { useNavigation } from '@react-navigation/native';
 import { FlashList } from '@shopify/flash-list';
 import _ from 'lodash';
 import { ShoppingCart } from 'lucide-react-native';
 import { useCallback, useMemo, useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Toast from 'react-native-toast-message';
-import { SCREENS } from 'src/constants';
 import { useSearchProducts } from 'src/hooks';
 import { AppStore } from 'src/types';
 import { productUtil } from 'src/utils/product.util';
@@ -16,7 +14,6 @@ import { PickProduct } from './pick-product-list-item';
 export const PickProducts = () => {
   const { data: products } = useSearchProducts();
   const [productItems, setProductItems] = useState<Record<string, number>>({});
-  const navigation = useNavigation();
 
   const objProducts: Record<string, AppStore.Product> = useMemo(
     () =>
@@ -37,9 +34,8 @@ export const PickProducts = () => {
   const pickedProductsPrice = useMemo(
     () =>
       Object.entries(productItems).reduce((acc, productItem) => {
-        const [productId, quantity] = productItem;
-        return objProducts[productId]
-          ? acc + productUtil.getPriceWithQuantity(objProducts[productId], quantity)
+        return objProducts[productItem[0]]
+          ? acc + productUtil.getPriceWithQuantity(objProducts[productItem[0]])
           : 0;
       }, 0),
     [objProducts, productItems],
@@ -52,8 +48,8 @@ export const PickProducts = () => {
           return prev;
         }
         if (
-          !_.isNil(objProducts[productId].inventory) &&
-          objProducts[productId].inventory! <= (prev[productId] || 0)
+          !_.isNil(objProducts[productId].quantity) &&
+          objProducts[productId].quantity! <= (prev[productId] || 0)
         ) {
           Toast.show({ text1: 'Vượt quá số lượng sản phẩm tồn kho', type: 'error' });
           return prev;
@@ -82,12 +78,6 @@ export const PickProducts = () => {
   const handleSet = useCallback((productId: string, quantity: number) => {
     setProductItems(prev => ({ ...prev, [productId]: quantity }));
   }, []);
-
-  const handlePressNext = () => {
-    navigation.navigate(SCREENS.ORDER_CONFIRM, {
-      pickedProducts: productItems,
-    });
-  };
 
   return (
     <View flex={1}>
@@ -128,7 +118,7 @@ export const PickProducts = () => {
           borderColor="$coolGray400"
         >
           <View px={16}>
-            <Button size="lg" onPress={handlePressNext}>
+            <Button size="lg">
               <HStack width="$full" alignItems="center" columnGap={16}>
                 <View>
                   <ButtonIcon as={ShoppingCart} />

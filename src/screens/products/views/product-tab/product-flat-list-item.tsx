@@ -14,8 +14,6 @@ type FCProps = {
 export const ProductFlatListItem: FC<FCProps> = ({ product }) => {
   const imagePath = _.first(product.imagePaths);
 
-  console.log(111, imagePath);
-
   const navigation = useNavigation();
   const handlePress = () => {
     navigation.navigate(SCREENS.PRODUCT_DETAIL, { detail: product });

@@ -26,7 +26,7 @@ import { FormControlProductSku } from 'src/containers/form-control/product/form-
 import { FormControlProductTitle } from 'src/containers/form-control/product/form-control-product-title';
 import { FormControlProductTrackingStock } from 'src/containers/form-control/product/form-control-product-tracking-stock';
 import { FormControlProductUnit } from 'src/containers/form-control/product/form-control-product-unit';
-import { useAppSelector, useMessages, useSettings } from 'src/hooks';
+import { useMessages, useSettings } from 'src/hooks';
 import { useCategories } from 'src/hooks/useCategories';
 import { flexGrow } from 'src/styles';
 import { ApiRequest, FormParams } from 'src/types';
@@ -34,8 +34,6 @@ import { createProductFormUtil } from 'src/utils';
 
 export const CreateProductForm: FC = () => {
   useCategories();
-
-  const token = useAppSelector(s => s.app.accessToken);
 
   const { data: settings } = useSettings();
   const navigation = useNavigation();
@@ -87,7 +85,6 @@ export const CreateProductForm: FC = () => {
       if (minWholesalePriceQuantity) {
         payload.minWholesalePriceQuantity = minWholesalePriceQuantity;
       }
-      console.log(111, token, payload);
       await createProduct(payload).unwrap();
       if (createMore) {
         reset();

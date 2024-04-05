@@ -69,6 +69,9 @@ export type AppStackParamList = {
   };
   CREATE_ORDER: undefined;
   PRODUCT_SETTING: undefined;
+  ORDER_CONFIRM: {
+    pickedProducts: Record<string, number>;
+  };
 };
 
 export type AppStackScreenProps<T extends keyof AppStackParamList> = NativeStackScreenProps<
