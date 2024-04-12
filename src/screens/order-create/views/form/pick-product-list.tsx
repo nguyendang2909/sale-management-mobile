@@ -1,21 +1,32 @@
-import { Button, ButtonIcon, ButtonText, HStack, View } from '@gluestack-ui/themed';
+import {
+  Badge,
+  BadgeText,
+  Button,
+  ButtonIcon,
+  ButtonText,
+  HStack,
+  View,
+} from '@gluestack-ui/themed';
 import { useNavigation } from '@react-navigation/native';
 import { FlashList } from '@shopify/flash-list';
 import _ from 'lodash';
 import { ShoppingCart } from 'lucide-react-native';
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useMemo } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Toast from 'react-native-toast-message';
 import { SCREENS } from 'src/constants';
-import { useSearchProducts } from 'src/hooks';
-import { AppStore } from 'src/types';
+import { useAppDispatch, useAppSelector, useSearchProducts } from 'src/hooks';
+import { cartActions } from 'src/store/cart';
+import { AppStore, PickedOrderItem } from 'src/types';
 import { productUtil } from 'src/utils/product.util';
 
 import { PickProduct } from './pick-product-list-item';
 
 export const PickProducts = () => {
+  const dispatch = useAppDispatch();
   const { data: products } = useSearchProducts();
-  const [productItems, setProductItems] = useState<Record<string, number>>({});
+  const cartItems = useAppSelector(s => s.cart.items);
+  const orderItems = useMemo(() => Object.values(cartItems), [cartItems]);
   const navigation = useNavigation();
 
   const objProducts: Record<string, AppStore.Product> = useMemo(
@@ -28,65 +39,56 @@ export const PickProducts = () => {
 
   const pickedProductCount = useMemo(
     () =>
-      Object.entries(productItems).reduce((acc, productItem) => {
-        return acc + productItem[1];
+      orderItems.reduce((acc, orderItem) => {
+        return acc + orderItem.quantity;
       }, 0),
-    [productItems],
+    [orderItems],
   );
 
   const pickedProductsPrice = useMemo(
     () =>
-      Object.entries(productItems).reduce((acc, productItem) => {
-        const [productId, quantity] = productItem;
+      orderItems.reduce((acc, orderItem) => {
+        const { productId, quantity } = orderItem;
         return objProducts[productId]
           ? acc + productUtil.getPriceWithQuantity(objProducts[productId], quantity)
           : 0;
       }, 0),
-    [objProducts, productItems],
+    [objProducts, orderItems],
   );
 
   const handleAdd = useCallback(
     (productId: string) => {
-      setProductItems(prev => {
-        if (!objProducts[productId]) {
-          return prev;
-        }
-        if (
-          !_.isNil(objProducts[productId].inventory) &&
-          objProducts[productId].inventory! <= (prev[productId] || 0)
-        ) {
-          Toast.show({ text1: 'Vượt quá số lượng sản phẩm tồn kho', type: 'error' });
-          return prev;
-        }
-        if (!prev[productId]) {
-          return { ...prev, [productId]: 1 };
-        }
-        return { ...prev, [productId]: prev[productId] + 1 };
-      });
+      if (!objProducts[productId]) {
+        return;
+      }
+      if (
+        !_.isNil(objProducts[productId].stock) &&
+        objProducts[productId].stock! <= (prev[productId]?.quantity || 0)
+      ) {
+        Toast.show({ text1: 'Vượt quá số lượng sản phẩm tồn kho', type: 'error' });
+        return;
+      }
+      dispatch(cartActions.addProductItem(productId));
     },
-    [objProducts],
+    [dispatch, objProducts],
   );
 
-  const handleSubtract = useCallback((productId: string) => {
-    setProductItems(prev => {
-      if (!prev[productId]) {
-        return prev;
-      }
-      if (prev[productId] === 1) {
-        return _.omit(prev, productId);
-      }
-      return { ...prev, [productId]: prev[productId] - 1 };
-    });
-  }, []);
+  const handleSubtract = useCallback(
+    (productId: string) => {
+      dispatch(cartActions.subtractProductItem(productId));
+    },
+    [dispatch],
+  );
 
-  const handleSet = useCallback((productId: string, quantity: number) => {
-    setProductItems(prev => ({ ...prev, [productId]: quantity }));
-  }, []);
+  const handleSet = useCallback(
+    (item: PickedOrderItem) => {
+      dispatch(cartActions.setProductItem(item));
+    },
+    [dispatch],
+  );
 
   const handlePressNext = () => {
-    navigation.navigate(SCREENS.ORDER_CONFIRM, {
-      pickedProducts: productItems,
-    });
+    navigation.navigate(SCREENS.ORDER_CONFIRM);
   };
 
   return (
@@ -106,7 +108,7 @@ export const PickProducts = () => {
               onAdd={handleAdd}
               onSubtract={handleSubtract}
               onSet={handleSet}
-              quantity={productItems[item.id]}
+              quantity={cartItems[item.id]?.quantity}
             />
           );
         }}
@@ -128,9 +130,30 @@ export const PickProducts = () => {
           borderColor="$coolGray400"
         >
           <View px={16}>
-            <Button size="lg" onPress={handlePressNext}>
-              <HStack width="$full" alignItems="center" columnGap={16}>
-                <View>
+            <Button size="lg" onPress={handlePressNext} height={60}>
+              <HStack width="$full" alignItems="center" justifyContent="center" columnGap={24}>
+                <View justifyContent="center" alignItems="center">
+                  <Badge
+                    position="absolute"
+                    right={-16}
+                    top={-16}
+                    height={24}
+                    width={24}
+                    px={0}
+                    py={0}
+                    bg="$red600"
+                    borderRadius="$full"
+                    zIndex={1}
+                    variant="solid"
+                    alignSelf="flex-end"
+                    justifyContent="center"
+                    alignItems="center"
+                  >
+                    <BadgeText color="$white">
+                      {pickedProductCount > 99 ? '99+' : pickedProductCount}
+                    </BadgeText>
+                  </Badge>
+
                   <ButtonIcon as={ShoppingCart} />
                 </View>
                 <View flex={1}>

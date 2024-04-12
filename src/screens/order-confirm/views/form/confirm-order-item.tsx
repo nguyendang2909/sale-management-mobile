@@ -10,24 +10,22 @@ import {
 } from '@gluestack-ui/themed';
 import _ from 'lodash';
 import { MinusCircle, PlusCircle } from 'lucide-react-native';
-import React, { FC, memo, useCallback, useMemo } from 'react';
+import React, { FC, useCallback, useMemo } from 'react';
 import { TouchableHighlight } from 'react-native';
 import { ProductIconBox } from 'src/containers/icon/product-icon-box';
-import { AppStore } from 'src/types';
+import { PickedOrderItem, ProductWithQuantity } from 'src/types';
 import { priceUtil } from 'src/utils';
 
 type FCProps = {
-  product: AppStore.Product;
-  quantity?: number;
+  orderItem: ProductWithQuantity;
   onAdd: (productId: string) => void;
   onSubtract: (productId: string) => void;
-  onSet: (productId: string, quantity: number) => void;
+  onSet: (item: PickedOrderItem) => void;
 };
 
-export const PickProduct: FC<FCProps> = ({ product, quantity, onAdd, onSubtract, onSet }) => {
-  const imagePath = _.first(product.imagePaths);
-  const productId = useMemo(() => product.id, [product.id]);
-  // console.log(product.imagePaths);
+export const ConfirmOrderItem: FC<FCProps> = ({ orderItem, onAdd, onSubtract, onSet }) => {
+  const imagePath = _.first(orderItem.imagePaths);
+  const productId = useMemo(() => orderItem.id, [orderItem.id]);
 
   const handleAdd = useCallback(() => {
     onAdd(productId);
@@ -40,7 +38,7 @@ export const PickProduct: FC<FCProps> = ({ product, quantity, onAdd, onSubtract,
   const handleSet = useCallback(
     (e: string) => {
       if (_.isNumber(+e)) {
-        onSet(productId, +e);
+        onSet({ productId, quantity: +e });
       }
     },
     [onSet, productId],
@@ -51,12 +49,12 @@ export const PickProduct: FC<FCProps> = ({ product, quantity, onAdd, onSubtract,
       <View bg="$white" px={16}>
         <HStack columnGap={8} borderBottomWidth={1} borderColor="$coolGray200" py={8}>
           <View>
-            <ProductIconBox url={imagePath} />
+            <ProductIconBox url={imagePath?.path} />
           </View>
           <VStack>
             <View height={22}>
               <Text lineHeight={22} numberOfLines={1}>
-                {product.title}
+                {orderItem.title}
               </Text>
             </View>
             <View height={21}>
@@ -64,7 +62,7 @@ export const PickProduct: FC<FCProps> = ({ product, quantity, onAdd, onSubtract,
             </View>
             <View height={21}>
               <Text lineHeight={21} color="$red600">
-                {!!product.price && priceUtil.format(product.price)}
+                {!!orderItem.price && priceUtil.format(orderItem.price)}
               </Text>
             </View>
           </VStack>
@@ -78,7 +76,7 @@ export const PickProduct: FC<FCProps> = ({ product, quantity, onAdd, onSubtract,
               columnGap={4}
               height={40}
             >
-              {!!quantity && (
+              {!!orderItem.quantity && (
                 <>
                   <Pressable onPress={handleSubtract}>
                     <Icon as={MinusCircle} color="$primary500" />
@@ -86,11 +84,11 @@ export const PickProduct: FC<FCProps> = ({ product, quantity, onAdd, onSubtract,
                   <Input variant="underlined">
                     <InputField
                       inputMode="numeric"
-                      value={quantity?.toString()}
+                      value={orderItem.quantity.toString()}
                       onChangeText={handleSet}
                     ></InputField>
                   </Input>
-                  <Text>{quantity}</Text>
+                  <Text>{orderItem.quantity}</Text>
                 </>
               )}
               <Icon as={PlusCircle} color="$primary500" />
@@ -101,9 +99,3 @@ export const PickProduct: FC<FCProps> = ({ product, quantity, onAdd, onSubtract,
     </Pressable>
   );
 };
-
-export const PickProductMemo = memo(PickProduct, (prevProps, nextProps) => {
-  return (
-    prevProps.quantity !== nextProps.quantity || !_.isEqual(prevProps.product, nextProps.product)
-  );
-});

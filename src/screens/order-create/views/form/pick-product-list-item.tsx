@@ -1,8 +1,9 @@
 import {
   HStack,
-  Icon,
   Input,
   InputField,
+  InputIcon,
+  InputSlot,
   Pressable,
   Text,
   View,
@@ -13,7 +14,7 @@ import { MinusCircle, PlusCircle } from 'lucide-react-native';
 import React, { FC, memo, useCallback, useMemo } from 'react';
 import { TouchableHighlight } from 'react-native';
 import { ProductIconBox } from 'src/containers/icon/product-icon-box';
-import { AppStore } from 'src/types';
+import { AppStore, PickedOrderItem } from 'src/types';
 import { priceUtil } from 'src/utils';
 
 type FCProps = {
@@ -21,7 +22,7 @@ type FCProps = {
   quantity?: number;
   onAdd: (productId: string) => void;
   onSubtract: (productId: string) => void;
-  onSet: (productId: string, quantity: number) => void;
+  onSet: (item: PickedOrderItem) => void;
 };
 
 export const PickProduct: FC<FCProps> = ({ product, quantity, onAdd, onSubtract, onSet }) => {
@@ -40,7 +41,7 @@ export const PickProduct: FC<FCProps> = ({ product, quantity, onAdd, onSubtract,
   const handleSet = useCallback(
     (e: string) => {
       if (_.isNumber(+e)) {
-        onSet(productId, +e);
+        onSet({ productId, quantity: +e });
       }
     },
     [onSet, productId],
@@ -80,20 +81,25 @@ export const PickProduct: FC<FCProps> = ({ product, quantity, onAdd, onSubtract,
             >
               {!!quantity && (
                 <>
-                  <Pressable onPress={handleSubtract}>
-                    <Icon as={MinusCircle} color="$primary500" />
-                  </Pressable>
-                  <Input variant="underlined">
+                  <Input variant="underlined" width={60}>
+                    <InputSlot as={Pressable} onPress={handleSubtract}>
+                      <InputIcon as={MinusCircle} color="$primary500" />
+                    </InputSlot>
                     <InputField
+                      textAlign="center"
+                      alignItems="center"
+                      justifyContent="center"
                       inputMode="numeric"
                       value={quantity?.toString()}
                       onChangeText={handleSet}
                     ></InputField>
+                    <InputSlot onPress={handleAdd}>
+                      <InputIcon as={PlusCircle} color="$primary500" />
+                    </InputSlot>
                   </Input>
-                  <Text>{quantity}</Text>
                 </>
               )}
-              <Icon as={PlusCircle} color="$primary500" />
+              {/* <Icon as={PlusCircle} color="$primary500" /> */}
             </HStack>
           </View>
         </View>

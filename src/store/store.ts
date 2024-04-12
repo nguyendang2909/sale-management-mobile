@@ -17,8 +17,10 @@ import { thunk } from 'redux-thunk';
 import { api } from '../api';
 import { appReducer } from './app/app.store';
 import { cacheReducer } from './cache';
+import { cartReducer } from './cart';
 import { categoryReducer } from './category';
 import { customerReducer } from './customer';
+import { orderReducer } from './order';
 import { productReducer } from './product';
 import { appSaga } from './saga';
 // import theme from './theme';
@@ -37,6 +39,8 @@ const reducers = combineReducers({
   category: categoryReducer,
   customer: customerReducer,
   cache: cacheReducer,
+  order: orderReducer,
+  cart: cartReducer,
   // message: messageReducer,
 });
 

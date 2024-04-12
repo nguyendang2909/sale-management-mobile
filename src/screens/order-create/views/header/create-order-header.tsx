@@ -4,10 +4,14 @@ import { Header } from 'src/components';
 import { HOME_SCREENS, SCREENS } from 'src/constants';
 import { IconButtonSearchProducts } from 'src/containers/icon-button/icon-button-search-products';
 import { SearchInputProducts } from 'src/containers/Input/search-input-products';
+import { useAppDispatch } from 'src/hooks';
 import { goBack } from 'src/navigations/navigation-ref';
+import { cartActions } from 'src/store/cart';
 
 export const CreateOrderHeader = () => {
+  const dispatch = useAppDispatch();
   const onLeftPress = () => {
+    dispatch(cartActions.setCartItems({}));
     goBack(SCREENS.Home, { screen: HOME_SCREENS.ORDER });
   };
 

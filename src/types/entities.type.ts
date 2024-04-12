@@ -97,7 +97,7 @@ export declare namespace Entity {
       isInStock?: boolean;
       sku?: string;
       barcode?: string;
-      inventory?: number;
+      stock?: number;
       isTrackingStock?: boolean;
       description?: string;
       label?: string;
