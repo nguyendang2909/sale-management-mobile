@@ -4,9 +4,11 @@ import { FlashList } from '@shopify/flash-list';
 import { ChevronLeft, Plus } from 'lucide-react-native';
 import { useCallback, useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import Toast from 'react-native-toast-message';
+import { useCreateOrderMutation } from 'src/api';
 import { Header } from 'src/components';
-import { SCREENS } from 'src/constants';
-import { useAppDispatch, useAppSelector, useProducts } from 'src/hooks';
+import { HOME_SCREENS, ORDER_STATUSES, SCREENS } from 'src/constants';
+import { useAppDispatch, useAppSelector, useMessages, useProducts } from 'src/hooks';
 import { cartActions } from 'src/store/cart';
 import { PickedOrderItem, PickedOrderItems, ProductWithQuantity } from 'src/types';
 
@@ -16,6 +18,8 @@ import { ConfirmOrderPrices } from './confirm-order-prices';
 export const OrderConfirmForm = () => {
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
+  const [createOrder] = useCreateOrderMutation();
+  const { formatErrorMessage } = useMessages();
 
   const { data: products } = useProducts();
   const cartItemsObj = useAppSelector(s => s.cart.items);
@@ -84,7 +88,21 @@ export const OrderConfirmForm = () => {
     navigation.navigate(SCREENS.CREATE_ORDER);
   }, [dispatch, navigation, orderItems]);
 
-  const createOrder = () => {};
+  const saveOrder = useCallback(async () => {
+    try {
+      await createOrder({
+        status: ORDER_STATUSES.PROCESSING,
+        items: orderItems.map(e => ({
+          productId: e.productId,
+          quantity: e.quantity,
+        })),
+      }).unwrap();
+      dispatch(cartActions.setCartItems({}));
+      navigation.navigate(SCREENS.Home, { screen: HOME_SCREENS.ORDER });
+    } catch (err) {
+      Toast.show({ text1: formatErrorMessage(err), type: 'error' });
+    }
+  }, [createOrder, dispatch, formatErrorMessage, navigation, orderItems]);
 
   return (
     <>
@@ -151,7 +169,7 @@ export const OrderConfirmForm = () => {
         <View mt={16}>
           <HStack columnGap={16} flex={1}>
             <View flex={1}>
-              <Button variant="outline">
+              <Button variant="outline" onPress={saveOrder}>
                 <ButtonIcon as={Plus}></ButtonIcon>
                 <ButtonText>Lưu đơn</ButtonText>
               </Button>

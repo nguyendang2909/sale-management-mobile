@@ -27,7 +27,6 @@ export const API_TAGS = {
   ORDERS: '/orders',
   HEALTH: '/health',
   BULK: '/bulk',
-  IMAGES: '/images',
   AVATAR: '/avatar',
   SETTINGS: '/settings',
   SIGN_IN: '/sign-in',
@@ -35,7 +34,24 @@ export const API_TAGS = {
   LOGOUT: '/logout',
   ALL: '/all',
   CUSTOMERS: '/customers',
-};
+  IMAGES: '/images',
+  DEBTS: '/debts',
+  ADD: '/add',
+  DINING_TABLES: '/dining-tables',
+  DINING_TABLE_GROUPS: '/dining-table-groups',
+  DINING_TABLE_PRODUCTS: '/dining-table-products',
+  ID: ':/id',
+  REPORTS: '/reports',
+  REVENUE: '/revenue',
+  UNCOMPLETED: '/uncompleted',
+  COUNT: '/count',
+  CARDS: '/cards',
+  WEBHOOKS: '/webhooks',
+  SCRIPTS: '/scripts',
+  BANKS: '/banks',
+  PAYMENTS: '/payments',
+  QR_CODE: '/qr-code',
+} as const;
 
 export const BUSINESS_CATEGORIES = {
   SALE: 'sale',
@@ -94,10 +110,23 @@ export const ORDER_STATUSES = {
   PROCESSING: 'processing',
   DELIVERED: 'delivered',
   RETURNED: 'returned',
-  CANCEL: 'cancel',
+  CANCELLED: 'cancelled',
 } as const;
 
 export const AUTH_GRANT_TYPES = {
-  // PHONE_PASSWORD: 'phone_password',
+  PHONE_PASSWORD: 'phone_password',
   PHONE_TOKEN: 'phone_token',
+} as const;
+
+export const PAYMENT_METHODS = {
+  CASH: 'cash',
+  DIGITAL_WALLET: 'digital_wallet',
+  BANK: 'bank',
+  NONE: 'none',
+} as const;
+
+export const PAYMENT_STATUSES = {
+  UNPAID: 'unpaid',
+  PARTIAL_PAID: 'partial',
+  PAID: 'paid',
 } as const;

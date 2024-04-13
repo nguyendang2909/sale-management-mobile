@@ -2,7 +2,7 @@ import { Image } from 'react-native-image-crop-picker';
 import { PRODUCT_SETTINGS } from 'src/constants/constants';
 
 import { AppStore } from './app-store.type';
-import { AuthGrantType, DevicePlatform, OrderStatus } from './data.type';
+import { AuthGrantType, DevicePlatform, OrderStatus, PaymentMethod } from './data.type';
 import { Entity } from './entities.type';
 
 export declare namespace ApiRequest {
@@ -131,9 +131,10 @@ export declare namespace ApiRequest {
 
   type CreateOrder = {
     status: OrderStatus;
-    paymentMethod?: string;
+    paymentMethod?: PaymentMethod;
     deliveryMethod?: string;
     items: CreateOrderItem[];
+    customerId?: string;
   };
 
   type SendView = {

@@ -2,12 +2,15 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import moment from 'moment';
 import { settingEndpoints } from 'src/api';
 import { meEndpoints } from 'src/api/me.api';
+import { shopEndpoints } from 'src/api/shop.api';
 import { ApiResponse, AppStore, Entity } from 'src/types';
 
 const initialState: AppStore.AppState = {
   accessToken: undefined,
   refreshToken: undefined,
   user: {},
+  shop: {},
+  shops: [],
   socket: {
     connectedAt: moment().toISOString(),
   },
@@ -20,6 +23,10 @@ export const appSlice = createSlice({
   reducers: {
     setUser: (state, { payload }: PayloadAction<Entity.User>) => {
       state.user = payload;
+    },
+
+    setShop: (state, { payload }: PayloadAction<Entity.Shop>) => {
+      state.shop = payload;
     },
 
     updateAccessToken: (state, { payload }: PayloadAction<ApiResponse.Tokens>) => {
@@ -36,6 +43,7 @@ export const appSlice = createSlice({
       state.user = {};
       state.socket = {};
       state.settings = {};
+      state.shop = {};
     },
 
     setSocketConnected: state => {
@@ -56,6 +64,16 @@ export const appSlice = createSlice({
         state.settings = data;
       },
     );
+    builder.addMatcher(
+      shopEndpoints.fetchAllShops.matchFulfilled,
+      (state, { payload: { data } }) => {
+        if (data.length === 1) {
+          state.shop = data[0];
+        }
+        state.shops = data;
+      },
+    );
+    // builder.addMatcher()
   },
 });
 
