@@ -1,18 +1,17 @@
-import { Button, ButtonIcon, ButtonText, HStack, Text, View } from '@gluestack-ui/themed';
+import { Button, ButtonIcon, ButtonText, HStack, View } from '@gluestack-ui/themed';
 import { useNavigation } from '@react-navigation/native';
 import { FlashList } from '@shopify/flash-list';
 import { ChevronLeft, Plus } from 'lucide-react-native';
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Header } from 'src/components';
-import { Price } from 'src/components/text/formatted-price';
 import { SCREENS } from 'src/constants';
 import { useAppDispatch, useAppSelector, useProducts } from 'src/hooks';
 import { cartActions } from 'src/store/cart';
 import { PickedOrderItem, PickedOrderItems, ProductWithQuantity } from 'src/types';
-import { productUtil } from 'src/utils/product.util';
 
 import { ConfirmOrderItem } from './confirm-order-item';
+import { ConfirmOrderPrices } from './confirm-order-prices';
 
 export const OrderConfirmForm = () => {
   const dispatch = useAppDispatch();
@@ -28,20 +27,6 @@ export const OrderConfirmForm = () => {
         return { ...e, ...cartItemsObj[e.id] };
       }),
   );
-
-  const orderPrices = useMemo(() => {
-    return orderItems.reduce(
-      (result, orderItem) => {
-        return {
-          payoutPrice:
-            result.payoutPrice + productUtil.getPriceWithQuantity(orderItem, orderItem.quantity),
-          price: result.price + (orderItem.price || 0),
-          productQuantity: result.productQuantity + (orderItem.quantity || 0),
-        };
-      },
-      { payoutPrice: 0, price: 0, productQuantity: 0 },
-    );
-  }, [orderItems]);
 
   const handleAdd = useCallback((productId: string) => {
     setOrderItems(prev => {
@@ -160,41 +145,26 @@ export const OrderConfirmForm = () => {
         borderColor="$coolGray200"
         px={16}
       >
-        <HStack justifyContent="space-between">
-          <View>
-            <Text>{`Tổng ${orderPrices.productQuantity} sản phẩm`}</Text>
-          </View>
-          <View>
-            <Text color="$textLight900">
-              <Price value={orderPrices.payoutPrice} />
-            </Text>
-          </View>
-        </HStack>
-        <HStack justifyContent="space-between">
-          <View>
-            <Text>Giảm giá</Text>
-          </View>
-          <View>
-            <Text color="$textLight900">
-              <Price value={orderPrices.payoutPrice} />
-            </Text>
-          </View>
-        </HStack>
-        <HStack columnGap={16} flex={1}>
-          <View flex={1}>
-            <Button variant="outline">
-              <ButtonIcon as={Plus}></ButtonIcon>
-              <ButtonText>Lưu đơn</ButtonText>
-            </Button>
-          </View>
+        <View>
+          <ConfirmOrderPrices orderItems={orderItems} />
+        </View>
+        <View mt={16}>
+          <HStack columnGap={16} flex={1}>
+            <View flex={1}>
+              <Button variant="outline">
+                <ButtonIcon as={Plus}></ButtonIcon>
+                <ButtonText>Lưu đơn</ButtonText>
+              </Button>
+            </View>
 
-          <View flex={1}>
-            <Button variant="solid">
-              <ButtonIcon as={Plus}></ButtonIcon>
-              <ButtonText>Thanh toán</ButtonText>
-            </Button>
-          </View>
-        </HStack>
+            <View flex={1}>
+              <Button variant="solid">
+                <ButtonIcon as={Plus}></ButtonIcon>
+                <ButtonText>Thanh toán</ButtonText>
+              </Button>
+            </View>
+          </HStack>
+        </View>
       </View>
     </>
   );

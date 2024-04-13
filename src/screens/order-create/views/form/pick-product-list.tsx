@@ -49,9 +49,12 @@ export const PickProducts = () => {
   const pickedProductsPrice = useMemo(
     () =>
       orderItems.reduce((acc, orderItem) => {
-        const { productId, quantity } = orderItem;
-        return objProducts[productId]
-          ? acc + productUtil.getPriceWithQuantity(objProducts[productId], quantity)
+        return objProducts[orderItem.productId]
+          ? acc +
+              productUtil.getPriceWithQuantity({
+                ...objProducts[orderItem.productId],
+                ...orderItem,
+              })
           : 0;
       }, 0),
     [objProducts, orderItems],
@@ -64,7 +67,7 @@ export const PickProducts = () => {
       }
       if (
         !_.isNil(objProducts[productId].stock) &&
-        objProducts[productId].stock! <= (prev[productId]?.quantity || 0)
+        objProducts[productId].stock! <= (cartItems[productId]?.quantity || 0)
       ) {
         Toast.show({ text1: 'Vượt quá số lượng sản phẩm tồn kho', type: 'error' });
         return;

@@ -16,9 +16,9 @@ import _ from 'lodash';
 import { MinusCircle, PlusCircle } from 'lucide-react-native';
 import React, { FC, useCallback, useMemo } from 'react';
 import { TouchableHighlight } from 'react-native';
+import { ProductPrices } from 'src/components/text/formatted-prices';
 import { ProductIconBox } from 'src/containers/icon/product-icon-box';
 import { PickedOrderItem, ProductWithQuantity } from 'src/types';
-import { priceUtil } from 'src/utils';
 
 type FCProps = {
   orderItem: ProductWithQuantity;
@@ -100,7 +100,7 @@ export const ConfirmOrderItem: FC<FCProps> = ({
             </View>
             <View height={21}>
               <Text lineHeight={21} color="$red600">
-                {!!orderItem.price && priceUtil.format(orderItem.price)}
+                <ProductPrices product={orderItem} />
               </Text>
             </View>
           </VStack>

@@ -1,6 +1,6 @@
 import _, { ListIterator, Many, NotVoid, PartialShallow, PropertyName } from 'lodash';
 import { PRODUCT_SORT_TYPES } from 'src/constants/constants';
-import { AppStore, Entity, ProductSortType } from 'src/types';
+import { AppStore, Entity, ProductSortType, ProductWithQuantity } from 'src/types';
 
 import { BaseUtil } from './base/base.util';
 
@@ -103,7 +103,12 @@ class ProductUtil extends BaseUtil {
     }
   }
 
-  getPriceWithQuantity(product: AppStore.Product, quantity: number = 0): number {
+  getOriginalPriceWithQuantity(product: ProductWithQuantity) {
+    return (product.price || 0) * (product.quantity || 0);
+  }
+
+  getPriceWithQuantity(product: ProductWithQuantity): number {
+    const { quantity = 0 } = product;
     if (!quantity) {
       return 0;
     }
