@@ -1,9 +1,9 @@
 import { Box, StatusBar } from '@gluestack-ui/themed';
 import React from 'react';
 import { Header } from 'src/components';
-import { CustomerTabs } from 'src/pages/customers/tabs/customer-tabs';
 
 import { CreateOrderFab } from '../products/views/buttons/create-order-fab';
+import { OrderTabs } from './views/tabs/order-tabs';
 
 export const OrdersScreen = () => {
   return (
@@ -18,7 +18,7 @@ export const OrdersScreen = () => {
         // }}
       />
       <Box flex={1}>
-        <CustomerTabs />
+        <OrderTabs />
         {/* <ProductsFlatList /> */}
 
         <CreateOrderFab />

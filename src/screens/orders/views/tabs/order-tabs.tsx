@@ -4,10 +4,13 @@ import { ParamListBase, Route, TabNavigationState, useTheme } from '@react-navig
 import Color from 'color';
 import { StyleSheet, useWindowDimensions } from 'react-native';
 import { TabBar, TabBarIndicator } from 'react-native-tab-view';
+import { ORDER_TABS } from 'src/constants';
+
+import { AllOrdersTab } from './all-orders.tab';
 
 const Tab = createMaterialTopTabNavigator();
 
-export const ProductTabs = () => {
+export const OrderTabs = () => {
   const layout = useWindowDimensions();
   const { colors } = useTheme();
 
@@ -24,11 +27,11 @@ export const ProductTabs = () => {
 
           return (
             <>
-              {state.index === 0 ? <ProductTabHeader /> : <CategoryTabHeader />}
+              {/* {state.index === 0 ? <ProductTabHeader /> : <CategoryTabHeader />} */}
               <TabBar
                 {...rest}
                 navigationState={state}
-                scrollEnabled={focusedOptions.tabBarScrollEnabled}
+                scrollEnabled={true}
                 bounces={focusedOptions.tabBarBounces}
                 activeColor={activeColor}
                 inactiveColor={inactiveColor}
@@ -133,8 +136,32 @@ export const ProductTabs = () => {
           );
         }}
       >
-        <Tab.Screen name="product" component={ProductTab} options={{ tabBarLabel: 'Sản phẩm' }} />
-        <Tab.Screen name="category" component={CategoryTab} options={{ tabBarLabel: 'Danh mục' }} />
+        <Tab.Screen name="all" component={AllOrdersTab} options={{ tabBarLabel: 'Tất cả' }} />
+        <Tab.Screen
+          name={ORDER_TABS.WAIT_TO_CONFIRM}
+          component={AllOrdersTab}
+          options={{ tabBarLabel: 'Chờ xác nhận' }}
+        />
+        <Tab.Screen
+          name={ORDER_TABS.PROCESSING}
+          component={AllOrdersTab}
+          options={{ tabBarLabel: 'Đang xử lý' }}
+        />
+        <Tab.Screen
+          name={ORDER_TABS.DELIVERED}
+          component={AllOrdersTab}
+          options={{ tabBarLabel: 'Hoàn thành' }}
+        />
+        <Tab.Screen
+          name={ORDER_TABS.RETURNED}
+          component={AllOrdersTab}
+          options={{ tabBarLabel: 'Trả hàng' }}
+        />
+        <Tab.Screen
+          name={ORDER_TABS.CANCELLED}
+          component={AllOrdersTab}
+          options={{ tabBarLabel: 'Huỷ' }}
+        />
       </Tab.Navigator>
     </>
   );

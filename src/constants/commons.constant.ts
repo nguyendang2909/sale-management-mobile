@@ -1,3 +1,7 @@
+import _ from 'lodash';
+
+import { ORDER_STATUSES } from './data.constant';
+
 export const SCREENS = {
   EditInfoHeight: 'EditInfoHeight',
   EditInfoNickname: 'EditInfoNickname',
@@ -53,3 +57,14 @@ export const AGES = {
 export const CURRENCIES = {
   VND: '₫',
 } as const;
+
+export const ORDER_TABS = {
+  ..._.pick(ORDER_STATUSES, [
+    'WAIT_TO_CONFIRM',
+    'PROCESSING',
+    'DELIVERED',
+    'RETURNED',
+    'CANCELLED',
+  ]),
+  ALL: 'all',
+};
