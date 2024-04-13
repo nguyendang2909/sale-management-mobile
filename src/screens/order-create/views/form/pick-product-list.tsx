@@ -14,6 +14,7 @@ import { ShoppingCart } from 'lucide-react-native';
 import { useCallback, useMemo } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Toast from 'react-native-toast-message';
+import { Price } from 'src/components/text/formatted-price';
 import { SCREENS } from 'src/constants';
 import { useAppDispatch, useAppSelector, useSearchProducts } from 'src/hooks';
 import { cartActions } from 'src/store/cart';
@@ -125,20 +126,20 @@ export const PickProducts = () => {
           as={SafeAreaView}
           // @ts-ignore
           edges={['bottom']}
-          py={16}
+          pt={16}
           borderTopWidth={1}
           borderColor="$coolGray400"
         >
           <View px={16}>
-            <Button size="lg" onPress={handlePressNext} height={60}>
+            <Button size="lg" onPress={handlePressNext} height={56}>
               <HStack width="$full" alignItems="center" justifyContent="center" columnGap={24}>
                 <View justifyContent="center" alignItems="center">
                   <Badge
                     position="absolute"
-                    right={-16}
-                    top={-16}
-                    height={24}
-                    width={24}
+                    right={-10}
+                    top={-10}
+                    height={20}
+                    width={20}
                     px={0}
                     py={0}
                     bg="$red600"
@@ -149,7 +150,7 @@ export const PickProducts = () => {
                     justifyContent="center"
                     alignItems="center"
                   >
-                    <BadgeText color="$white">
+                    <BadgeText color="$white" size="2xs">
                       {pickedProductCount > 99 ? '99+' : pickedProductCount}
                     </BadgeText>
                   </Badge>
@@ -157,7 +158,9 @@ export const PickProducts = () => {
                   <ButtonIcon as={ShoppingCart} />
                 </View>
                 <View flex={1}>
-                  <ButtonText>{pickedProductsPrice}</ButtonText>
+                  <ButtonText>
+                    <Price value={pickedProductsPrice} />
+                  </ButtonText>
                 </View>
                 <View>
                   <ButtonText>Tiếp tục</ButtonText>

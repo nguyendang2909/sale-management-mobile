@@ -49,3 +49,7 @@ export const AGES = {
   MIN: 18,
   MAX: 100,
 };
+
+export const CURRENCIES = {
+  VND: '₫',
+} as const;

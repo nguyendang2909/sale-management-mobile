@@ -171,3 +171,9 @@ export const PRODUCT_SETTING_MENU = [
   PRODUCT_PRICE_SETTINGS,
   PRODUCT_INVENTORY_SETTINGS,
 ];
+
+export const SIZES = {
+  XL: 'xl',
+  LG: 'lg',
+  MD: 'md',
+} as const;

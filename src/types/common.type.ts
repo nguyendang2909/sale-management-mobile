@@ -1,5 +1,5 @@
 import { AUTH_GRANT_TYPES } from 'src/constants';
-import { BOTTOM_NAVIGATOR_NAMES, PRODUCT_SORT_TYPES } from 'src/constants/constants';
+import { BOTTOM_NAVIGATOR_NAMES, PRODUCT_SORT_TYPES, SIZES } from 'src/constants/constants';
 
 import { Entity } from './entities.type';
 
@@ -24,3 +24,5 @@ export type PickedOrderItem = {
 };
 
 export type PickedOrderItems = Record<string, PickedOrderItem>;
+
+export type Size = ValueOf<typeof SIZES>;

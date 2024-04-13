@@ -92,6 +92,7 @@ export const ConfirmOrderItemList: FC<{ orderItems: ProductWithQuantity[] }> = (
               onAdd={handleAdd}
               onSubtract={handleSubtract}
               onSet={handleSet}
+              onDelete={handleDelete}
               quantity={5}
             />
           );

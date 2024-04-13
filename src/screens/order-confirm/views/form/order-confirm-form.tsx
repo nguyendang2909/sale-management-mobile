@@ -1,13 +1,16 @@
-import { Button, ButtonIcon, ButtonText, View } from '@gluestack-ui/themed';
+import { Button, ButtonIcon, ButtonText, HStack, Text, View } from '@gluestack-ui/themed';
 import { useNavigation } from '@react-navigation/native';
 import { FlashList } from '@shopify/flash-list';
 import { ChevronLeft, Plus } from 'lucide-react-native';
-import { useCallback, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { Header } from 'src/components';
+import { Price } from 'src/components/text/formatted-price';
 import { SCREENS } from 'src/constants';
 import { useAppDispatch, useAppSelector, useProducts } from 'src/hooks';
 import { cartActions } from 'src/store/cart';
 import { PickedOrderItem, PickedOrderItems, ProductWithQuantity } from 'src/types';
+import { productUtil } from 'src/utils/product.util';
 
 import { ConfirmOrderItem } from './confirm-order-item';
 
@@ -25,6 +28,20 @@ export const OrderConfirmForm = () => {
         return { ...e, ...cartItemsObj[e.id] };
       }),
   );
+
+  const orderPrices = useMemo(() => {
+    return orderItems.reduce(
+      (result, orderItem) => {
+        return {
+          payoutPrice:
+            result.payoutPrice + productUtil.getPriceWithQuantity(orderItem, orderItem.quantity),
+          price: result.price + (orderItem.price || 0),
+          productQuantity: result.productQuantity + (orderItem.quantity || 0),
+        };
+      },
+      { payoutPrice: 0, price: 0, productQuantity: 0 },
+    );
+  }, [orderItems]);
 
   const handleAdd = useCallback((productId: string) => {
     setOrderItems(prev => {
@@ -59,19 +76,13 @@ export const OrderConfirmForm = () => {
     });
   }, []);
 
+  const handleDelete = useCallback((productId: string) => {
+    setOrderItems(prev => {
+      return prev.filter(e => e.productId !== productId);
+    });
+  }, []);
+
   const onLeftPress = useCallback(() => {
-    console.log(
-      1111,
-      orderItems.reduce<PickedOrderItems>((result, orderItem) => {
-        return {
-          ...result,
-          [orderItem.productId]: {
-            quantity: orderItem.quantity,
-            productId: orderItem.productId,
-          },
-        };
-      }, {}),
-    );
     dispatch(
       cartActions.setCartItems(
         orderItems.reduce<PickedOrderItems>((result, orderItem) => {
@@ -88,6 +99,8 @@ export const OrderConfirmForm = () => {
     navigation.navigate(SCREENS.CREATE_ORDER);
   }, [dispatch, navigation, orderItems]);
 
+  const createOrder = () => {};
+
   return (
     <>
       <Header
@@ -96,14 +109,10 @@ export const OrderConfirmForm = () => {
         leftIcon={ChevronLeft}
         onLeftPress={onLeftPress}
       />
-      <View mt={8}></View>
+
       <View px={12} bg="$white" py={16} flex={1}>
         <View flex={1}>
-          <Button variant="outline">
-            <ButtonIcon as={Plus}></ButtonIcon>
-            <ButtonText>Thêm sản phẩm</ButtonText>
-          </Button>
-
+          <View mt={16}></View>
           <FlashList
             showsVerticalScrollIndicator={false}
             numColumns={1}
@@ -119,16 +128,25 @@ export const OrderConfirmForm = () => {
                   onAdd={handleAdd}
                   onSubtract={handleSubtract}
                   onSet={handleSet}
+                  onDelete={handleDelete}
                 />
               );
             }}
-            estimatedItemSize={100}
-            ListFooterComponent={<View height={100}></View>}
+            estimatedItemSize={20}
+            ListHeaderComponent={
+              <View mb={8}>
+                <Button variant="outline" onPress={onLeftPress}>
+                  <ButtonIcon as={Plus}></ButtonIcon>
+                  <ButtonText>Thêm sản phẩm</ButtonText>
+                </Button>
+              </View>
+            }
+            ListFooterComponent={<View mb={100}></View>}
           ></FlashList>
         </View>
       </View>
 
-      {/* <View
+      <View
         position="absolute"
         left={0}
         right={0}
@@ -137,11 +155,31 @@ export const OrderConfirmForm = () => {
         as={SafeAreaView}
         // @ts-ignore
         edges={['bottom']}
-        py={16}
+        pt={16}
         borderTopWidth={1}
-        borderColor="$coolGray400"
+        borderColor="$coolGray200"
         px={16}
       >
+        <HStack justifyContent="space-between">
+          <View>
+            <Text>{`Tổng ${orderPrices.productQuantity} sản phẩm`}</Text>
+          </View>
+          <View>
+            <Text color="$textLight900">
+              <Price value={orderPrices.payoutPrice} />
+            </Text>
+          </View>
+        </HStack>
+        <HStack justifyContent="space-between">
+          <View>
+            <Text>Giảm giá</Text>
+          </View>
+          <View>
+            <Text color="$textLight900">
+              <Price value={orderPrices.payoutPrice} />
+            </Text>
+          </View>
+        </HStack>
         <HStack columnGap={16} flex={1}>
           <View flex={1}>
             <Button variant="outline">
@@ -157,7 +195,7 @@ export const OrderConfirmForm = () => {
             </Button>
           </View>
         </HStack>
-      </View> */}
+      </View>
     </>
   );
 };

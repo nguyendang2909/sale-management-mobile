@@ -2,10 +2,10 @@ import { HStack, Pressable, Text, View, VStack } from '@gluestack-ui/themed';
 import { useNavigation } from '@react-navigation/native';
 import _ from 'lodash';
 import { FC } from 'react';
+import { ProductPrices } from 'src/components/text/formatted-prices';
 import { SCREENS } from 'src/constants';
 import { ProductIconBox } from 'src/containers/icon/product-icon-box';
 import { AppStore } from 'src/types';
-import { priceUtil } from 'src/utils';
 
 type FCProps = {
   product: AppStore.Product;
@@ -38,8 +38,8 @@ export const ProductFlatListItem: FC<FCProps> = ({ product }) => {
                   <Text lineHeight={21}>{''}</Text>
                 </View>
                 <View height={21}>
-                  <Text lineHeight={21} color="$red600">
-                    {!!product.price && priceUtil.format(product.price)}
+                  <Text lineHeight={21}>
+                    <ProductPrices product={product} />
                   </Text>
                 </View>
               </VStack>

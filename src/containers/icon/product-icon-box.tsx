@@ -7,7 +7,7 @@ import { sizeUtil } from 'src/utils/box-size.util';
 
 import { EmptyProductIcon } from './empty-product-icon';
 
-type FCprops = ComponentProps<typeof View> & { size?: 'xl' | 'md'; url?: string };
+type FCprops = ComponentProps<typeof View> & { size?: 'xl' | 'md' | 'lg'; url?: string };
 
 export const ProductIconBox: FC<FCprops> = ({ url, size, ...props }) => {
   return (
