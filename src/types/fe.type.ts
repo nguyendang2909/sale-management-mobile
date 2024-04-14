@@ -1,7 +1,8 @@
 import { Image } from 'react-native-image-crop-picker';
-import { PRODUCT_SETTINGS } from 'src/constants/constants';
+import { ORDER_SETTINGS, PRODUCT_SETTINGS } from 'src/constants/constants';
 
 import { AppStore } from './app-store.type';
+import { ValueOf } from './common.type';
 import { AuthGrantType, DevicePlatform, OrderStatus, PaymentMethod } from './data.type';
 import { Entity } from './entities.type';
 
@@ -170,7 +171,7 @@ export declare namespace ApiRequest {
     devicePlatform: DevicePlatform;
   };
 
-  type UpdateSettings = Partial<{
+  type UpdateProductSettings = Partial<{
     showTrackingStockNotification?: boolean;
     showCreateProductImage?: boolean;
     showCreateProductUnit?: boolean;
@@ -179,6 +180,11 @@ export declare namespace ApiRequest {
     showCreateProductWholesalePrice: boolean;
     showCreateProductTrackingStock: boolean;
     showCreateProductBarcode: boolean;
+  }>;
+
+  type UpdateOrderSettings = Partial<{
+    showCreateOrderCustomer?: boolean;
+    showCreateOrderNote?: boolean;
   }>;
 }
 
@@ -242,7 +248,9 @@ export declare namespace ApiResponse {
 
   type User = FetchData<Entity.User>;
 
-  type Setting = FetchData<Entity.Setting>;
+  type ProductSetting = FetchData<Entity.ProductSetting>;
+
+  type OrderSetting = FetchData<Entity.OrderSetting>;
 
   type ProductImage = FetchData<Entity.ProductImage>;
 
@@ -257,7 +265,7 @@ export declare namespace ApiResponse {
 }
 
 export type ProductSettingKey = keyof Pick<
-  AppStore.Setting,
+  AppStore.ProductSetting,
   | 'showCreateProductBarcode'
   | 'showCreateProductImage'
   | 'showCreateProductDescription'
@@ -267,4 +275,11 @@ export type ProductSettingKey = keyof Pick<
   // | 'showCreateProductWholesalePrice'
 >;
 
+export type OrderSettingKey = keyof Pick<
+  AppStore.OrderSetting,
+  'showCreateOrderCustomer' | 'showCreateOrderNote'
+>;
+
 export type ProductSetting = (typeof PRODUCT_SETTINGS)[keyof typeof PRODUCT_SETTINGS];
+
+export type OrderSetting = ValueOf<typeof ORDER_SETTINGS>;

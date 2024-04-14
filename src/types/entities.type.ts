@@ -169,7 +169,7 @@ export declare namespace Entity {
       isWholeSale: boolean;
     }>;
 
-  type Setting = BaseEntity &
+  type ProductSetting = BaseEntity &
     Partial<{
       showTrackingStockNotification: boolean;
       showCreateProductImage: boolean;
@@ -179,5 +179,11 @@ export declare namespace Entity {
       // showCreateProductWholesalePrice: boolean;
       // showCreateProductTrackingStock: boolean;
       showCreateProductBarcode: boolean;
+    }>;
+
+  type OrderSetting = BaseEntity &
+    Partial<{
+      showCreateOrderCustomer: boolean;
+      showCreateOrderNote: boolean;
     }>;
 }

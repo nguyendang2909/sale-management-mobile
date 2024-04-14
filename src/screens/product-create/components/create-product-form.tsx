@@ -14,7 +14,7 @@ import Toast from 'react-native-toast-message';
 import { useCreateProductMutation } from 'src/api';
 import { LoadingLayout } from 'src/components';
 import { HOME_SCREENS, SCREENS } from 'src/constants';
-import { FormControlProductAdditional } from 'src/containers/form-control/product/form-control-product-additonal';
+import { FormControlProductAdditional } from 'src/containers/form-control/product/form-control-product-additional';
 import { FormControlProductCapitalPrice } from 'src/containers/form-control/product/form-control-product-capital-price';
 import { FormControlProductCategories } from 'src/containers/form-control/product/form-control-product-categories';
 import { FormControlProductImages } from 'src/containers/form-control/product/form-control-product-images';
@@ -26,7 +26,7 @@ import { FormControlProductSku } from 'src/containers/form-control/product/form-
 import { FormControlProductTitle } from 'src/containers/form-control/product/form-control-product-title';
 import { FormControlProductTrackingStock } from 'src/containers/form-control/product/form-control-product-tracking-stock';
 import { FormControlProductUnit } from 'src/containers/form-control/product/form-control-product-unit';
-import { useMessages, useSettings } from 'src/hooks';
+import { useMessages, useProductSettings } from 'src/hooks';
 import { useCategories } from 'src/hooks/useCategories';
 import { flexGrow } from 'src/styles';
 import { ApiRequest, FormParams } from 'src/types';
@@ -35,7 +35,7 @@ import { createProductFormUtil } from 'src/utils';
 export const CreateProductForm: FC = () => {
   useCategories();
 
-  const { data: settings } = useSettings();
+  const { data: settings } = useProductSettings();
   const navigation = useNavigation();
   const { formatMessage, formatErrorMessage } = useMessages();
   const [createProduct] = useCreateProductMutation();

@@ -3,8 +3,8 @@ import { FC } from 'react';
 import { ApiRequest, AppStore } from 'src/types';
 
 export const SelectProductSetting: FC<{
-  onPress: (e: ApiRequest.UpdateSettings) => void;
-  id: keyof AppStore.Setting;
+  onPress: (e: ApiRequest.UpdateProductSettings) => void;
+  id: keyof AppStore.ProductSetting;
   title: string;
 }> = ({ onPress, id, title }) => {
   const handlePress = () => {

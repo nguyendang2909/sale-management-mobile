@@ -4,9 +4,9 @@ import { Settings } from 'lucide-react-native';
 import { FC, useCallback } from 'react';
 import { TouchableOpacity } from 'react-native';
 import Toast from 'react-native-toast-message';
-import { useUpdateSettingsMutation } from 'src/api';
+import { useUpdateProductSettingsMutation } from 'src/api';
 import { SCREENS } from 'src/constants';
-import { useAppDispatch, useMessages, useSettings } from 'src/hooks';
+import { useAppDispatch, useMessages, useProductSettings } from 'src/hooks';
 import { appActions } from 'src/store';
 import { ApiRequest, AppStore } from 'src/types';
 
@@ -16,21 +16,21 @@ export const SelectProductSettings: FC<{ product?: AppStore.Product }> = ({ prod
   const dispatch = useAppDispatch();
   const { formatErrorMessage } = useMessages();
   const navigation = useNavigation();
-  const { data: settings } = useSettings();
-  const [updateSettings] = useUpdateSettingsMutation();
+  const { data: settings } = useProductSettings();
+  const [updateProductSettings] = useUpdateProductSettingsMutation();
 
   const handleUpdateProductSettings = useCallback(
-    async (e: ApiRequest.UpdateSettings) => {
+    async (e: ApiRequest.UpdateProductSettings) => {
       try {
-        await updateSettings(e).unwrap();
-        dispatch(appActions.updateSettings(e));
+        await updateProductSettings(e).unwrap();
+        dispatch(appActions.updateProductSettings(e));
       } catch (err) {
         Toast.show({
           text1: formatErrorMessage(err),
         });
       }
     },
-    [dispatch, formatErrorMessage, updateSettings],
+    [dispatch, formatErrorMessage, updateProductSettings],
   );
 
   const handlePressSetting = () => {

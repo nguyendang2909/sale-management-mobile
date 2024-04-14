@@ -5,7 +5,7 @@
 //   phD = 'phD',
 // }
 
-import { ProductSettingKey } from 'src/types';
+import { OrderSettingKey, ProductSettingKey } from 'src/types';
 
 export const DATE_FORMATS = {
   DATE: 'YYYY-MM-DD',
@@ -171,6 +171,45 @@ export const PRODUCT_SETTING_MENU = [
   PRODUCT_PRICE_SETTINGS,
   PRODUCT_INVENTORY_SETTINGS,
 ];
+
+export const ORDER_SETTINGS: Record<
+  OrderSettingKey,
+  {
+    id: OrderSettingKey;
+    title: string;
+    description: string;
+  }
+> = {
+  showCreateOrderNote: {
+    id: 'showCreateOrderNote',
+    title: 'Ghi chú',
+    description: 'Thêm ghi chú cho đơn hàng',
+  },
+  showCreateOrderCustomer: {
+    id: 'showCreateOrderCustomer',
+    title: 'Khách hàng',
+    description: 'Nhập thông tin khách hàng',
+  },
+} as const;
+
+export const ORDER_GENERAL_SETTINGS = {
+  id: 'general_settings',
+  title: 'Thông tin chung',
+  menu: [ORDER_SETTINGS.showCreateOrderNote],
+};
+
+export const ORDER_CUSTOMER_SETTINGS = {
+  id: 'customer_settings',
+  title: 'Khách hàng',
+  menu: [ORDER_SETTINGS.showCreateOrderCustomer],
+};
+
+export const ORDER_SETTING_MENU = [ORDER_GENERAL_SETTINGS, ORDER_CUSTOMER_SETTINGS];
+
+export const ARR_ORDER_SETTINGS = [
+  ORDER_SETTINGS.showCreateOrderNote,
+  ORDER_SETTINGS.showCreateOrderCustomer,
+] as const;
 
 export const SIZES = {
   XL: 'xl',

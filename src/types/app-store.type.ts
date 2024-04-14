@@ -12,7 +12,9 @@ export declare namespace AppStore {
 
   type AppDispatch = typeof store.dispatch;
 
-  type Setting = Partial<Entity.Setting>;
+  type ProductSetting = Partial<Entity.ProductSetting>;
+
+  type OrderSetting = Partial<Entity.OrderSetting>;
 
   type AppState = {
     accessToken?: string;
@@ -27,7 +29,8 @@ export declare namespace AppStore {
     socket: {
       connectedAt?: string;
     };
-    settings: Setting;
+    productSettings: ProductSetting;
+    orderSettings: OrderSetting;
   };
 
   type Cache = {

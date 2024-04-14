@@ -3,26 +3,26 @@ import _ from 'lodash';
 import { FC, useRef } from 'react';
 import Toast from 'react-native-toast-message';
 import { useDispatch } from 'react-redux';
-import { useUpdateProductSettingsMutation } from 'src/api';
+import { useUpdateOrderSettingsMutation } from 'src/api/order-setting.api';
 import { MenuItemSwitchWithHandler } from 'src/components/menu/menu-item-switch-with-handler';
 import { useAppSelector, useMessages } from 'src/hooks';
 import { appActions } from 'src/store';
-import { ProductSetting } from 'src/types';
+import { OrderSetting } from 'src/types';
 
-export const ProductSettingMenuItem: FC<{
-  menuItem: ProductSetting;
+export const OrderSettingMenuItem: FC<{
+  menuItem: OrderSetting;
 }> = ({ menuItem }) => {
   const dispatch = useDispatch();
   const { formatErrorMessage } = useMessages();
-  const [updateSetting] = useUpdateProductSettingsMutation();
-  const setting = useAppSelector(s => s.app.productSettings[menuItem.id]);
+  const [updateOrderSettings] = useUpdateOrderSettingsMutation();
+  const setting = useAppSelector(s => s.app.orderSettings[menuItem.id]);
 
   const handleToggle = useRef(_.debounce((e: boolean) => handleSubmit(e), 1000)).current;
 
   const handleSubmit = async (e: boolean) => {
     try {
-      await updateSetting({ [menuItem.id]: e });
-      dispatch(appActions.updateProductSettings({ [menuItem.id]: e }));
+      await updateOrderSettings({ [menuItem.id]: e });
+      dispatch(appActions.updateOrderSettings({ [menuItem.id]: e }));
     } catch (err) {
       Toast.show({ text1: formatErrorMessage(err), type: 'error' });
     }

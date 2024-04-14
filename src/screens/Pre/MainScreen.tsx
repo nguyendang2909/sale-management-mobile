@@ -1,9 +1,8 @@
 import { StackActions, useNavigation } from '@react-navigation/native';
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { useLogoutMutation } from 'src/api';
+import { useFetchProductSettingsQuery, useLogoutMutation } from 'src/api';
 import { useFetchMeQuery } from 'src/api/me.api';
-import { useFetchSettingsQuery } from 'src/api/setting.api';
 import { useFetchAllShopsQuery } from 'src/api/shop.api';
 import { LoadingOverlay } from 'src/components';
 import { HOME_SCREENS, SCREENS } from 'src/constants';
@@ -26,7 +25,7 @@ export const MainScreen: React.FC = () => {
   const { data: shopData, isError: isErrorGetShops } = useFetchAllShopsQuery(undefined, {
     refetchOnReconnect: true,
   });
-  const { isError: isErrorFetchSettings } = useFetchSettingsQuery(undefined, {
+  const { isError: isErrorFetchProductSettings } = useFetchProductSettingsQuery(undefined, {
     refetchOnReconnect: true,
   });
 
@@ -42,7 +41,7 @@ export const MainScreen: React.FC = () => {
   // }, [dispatch, logout, refreshToken]);
 
   useEffect(() => {
-    // if (isErrorGetMe || isErrorGetShops || isErrorFetchSettings) {
+    // if (isErrorGetMe || isErrorGetShops || isErrorFetchProductSettings) {
     //   handleLogout();
     // }
     if (currentUser.id) {

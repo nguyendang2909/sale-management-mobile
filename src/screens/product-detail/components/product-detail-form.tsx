@@ -8,7 +8,7 @@ import Toast from 'react-native-toast-message';
 import { useDeleteProductMutation, useUpdateProductMutation } from 'src/api';
 import { LoadingScreen } from 'src/components/screen/loading-screen';
 import { HOME_SCREENS } from 'src/constants';
-import { FormControlProductAdditional } from 'src/containers/form-control/product/form-control-product-additonal';
+import { FormControlProductAdditional } from 'src/containers/form-control/product/form-control-product-additional';
 import { FormControlProductCapitalPrice } from 'src/containers/form-control/product/form-control-product-capital-price';
 import { FormControlProductCategories } from 'src/containers/form-control/product/form-control-product-categories';
 import { FormControlProductImages } from 'src/containers/form-control/product/form-control-product-images';
@@ -20,7 +20,7 @@ import { FormControlProductSku } from 'src/containers/form-control/product/form-
 import { FormControlProductTitle } from 'src/containers/form-control/product/form-control-product-title';
 import { FormControlProductTrackingStock } from 'src/containers/form-control/product/form-control-product-tracking-stock';
 import { FormControlProductUnit } from 'src/containers/form-control/product/form-control-product-unit';
-import { useAppDispatch, useMessages, useProduct, useSettings } from 'src/hooks';
+import { useAppDispatch, useMessages, useProduct, useProductSettings } from 'src/hooks';
 import { useCategories } from 'src/hooks/useCategories';
 import { ApiRequest, AppStore, FormParams } from 'src/types';
 import * as Yup from 'yup';
@@ -37,7 +37,7 @@ export const ProductDetailForm: FC<FCProps> = ({ detail }) => {
     isFetching: isFetchingProduct,
     refetch: refetchProduct,
   } = useProduct({ detail });
-  const { data: settings } = useSettings();
+  const { data: settings } = useProductSettings();
 
   const [deleteProductMutation] = useDeleteProductMutation();
   const dispatch = useAppDispatch();

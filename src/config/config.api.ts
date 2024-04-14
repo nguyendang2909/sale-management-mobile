@@ -58,7 +58,15 @@ export const API_ENDPOINTS = {
   },
   ME: {
     INDEX: API_TAGS.ME,
-    SETTINGS: `${API_TAGS.ME}${API_TAGS.SETTINGS}`,
+    SETTINGS: {
+      INDEX: `${API_TAGS.ME}${API_TAGS.SETTINGS}`,
+      PRODUCTS: {
+        INDEX: `${API_TAGS.ME}${API_TAGS.SETTINGS}${API_TAGS.PRODUCTS}`,
+      },
+      ORDERS: {
+        INDEX: `${API_TAGS.ME}${API_TAGS.SETTINGS}${API_TAGS.ORDERS}`,
+      },
+    },
   },
   PRODUCTS: {
     INDEX: API_TAGS.PRODUCTS,

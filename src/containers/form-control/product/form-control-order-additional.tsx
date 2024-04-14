@@ -2,56 +2,55 @@ import { Button, ButtonText, Icon, ScrollView, View } from '@gluestack-ui/themed
 import { useNavigation } from '@react-navigation/native';
 import { Settings } from 'lucide-react-native';
 import { useCallback } from 'react';
-import { TouchableHighlight } from 'react-native';
+import { TouchableOpacity } from 'react-native';
 import Toast from 'react-native-toast-message';
-import { useUpdateSettingsMutation } from 'src/api';
-import { SCREENS } from 'src/constants';
-import { ARR_PRODUCT_SETTINGS } from 'src/constants/constants';
-import { useAppDispatch, useMessages, useSettings } from 'src/hooks';
+import { useUpdateOrderSettingsMutation } from 'src/api';
+import { ARR_ORDER_SETTINGS, SCREENS } from 'src/constants';
+import { useAppDispatch, useMessages, useOrderSettings } from 'src/hooks';
 import { appActions } from 'src/store';
 import { ApiRequest } from 'src/types';
 
-export const FormControlProductAdditional = () => {
+export const FormControlOrderAdditional = () => {
   const navigation = useNavigation();
-  const { data: settings } = useSettings();
-  const [updateSettings] = useUpdateSettingsMutation();
+  const { data: settings } = useOrderSettings();
+  const [updateOrderSettings] = useUpdateOrderSettingsMutation();
   const dispatch = useAppDispatch();
   const { formatErrorMessage } = useMessages();
 
   const handlePressSettings = () => {
-    navigation.navigate(SCREENS.PRODUCT_SETTING);
+    navigation.navigate(SCREENS.ORDER_SETTING);
   };
 
-  const handleUpdateSettings = useCallback(
-    async (payload: ApiRequest.UpdateSettings) => {
+  const handleUpdateOrderSettings = useCallback(
+    async (payload: ApiRequest.UpdateOrderSettings) => {
       try {
-        await updateSettings(payload).unwrap();
-        dispatch(appActions.updateSettings(payload));
+        await updateOrderSettings(payload).unwrap();
+        dispatch(appActions.updateOrderSettings(payload));
       } catch (error) {
         Toast.show({
           text1: formatErrorMessage(error),
         });
       }
     },
-    [dispatch, formatErrorMessage, updateSettings],
+    [dispatch, formatErrorMessage, updateOrderSettings],
   );
 
   return (
     <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
       <View flexDirection="row" alignItems="center" columnGap={8} rowGap={8} py={16}>
         <View>
-          <TouchableHighlight onPress={handlePressSettings}>
+          <TouchableOpacity onPress={handlePressSettings}>
             <Icon as={Settings} size="lg" />
-          </TouchableHighlight>
+          </TouchableOpacity>
         </View>
-        {ARR_PRODUCT_SETTINGS.filter(e => !settings[e.id]).map(e => {
+        {ARR_ORDER_SETTINGS.filter(e => !settings[e.id]).map(e => {
           return (
             <View key={e.id}>
               <Button
                 size="sm"
                 variant="outline"
                 onPress={() => {
-                  handleUpdateSettings({ [e.id]: true });
+                  handleUpdateOrderSettings({ [e.id]: true });
                 }}
               >
                 <ButtonText>{e.title}</ButtonText>

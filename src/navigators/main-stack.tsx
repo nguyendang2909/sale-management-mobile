@@ -18,6 +18,7 @@ import { LikedMeScreen } from 'src/screens/Me/LikedMeScreen';
 import { ProfileSettingScreen } from 'src/screens/Me/ProfileSettingScreen';
 import { OrderConfirmScreen } from 'src/screens/order-confirm/order-confirm.screen';
 import { CreateOrder } from 'src/screens/order-create/create-order.screen';
+import { OrderSettingScreen } from 'src/screens/order-setting/order-setting.screen';
 import { MainScreen } from 'src/screens/Pre/MainScreen';
 import { CreateProduct } from 'src/screens/product-create/create-product';
 import { ProductDetailScreen } from 'src/screens/product-detail/product-detail';
@@ -32,8 +33,6 @@ import { Stack } from './Stack';
 export const MainStack: React.FC = () => {
   return (
     <>
-      {/* <ConnectProfile />
-      <PrefetchData /> */}
       <Stack.Navigator
         screenOptions={{
           headerShown: false,
@@ -71,6 +70,7 @@ export const MainStack: React.FC = () => {
           {/* Order */}
           <Stack.Screen name={SCREENS.CREATE_ORDER} component={CreateOrder} />
           <Stack.Screen name={SCREENS.ORDER_CONFIRM} component={OrderConfirmScreen} />
+          <Stack.Screen name={SCREENS.ORDER_SETTING} component={OrderSettingScreen} />
         </Stack.Group>
 
         <Stack.Group

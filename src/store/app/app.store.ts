@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import moment from 'moment';
-import { settingEndpoints } from 'src/api';
+import { orderSettingEndpoints, productSettingEndpoints } from 'src/api';
 import { meEndpoints } from 'src/api/me.api';
 import { shopEndpoints } from 'src/api/shop.api';
 import { ApiResponse, AppStore, Entity } from 'src/types';
@@ -14,7 +14,8 @@ const initialState: AppStore.AppState = {
   socket: {
     connectedAt: moment().toISOString(),
   },
-  settings: {},
+  productSettings: {},
+  orderSettings: {},
 };
 
 export const appSlice = createSlice({
@@ -42,7 +43,7 @@ export const appSlice = createSlice({
       state.refreshToken = undefined;
       state.user = {};
       state.socket = {};
-      state.settings = {};
+      state.productSettings = {};
       state.shop = {};
     },
 
@@ -50,8 +51,15 @@ export const appSlice = createSlice({
       state.socket.connectedAt = moment().toDate().toISOString();
     },
 
-    updateSettings: (state, { payload }: PayloadAction<Partial<AppStore.Setting>>) => {
-      state.settings = { ...state.settings, ...payload };
+    updateProductSettings: (
+      state,
+      { payload }: PayloadAction<Partial<AppStore.ProductSetting>>,
+    ) => {
+      state.productSettings = { ...state.productSettings, ...payload };
+    },
+
+    updateOrderSettings: (state, { payload }: PayloadAction<Partial<AppStore.OrderSetting>>) => {
+      state.orderSettings = { ...state.orderSettings, ...payload };
     },
   },
   extraReducers: builder => {
@@ -59,9 +67,15 @@ export const appSlice = createSlice({
       state.user = data;
     });
     builder.addMatcher(
-      settingEndpoints.fetchSettings.matchFulfilled,
+      productSettingEndpoints.fetchProductSettings.matchFulfilled,
       (state, { payload: { data } }) => {
-        state.settings = data;
+        state.productSettings = data;
+      },
+    );
+    builder.addMatcher(
+      orderSettingEndpoints.fetchOrderSettings.matchFulfilled,
+      (state, { payload: { data } }) => {
+        state.orderSettings = data;
       },
     );
     builder.addMatcher(

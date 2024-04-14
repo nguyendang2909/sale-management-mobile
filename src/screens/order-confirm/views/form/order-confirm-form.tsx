@@ -1,16 +1,20 @@
-import { Button, ButtonIcon, ButtonText, HStack, View } from '@gluestack-ui/themed';
+import { Button, ButtonIcon, ButtonText, HStack, Text, View } from '@gluestack-ui/themed';
 import { useNavigation } from '@react-navigation/native';
 import { FlashList } from '@shopify/flash-list';
 import { ChevronLeft, Plus } from 'lucide-react-native';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Toast from 'react-native-toast-message';
 import { useCreateOrderMutation } from 'src/api';
 import { Header } from 'src/components';
 import { HOME_SCREENS, ORDER_STATUSES, SCREENS } from 'src/constants';
+import { FormControlOrderAdditional } from 'src/containers/form-control/product/form-control-order-additional';
+import { FormControlOrderNote } from 'src/containers/form-control/product/form-control-order-note';
 import { useAppDispatch, useAppSelector, useMessages, useProducts } from 'src/hooks';
 import { cartActions } from 'src/store/cart';
-import { PickedOrderItem, PickedOrderItems, ProductWithQuantity } from 'src/types';
+import { FormParams, PickedOrderItem, PickedOrderItems, ProductWithQuantity } from 'src/types';
+import { createOrderFormUtil } from 'src/utils';
 
 import { ConfirmOrderItem } from './confirm-order-item';
 import { ConfirmOrderPrices } from './confirm-order-prices';
@@ -22,7 +26,31 @@ export const OrderConfirmForm = () => {
   const { formatErrorMessage } = useMessages();
 
   const { data: products } = useProducts();
+  const settings = useAppSelector(s => s.app.orderSettings);
   const cartItemsObj = useAppSelector(s => s.cart.items);
+
+  const defaultValues = useMemo(() => {
+    return createOrderFormUtil.getDefaultValues({ products, pickedOrderItems: cartItemsObj });
+  }, [cartItemsObj, products]);
+
+  const {
+    setValue,
+    reset,
+    handleSubmit,
+    control,
+    formState: { isSubmitting, errors },
+    watch,
+    getValues,
+  } = useForm<FormParams.CreateOrder>({
+    defaultValues,
+    // resolver: createProductFormUtil.getResolver(),
+  });
+
+  useEffect(() => {
+    if (defaultValues) {
+      reset();
+    }
+  }, [defaultValues, reset]);
 
   const [orderItems, setOrderItems] = useState<ProductWithQuantity[]>(
     products
@@ -113,7 +141,7 @@ export const OrderConfirmForm = () => {
         onLeftPress={onLeftPress}
       />
 
-      <View px={12} bg="$white" py={16} flex={1}>
+      <View bg="$white" py={16} flex={1}>
         <View flex={1}>
           <View mt={16}></View>
           <FlashList
@@ -137,14 +165,32 @@ export const OrderConfirmForm = () => {
             }}
             estimatedItemSize={20}
             ListHeaderComponent={
-              <View mb={8}>
+              <View mb={8} px={16}>
                 <Button variant="outline" onPress={onLeftPress}>
                   <ButtonIcon as={Plus}></ButtonIcon>
                   <ButtonText>Thêm sản phẩm</ButtonText>
                 </Button>
               </View>
             }
-            ListFooterComponent={<View mb={100}></View>}
+            ListFooterComponent={
+              <View mb={100}>
+                {!!settings.showCreateOrderNote && (
+                  <View mt={16} px={16}>
+                    <FormControlOrderNote control={control} />
+                  </View>
+                )}
+                <View mt={16}>
+                  <View px={16}>
+                    <View>
+                      <Text>Thêm</Text>
+                    </View>
+                    <View flexDirection="row">
+                      <FormControlOrderAdditional />
+                    </View>
+                  </View>
+                </View>
+              </View>
+            }
           ></FlashList>
         </View>
       </View>

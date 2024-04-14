@@ -1,4 +1,5 @@
 import {
+  CloseCircleIcon,
   FormControl,
   FormControlError,
   FormControlErrorIcon,
@@ -7,10 +8,12 @@ import {
   FormControlLabelText,
   Input,
   InputField,
+  InputIcon,
+  InputSlot,
   View,
 } from '@gluestack-ui/themed';
 import { Stack } from 'native-base';
-import React from 'react';
+import React, { useCallback } from 'react';
 import { InputModeOptions } from 'react-native';
 
 import { MaterialIcons } from '../icon';
@@ -42,13 +45,16 @@ export const FormControlInput: React.FC<FCProps> = ({
   onBlur,
   focusable,
 }) => {
+  const handleClear = useCallback(() => {
+    onChange('');
+  }, [onChange]);
   return (
     <FormControl {...(isRequired ? { isRequired } : {})} isInvalid={!!error}>
       <Stack>
         <FormControlLabel>
           <FormControlLabelText>{label}</FormControlLabelText>
         </FormControlLabel>
-        <Input size="lg" testID={testID} variant="underlined">
+        <Input testID={testID} variant="underlined">
           <InputField
             focusable={focusable}
             inputMode={inputMode}
@@ -58,6 +64,11 @@ export const FormControlInput: React.FC<FCProps> = ({
             maxLength={maxLength}
             onBlur={onBlur}
           ></InputField>
+          {!!value && (
+            <InputSlot onPress={handleClear}>
+              <InputIcon as={CloseCircleIcon}></InputIcon>
+            </InputSlot>
+          )}
         </Input>
         <View pb={12}>
           <FormControlError position="absolute">

@@ -70,6 +70,7 @@ export type AppStackParamList = {
   CREATE_ORDER: undefined;
   PRODUCT_SETTING: undefined;
   ORDER_CONFIRM: undefined;
+  ORDER_SETTING: undefined;
 };
 
 export type AppStackScreenProps<T extends keyof AppStackParamList> = NativeStackScreenProps<
