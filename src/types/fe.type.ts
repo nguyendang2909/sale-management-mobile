@@ -3,7 +3,13 @@ import { ORDER_SETTINGS, PRODUCT_SETTINGS } from 'src/constants/constants';
 
 import { AppStore } from './app-store.type';
 import { ValueOf } from './common.type';
-import { AuthGrantType, DevicePlatform, OrderStatus, PaymentMethod } from './data.type';
+import {
+  AuthGrantType,
+  DevicePlatform,
+  OrderStatus,
+  PaymentMethod,
+  PaymentStatus,
+} from './data.type';
 import { Entity } from './entities.type';
 
 export declare namespace ApiRequest {
@@ -157,7 +163,15 @@ export declare namespace ApiRequest {
 
   type FindManyShops = Pagination;
 
-  type FindAllOrders = {};
+  type FindAllOrders = {
+    _next?: string;
+    searchText?: string;
+    status?: OrderStatus;
+    startDate?: string;
+    endDate?: string;
+    paymentStatus?: PaymentStatus;
+    paymentMethod?: PaymentMethod;
+  };
 
   type FindManyOrders = FindAllOrders & Pagination;
 

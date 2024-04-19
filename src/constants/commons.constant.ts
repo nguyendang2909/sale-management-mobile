@@ -68,4 +68,4 @@ export const ORDER_TABS = {
     'CANCELLED',
   ]),
   ALL: 'all',
-};
+} as const;

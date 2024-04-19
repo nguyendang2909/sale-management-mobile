@@ -7,7 +7,7 @@ export const ProfileVisitorsCard: React.FC = () => {
   const { formatMessage } = useMessages();
   return (
     <>
-      <View borderWidth={1} borderRadius={8} borderColor="$coolGray200" py={16}>
+      <View borderWidth={1} borderRadius={8} borderColor="$backgroundLight200" py={16}>
         <VStack space="sm">
           <Center>
             <View>

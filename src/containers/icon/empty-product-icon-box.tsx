@@ -12,7 +12,7 @@ export const EmptyProductIconBox: FC<FCprops> = ({ size, ...props }) => {
       {...props}
       {...sizeUtil.getProps(size)}
       borderRadius={props.borderRadius || 4}
-      borderColor={props.borderColor || '$coolGray200'}
+      borderColor={props.borderColor || '$backgroundLight200'}
       borderWidth={props.borderWidth || 1}
       bgColor={props.bgColor || '$coolGray100'}
       alignItems={props.alignItems || 'center'}

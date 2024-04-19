@@ -19,9 +19,9 @@ export const ProfileEditCard: React.FC = () => {
           <View
             borderWidth={1}
             borderRadius={8}
-            borderColor="$coolGray200"
+            borderColor="$backgroundLight200"
             py={16}
-            bg={pressed ? '$coolGray200' : undefined}
+            bg={pressed ? '$backgroundLight200' : undefined}
           >
             <VStack space="sm">
               <Center>

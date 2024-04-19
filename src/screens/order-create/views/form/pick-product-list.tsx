@@ -74,7 +74,7 @@ export const PickProducts = () => {
       }
       dispatch(cartActions.addProductItem(productId));
     },
-    [dispatch, objProducts],
+    [cartItems, dispatch, objProducts],
   );
 
   const handleSubtract = useCallback(

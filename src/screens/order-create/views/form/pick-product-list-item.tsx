@@ -49,7 +49,7 @@ export const PickProduct: FC<FCProps> = ({ product, quantity, onAdd, onSubtract,
   return (
     <Pressable as={TouchableHighlight} onPress={handleAdd}>
       <View bg="$white" px={16}>
-        <HStack columnGap={8} borderBottomWidth={1} borderColor="$coolGray200" py={8}>
+        <HStack columnGap={8} borderBottomWidth={1} borderColor="$backgroundLight200" py={8}>
           <View>
             <ProductIconBox url={imagePath?.path} />
           </View>

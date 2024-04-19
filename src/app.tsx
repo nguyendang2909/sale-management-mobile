@@ -32,7 +32,7 @@ export default function App() {
     <>
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
-          <IntlProvider defaultLocale="en" locale="en" messages={translators.en}>
+          <IntlProvider defaultLocale="vi" locale="vi" messages={translators.en}>
             <ConnectSocket />
             <SafeAreaProvider>
               <ActionSheetProvider>

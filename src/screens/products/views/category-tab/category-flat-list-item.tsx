@@ -16,8 +16,8 @@ export const CategoryFlatListItem: FC<FCProps> = ({ category }) => {
     <Pressable onPress={handlePress}>
       {({ pressed }) => {
         return (
-          <View bg={pressed ? '$coolGray200' : '$white'} px={16}>
-            <HStack columnGap={8} borderBottomWidth={1} borderColor="$coolGray200" py={8}>
+          <View bg={pressed ? '$backgroundLight200' : '$white'} px={16}>
+            <HStack columnGap={8} borderBottomWidth={1} borderColor="$backgroundLight200" py={8}>
               <View>{image ? <></> : <EmptyProductIconBox />}</View>
               <VStack>
                 <View height={22}>

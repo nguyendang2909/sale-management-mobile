@@ -1,5 +1,5 @@
 /* eslint-disable no-use-before-define */
-import { OrderStatus, Role, UserStatus, WorkingTimeType } from './data.type';
+import { OrderStatus, PaymentMethod, Role, UserStatus, WorkingTimeType } from './data.type';
 
 export declare namespace Entity {
   type BaseEntity = {
@@ -140,11 +140,13 @@ export declare namespace Entity {
       customerId: string;
       status: OrderStatus;
       lastChangedStatus: Date;
-      paymentMethod: string;
+      paymentMethod: PaymentMethod;
       price: number;
       promotionPrice?: number;
+      totalAmount?: number;
       deliveryMethod: string;
       ordersProducts?: OrderProduct[];
+      code?: string;
     }>;
 
   type Customer = BaseEntity &

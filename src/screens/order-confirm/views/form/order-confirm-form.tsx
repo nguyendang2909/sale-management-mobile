@@ -206,7 +206,7 @@ export const OrderConfirmForm = () => {
         edges={['bottom']}
         pt={16}
         borderTopWidth={1}
-        borderColor="$coolGray200"
+        borderColor="$backgroundLight200"
         px={16}
       >
         <View>
