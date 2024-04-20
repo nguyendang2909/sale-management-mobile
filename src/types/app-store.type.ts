@@ -133,6 +133,9 @@ export declare namespace AppStore {
 
   type CartStore = {
     items: PickedOrderItems;
+    settings: {
+      isCalculating: boolean;
+    };
   };
 
   type CategoryStore = {

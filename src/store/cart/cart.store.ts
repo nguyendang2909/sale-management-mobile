@@ -6,6 +6,9 @@ import { appActions } from '../app/app.store';
 
 const initialState: AppStore.CartStore = {
   items: {},
+  settings: {
+    isCalculating: false,
+  },
 };
 
 export const cartSlice = createSlice({
@@ -32,16 +35,25 @@ export const cartSlice = createSlice({
       }
       state.items[productId].quantity -= 1;
     },
+    deleteProductItem: (state, { payload: productId }: PayloadAction<string>) => {
+      delete state.items[productId];
+    },
     setProductItem: (state, { payload }: PayloadAction<PickedOrderItem>) => {
       state.items[payload.productId] = payload;
     },
     setCartItems: (state, { payload }: PayloadAction<Record<string, PickedOrderItem>>) => {
       state.items = payload;
     },
+    resetCartSettings: state => {
+      if (state.settings.isCalculating) {
+        state.settings.isCalculating = false;
+      }
+    },
   },
   extraReducers: builder => {
     builder.addCase(appActions.logout, state => {
       state.items = {};
+      state.settings.isCalculating = false;
     });
   },
 });

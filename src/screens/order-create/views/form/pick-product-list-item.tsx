@@ -11,39 +11,49 @@ import {
 } from '@gluestack-ui/themed';
 import _ from 'lodash';
 import { MinusCircle, PlusCircle } from 'lucide-react-native';
-import React, { FC, memo, useCallback, useMemo } from 'react';
+import React, { FC, useCallback, useMemo } from 'react';
 import { TouchableHighlight } from 'react-native';
+import Toast from 'react-native-toast-message';
 import { ProductPrices } from 'src/components/text/formatted-prices';
 import { ProductIconBox } from 'src/containers/icon/product-icon-box';
+import { useAppDispatch, useAppSelector } from 'src/hooks';
+import { cartActions } from 'src/store/cart';
 import { AppStore, PickedOrderItem } from 'src/types';
 
 type FCProps = {
   product: AppStore.Product;
-  quantity?: number;
-  onAdd: (productId: string) => void;
-  onSubtract: (productId: string) => void;
-  onSet: (item: PickedOrderItem) => void;
 };
 
-export const PickProduct: FC<FCProps> = ({ product, quantity, onAdd, onSubtract, onSet }) => {
-  const imagePath = _.first(product.imagePaths);
+export const PickProduct: FC<FCProps> = ({ product }) => {
+  const dispatch = useAppDispatch();
   const productId = useMemo(() => product.id, [product.id]);
+  const orderItem: PickedOrderItem = useAppSelector(e => e.cart.items[product.id]) || {
+    quantity: 0,
+    productId: product.id,
+  };
+
+  const imagePath = _.first(product.imagePaths);
 
   const handleAdd = useCallback(() => {
-    onAdd(productId);
-  }, [onAdd, productId]);
+    if (!_.isNil(product.stock) && product.stock <= orderItem.quantity) {
+      Toast.show({ text1: 'Vượt quá số lượng sản phẩm tồn kho', type: 'error' });
+      return;
+    }
+    dispatch(cartActions.addProductItem(productId));
+  }, [dispatch, orderItem.quantity, product.stock, productId]);
 
   const handleSubtract = useCallback(() => {
-    onSubtract(productId);
-  }, [onSubtract, productId]);
+    dispatch(cartActions.subtractProductItem(productId));
+  }, [dispatch, productId]);
 
   const handleSet = useCallback(
     (e: string) => {
-      if (_.isNumber(+e)) {
-        onSet({ productId, quantity: +e });
+      const eNumber = +e;
+      if (_.isNumber(eNumber) && eNumber >= 0) {
+        dispatch(cartActions.setProductItem({ productId, quantity: _.round(eNumber, 0) }));
       }
     },
-    [onSet, productId],
+    [dispatch, productId],
   );
 
   return (
@@ -85,7 +95,7 @@ export const PickProduct: FC<FCProps> = ({ product, quantity, onAdd, onSubtract,
                 justifyContent="flex-end"
                 borderBottomWidth={0}
               >
-                {!!quantity && (
+                {!!orderItem.quantity && (
                   <>
                     <InputSlot as={Pressable} onPress={handleSubtract}>
                       <InputIcon as={MinusCircle} color="$primary500" />
@@ -93,7 +103,7 @@ export const PickProduct: FC<FCProps> = ({ product, quantity, onAdd, onSubtract,
                     <InputField
                       textAlign="center"
                       inputMode="numeric"
-                      value={quantity?.toString()}
+                      value={orderItem.quantity?.toString()}
                       onChangeText={handleSet}
                       lineHeight={20}
                     ></InputField>
@@ -110,9 +120,3 @@ export const PickProduct: FC<FCProps> = ({ product, quantity, onAdd, onSubtract,
     </Pressable>
   );
 };
-
-export const PickProductMemo = memo(PickProduct, (prevProps, nextProps) => {
-  return (
-    prevProps.quantity !== nextProps.quantity || !_.isEqual(prevProps.product, nextProps.product)
-  );
-});

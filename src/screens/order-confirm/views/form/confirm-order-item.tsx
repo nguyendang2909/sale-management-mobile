@@ -16,48 +16,58 @@ import _ from 'lodash';
 import { MinusCircle, PlusCircle } from 'lucide-react-native';
 import React, { FC, useCallback, useMemo } from 'react';
 import { TouchableHighlight } from 'react-native';
+import Toast from 'react-native-toast-message';
 import { ProductPrices } from 'src/components/text/formatted-prices';
 import { ProductIconBox } from 'src/containers/icon/product-icon-box';
-import { PickedOrderItem, ProductWithQuantity } from 'src/types';
+import { useAppDispatch, useAppSelector } from 'src/hooks';
+import { cartActions } from 'src/store/cart';
+import { AppStore, PickedOrderItem } from 'src/types';
 
 type FCProps = {
-  orderItem: ProductWithQuantity;
-  onAdd: (productId: string) => void;
-  onSubtract: (productId: string) => void;
-  onSet: (item: PickedOrderItem) => void;
-  onDelete: (productId: string) => void;
+  product: AppStore.Product;
+  // onAdd: (productId: string) => void;
+  // onSubtract: (productId: string) => void;
+  // onSet: (item: PickedOrderItem) => void;
+  // onDelete: (productId: string) => void;
 };
 
-export const ConfirmOrderItem: FC<FCProps> = ({
-  orderItem,
-  onAdd,
-  onSubtract,
-  onSet,
-  onDelete,
-}) => {
-  const imagePath = _.first(orderItem.imagePaths);
-  const productId = useMemo(() => orderItem.id, [orderItem.id]);
+export const ConfirmOrderItem: FC<FCProps> = ({ product }) => {
+  const dispatch = useAppDispatch();
+  const productId = useMemo(() => product.id, [product.id]);
+  const imagePath = _.first(product.imagePaths);
+  const orderItem: PickedOrderItem = useAppSelector(e => e.cart.items[product.id]) || {
+    quantity: 0,
+    productId: product.id,
+  };
 
   const handleAdd = useCallback(() => {
-    onAdd(productId);
-  }, [onAdd, productId]);
+    if (!_.isNil(product.stock) && product.stock <= orderItem.quantity) {
+      Toast.show({ text1: 'Vượt quá số lượng sản phẩm tồn kho', type: 'error' });
+      return;
+    }
+    dispatch(cartActions.addProductItem(productId));
+  }, [dispatch, orderItem.quantity, product.stock, productId]);
 
   const handleSubtract = useCallback(() => {
-    onSubtract(productId);
-  }, [onSubtract, productId]);
+    dispatch(cartActions.subtractProductItem(productId));
+  }, [dispatch, productId]);
 
   const handleSet = useCallback(
     (e: string) => {
-      if (_.isNumber(+e)) {
-        onSet({ productId, quantity: +e });
+      const eNumber = +e;
+      if (_.isNumber(eNumber) && eNumber >= 0) {
+        dispatch(cartActions.setProductItem({ productId, quantity: _.round(eNumber, 0) }));
       }
     },
-    [onSet, productId],
+    [dispatch, productId],
   );
 
-  const handleDelete = useCallback(() => {
-    onDelete(productId);
-  }, [onDelete, productId]);
+  const handleDelete = useCallback(
+    (productId: string) => {
+      dispatch(cartActions.deleteProductItem(productId));
+    },
+    [dispatch],
+  );
 
   return (
     <Pressable as={TouchableHighlight} onPress={handleAdd}>
@@ -92,7 +102,7 @@ export const ConfirmOrderItem: FC<FCProps> = ({
           <VStack>
             <View height={22}>
               <Text lineHeight={22} numberOfLines={1}>
-                {orderItem.title}
+                {product.title}
               </Text>
             </View>
             <View height={21}>
@@ -100,7 +110,7 @@ export const ConfirmOrderItem: FC<FCProps> = ({
             </View>
             <View height={21}>
               <Text lineHeight={21} color="$red600">
-                <ProductPrices product={orderItem} />
+                <ProductPrices product={product} />
               </Text>
             </View>
           </VStack>

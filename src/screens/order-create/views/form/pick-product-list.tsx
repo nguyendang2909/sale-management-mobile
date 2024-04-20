@@ -9,23 +9,23 @@ import {
 } from '@gluestack-ui/themed';
 import { useNavigation } from '@react-navigation/native';
 import { FlashList } from '@shopify/flash-list';
-import _ from 'lodash';
 import { ShoppingCart } from 'lucide-react-native';
-import { useCallback, useMemo } from 'react';
+import { useMemo } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import Toast from 'react-native-toast-message';
 import { Price } from 'src/components/text/formatted-price';
 import { SCREENS } from 'src/constants';
-import { useAppDispatch, useAppSelector, useSearchProducts } from 'src/hooks';
-import { cartActions } from 'src/store/cart';
-import { AppStore, PickedOrderItem } from 'src/types';
+import { useAppSelector, useSearchProducts } from 'src/hooks';
+import { AppStore } from 'src/types';
 import { productUtil } from 'src/utils/product.util';
 
 import { PickProduct } from './pick-product-list-item';
 
 export const PickProducts = () => {
-  const dispatch = useAppDispatch();
-  const { data: products } = useSearchProducts();
+  const {
+    data: products,
+    refetch: refetchProducts,
+    isFetching: isFetchingProducts,
+  } = useSearchProducts();
   const cartItems = useAppSelector(s => s.cart.items);
   const orderItems = useMemo(() => Object.values(cartItems), [cartItems]);
   const navigation = useNavigation();
@@ -38,57 +38,25 @@ export const PickProducts = () => {
     [products],
   );
 
-  const pickedProductCount = useMemo(
+  const { productsTotal, productsTotalAmount } = useMemo(
     () =>
-      orderItems.reduce((acc, orderItem) => {
-        return acc + orderItem.quantity;
-      }, 0),
-    [orderItems],
-  );
-
-  const pickedProductsPrice = useMemo(
-    () =>
-      orderItems.reduce((acc, orderItem) => {
-        return objProducts[orderItem.productId]
-          ? acc +
-              productUtil.getPriceWithQuantity({
-                ...objProducts[orderItem.productId],
-                ...orderItem,
-              })
-          : 0;
-      }, 0),
+      orderItems.reduce<{ productsTotal: number; productsTotalAmount: number }>(
+        (result, orderItem) => {
+          return {
+            productsTotal: result.productsTotal + orderItem.quantity,
+            productsTotalAmount:
+              result.productsTotalAmount +
+              (objProducts[orderItem.productId]
+                ? productUtil.getTotalAmountByOrderItem(objProducts[orderItem.productId], orderItem)
+                : 0),
+          };
+        },
+        {
+          productsTotal: 0,
+          productsTotalAmount: 0,
+        },
+      ),
     [objProducts, orderItems],
-  );
-
-  const handleAdd = useCallback(
-    (productId: string) => {
-      if (!objProducts[productId]) {
-        return;
-      }
-      if (
-        !_.isNil(objProducts[productId].stock) &&
-        objProducts[productId].stock! <= (cartItems[productId]?.quantity || 0)
-      ) {
-        Toast.show({ text1: 'Vượt quá số lượng sản phẩm tồn kho', type: 'error' });
-        return;
-      }
-      dispatch(cartActions.addProductItem(productId));
-    },
-    [cartItems, dispatch, objProducts],
-  );
-
-  const handleSubtract = useCallback(
-    (productId: string) => {
-      dispatch(cartActions.subtractProductItem(productId));
-    },
-    [dispatch],
-  );
-
-  const handleSet = useCallback(
-    (item: PickedOrderItem) => {
-      dispatch(cartActions.setProductItem(item));
-    },
-    [dispatch],
   );
 
   const handlePressNext = () => {
@@ -98,28 +66,22 @@ export const PickProducts = () => {
   return (
     <View flex={1}>
       <FlashList
+        refreshing={isFetchingProducts}
+        onRefresh={refetchProducts}
         showsVerticalScrollIndicator={false}
         numColumns={1}
         data={products}
         keyExtractor={(item, index) => item.id || index.toString()}
-        extraData={{
-          a: 1,
-        }}
+        // extraData={{
+        //   cartItems,
+        // }}
         renderItem={({ item }) => {
-          return (
-            <PickProduct
-              product={item}
-              onAdd={handleAdd}
-              onSubtract={handleSubtract}
-              onSet={handleSet}
-              quantity={cartItems[item.id]?.quantity}
-            />
-          );
+          return <PickProduct product={item} />;
         }}
         estimatedItemSize={100}
         ListFooterComponent={<View height={100}></View>}
       ></FlashList>
-      {!!pickedProductCount && (
+      {!!productsTotal && (
         <View
           position="absolute"
           left={0}
@@ -131,7 +93,7 @@ export const PickProducts = () => {
           edges={['bottom']}
           pt={16}
           borderTopWidth={1}
-          borderColor="$coolGray400"
+          borderColor="$coolGray200"
         >
           <View px={16}>
             <Button size="lg" onPress={handlePressNext} height={56}>
@@ -154,7 +116,7 @@ export const PickProducts = () => {
                     alignItems="center"
                   >
                     <BadgeText color="$white" size="2xs">
-                      {pickedProductCount > 99 ? '99+' : pickedProductCount}
+                      {productsTotal > 99 ? '99+' : productsTotal}
                     </BadgeText>
                   </Badge>
 
@@ -162,7 +124,7 @@ export const PickProducts = () => {
                 </View>
                 <View flex={1}>
                   <ButtonText>
-                    <Price value={pickedProductsPrice} />
+                    <Price value={productsTotalAmount} />
                   </ButtonText>
                 </View>
                 <View>

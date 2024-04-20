@@ -1,6 +1,6 @@
 import _, { ListIterator, Many, NotVoid, PartialShallow, PropertyName } from 'lodash';
 import { PRODUCT_SORT_TYPES } from 'src/constants/constants';
-import { AppStore, Entity, ProductSortType, ProductWithQuantity } from 'src/types';
+import { AppStore, Entity, PickedOrderItem, ProductSortType } from 'src/types';
 
 import { BaseUtil } from './base/base.util';
 
@@ -103,15 +103,12 @@ class ProductUtil extends BaseUtil {
     }
   }
 
-  getOriginalPriceWithQuantity(product: ProductWithQuantity) {
-    return (product.price || 0) * (product.quantity || 0);
+  getPriceByOrderItem(product: AppStore.Product, cartItem: PickedOrderItem) {
+    return (product.price || 0) * cartItem.quantity;
   }
 
-  getPriceWithQuantity(product: ProductWithQuantity): number {
-    const { quantity = 0 } = product;
-    if (!quantity) {
-      return 0;
-    }
+  getTotalAmountByOrderItem(product: AppStore.Product, cartItem: PickedOrderItem): number {
+    const { quantity } = cartItem;
     if (
       product.wholesalePrice &&
       product.minWholesalePriceQuantity &&
