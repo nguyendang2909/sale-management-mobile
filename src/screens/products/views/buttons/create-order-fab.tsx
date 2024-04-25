@@ -2,12 +2,15 @@ import { Fab, FabIcon } from '@gluestack-ui/themed';
 import { useNavigation } from '@react-navigation/native';
 import { Plus } from 'lucide-react-native';
 import { SCREENS } from 'src/constants';
+import { createOrderFormUtil } from 'src/utils';
 
 export const CreateOrderFab = () => {
   const navigation = useNavigation();
 
   const handlePress = () => {
-    navigation.navigate(SCREENS.CREATE_ORDER);
+    navigation.navigate(SCREENS.ORDER_CREATE, {
+      values: createOrderFormUtil.getDefaultValues(),
+    });
   };
 
   return (

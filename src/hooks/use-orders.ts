@@ -1,65 +1,95 @@
+import _ from 'lodash';
 import { useCallback, useEffect, useState } from 'react';
-import { useFetchOrdersQuery } from 'src/api';
-import { Entity, OrderStatus } from 'src/types';
+import Toast from 'react-native-toast-message';
+import { useLazyFetchOrdersQuery } from 'src/api';
+import { ApiResponse, Entity, OrderStatus } from 'src/types';
+
+import { useMessages } from './useMessages';
 
 export const useOrders = ({ status }: { status?: OrderStatus }) => {
   const [orders, setOrders] = useState<Entity.Order[]>([]);
 
-  const [_next, setNext] = useState<string | undefined>(undefined);
+  const { formatErrorMessage } = useMessages();
+
+  const [pagination, setPagination] = useState<ApiResponse.Pagination>({
+    _next: null,
+    _prev: null,
+  });
   const [isRefreshing, setRefreshing] = useState<boolean>(false);
 
-  const {
-    data: payload,
-    isLoading,
-    isFetching,
-    refetch,
-    ...rest
-  } = useFetchOrdersQuery(
-    {
-      status,
-      _next,
-    },
-    {
-      refetchOnMountOrArgChange: true,
-    },
-  );
+  const [fetchOrders, { isLoading, isFetching }] = useLazyFetchOrdersQuery();
   const loading = isLoading || isFetching;
 
-  useEffect(() => {
-    setOrders([]);
-  }, [status]);
+  const setData = (data: ApiResponse.Orders) => {
+    setOrders(data.data);
+    setPagination(data.pagination);
+  };
 
-  const fetchNext = useCallback(() => {
-    if (loading) {
-      return;
-    }
-    if (payload?.pagination._next) {
-      setNext(payload?.pagination._next);
-    }
-  }, [loading, payload?.pagination._next]);
-
-  const refresh = useCallback(() => {
-    if (loading) {
-      return;
-    }
-    setNext(undefined);
-  }, [loading]);
-
-  useEffect(() => {
-    if (payload) {
-      setOrders(prev => {
-        return prev.concat(...payload.data);
+  const fetchFirstData = useCallback(async () => {
+    try {
+      const data = await fetchOrders({
+        status,
+      }).unwrap();
+      console.log(1111, status, data);
+      setOrders(data.data);
+      setPagination(data.pagination);
+    } catch (err) {
+      Toast.show({
+        text1: formatErrorMessage(err),
       });
     }
-  }, [payload]);
+  }, [fetchOrders, formatErrorMessage, status]);
+
+  useEffect(() => {
+    fetchFirstData();
+  }, []);
+
+  const fetchNext = useCallback(async () => {
+    if (loading) {
+      return;
+    }
+    if (!pagination._next) {
+      return;
+    }
+    const data = await fetchOrders({
+      status,
+      _next: pagination._next,
+    }).unwrap();
+    setPagination(data.pagination);
+    setOrders(prev => {
+      return _.chain(data.data)
+        .concat(...prev)
+        .uniqBy('id')
+        .orderBy('createdAt')
+        .value();
+    });
+  }, [fetchOrders, loading, pagination._next, status]);
+
+  const refresh = useCallback(async () => {
+    if (loading) {
+      return;
+    }
+    setRefreshing(true);
+    try {
+      const data = await fetchOrders({
+        status,
+      }).unwrap();
+      setData(data);
+    } catch (err) {
+      Toast.show({
+        text1: formatErrorMessage(err),
+      });
+    } finally {
+      setRefreshing(false);
+    }
+  }, [fetchOrders, formatErrorMessage, loading, status]);
 
   return {
     data: orders,
-    refetch,
     isFetching,
     isLoading,
     fetchNext,
     refresh,
-    ...rest,
+    isRefreshing,
   };
 };

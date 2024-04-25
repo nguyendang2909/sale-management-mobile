@@ -3,7 +3,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import React, { FC } from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { APP_CONFIG } from 'src/config/config.app';
-import { DEFAULT_NAVIGATOR, NAVIGATOR_DATA } from 'src/constants';
+import { NAVIGATOR_DATA } from 'src/constants';
 import { BOTTOM_NAVIGATOR_NAMES } from 'src/constants/constants';
 import { useMessages } from 'src/hooks';
 import { backgroundColor, borderTopColor } from 'src/styles';
@@ -26,7 +26,7 @@ export const HomeNavigator: FC<FCProps> = () => {
   ];
 
   const navigators = [
-    ...DEFAULT_NAVIGATOR,
+    // ...DEFAULT_NAVIGATOR,
     ...screens.map(e => {
       return { ...NAVIGATOR_DATA[e], isShow: true };
     }),

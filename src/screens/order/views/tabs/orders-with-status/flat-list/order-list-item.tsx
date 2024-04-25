@@ -5,8 +5,6 @@ import { FormattedTime } from 'react-intl';
 import { Price } from 'src/components/text/formatted-price';
 import { Entity } from 'src/types';
 
-import { OrderCardStatusTag } from '../../tags/order-card-status-tag';
-
 type FCProps = {
   order: Entity.Order;
 };
@@ -48,7 +46,7 @@ export const OrderListItem: FC<FCProps> = ({ order }) => {
                     </Text>
                   </View>
                 </View>
-                <View>{!!order.status && <OrderCardStatusTag status={order.status} />}</View>
+                {/* <View>{!!order.status && <OrderCardStatusTag status={order.status} />}</View> */}
               </HStack>
               <Divider my={8} />
               <View>

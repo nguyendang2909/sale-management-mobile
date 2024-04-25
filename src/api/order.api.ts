@@ -15,9 +15,10 @@ const productApi = api.injectEndpoints({
     }),
 
     fetchOrders: builder.query<ApiResponse.Orders, ApiRequest.FindManyOrders>({
-      query: () => ({
+      query: params => ({
         url: API_ENDPOINTS.ORDERS.INDEX,
         method: API_METHODS.GET,
+        params,
       }),
     }),
 
@@ -49,6 +50,7 @@ export const {
   useCreateOrderMutation,
   useFetchOrderQuery,
   useFetchOrdersQuery,
+  useLazyFetchOrdersQuery,
   useDeleteOrderMutation,
   endpoints: orderEndpoints,
 } = productApi;

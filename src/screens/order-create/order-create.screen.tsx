@@ -1,24 +1,19 @@
 import { StatusBar, View } from '@gluestack-ui/themed';
-import { useEffect } from 'react';
-import { useAppDispatch } from 'src/hooks';
-import { cartActions } from 'src/store/cart';
+import { FC } from 'react';
+import { AppStackScreenProps } from 'src/types';
 
 import { PickProducts } from './views/form/pick-product-list';
 import { CreateOrderHeader } from './views/header/create-order-header';
 
-export const CreateOrder = () => {
-  const dispatch = useAppDispatch();
+type FCProps = AppStackScreenProps<'ORDER_CREATE'>;
 
-  useEffect(() => {
-    dispatch(cartActions.resetCartSettings());
-  }, [dispatch]);
-
+export const OrderCreateScreen: FC<FCProps> = props => {
   return (
     <>
       <StatusBar barStyle="default" />
       <CreateOrderHeader />
       <View mt={8} />
-      <PickProducts />
+      <PickProducts values={props.route.params.values} />
     </>
   );
 };

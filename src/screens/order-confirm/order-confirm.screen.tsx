@@ -6,12 +6,16 @@ import { OrderConfirmForm } from './views/form/order-confirm-form';
 
 type FCProps = AppStackScreenProps<'ORDER_CONFIRM'>;
 
-export const OrderConfirmScreen: FC<FCProps> = props => {
+export const OrderConfirmScreen: FC<FCProps> = ({
+  route: {
+    params: { values },
+  },
+}) => {
   return (
     <>
       <StatusBar barStyle="default" />
 
-      <OrderConfirmForm />
+      <OrderConfirmForm values={values} />
     </>
   );
 };

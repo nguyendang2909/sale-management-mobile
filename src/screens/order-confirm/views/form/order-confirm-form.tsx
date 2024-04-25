@@ -2,7 +2,7 @@ import { Button, ButtonIcon, ButtonText, HStack, Text, View } from '@gluestack-u
 import { useNavigation } from '@react-navigation/native';
 import { FlashList } from '@shopify/flash-list';
 import { ChevronLeft, Plus } from 'lucide-react-native';
-import { useCallback, useEffect, useMemo } from 'react';
+import { FC, useCallback, useEffect, useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Toast from 'react-native-toast-message';
@@ -19,7 +19,7 @@ import { createOrderFormUtil } from 'src/utils';
 import { ConfirmOrderItem } from './confirm-order-item';
 import { ConfirmOrderPrices } from './confirm-order-prices';
 
-export const OrderConfirmForm = () => {
+export const OrderConfirmForm: FC<{ values: FormParams.CreateOrder }> = ({ values }) => {
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
   const [createOrder] = useCreateOrderMutation();
@@ -32,8 +32,8 @@ export const OrderConfirmForm = () => {
   const pickedProducts = products.filter(product => !!cartItemsObj[product.id]);
 
   const defaultValues = useMemo(() => {
-    return createOrderFormUtil.getDefaultValues({ products, pickedOrderItems: cartItemsObj });
-  }, [cartItemsObj, products]);
+    return createOrderFormUtil.getDefaultValues(values);
+  }, [values]);
 
   const {
     setValue,
@@ -45,7 +45,7 @@ export const OrderConfirmForm = () => {
     getValues,
   } = useForm<FormParams.CreateOrder>({
     defaultValues,
-    // resolver: createProductFormUtil.getResolver(),
+    resolver: createOrderFormUtil.getResolver(),
   });
 
   useEffect(() => {
@@ -61,8 +61,10 @@ export const OrderConfirmForm = () => {
   // }, []);
 
   const onLeftPress = useCallback(() => {
-    navigation.navigate(SCREENS.CREATE_ORDER);
-  }, [navigation]);
+    navigation.navigate(SCREENS.ORDER_CREATE, {
+      values: getValues(),
+    });
+  }, [getValues, navigation]);
 
   const saveOrder = useCallback(async () => {
     try {
@@ -124,6 +126,11 @@ export const OrderConfirmForm = () => {
                     <FormControlOrderNote control={control} />
                   </View>
                 )}
+                {/* {!!settings.showCreateOrderCustomer && (
+                  <View mt={16} px={16}>
+                    <FormControlOrderCustomer control={control} />
+                  </View>
+                )} */}
                 <View mt={16}>
                   <View px={16}>
                     <View>

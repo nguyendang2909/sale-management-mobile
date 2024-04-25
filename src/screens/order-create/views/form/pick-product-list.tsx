@@ -10,17 +10,17 @@ import {
 import { useNavigation } from '@react-navigation/native';
 import { FlashList } from '@shopify/flash-list';
 import { ShoppingCart } from 'lucide-react-native';
-import { useMemo } from 'react';
+import { FC, useMemo } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Price } from 'src/components/text/formatted-price';
 import { SCREENS } from 'src/constants';
 import { useAppSelector, useSearchProducts } from 'src/hooks';
-import { AppStore } from 'src/types';
+import { AppStore, FormParams } from 'src/types';
 import { productUtil } from 'src/utils/product.util';
 
 import { PickProduct } from './pick-product-list-item';
 
-export const PickProducts = () => {
+export const PickProducts: FC<{ values: FormParams.CreateOrder }> = ({ values }) => {
   const {
     data: products,
     refetch: refetchProducts,
@@ -60,7 +60,7 @@ export const PickProducts = () => {
   );
 
   const handlePressNext = () => {
-    navigation.navigate(SCREENS.ORDER_CONFIRM);
+    navigation.navigate(SCREENS.ORDER_CONFIRM, { values });
   };
 
   return (

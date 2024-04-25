@@ -17,7 +17,7 @@ import { EditInfoLocationScreen } from 'src/screens/Me/EditInfoLocationScreen';
 import { LikedMeScreen } from 'src/screens/Me/LikedMeScreen';
 import { ProfileSettingScreen } from 'src/screens/Me/ProfileSettingScreen';
 import { OrderConfirmScreen } from 'src/screens/order-confirm/order-confirm.screen';
-import { CreateOrder } from 'src/screens/order-create/create-order.screen';
+import { OrderCreateScreen } from 'src/screens/order-create/order-create.screen';
 import { OrderSettingScreen } from 'src/screens/order-setting/order-setting.screen';
 import { MainScreen } from 'src/screens/Pre/MainScreen';
 import { CreateProduct } from 'src/screens/product-create/create-product';
@@ -68,7 +68,7 @@ export const MainStack: React.FC = () => {
           <Stack.Screen name={SCREENS.PRODUCT_SETTING} component={ProductSettingScreen} />
 
           {/* Order */}
-          <Stack.Screen name={SCREENS.CREATE_ORDER} component={CreateOrder} />
+          <Stack.Screen name={SCREENS.ORDER_CREATE} component={OrderCreateScreen} />
           <Stack.Screen name={SCREENS.ORDER_CONFIRM} component={OrderConfirmScreen} />
           <Stack.Screen name={SCREENS.ORDER_SETTING} component={OrderSettingScreen} />
         </Stack.Group>

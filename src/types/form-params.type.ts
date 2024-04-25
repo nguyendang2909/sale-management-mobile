@@ -1,6 +1,5 @@
 import { Image } from 'react-native-image-crop-picker';
 
-import { ProductWithQuantity } from './common.type';
 import { Gender, OrderStatus, PaymentMethod, RelationshipGoal } from './data.type';
 import { Entity } from './entities.type';
 import { ApiRequest } from './fe.type';
@@ -60,10 +59,11 @@ export declare namespace FormParams {
   type CreateOrder = {
     status: OrderStatus;
     paymentMethod: PaymentMethod | null;
+    address: string | null;
     deliveryMethod: string | null;
-    items: ProductWithQuantity[];
+    // items: ProductWithQuantity[];
     customerId: string | null;
-    note: string;
+    note: string | null;
   };
 
   type CreateCategory = {

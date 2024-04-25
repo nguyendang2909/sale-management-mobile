@@ -5,14 +5,14 @@ import { useOrders } from 'src/hooks';
 import { OrderListItem } from './order-list-item';
 
 export const OrderList = () => {
-  const { data: orders } = useOrders({});
+  const { data: orders, isRefreshing, refresh } = useOrders({});
 
   return (
     <View flex={1}>
       <FlashList
         showsVerticalScrollIndicator={false}
-        // refreshing={isFetchingProducts}
-        // onRefresh={refetchProducts}
+        refreshing={isRefreshing}
+        onRefresh={refresh}
         numColumns={1}
         data={orders}
         keyExtractor={(item, index) => item.id || index.toString()}

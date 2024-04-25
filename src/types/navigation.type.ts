@@ -4,6 +4,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 import { AppStore } from './app-store.type';
 import { Entity } from './entities.type';
+import { FormParams } from './form-params.type';
 
 export type HomeTabParamList = {
   MANAGEMENT: undefined;
@@ -63,13 +64,19 @@ export type AppStackParamList = {
   SUBJECT: {
     subject: string;
   };
+  // Product
   CREATE_PRODUCT: undefined;
   PRODUCT_DETAIL: {
     detail: AppStore.Product;
   };
-  CREATE_ORDER: undefined;
   PRODUCT_SETTING: undefined;
-  ORDER_CONFIRM: undefined;
+  // Order
+  ORDER_CREATE: {
+    values: FormParams.CreateOrder;
+  };
+  ORDER_CONFIRM: {
+    values: FormParams.CreateOrder;
+  };
   ORDER_SETTING: undefined;
 };
 
