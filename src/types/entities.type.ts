@@ -89,23 +89,17 @@ export declare namespace Entity {
       user?: User;
       userId: string;
       title: string;
-      price: number;
-      capitalPrice?: number;
-      promotionalPrice?: number;
-      wholesalePrice?: number;
       minWholesalePriceQuantity?: number;
       isInStock?: boolean;
-      sku?: string;
-      barcode?: string;
       stock?: number;
       isTrackingStock?: boolean;
       description?: string;
       label?: string;
-      productsCategories?: ProductCategory[];
       categories?: Category[];
       images: ProductImage[];
-      imagePaths: ProductImage[];
       unit: string;
+      attributes: Attribute[];
+      skus: Sku[];
     }>;
 
   type ProductImage = BaseEntity &
@@ -115,21 +109,44 @@ export declare namespace Entity {
       path: string;
     }>;
 
+  type Attribute = BaseEntity &
+    Partial<{
+      product?: Product;
+      productId: string;
+      title: string;
+      specifications?: Specification[];
+    }>;
+
+  type Specification = BaseEntity &
+    Partial<{
+      attribute?: Attribute;
+      productToAttributeId: string;
+      title: string;
+      sort: number;
+    }>;
+
+  type Sku = BaseEntity &
+    Partial<{
+      product?: User;
+      productId: string;
+      image?: ProductImage;
+      imageId?: string;
+      code?: string;
+      price: number;
+      capitalPrice?: number;
+      promotionalPrice?: number;
+      wholesalePrice?: number;
+      stock?: number | null;
+      specifications?: Specification[];
+    }>;
+
   type Category = BaseEntity &
     Partial<{
       user: User;
       userId: string;
       title: string;
       orderPosition: string;
-      productCategories: ProductCategory[];
-    }>;
-
-  type ProductCategory = BaseEntity &
-    Partial<{
-      product: Product;
-      productId: string;
-      category: Category;
-      categoryId: string;
+      products: Product[];
     }>;
 
   type Order = BaseEntity &

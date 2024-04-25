@@ -124,6 +124,23 @@ class ProductUtil extends BaseUtil {
     }
     return 0;
   }
+
+  getPriceRange(product: AppStore.Product) {
+    let minPrice = Infinity;
+    let maxPrice = 0;
+    product.skus?.forEach(sku => {
+      const skuPrice = sku.promotionalPrice || sku.price;
+      if (skuPrice) {
+        if (minPrice > skuPrice) {
+          minPrice = skuPrice;
+        }
+        if (maxPrice < skuPrice) {
+          maxPrice = skuPrice;
+        }
+      }
+    });
+    return { minPrice, maxPrice };
+  }
 }
 
 export const productUtil = new ProductUtil();

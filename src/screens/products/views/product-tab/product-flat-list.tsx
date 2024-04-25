@@ -4,7 +4,7 @@ import { useSearchProducts } from 'src/hooks';
 import { useProducts } from 'src/hooks/use-products';
 import { AppStore } from 'src/types';
 
-import { ProductFlatListItem } from './product-flat-list-item';
+import { ProductListItem } from './product-list-item';
 
 export const ProductsFlatList = () => {
   const { isFetching: isFetchingProducts, refetch: refetchProducts } = useProducts();
@@ -19,9 +19,7 @@ export const ProductsFlatList = () => {
         numColumns={1}
         data={products}
         keyExtractor={(item: AppStore.Product, index) => item.id || index.toString()}
-        renderItem={({ item }: { item: AppStore.Product }) => (
-          <ProductFlatListItem product={item} />
-        )}
+        renderItem={({ item }: { item: AppStore.Product }) => <ProductListItem product={item} />}
         estimatedItemSize={1}
         ListFooterComponent={<View mb={100}></View>}
       ></FlashList>

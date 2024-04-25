@@ -11,8 +11,8 @@ type FCProps = {
   product: AppStore.Product;
 };
 
-export const ProductFlatListItem: FC<FCProps> = ({ product }) => {
-  const imagePath = _.first(product.imagePaths);
+export const ProductListItem: FC<FCProps> = ({ product }) => {
+  const imagePath = _.first(product.images);
 
   const navigation = useNavigation();
   const handlePress = () => {
