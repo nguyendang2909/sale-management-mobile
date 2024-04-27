@@ -15,8 +15,14 @@ export const LoadingButton: React.FC<LoadingButtonProps> = ({
 }) => {
   return (
     <Button rounded={100} bgColor="$red600" {...buttonProps}>
-      {!!startIcon && <View mr={8}>{startIcon}</View>}
-      {isLoading ? <ButtonSpinner /> : <ButtonText>{children}</ButtonText>}
+      {isLoading ? (
+        <ButtonSpinner />
+      ) : (
+        <>
+          {!!startIcon && <View mr={8}>{startIcon}</View>}
+          <ButtonText>{children}</ButtonText>
+        </>
+      )}
     </Button>
   );
 };
