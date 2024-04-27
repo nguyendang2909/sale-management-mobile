@@ -1,17 +1,17 @@
 import _ from 'lodash';
 import { useIntl } from 'react-intl';
 import { messages } from 'src/locales/messages';
-import { TxKey } from 'src/types';
+import { TxKey, TxKeyValue } from 'src/types';
 
-export const getMessageFromResponse = (
+export const getMessageKeyFromResponse = (
   error: unknown,
-  defaultMessage?: TxKey,
-): (typeof messages)[TxKey] => {
-  const message: TxKey = _.get(error, 'data.message') || defaultMessage || 'Internal server error';
+  defaultMessage: TxKey = 'Oops, something went wrong. Please try again.',
+): TxKeyValue => {
+  const message: TxKey = _.get(error, 'data.message') || defaultMessage;
   if (message && messages[message]) {
     return messages[message];
   }
-  if (defaultMessage && messages[defaultMessage]) {
+  if (messages[defaultMessage]) {
     return messages[defaultMessage];
   }
   return messages['Oops, something went wrong. Please try again.'];
@@ -25,7 +25,7 @@ export const useMessages = () => {
   };
 
   const formatErrorMessage = (error: unknown, defaultMessage?: TxKey) => {
-    return intl.formatMessage(getMessageFromResponse(error, defaultMessage));
+    return intl.formatMessage(getMessageKeyFromResponse(error, defaultMessage));
   };
 
   return {
