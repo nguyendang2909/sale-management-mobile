@@ -9,8 +9,8 @@ import { useUploadProductImageMutation } from 'src/api';
 import { useMessages } from 'src/hooks';
 import { Entity } from 'src/types';
 
+import { ProductImageCard } from '../../../containers/form-control/product/product-image-card';
 import { AddProductImageCard } from './add-product-image-card';
-import { ProductImageCard } from './product-image-card';
 
 type FCProps = {
   images: Entity.ProductImage[];

@@ -7,7 +7,7 @@ import {
   View,
 } from '@gluestack-ui/themed';
 import { StackActions, useNavigation } from '@react-navigation/native';
-import React, { FC } from 'react';
+import React, { FC, useMemo } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { Platform } from 'react-native';
 import Toast from 'react-native-toast-message';
@@ -15,20 +15,19 @@ import { useCreateProductMutation } from 'src/api';
 import { LoadingLayout } from 'src/components';
 import { HOME_SCREENS, SCREENS } from 'src/constants';
 import { FormControlProductAdditional } from 'src/containers/form-control/product/form-control-product-additional';
-import { FormControlProductCapitalPrice } from 'src/containers/form-control/product/form-control-product-capital-price';
-import { FormControlProductCategories } from 'src/containers/form-control/product/form-control-product-categories';
-import { FormControlProductImages } from 'src/containers/form-control/product/form-control-product-images';
-import { FormControlProductInStock } from 'src/containers/form-control/product/form-control-product-in-stock';
-import { FormControlProductInventory } from 'src/containers/form-control/product/form-control-product-inventory';
-import { FormControlProductPrice } from 'src/containers/form-control/product/form-control-product-price';
-import { FormControlProductPromotionalPrice } from 'src/containers/form-control/product/form-control-product-promotional-price';
-import { FormControlProductSku } from 'src/containers/form-control/product/form-control-product-sku';
-import { FormControlProductTitle } from 'src/containers/form-control/product/form-control-product-title';
-import { FormControlProductTrackingStock } from 'src/containers/form-control/product/form-control-product-tracking-stock';
-import { FormControlProductUnit } from 'src/containers/form-control/product/form-control-product-unit';
+import { ProductCategoriesControl } from 'src/containers/form-control/product/form-control-product-categories';
+import { ProductInStockControl } from 'src/containers/form-control/product/form-control-product-in-stock';
+import { ProductCapitalPriceControl } from 'src/containers/form-control/product/product-capital-price.control';
+import { ProductImagesControl } from 'src/containers/form-control/product/product-images.control';
+import { ProductPriceControl } from 'src/containers/form-control/product/product-price.control';
+import { ProductPromotionalPriceControl } from 'src/containers/form-control/product/product-promotional-price.control';
+import { ProductSkuControl } from 'src/containers/form-control/product/product-sku.control';
+import { ProductStockControl } from 'src/containers/form-control/product/product-stock.control';
+import { ProductTitleControl } from 'src/containers/form-control/product/product-title.control';
+import { ProductTrackingStockControl } from 'src/containers/form-control/product/product-tracking-stock.control';
+import { ProductUnitControl } from 'src/containers/form-control/product/product-unit.control';
 import { useMessages, useProductSettings } from 'src/hooks';
 import { useCategories } from 'src/hooks/useCategories';
-import { flexGrow } from 'src/styles';
 import { ApiRequest, FormParams } from 'src/types';
 import { createProductFormUtil } from 'src/utils';
 
@@ -37,7 +36,7 @@ export const CreateProductForm: FC = () => {
 
   const { data: settings } = useProductSettings();
   const navigation = useNavigation();
-  const { formatMessage, formatErrorMessage } = useMessages();
+  const { formatErrorMessage } = useMessages();
   const [createProduct] = useCreateProductMutation();
 
   const {
@@ -49,41 +48,24 @@ export const CreateProductForm: FC = () => {
     watch,
     getValues,
   } = useForm<FormParams.CreateProduct>({
-    defaultValues: createProductFormUtil.getDefaulValues(),
+    defaultValues: createProductFormUtil.getDefaultValues(),
     resolver: createProductFormUtil.getResolver(),
   });
 
+  console.log(1111, errors);
+
   const onSubmit: SubmitHandler<FormParams.CreateProduct> = async values => {
     try {
-      const {
-        createMore,
-        images,
-        capitalPrice,
-        promotionalPrice,
-        categories,
-        price,
-        wholesalePrice,
-        minWholesalePriceQuantity,
-        ...restValues
-      } = values;
-      const payload: ApiRequest.CreateProduct = { ...restValues, price: price! };
+      const { createMore, images, categories, skus, ...restValues } = values;
+      const payload: ApiRequest.CreateProduct = {
+        ...restValues,
+        skus: skus.map(e => ({ ...e, price: e.price || 0 })),
+      };
       if (images.length) {
         payload.imageIds = images.map(e => e.id);
       }
-      if (capitalPrice) {
-        payload.capitalPrice = capitalPrice;
-      }
-      if (promotionalPrice) {
-        payload.promotionalPrice = promotionalPrice;
-      }
-      if (wholesalePrice) {
-        payload.wholesalePrice = wholesalePrice;
-      }
       if (categories.length) {
         payload.categoryIds = categories.map(e => e.id);
-      }
-      if (minWholesalePriceQuantity) {
-        payload.minWholesalePriceQuantity = minWholesalePriceQuantity;
       }
       await createProduct(payload).unwrap();
       if (createMore) {
@@ -108,7 +90,28 @@ export const CreateProductForm: FC = () => {
     handleSubmit(onSubmit);
   };
 
-  const isTrackingStock = watch('isTrackingStock');
+  const isInStock = watch('isInStock');
+  const isTrackingStock = useMemo(() => isInStock === null, [isInStock]);
+
+  const attributesValue = watch('attributes');
+
+  const attributeProperties = useMemo(
+    () =>
+      attributesValue.reduce<{ skuTotal: number }>(
+        (acc, attr) => {
+          return {
+            skuTotal: acc.skuTotal + attr.specifications.length,
+          };
+        },
+        { skuTotal: 0 },
+      ),
+    [attributesValue],
+  );
+
+  const hasOnlyOneSku = useMemo(
+    () => attributeProperties.skuTotal === 1,
+    [attributeProperties.skuTotal],
+  );
 
   return (
     <>
@@ -117,60 +120,33 @@ export const CreateProductForm: FC = () => {
         <View flex={1}>
           <View flex={1}>
             <View flex={1}>
-              <ScrollView style={flexGrow}>
+              <ScrollView flex={1} showsVerticalScrollIndicator={false}>
                 <View px={16} py={8} bgColor="$white" mb={16}>
-                  <View>
-                    <FormControlProductTitle control={control} />
-                  </View>
-                  {(!!settings.showCreateProductImage || !!getValues('images').length) && (
-                    <View mt={16}>
-                      <FormControlProductImages control={control} />
-                    </View>
-                  )}
-                  <View mt={16}>
-                    <View flexDirection="row" columnGap={16}>
-                      <View flex={1}>
-                        <FormControlProductPrice control={control} />
+                  <ProductTitleControl control={control} />
+                  <ProductImagesControl mt={16} control={control} />
+                  {hasOnlyOneSku && (
+                    <>
+                      <View mt={16}>
+                        <View flexDirection="row" columnGap={16}>
+                          <ProductPriceControl flex={1} control={control} />
+                          <ProductCapitalPriceControl flex={1} control={control} />
+                        </View>
                       </View>
-                      <View flex={1}>
-                        <FormControlProductCapitalPrice control={control} />
-                      </View>
-                    </View>
-                  </View>
-                  {(!!settings.showCreateProductPromotionPrice ||
-                    !!getValues('promotionalPrice')) && (
-                    <View mt={16}>
-                      <FormControlProductPromotionalPrice control={control} />
-                    </View>
+                      <ProductPromotionalPriceControl mt={16} control={control} />
+                    </>
                   )}
-                  {(!!settings.showCreateProductUnit || !!getValues('unit')) && (
-                    <View mt={16}>
-                      <FormControlProductUnit control={control} />
-                    </View>
-                  )}
-                  <View mt={16}>
-                    <FormControlProductCategories control={control} />
-                  </View>
+                  <ProductUnitControl mt={16} control={control} />
+                  <ProductCategoriesControl mt={16} control={control} />
                 </View>
                 <View px={16} py={16} bgColor="$white">
                   <View>
                     <Text fontWeight="$bold">Quản lý tồn kho</Text>
                   </View>
-                  <View mt={16}>
-                    <FormControlProductSku control={control} />
-                  </View>
-                  {!isTrackingStock && (
-                    <View mt={16}>
-                      <FormControlProductInStock control={control} />
-                    </View>
-                  )}
-                  <View mt={16}>
-                    <FormControlProductTrackingStock control={control} />
-                  </View>
-                  {!!isTrackingStock && (
-                    <View mt={16}>
-                      <FormControlProductInventory control={control} />
-                    </View>
+                  <ProductSkuControl mt={16} control={control} />
+                  {!isTrackingStock && <ProductInStockControl mt={16} control={control} />}
+                  <ProductTrackingStockControl mt={16} control={control} />
+                  {isTrackingStock && hasOnlyOneSku && (
+                    <ProductStockControl mt={16} control={control} />
                   )}
                 </View>
                 <View mt={16}>
@@ -184,6 +160,7 @@ export const CreateProductForm: FC = () => {
                   </View>
                 </View>
               </ScrollView>
+
               <View px={16} py={16}>
                 <View flexDirection="row" columnGap={16}>
                   <View flex={1}>

@@ -1,6 +1,6 @@
 import { Image } from 'react-native-image-crop-picker';
 
-import { Gender, OrderStatus, PaymentMethod, RelationshipGoal } from './data.type';
+import { OrderStatus, PaymentMethod } from './data.type';
 import { Entity } from './entities.type';
 import { ApiRequest } from './fe.type';
 
@@ -20,40 +20,43 @@ export declare namespace FormParams {
   type CreateProduct = {
     createMore: boolean;
     title: string;
-    price: number | null;
-    capitalPrice: number | null;
-    promotionalPrice: number | null;
-    wholesalePrice: number | null;
     minWholesalePriceQuantity: number | null;
-    sku: string;
-    barcode: string;
-    isTrackingStock: boolean;
-    isInStock: boolean;
-    inventory: number | null;
-    description: string;
-    label: string;
-    unit: string;
+    isInStock: boolean | null;
+    description: string | null;
+    label: string | null;
+    unit: string | null;
     categories: Entity.Category[];
     images: Entity.ProductImage[];
+    attributes: {
+      title: string;
+      specifications: {
+        title: string;
+        id: string;
+      }[];
+    }[];
+    skus: {
+      imageId: string | null;
+      code: string | null;
+      price: number | null;
+      capitalPrice: number | null;
+      promotionalPrice: number | null;
+      wholesalePrice: number | null;
+      stock: number | null;
+      specificationIds: string[];
+    }[];
   };
 
   type UpdateProduct = {
     title: string;
-    price: number | null;
-    capitalPrice: number | null;
-    promotionalPrice: number | null;
-    wholesalePrice: number | null;
     minWholesalePriceQuantity: number | null;
-    sku: string;
-    barcode: string;
-    isTrackingStock: boolean;
-    isInStock: boolean;
-    inventory: number | null;
-    description: string;
-    label: string;
-    unit: string;
+    isInStock: boolean | null;
+    description: string | null;
+    label: string | null;
+    unit: string | null;
     categories: Entity.Category[];
     images: Entity.ProductImage[];
+    attributes: Entity.Attribute[];
+    skus: Array<Partial<Entity.Sku>>;
   };
 
   type CreateOrder = {
@@ -82,28 +85,6 @@ export declare namespace FormParams {
 
   type UpdateProfile = {
     birthday?: string;
-    company?: string;
-    // drinking?: EDrinking;
-    // educationLevel?: EEducationLevel;
-    gender?: Gender;
-    jobTitle?: string;
-    introduce?: string;
-    nickname?: string;
-    latitude?: number;
-    longitude?: number;
-    photos?: string[];
-    school?: string;
-    relationshipGoal: RelationshipGoal;
-    // smoking?: ESmoking;
-    // workout?: EWorkout;
-  };
-
-  type UpdateProfileFilter = {
-    gender?: Gender;
-    maxDistance: number;
-    maxAge: number;
-    minAge: number;
-    relationshipGoal?: RelationshipGoal;
   };
 
   type SendMessage = {

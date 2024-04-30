@@ -98,20 +98,30 @@ export declare namespace ApiRequest {
 
   type CreateProduct = {
     title: string;
-    imageIds?: string[];
-    price: number;
-    capitalPrice?: number;
-    promotionalPrice?: number;
-    wholesalePrice?: number;
-    minWholesalePriceQuantity?: number;
-    sku?: string;
-    barcode?: string;
-    isInStock?: boolean;
-    stock?: number;
-    description?: string;
-    label?: string;
-    unit?: string;
+    minWholesalePriceQuantity: number | null;
+    isInStock: boolean | null;
+    description: string | null;
+    label: string | null;
+    unit: string | null;
     categoryIds?: string[];
+    imageIds?: string[];
+    attributes: {
+      title: string;
+      specifications: {
+        title: string;
+        id: string;
+      }[];
+    }[];
+    skus: {
+      imageId: string | null;
+      code: string | null;
+      price: number;
+      capitalPrice: number | null;
+      promotionalPrice: number | null;
+      wholesalePrice: number | null;
+      stock: number | null;
+      specificationIds: string[];
+    }[];
   };
 
   type UpdateProduct = Partial<CreateProduct>;

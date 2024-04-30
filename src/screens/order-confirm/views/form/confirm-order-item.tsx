@@ -34,7 +34,7 @@ type FCProps = {
 export const ConfirmOrderItem: FC<FCProps> = ({ product }) => {
   const dispatch = useAppDispatch();
   const productId = useMemo(() => product.id, [product.id]);
-  const imagePath = _.first(product.imagePaths);
+  const imagePath = _.first(product.images);
   const orderItem: PickedOrderItem = useAppSelector(e => e.cart.items[product.id]) || {
     quantity: 0,
     productId: product.id,

@@ -11,22 +11,33 @@ import {
 } from '@gluestack-ui/themed';
 import { Menu } from 'lucide-react-native';
 import { FormControl } from 'native-base';
-import { FC } from 'react';
+import { FC, useCallback } from 'react';
 import { TouchableOpacity } from 'react-native';
 import { FontAwesome } from 'src/components';
 import { SelectCategoriesActionsheetContent } from 'src/containers/actionsheet/select-category-item';
-import { CreateCategoryModal } from 'src/containers/Modal/create-category-modal';
+import { CreateCategoryModal } from 'src/containers/modal/create-category.modal';
 import { SelectCategoriesCheckbox } from 'src/containers/select/select-categories';
 import { useAppSelector, useDisclose } from 'src/hooks';
 import { AppStore } from 'src/types';
 
 type FCProps = {
   value: AppStore.Category[];
-  setCategory: (category: AppStore.Category) => void;
+  onChange: (category: AppStore.Category[]) => void;
 };
 
-export const CreateProductCategoryFormControl: FC<FCProps> = ({ value, setCategory }) => {
+export const ProductCategoryForm: FC<FCProps> = ({ value, onChange }) => {
   const categories = useAppSelector(s => s.category.data);
+
+  const setCategory = useCallback(
+    (category: AppStore.Category) => {
+      if (value.find(e => e.id === category.id)) {
+        onChange(value.filter(e => e.id !== category.id));
+      } else {
+        onChange([...value, category]);
+      }
+    },
+    [onChange, value],
+  );
 
   const {
     isOpen: isOpenCreateCategory,
@@ -77,9 +88,7 @@ export const CreateProductCategoryFormControl: FC<FCProps> = ({ value, setCatego
           </ScrollView>
         </View>
       </FormControl>
-
       <CreateCategoryModal onClose={onCloseCreateCategory} isVisible={isOpenCreateCategory} />
-
       <Actionsheet isOpen={isOpenSelectCategories} onClose={onCloseSelectCategories}>
         <SelectCategoriesActionsheetContent
           categories={categories}

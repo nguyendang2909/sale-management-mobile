@@ -1,6 +1,6 @@
 import { Fab, FabIcon } from '@gluestack-ui/themed';
 import { Plus } from 'lucide-react-native';
-import { CreateCategoryModal } from 'src/containers/Modal/create-category-modal';
+import { CreateCategoryModal } from 'src/containers/modal/create-category.modal';
 import { useDisclose } from 'src/hooks';
 
 export const CreateCategoryFab = () => {

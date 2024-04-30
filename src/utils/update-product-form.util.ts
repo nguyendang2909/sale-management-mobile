@@ -1,13 +1,12 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { FormParams } from 'src/types';
-import { v4 as uuidV4 } from 'uuid';
+import { AppStore, FormParams } from 'src/types';
 import * as Yup from 'yup';
 
-class CreateProductFormUtil {
+class UpdateProductFormUtil {
   getResolver() {
-    return yupResolver<FormParams.CreateProduct>(
+    return yupResolver<FormParams.UpdateProduct>(
+      // @ts-ignore
       Yup.object({
-        createMore: Yup.boolean().required(),
         title: Yup.string()
           .min(1, 'Thông tin bắt buộc')
           .max(200, 'Tên sản phẩm ít hơn 200 ký tự')
@@ -23,21 +22,7 @@ class CreateProductFormUtil {
         description: Yup.string().max(10000).required().nullable(),
         label: Yup.string().required().nullable(),
         minWholesalePriceQuantity: Yup.number().required().nullable(),
-        attributes: Yup.array()
-          .of(
-            Yup.object({
-              title: Yup.string().required(),
-              specifications: Yup.array()
-                .of(
-                  Yup.object({
-                    id: Yup.string().required(),
-                    title: Yup.string().required(),
-                  }),
-                )
-                .required(),
-            }),
-          )
-          .required(),
+        attributes: Yup.array().required(),
         skus: Yup.array()
           .of(
             Yup.object({
@@ -71,43 +56,20 @@ class CreateProductFormUtil {
     );
   }
 
-  getDefaultValues(): FormParams.CreateProduct {
-    const defaultSpecificationId = uuidV4();
+  getDefaultValues(product: AppStore.Product): FormParams.UpdateProduct {
     return {
-      title: '',
-      minWholesalePriceQuantity: null,
-      description: null,
-      isInStock: true,
-      unit: null,
-      label: null,
-      createMore: false,
-      categories: [],
-      images: [],
-      attributes: [
-        {
-          title: 'default',
-          specifications: [
-            {
-              title: 'default',
-              id: defaultSpecificationId,
-            },
-          ],
-        },
-      ],
-      skus: [
-        {
-          imageId: null,
-          code: null,
-          price: null,
-          capitalPrice: null,
-          promotionalPrice: null,
-          wholesalePrice: null,
-          stock: null,
-          specificationIds: [defaultSpecificationId],
-        },
-      ],
+      title: product.title || '',
+      isInStock: product.isInStock || null,
+      unit: product.unit || null,
+      categories: product.categories || [],
+      images: product.images || [],
+      minWholesalePriceQuantity: product.minWholesalePriceQuantity || null,
+      description: product.description || null,
+      label: product.label || null,
+      skus: product.skus || [],
+      attributes: product.attributes || [],
     };
   }
 }
 
-export const createProductFormUtil = new CreateProductFormUtil();
+export const updateProductFormUtil = new UpdateProductFormUtil();

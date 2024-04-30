@@ -32,7 +32,7 @@ export const PickProduct: FC<FCProps> = ({ product }) => {
     productId: product.id,
   };
 
-  const imagePath = _.first(product.imagePaths);
+  const imagePath = _.first(product.images);
 
   const handleAdd = useCallback(() => {
     if (!_.isNil(product.stock) && product.stock <= orderItem.quantity) {

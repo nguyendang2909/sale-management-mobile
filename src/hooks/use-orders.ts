@@ -30,7 +30,6 @@ export const useOrders = ({ status }: { status?: OrderStatus }) => {
       const data = await fetchOrders({
         status,
       }).unwrap();
-      console.log(1111, status, data);
       setOrders(data.data);
       setPagination(data.pagination);
     } catch (err) {

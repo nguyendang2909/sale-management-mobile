@@ -1,9 +1,10 @@
 import { View } from '@gluestack-ui/themed';
 import { ComponentProps, FC } from 'react';
 import { Control, Controller } from 'react-hook-form';
-import { FormControlSwitch } from 'src/components';
 
-export const ProductInStockControl: FC<
+import { ProductTrackingStockSwitch } from './form/product-tracking-stock.switch';
+
+export const ProductTrackingStockControl: FC<
   ComponentProps<typeof View> & { control: Control<any, any> }
 > = ({ control, ...viewProps }) => {
   return (
@@ -14,12 +15,7 @@ export const ProductInStockControl: FC<
         rules={{ required: true }}
         render={({ field }) => (
           <View {...viewProps}>
-            <FormControlSwitch
-              {...viewProps}
-              title="Còn hàng"
-              value={field.value}
-              setValue={field.onChange}
-            />
+            <ProductTrackingStockSwitch value={field.value} onChange={field.onChange} />
           </View>
         )}
       ></Controller>

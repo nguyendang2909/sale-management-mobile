@@ -24,6 +24,12 @@ export const useMessages = () => {
     return intl.formatMessage(messages[value]);
   };
 
+  const formatNumber = (value: number | bigint) => {
+    return intl.formatNumber(value, {
+      currency: 'VND',
+    });
+  };
+
   const formatErrorMessage = (error: unknown, defaultMessage?: TxKey) => {
     return intl.formatMessage(getMessageKeyFromResponse(error, defaultMessage));
   };
@@ -31,5 +37,6 @@ export const useMessages = () => {
   return {
     formatMessage,
     formatErrorMessage,
+    formatNumber,
   };
 };

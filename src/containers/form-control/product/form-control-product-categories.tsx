@@ -1,9 +1,11 @@
-import { FC } from 'react';
+import { View } from '@gluestack-ui/themed';
+import { ComponentProps, FC } from 'react';
 import { Control, Controller } from 'react-hook-form';
-import { CreateProductCategoryFormControl } from 'src/screens/product-create/components/form-items/create-product-category-form-control';
-import { AppStore } from 'src/types';
+import { ProductCategoryForm } from 'src/containers/form-control/product/form/product-category.form';
 
-export const FormControlProductCategories: FC<{ control: Control<any, any> }> = ({ control }) => {
+export const ProductCategoriesControl: FC<
+  ComponentProps<typeof View> & { control: Control<any, any> }
+> = ({ control, ...viewProps }) => {
   return (
     <>
       <Controller
@@ -11,14 +13,11 @@ export const FormControlProductCategories: FC<{ control: Control<any, any> }> = 
         name="categories"
         rules={{ required: true }}
         render={({ field }) => {
-          const setCategory = (category: AppStore.Category) => {
-            if (field.value.find(e => e.id === category.id)) {
-              field.onChange(field.value.filter(e => e.id !== category.id));
-            } else {
-              field.onChange([...field.value, category]);
-            }
-          };
-          return <CreateProductCategoryFormControl value={field.value} setCategory={setCategory} />;
+          return (
+            <View {...viewProps}>
+              <ProductCategoryForm value={field.value} onChange={field.onChange} />
+            </View>
+          );
         }}
       ></Controller>
     </>

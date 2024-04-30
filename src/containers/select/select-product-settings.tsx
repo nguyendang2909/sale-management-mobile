@@ -83,20 +83,20 @@ export const SelectProductSettings: FC<{ product?: AppStore.Product }> = ({ prod
                 title="Giá sỉ"
               ></SelectProductSetting>
             )}
-            {!settings.showCreateProductTrackingStock && !product?.isTrackingStock && (
+            {!settings.showCreateProductTrackingStock && product?.isInStock === null && (
               <SelectProductSetting
                 onPress={handleUpdateProductSettings}
                 id="showCreateProductTrackingStock"
                 title="Theo dõi tồn kho"
               ></SelectProductSetting>
             )}
-            {!settings.showCreateProductBarcode && !product?.barcode && (
+            {/* {!settings.showCreateProductBarcode && !product?.barcode && (
               <SelectProductSetting
                 onPress={handleUpdateProductSettings}
                 id="showCreateProductBarcode"
                 title="Mã vạch"
               ></SelectProductSetting>
-            )}
+            )} */}
           </View>
         </ScrollView>
       </View>

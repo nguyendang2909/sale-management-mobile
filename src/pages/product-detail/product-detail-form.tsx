@@ -42,7 +42,6 @@ export const EditProduct: FC = () => {
       promotionalPrice: undefined,
       wholesalePrice: undefined,
       isInStock: true,
-      isTrackingStock: false,
       sku: '',
       unit: '',
       createMore: false,
@@ -57,7 +56,6 @@ export const EditProduct: FC = () => {
       promotionPrice: Yup.number().positive().optional(),
       wholesalePrice: Yup.number().positive().optional(),
       isInStock: Yup.boolean().optional(),
-      isTrackingStock: Yup.boolean().optional(),
       sku: Yup.string().max(200).optional(),
       unit: Yup.string().max(50).optional(),
       categoryIds: Yup.array().max(5).optional(),
@@ -109,10 +107,6 @@ export const EditProduct: FC = () => {
   const handleCreateMoreProduct = () => {
     formik.setFieldValue('createMore', true);
     formik.handleSubmit();
-  };
-
-  const handleChangeTrackingStock = (e: boolean) => {
-    formik.setFieldValue('isTrackingStock', e);
   };
 
   const setCategoryId = useCallback(

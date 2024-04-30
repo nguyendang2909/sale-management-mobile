@@ -12,16 +12,18 @@ import {
   InputSlot,
   View,
 } from '@gluestack-ui/themed';
+import _ from 'lodash';
 import { Stack } from 'native-base';
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import { InputModeOptions } from 'react-native';
+import { useMessages } from 'src/hooks';
 
 import { MaterialIcons } from '../icon';
 
 type FCProps = {
   label: string;
-  onChange: (e: string) => void;
-  value?: string;
+  onChange: (e: string | null) => void;
+  value?: number;
   error?: string;
   maxLength?: number;
   placeholder?: string;
@@ -32,7 +34,7 @@ type FCProps = {
   focusable?: boolean;
 };
 
-export const FormControlInput: React.FC<FCProps> = ({
+export const FormControlNumberInput: React.FC<FCProps> = ({
   label,
   onChange,
   value,
@@ -45,9 +47,32 @@ export const FormControlInput: React.FC<FCProps> = ({
   onBlur,
   focusable,
 }) => {
+  const [displayValue, setDisplayValue] = useState<string>('');
+  const { formatNumber } = useMessages();
+
   const handleClear = useCallback(() => {
     onChange(null);
+    setDisplayValue('');
   }, [onChange]);
+
+  const handleChange = useCallback(
+    (e: string) => {
+      if (e) {
+        const eNumber = +e.replaceAll('.', '');
+        if (!isNaN(eNumber) && _.isNumber(eNumber)) {
+          if (eNumber < Number.MAX_SAFE_INTEGER) {
+            setDisplayValue(formatNumber(eNumber));
+            onChange(e);
+          }
+          return;
+        }
+      }
+      setDisplayValue('');
+      onChange(null);
+    },
+    [formatNumber, onChange],
+  );
+
   return (
     <FormControl {...(isRequired ? { isRequired } : {})} isInvalid={!!error}>
       <Stack>
@@ -58,8 +83,8 @@ export const FormControlInput: React.FC<FCProps> = ({
           <InputField
             focusable={focusable}
             inputMode={inputMode}
-            value={value || ''}
-            onChangeText={onChange}
+            value={displayValue}
+            onChangeText={handleChange}
             placeholder={placeholder}
             maxLength={maxLength}
             onBlur={onBlur}

@@ -35,7 +35,7 @@ const categoryApi = api.injectEndpoints({
       }),
     }),
 
-    updateCategory: builder.mutation<void, { id: string; payload: ApiRequest.UpdateProduct }>({
+    updateCategory: builder.mutation<void, { id: string; payload: ApiRequest.UpdateCategory }>({
       query: params => ({
         url: API_ENDPOINTS.CATEGORIES.INDEX,
         method: API_METHODS.PUT,

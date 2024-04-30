@@ -1,24 +1,26 @@
 import { View } from '@gluestack-ui/themed';
 import { ComponentProps, FC } from 'react';
 import { Control, Controller } from 'react-hook-form';
-import { FormControlSwitch } from 'src/components';
+import { FormControlNumberInput } from 'src/components/form/form-control-number-input';
 
-export const ProductInStockControl: FC<
+export const ProductCapitalPriceControl: FC<
   ComponentProps<typeof View> & { control: Control<any, any> }
 > = ({ control, ...viewProps }) => {
   return (
     <>
       <Controller
         control={control}
-        name="isInStock"
+        name="skus.0.capitalPrice"
         rules={{ required: true }}
-        render={({ field }) => (
+        render={({ field, fieldState }) => (
           <View {...viewProps}>
-            <FormControlSwitch
-              {...viewProps}
-              title="Còn hàng"
+            <FormControlNumberInput
+              label="Giá vốn"
+              inputMode="numeric"
               value={field.value}
-              setValue={field.onChange}
+              onChange={field.onChange}
+              placeholder="0.0"
+              error={fieldState.error?.message}
             />
           </View>
         )}
