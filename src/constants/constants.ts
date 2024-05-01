@@ -99,38 +99,38 @@ export const PRODUCT_SETTINGS: Record<
     description: string;
   }
 > = {
-  showCreateProductImage: {
-    id: 'showCreateProductImage',
+  showImage: {
+    id: 'showImage',
     title: 'Ảnh sản phẩm',
     description: 'Quản lý ảnh sản phẩm',
   },
-  showCreateProductUnit: {
-    id: 'showCreateProductUnit',
+  showUnit: {
+    id: 'showUnit',
     title: 'Đơn vị sản phẩm',
     description: 'Quản lý đơn vị sản phẩm (lốc, lon ...)',
   },
-  showCreateProductDescription: {
-    id: 'showCreateProductDescription',
+  showDescription: {
+    id: 'showDescription',
     title: 'Mô tả sản phẩm',
     description: 'Quản lý mô tả sản phẩm',
   },
-  showCreateProductPromotionPrice: {
-    id: 'showCreateProductPromotionPrice',
+  showCPromotionalPrice: {
+    id: 'showPromotionalPrice',
     title: 'Giá khuyến mãi',
     description: 'Quản lý giá khuyến mãi',
   },
-  // showCreateProductWholesalePrice: {
-  //   id: 'showCreateProductWholesalePrice',
+  // showWholesalePrice: {
+  //   id: 'showWholesalePrice',
   //   title: 'Giá sỉ',
   //   description: 'Quản lý giá sỉ',
   // },
-  // showCreateProductTrackingStock: {
-  //   id: 'showCreateProductTrackingStock',
+  // showTrackingStock: {
+  //   id: 'showTrackingStock',
   //   title: 'Theo dõi tồn kho',
   //   description: 'Quản lý số lượng sản phẩm',
   // },
-  showCreateProductBarcode: {
-    id: 'showCreateProductBarcode',
+  showBarcode: {
+    id: 'showBarcode',
     title: 'Mã vạch',
     description: 'Quản lý mã vạch',
   },
@@ -141,19 +141,15 @@ export const ARR_PRODUCT_SETTINGS = Object.values(PRODUCT_SETTINGS);
 export const PRODUCT_GENERAL_SETTINGS = {
   id: 'general_settings',
   title: 'Thông tin chung',
-  menu: [
-    PRODUCT_SETTINGS.showCreateProductImage,
-    PRODUCT_SETTINGS.showCreateProductUnit,
-    PRODUCT_SETTINGS.showCreateProductDescription,
-  ],
+  menu: [PRODUCT_SETTINGS.showImage, PRODUCT_SETTINGS.showUnit, PRODUCT_SETTINGS.showDescription],
 };
 
 export const PRODUCT_PRICE_SETTINGS = {
   id: 'price_settings',
   title: 'Giá sản phẩm',
   menu: [
-    PRODUCT_SETTINGS.showCreateProductPromotionPrice,
-    // PRODUCT_SETTINGS.showCreateProductWholesalePrice,
+    PRODUCT_SETTINGS.showPromotionalPrice,
+    // PRODUCT_SETTINGS.showWholesalePrice,
   ],
 };
 
@@ -161,8 +157,8 @@ export const PRODUCT_INVENTORY_SETTINGS = {
   id: 'inventory_settings',
   title: 'Tồn kho',
   menu: [
-    // PRODUCT_SETTINGS.showCreateProductTrackingStock,
-    PRODUCT_SETTINGS.showCreateProductBarcode,
+    // PRODUCT_SETTINGS.showTrackingStock,
+    PRODUCT_SETTINGS.showBarcode,
   ],
 };
 
@@ -180,13 +176,13 @@ export const ORDER_SETTINGS: Record<
     description: string;
   }
 > = {
-  showCreateOrderNote: {
-    id: 'showCreateOrderNote',
+  showNote: {
+    id: 'showNote',
     title: 'Ghi chú',
     description: 'Thêm ghi chú cho đơn hàng',
   },
-  showCreateOrderCustomer: {
-    id: 'showCreateOrderCustomer',
+  showCustomer: {
+    id: 'showCustomer',
     title: 'Khách hàng',
     description: 'Nhập thông tin khách hàng',
   },
@@ -195,20 +191,20 @@ export const ORDER_SETTINGS: Record<
 export const ORDER_GENERAL_SETTINGS = {
   id: 'general_settings',
   title: 'Thông tin chung',
-  menu: [ORDER_SETTINGS.showCreateOrderNote],
+  menu: [ORDER_SETTINGS.showNote],
 };
 
 export const ORDER_CUSTOMER_SETTINGS = {
   id: 'customer_settings',
   title: 'Khách hàng',
-  menu: [ORDER_SETTINGS.showCreateOrderCustomer],
+  menu: [ORDER_SETTINGS.showCustomer],
 };
 
 export const ORDER_SETTING_MENU = [ORDER_GENERAL_SETTINGS, ORDER_CUSTOMER_SETTINGS];
 
 export const ARR_ORDER_SETTINGS = [
-  ORDER_SETTINGS.showCreateOrderNote,
-  ORDER_SETTINGS.showCreateOrderCustomer,
+  ORDER_SETTINGS.showNote,
+  ORDER_SETTINGS.showCustomer,
 ] as const;
 
 export const SIZES = {

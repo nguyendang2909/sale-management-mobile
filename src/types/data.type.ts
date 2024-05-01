@@ -62,5 +62,5 @@ export type PaymentStatus = ValueOf<typeof PAYMENT_STATUSES>;
 export type OrderPrice = {
   payoutPrice: number;
   price: number;
-  promotionPrice: number;
+  promotionalPrice: number;
 };

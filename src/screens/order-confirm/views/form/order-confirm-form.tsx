@@ -121,12 +121,12 @@ export const OrderConfirmForm: FC<{ values: FormParams.CreateOrder }> = ({ value
             }
             ListFooterComponent={
               <View mb={100}>
-                {!!settings.showCreateOrderNote && (
+                {!!settings.showNote && (
                   <View mt={16} px={16}>
                     <FormControlOrderNote control={control} />
                   </View>
                 )}
-                {/* {!!settings.showCreateOrderCustomer && (
+                {/* {!!settings.showCustomer && (
                   <View mt={16} px={16}>
                     <FormControlOrderCustomer control={control} />
                   </View>

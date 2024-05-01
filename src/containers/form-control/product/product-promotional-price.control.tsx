@@ -7,16 +7,14 @@ import { useAppSelector } from 'src/hooks';
 export const ProductPromotionalPriceControl: FC<
   ComponentProps<typeof View> & { control: Control<any, any> }
 > = ({ control, ...viewProps }) => {
-  const showCreateProductPromotionPrice = useAppSelector(
-    s => s.app.productSettings.showCreateProductPromotionPrice,
-  );
+  const showPromotionalPrice = useAppSelector(s => s.app.productSettings.showPromotionalPrice);
   return (
     <>
       <Controller
         control={control}
         name="skus.0.promotionalPrice"
         render={({ field, fieldState }) => {
-          if (!!showCreateProductPromotionPrice || !!field.value) {
+          if (!!showPromotionalPrice || !!field.value) {
             return (
               <View {...viewProps}>
                 <PriceInput

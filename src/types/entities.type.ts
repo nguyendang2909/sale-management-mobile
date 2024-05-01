@@ -159,7 +159,7 @@ export declare namespace Entity {
       statusUpdatedAt: string;
       paymentMethod: PaymentMethod;
       price: number;
-      promotionPrice?: number;
+      promotionalPrice?: number;
       totalAmount?: number;
       deliveryMethod: string;
       ordersProducts?: OrderProduct[];
@@ -184,25 +184,25 @@ export declare namespace Entity {
       orderId?: string;
       quantity: number;
       price: number;
-      promotionPrice?: number;
+      promotionalPrice?: number;
       isWholeSale: boolean;
     }>;
 
   type ProductSetting = BaseEntity &
     Partial<{
       showTrackingStockNotification: boolean;
-      showCreateProductImage: boolean;
-      showCreateProductUnit: boolean;
-      showCreateProductDescription: boolean;
-      showCreateProductPromotionPrice: boolean;
-      // showCreateProductWholesalePrice: boolean;
-      // showCreateProductTrackingStock: boolean;
-      showCreateProductBarcode: boolean;
+      showImage: boolean;
+      showUnit: boolean;
+      showDescription: boolean;
+      showPromotionalPrice: boolean;
+      // showWholesalePrice: boolean;
+      // showTrackingStock: boolean;
+      showBarcode: boolean;
     }>;
 
   type OrderSetting = BaseEntity &
     Partial<{
-      showCreateOrderCustomer: boolean;
-      showCreateOrderNote: boolean;
+      showCustomer: boolean;
+      showNote: boolean;
     }>;
 }

@@ -7,7 +7,7 @@ import { useAppSelector } from 'src/hooks';
 export const ProductUnitControl: FC<
   ComponentProps<typeof View> & { control: Control<any, any> }
 > = ({ control, ...viewProps }) => {
-  const showCreateProductUnit = useAppSelector(s => s.app.productSettings.showCreateProductUnit);
+  const showUnit = useAppSelector(s => s.app.productSettings.showUnit);
   return (
     <>
       <Controller
@@ -15,7 +15,7 @@ export const ProductUnitControl: FC<
         name="unit"
         rules={{ required: true }}
         render={({ field, fieldState }) => {
-          if (!!showCreateProductUnit || !!field.value) {
+          if (!!showUnit || !!field.value) {
             return (
               <View {...viewProps}>
                 <FormControlInput

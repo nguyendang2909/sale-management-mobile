@@ -47,53 +47,53 @@ export const SelectProductSettings: FC<{ product?: AppStore.Product }> = ({ prod
                 <Icon as={Settings} size="lg" />
               </TouchableOpacity>
             </View>
-            {!settings.showCreateProductImage && !product?.images?.length && (
+            {!settings.showImage && !product?.images?.length && (
               <SelectProductSetting
                 onPress={handleUpdateProductSettings}
-                id="showCreateProductImage"
+                id="showImage"
                 title="Ảnh sản phẩm"
               ></SelectProductSetting>
             )}
 
-            {!settings.showCreateProductUnit && !product?.unit && (
+            {!settings.showUnit && !product?.unit && (
               <SelectProductSetting
                 onPress={handleUpdateProductSettings}
-                id="showCreateProductUnit"
+                id="showUnit"
                 title="Đơn vị sản phẩm"
               ></SelectProductSetting>
             )}
-            {!settings.showCreateProductDescription && !product?.description && (
+            {!settings.showDescription && !product?.description && (
               <SelectProductSetting
                 onPress={handleUpdateProductSettings}
-                id="showCreateProductDescription"
+                id="showDescription"
                 title="Mô tả sản phẩm"
               ></SelectProductSetting>
             )}
-            {!settings.showCreateProductPromotionPrice && !product?.promotionalPrice && (
+            {!settings.showPromotionalPrice && !product?.promotionalPrice && (
               <SelectProductSetting
                 onPress={handleUpdateProductSettings}
-                id="showCreateProductPromotionPrice"
+                id="showPromotionalPrice"
                 title="Giá khuyến mãi"
               ></SelectProductSetting>
             )}
-            {!settings.showCreateProductWholesalePrice && !product?.wholesalePrice && (
+            {!settings.showWholesalePrice && !product?.wholesalePrice && (
               <SelectProductSetting
                 onPress={handleUpdateProductSettings}
-                id="showCreateProductWholesalePrice"
+                id="showWholesalePrice"
                 title="Giá sỉ"
               ></SelectProductSetting>
             )}
-            {!settings.showCreateProductTrackingStock && product?.isInStock === null && (
+            {!settings.showTrackingStock && product?.isInStock === null && (
               <SelectProductSetting
                 onPress={handleUpdateProductSettings}
-                id="showCreateProductTrackingStock"
+                id="showTrackingStock"
                 title="Theo dõi tồn kho"
               ></SelectProductSetting>
             )}
-            {/* {!settings.showCreateProductBarcode && !product?.barcode && (
+            {/* {!settings.showBarcode && !product?.barcode && (
               <SelectProductSetting
                 onPress={handleUpdateProductSettings}
-                id="showCreateProductBarcode"
+                id="showBarcode"
                 title="Mã vạch"
               ></SelectProductSetting>
             )} */}

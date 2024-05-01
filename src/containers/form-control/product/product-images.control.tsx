@@ -8,7 +8,7 @@ import { ProductImagesForm } from './form/product-images-form';
 export const ProductImagesControl: FC<
   ComponentProps<typeof View> & { control: Control<any, any> }
 > = ({ control, ...viewProps }) => {
-  const showCreateProductImage = useAppSelector(s => s.app.productSettings.showCreateProductImage);
+  const showImage = useAppSelector(s => s.app.productSettings.showImage);
 
   return (
     <>
@@ -16,7 +16,7 @@ export const ProductImagesControl: FC<
         control={control}
         name="images"
         render={({ field: { value, onChange } }) => {
-          if (!!showCreateProductImage || !!value?.length) {
+          if (!!showImage || !!value?.length) {
             return <ProductImagesForm {...viewProps} value={value} onChange={onChange} />;
           }
           return <></>;

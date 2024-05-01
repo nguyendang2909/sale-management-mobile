@@ -197,18 +197,18 @@ export declare namespace ApiRequest {
 
   type UpdateProductSettings = Partial<{
     showTrackingStockNotification?: boolean;
-    showCreateProductImage?: boolean;
-    showCreateProductUnit?: boolean;
-    showCreateProductDescription: boolean;
-    showCreateProductPromotionPrice: boolean;
-    showCreateProductWholesalePrice: boolean;
-    showCreateProductTrackingStock: boolean;
-    showCreateProductBarcode: boolean;
+    showImage?: boolean;
+    showUnit?: boolean;
+    showDescription: boolean;
+    showPromotionalPrice: boolean;
+    showWholesalePrice: boolean;
+    showTrackingStock: boolean;
+    showBarcode: boolean;
   }>;
 
   type UpdateOrderSettings = Partial<{
-    showCreateOrderCustomer?: boolean;
-    showCreateOrderNote?: boolean;
+    showCustomer?: boolean;
+    showNote?: boolean;
   }>;
 }
 
@@ -290,19 +290,16 @@ export declare namespace ApiResponse {
 
 export type ProductSettingKey = keyof Pick<
   AppStore.ProductSetting,
-  | 'showCreateProductBarcode'
-  | 'showCreateProductImage'
-  | 'showCreateProductDescription'
-  | 'showCreateProductPromotionPrice'
-  // | 'showCreateProductTrackingStock'
-  | 'showCreateProductUnit'
-  // | 'showCreateProductWholesalePrice'
+  | 'showBarcode'
+  | 'showImage'
+  | 'showDescription'
+  | 'showPromotionalPrice'
+  // | 'showTrackingStock'
+  | 'showUnit'
+  // | 'showWholesalePrice'
 >;
 
-export type OrderSettingKey = keyof Pick<
-  AppStore.OrderSetting,
-  'showCreateOrderCustomer' | 'showCreateOrderNote'
->;
+export type OrderSettingKey = keyof Pick<AppStore.OrderSetting, 'showCustomer' | 'showNote'>;
 
 export type ProductSetting = (typeof PRODUCT_SETTINGS)[keyof typeof PRODUCT_SETTINGS];
 
