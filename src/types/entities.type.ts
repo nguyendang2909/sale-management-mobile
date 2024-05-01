@@ -1,5 +1,12 @@
 /* eslint-disable no-use-before-define */
-import { OrderStatus, PaymentMethod, Role, UserStatus, WorkingTimeType } from './data.type';
+import {
+  OrderItemSpecification,
+  OrderStatus,
+  PaymentMethod,
+  Role,
+  UserStatus,
+  WorkingTimeType,
+} from './data.type';
 
 export declare namespace Entity {
   type BaseEntity = {
@@ -154,16 +161,37 @@ export declare namespace Entity {
       user?: User;
       userId: string;
       customer?: Customer;
-      customerId: string;
+      customerId?: string;
       status: OrderStatus;
-      statusUpdatedAt: string;
-      paymentMethod: PaymentMethod;
+      statusUpdatedAt: Date;
+      paymentMethod?: PaymentMethod;
+      price: number;
+      totalAmount: number;
+      promotionalPrice?: number;
+      deliveryMethod?: string;
+      deliveryAddress?: string;
+      note?: string;
+      code: string;
+      at: Date;
+      items?: OrderItem[];
+    }>;
+
+  type OrderItem = BaseEntity &
+    Partial<{
+      sku?: Sku;
+      skuId: string;
+      order?: Order;
+      orderId: string;
+      title: string;
+      image?: ProductImage;
+      imageId?: string;
+      specifications: OrderItemSpecification[];
+      quantity: number;
+      sort: number;
       price: number;
       promotionalPrice?: number;
-      totalAmount?: number;
-      deliveryMethod: string;
-      ordersProducts?: OrderProduct[];
-      code?: string;
+      wholesalePrice?: number;
+      minWholesalePriceQuantity?: number;
     }>;
 
   type Customer = BaseEntity &

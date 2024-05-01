@@ -64,3 +64,12 @@ export type OrderPrice = {
   price: number;
   promotionalPrice: number;
 };
+
+export type OrderItemSpecification = {
+  attribute: {
+    id: string;
+    title: string;
+  };
+  id: string;
+  title: string;
+};

@@ -144,7 +144,7 @@ export declare namespace ApiRequest {
     searchText?: string;
   };
 
-  type CreateOrderItem = { productId: string; quantity: number };
+  type CreateOrderItem = { skuId: string; quantity: number };
 
   type CreateOrder = {
     status: OrderStatus;
