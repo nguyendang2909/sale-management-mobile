@@ -17,54 +17,62 @@ import { MinusCircle, PlusCircle } from 'lucide-react-native';
 import React, { FC, useCallback, useMemo } from 'react';
 import { TouchableHighlight } from 'react-native';
 import Toast from 'react-native-toast-message';
-import { ProductPrices } from 'src/components/text/formatted-prices';
+import { SkuPrice } from 'src/components/text/sku-price';
 import { ProductIconBox } from 'src/containers/icon/product-icon-box';
 import { useAppDispatch, useAppSelector } from 'src/hooks';
 import { cartActions } from 'src/store/cart';
-import { AppStore, PickedOrderItem } from 'src/types';
+import { CartItem, Entity } from 'src/types';
 
 type FCProps = {
-  product: AppStore.Product;
+  sku: Entity.Sku;
   // onAdd: (productId: string) => void;
   // onSubtract: (productId: string) => void;
   // onSet: (item: PickedOrderItem) => void;
   // onDelete: (productId: string) => void;
 };
 
-export const ConfirmOrderItem: FC<FCProps> = ({ product }) => {
+export const ConfirmOrderItem: FC<FCProps> = ({ sku }) => {
   const dispatch = useAppDispatch();
-  const productId = useMemo(() => product.id, [product.id]);
-  const imagePath = _.first(product.images);
-  const orderItem: PickedOrderItem = useAppSelector(e => e.cart.items[product.id]) || {
-    quantity: 0,
-    productId: product.id,
-  };
+  const skuId = useMemo(() => sku.id, [sku.id]);
+  const imagePath = _.first(sku.product?.images)?.path;
+  const cartItem: CartItem = useAppSelector(
+    e =>
+      e.cart.items[skuId] || {
+        quantity: 0,
+        skuId,
+      },
+  );
 
   const handleAdd = useCallback(() => {
-    if (!_.isNil(product.stock) && product.stock <= orderItem.quantity) {
+    if (!_.isNil(sku.product?.isInStock)) {
+      if (!sku.product.isInStock) {
+        Toast.show({ text1: 'Sản phẩm hết hàng', type: 'error' });
+        return;
+      }
+    } else if (!_.isNil(sku.stock) && sku.stock <= cartItem.quantity) {
       Toast.show({ text1: 'Vượt quá số lượng sản phẩm tồn kho', type: 'error' });
       return;
     }
-    dispatch(cartActions.addProductItem(productId));
-  }, [dispatch, orderItem.quantity, product.stock, productId]);
+    dispatch(cartActions.addCartItem(skuId));
+  }, [cartItem.quantity, dispatch, sku.product?.isInStock, sku.stock, skuId]);
 
   const handleSubtract = useCallback(() => {
-    dispatch(cartActions.subtractProductItem(productId));
-  }, [dispatch, productId]);
+    dispatch(cartActions.subtractCartItem(skuId));
+  }, [dispatch, skuId]);
 
   const handleSet = useCallback(
     (e: string) => {
       const eNumber = +e;
       if (_.isNumber(eNumber) && eNumber >= 0) {
-        dispatch(cartActions.setProductItem({ productId, quantity: _.round(eNumber, 0) }));
+        dispatch(cartActions.setCartItem({ skuId, quantity: _.round(eNumber, 0) }));
       }
     },
-    [dispatch, productId],
+    [dispatch, skuId],
   );
 
   const handleDelete = useCallback(
     (productId: string) => {
-      dispatch(cartActions.deleteProductItem(productId));
+      dispatch(cartActions.deleteCartItem(productId));
     },
     [dispatch],
   );
@@ -96,13 +104,13 @@ export const ConfirmOrderItem: FC<FCProps> = ({ product }) => {
               >
                 <BadgeIcon zIndex={99999} as={CloseIcon}></BadgeIcon>
               </Badge>
-              <ProductIconBox url={imagePath?.path} size="lg" />
+              <ProductIconBox url={imagePath} size="lg" />
             </View>
           </View>
           <VStack>
             <View height={22}>
               <Text lineHeight={22} numberOfLines={1}>
-                {product.title}
+                {sku.product?.title}
               </Text>
             </View>
             <View height={21}>
@@ -110,7 +118,7 @@ export const ConfirmOrderItem: FC<FCProps> = ({ product }) => {
             </View>
             <View height={21}>
               <Text lineHeight={21} color="$red600">
-                <ProductPrices product={product} />
+                <SkuPrice sku={sku} />
               </Text>
             </View>
           </VStack>
@@ -137,7 +145,7 @@ export const ConfirmOrderItem: FC<FCProps> = ({ product }) => {
                 <InputField
                   textAlign="center"
                   inputMode="numeric"
-                  value={orderItem.quantity.toString()}
+                  value={cartItem.quantity.toString()}
                   onChangeText={handleSet}
                   lineHeight={20}
                 ></InputField>

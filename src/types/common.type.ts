@@ -18,11 +18,13 @@ export type ProductSortType = ValueOf<typeof PRODUCT_SORT_TYPES>;
 
 export type ProductWithQuantity = Entity.Product & { quantity: number; productId: string };
 
-export type PickedOrderItem = {
-  productId: string;
+export type CartItem = {
   quantity: number;
+  skuId: string;
 };
 
-export type PickedOrderItems = Record<string, PickedOrderItem>;
+export type CartItemsObj = Record<string, CartItem>;
 
 export type Size = ValueOf<typeof SIZES>;
+
+export type SkusObj = Record<string, Entity.Sku>;

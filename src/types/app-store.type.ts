@@ -4,7 +4,7 @@ import { IMessage } from 'react-native-gifted-chat';
 import { ThunkAction } from 'redux-thunk';
 import { store } from 'src/store/store';
 
-import { PickedOrderItems, ProductSortType } from './common.type';
+import { CartItemsObj, ProductSortType } from './common.type';
 import { Entity } from './entities.type';
 
 export declare namespace AppStore {
@@ -94,22 +94,6 @@ export declare namespace AppStore {
     data?: Record<string, Entity.User>;
   };
 
-  type NearbyState = {
-    data: Entity.Profile[];
-    info: {
-      lastRefreshedAt?: string;
-      isReachedEnd?: boolean;
-    };
-  };
-
-  type SwipeProfileState = {
-    data: Entity.Profile[];
-    info: {
-      lastRefreshedAt?: string;
-      isReachedEnd?: boolean;
-    };
-  };
-
   type Product = Entity.Product;
 
   type Category = Entity.Category;
@@ -133,7 +117,7 @@ export declare namespace AppStore {
   };
 
   type CartStore = {
-    items: PickedOrderItems;
+    items: CartItemsObj;
     settings: {
       isCalculating: boolean;
     };

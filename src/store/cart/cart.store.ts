@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import _ from 'lodash';
-import { AppStore, PickedOrderItem } from 'src/types';
+import { AppStore, CartItem, CartItemsObj } from 'src/types';
 
 import { appActions } from '../app/app.store';
 
@@ -15,33 +15,33 @@ export const cartSlice = createSlice({
   name: 'cart',
   initialState,
   reducers: {
-    addProductItem: (state, { payload: productId }: PayloadAction<string>) => {
-      if (state.items[productId]) {
-        state.items[productId].quantity += 1;
+    addCartItem: (state, { payload: skuId }: PayloadAction<string>) => {
+      if (state.items[skuId]) {
+        state.items[skuId].quantity += 1;
         return;
       }
-      state.items[productId] = {
+      state.items[skuId] = {
         quantity: 1,
-        productId,
+        skuId,
       };
     },
-    subtractProductItem: (state, { payload: productId }: PayloadAction<string>) => {
-      if (!state.items[productId]) {
+    subtractCartItem: (state, { payload: skuId }: PayloadAction<string>) => {
+      if (!state.items[skuId]) {
         return;
       }
-      if (state.items[productId].quantity === 1) {
-        state.items = _.omit(state.items, productId);
+      if (state.items[skuId].quantity === 1) {
+        state.items = _.omit(state.items, skuId);
         return;
       }
-      state.items[productId].quantity -= 1;
+      state.items[skuId].quantity -= 1;
     },
-    deleteProductItem: (state, { payload: productId }: PayloadAction<string>) => {
-      delete state.items[productId];
+    deleteCartItem: (state, { payload: skuId }: PayloadAction<string>) => {
+      delete state.items[skuId];
     },
-    setProductItem: (state, { payload }: PayloadAction<PickedOrderItem>) => {
-      state.items[payload.productId] = payload;
+    setCartItem: (state, { payload }: PayloadAction<CartItem>) => {
+      state.items[payload.skuId] = payload;
     },
-    setCartItems: (state, { payload }: PayloadAction<Record<string, PickedOrderItem>>) => {
+    setCartItems: (state, { payload }: PayloadAction<CartItemsObj>) => {
       state.items = payload;
     },
     resetCartSettings: state => {

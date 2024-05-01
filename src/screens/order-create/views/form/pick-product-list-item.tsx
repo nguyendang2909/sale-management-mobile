@@ -18,42 +18,76 @@ import { ProductPrices } from 'src/components/text/formatted-prices';
 import { ProductIconBox } from 'src/containers/icon/product-icon-box';
 import { useAppDispatch, useAppSelector } from 'src/hooks';
 import { cartActions } from 'src/store/cart';
-import { AppStore, PickedOrderItem } from 'src/types';
+import { AppStore, CartItemsObj, SkusObj } from 'src/types';
 
 type FCProps = {
   product: AppStore.Product;
+  skusObj: SkusObj;
 };
 
-export const PickProduct: FC<FCProps> = ({ product }) => {
+export const PickProduct: FC<FCProps> = ({ product, skusObj }) => {
   const dispatch = useAppDispatch();
-  const productId = useMemo(() => product.id, [product.id]);
-  const orderItem: PickedOrderItem = useAppSelector(e => e.cart.items[product.id]) || {
-    quantity: 0,
-    productId: product.id,
-  };
-
+  const skuIds = useMemo(() => product.skus?.map(sku => sku.id) || [], [product.skus]);
+  const firstSkuId = useMemo(() => skuIds[0], [skuIds]);
+  const firstSku = useMemo(() => skusObj[firstSkuId], [firstSkuId, skusObj]);
+  const skuLength = useMemo(() => product.skus?.length || 0, [product.skus]);
+  const cartItemsObj: CartItemsObj = useAppSelector(s => {
+    const itemsObj = s.cart.items;
+    return skuIds.reduce<CartItemsObj>((result, skuId) => {
+      return {
+        ...result,
+        [skuId]: itemsObj[skuId] || {
+          quantity: 0,
+          skuId,
+        },
+      };
+    }, {});
+  });
+  const cartItems = Object.values(cartItemsObj);
+  const quantity = cartItems.reduce((result, cartItem) => result + cartItem.quantity, 0);
   const imagePath = _.first(product.images);
 
   const handleAdd = useCallback(() => {
-    if (!_.isNil(product.stock) && product.stock <= orderItem.quantity) {
-      Toast.show({ text1: 'Vượt quá số lượng sản phẩm tồn kho', type: 'error' });
-      return;
+    if (skuLength === 1) {
+      if (firstSku && firstSkuId && cartItemsObj[firstSkuId]) {
+        if (!_.isNil(product.isInStock)) {
+          if (!product.isInStock) {
+            Toast.show({ text1: 'Sản phẩm hết hàng', type: 'error' });
+            return;
+          }
+        } else if (
+          !_.isNil(firstSku.stock) &&
+          firstSku.stock <= cartItemsObj[firstSkuId].quantity
+        ) {
+          Toast.show({ text1: 'Vượt quá số lượng sản phẩm tồn kho', type: 'error' });
+          return;
+        }
+        dispatch(cartActions.addCartItem(skuIds[0]));
+      }
     }
-    dispatch(cartActions.addProductItem(productId));
-  }, [dispatch, orderItem.quantity, product.stock, productId]);
+  }, [cartItemsObj, dispatch, firstSku, firstSkuId, product.isInStock, skuIds, skuLength]);
 
   const handleSubtract = useCallback(() => {
-    dispatch(cartActions.subtractProductItem(productId));
-  }, [dispatch, productId]);
+    if (skuLength === 1) {
+      dispatch(cartActions.subtractCartItem(skuIds[0]));
+    }
+  }, [dispatch, skuIds, skuLength]);
 
   const handleSet = useCallback(
     (e: string) => {
-      const eNumber = +e;
-      if (_.isNumber(eNumber) && eNumber >= 0) {
-        dispatch(cartActions.setProductItem({ productId, quantity: _.round(eNumber, 0) }));
+      if (skuLength === 1) {
+        const eNumber = +e;
+        if (_.isNumber(eNumber) && eNumber >= 0) {
+          dispatch(
+            cartActions.setCartItem({
+              quantity: _.round(eNumber, 0),
+              skuId: _.get(product, 'sku[0].id', ''),
+            }),
+          );
+        }
       }
     },
-    [dispatch, productId],
+    [dispatch, product, skuLength],
   );
 
   return (
@@ -95,7 +129,7 @@ export const PickProduct: FC<FCProps> = ({ product }) => {
                 justifyContent="flex-end"
                 borderBottomWidth={0}
               >
-                {!!orderItem.quantity && (
+                {!!quantity && (
                   <>
                     <InputSlot as={Pressable} onPress={handleSubtract}>
                       <InputIcon as={MinusCircle} color="$primary500" />
@@ -103,7 +137,7 @@ export const PickProduct: FC<FCProps> = ({ product }) => {
                     <InputField
                       textAlign="center"
                       inputMode="numeric"
-                      value={orderItem.quantity?.toString()}
+                      value={quantity.toString()}
                       onChangeText={handleSet}
                       lineHeight={20}
                     ></InputField>

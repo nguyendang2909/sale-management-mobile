@@ -98,7 +98,6 @@ export declare namespace Entity {
       title: string;
       minWholesalePriceQuantity?: number;
       isInStock?: boolean;
-      stock?: number;
       isTrackingStock?: boolean;
       description?: string;
       label?: string;
@@ -134,7 +133,7 @@ export declare namespace Entity {
 
   type Sku = BaseEntity &
     Partial<{
-      product?: User;
+      product?: Product;
       productId: string;
       image?: ProductImage;
       imageId?: string;

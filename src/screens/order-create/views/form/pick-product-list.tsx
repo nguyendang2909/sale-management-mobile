@@ -15,8 +15,8 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { Price } from 'src/components/text/formatted-price';
 import { SCREENS } from 'src/constants';
 import { useAppSelector, useSearchProducts } from 'src/hooks';
-import { AppStore, FormParams } from 'src/types';
-import { productUtil } from 'src/utils/product.util';
+import { FormParams } from 'src/types';
+import { skuUtil } from 'src/utils';
 
 import { PickProduct } from './pick-product-list-item';
 
@@ -26,37 +26,15 @@ export const PickProducts: FC<{ values: FormParams.CreateOrder }> = ({ values })
     refetch: refetchProducts,
     isFetching: isFetchingProducts,
   } = useSearchProducts();
-  const cartItems = useAppSelector(s => s.cart.items);
-  const orderItems = useMemo(() => Object.values(cartItems), [cartItems]);
   const navigation = useNavigation();
+  const cartItemsObj = useAppSelector(s => s.cart.items);
+  const cartItems = useMemo(() => Object.values(cartItemsObj), [cartItemsObj]);
 
-  const objProducts: Record<string, AppStore.Product> = useMemo(
-    () =>
-      products.reduce((acc, product) => {
-        return { ...acc, [product.id]: product };
-      }, {}),
-    [products],
-  );
+  const skusObj = useMemo(() => skuUtil.getObjFromProducts(products), [products]);
 
-  const { productsTotal, productsTotalAmount } = useMemo(
-    () =>
-      orderItems.reduce<{ productsTotal: number; productsTotalAmount: number }>(
-        (result, orderItem) => {
-          return {
-            productsTotal: result.productsTotal + orderItem.quantity,
-            productsTotalAmount:
-              result.productsTotalAmount +
-              (objProducts[orderItem.productId]
-                ? productUtil.getTotalAmountByOrderItem(objProducts[orderItem.productId], orderItem)
-                : 0),
-          };
-        },
-        {
-          productsTotal: 0,
-          productsTotalAmount: 0,
-        },
-      ),
-    [objProducts, orderItems],
+  const { skuTotal, skuTotalAmount } = useMemo(
+    () => skuUtil.getTotalAndAmountByCartItems(cartItems, skusObj),
+    [cartItems, skusObj],
   );
 
   const handlePressNext = () => {
@@ -76,12 +54,12 @@ export const PickProducts: FC<{ values: FormParams.CreateOrder }> = ({ values })
         //   cartItems,
         // }}
         renderItem={({ item }) => {
-          return <PickProduct product={item} />;
+          return <PickProduct product={item} skusObj={skusObj} />;
         }}
         estimatedItemSize={100}
         ListFooterComponent={<View height={100}></View>}
       ></FlashList>
-      {!!productsTotal && (
+      {!!skuTotal && (
         <View
           position="absolute"
           left={0}
@@ -116,7 +94,7 @@ export const PickProducts: FC<{ values: FormParams.CreateOrder }> = ({ values })
                     alignItems="center"
                   >
                     <BadgeText color="$white" size="2xs">
-                      {productsTotal > 99 ? '99+' : productsTotal}
+                      {skuTotal > 99 ? '99+' : skuTotal}
                     </BadgeText>
                   </Badge>
 
@@ -124,7 +102,7 @@ export const PickProducts: FC<{ values: FormParams.CreateOrder }> = ({ values })
                 </View>
                 <View flex={1}>
                   <ButtonText>
-                    <Price value={productsTotalAmount} />
+                    <Price value={skuTotalAmount} />
                   </ButtonText>
                 </View>
                 <View>

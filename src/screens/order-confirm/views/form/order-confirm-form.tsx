@@ -14,7 +14,7 @@ import { FormControlOrderNote } from 'src/containers/form-control/order/form-con
 import { useAppDispatch, useAppSelector, useMessages, useProducts } from 'src/hooks';
 import { cartActions } from 'src/store/cart';
 import { FormParams } from 'src/types';
-import { createOrderFormUtil } from 'src/utils';
+import { createOrderFormUtil, skuUtil } from 'src/utils';
 
 import { ConfirmOrderItem } from './confirm-order-item';
 import { ConfirmOrderPrices } from './confirm-order-prices';
@@ -29,7 +29,7 @@ export const OrderConfirmForm: FC<{ values: FormParams.CreateOrder }> = ({ value
   const settings = useAppSelector(s => s.app.orderSettings);
   const cartItemsObj = useAppSelector(s => s.cart.items);
 
-  const pickedProducts = products.filter(product => !!cartItemsObj[product.id]);
+  const pickedSkus = skuUtil.getPickedSkusFromProducts(products, cartItemsObj);
 
   const defaultValues = useMemo(() => {
     return createOrderFormUtil.getDefaultValues(values);
@@ -94,7 +94,7 @@ export const OrderConfirmForm: FC<{ values: FormParams.CreateOrder }> = ({ value
           <FlashList
             showsVerticalScrollIndicator={false}
             numColumns={1}
-            data={pickedProducts}
+            data={pickedSkus}
             keyExtractor={(item, index) => item.id || index.toString()}
             // extraData={{
             //   a: 1,
@@ -102,7 +102,7 @@ export const OrderConfirmForm: FC<{ values: FormParams.CreateOrder }> = ({ value
             renderItem={({ item }) => {
               return (
                 <ConfirmOrderItem
-                  product={item}
+                  sku={item}
                   // onAdd={handleAdd}
                   // onSubtract={handleSubtract}
                   // onSet={handleSet}
@@ -162,7 +162,7 @@ export const OrderConfirmForm: FC<{ values: FormParams.CreateOrder }> = ({ value
         px={16}
       >
         <View>
-          <ConfirmOrderPrices pickedProducts={pickedProducts} cartItems={cartItemsObj} />
+          <ConfirmOrderPrices pickedSkus={pickedSkus} cartItems={cartItemsObj} />
         </View>
         <View mt={16}>
           <HStack columnGap={16} flex={1}>

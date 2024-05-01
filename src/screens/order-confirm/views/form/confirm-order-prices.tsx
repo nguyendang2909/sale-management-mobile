@@ -2,29 +2,34 @@ import { HStack, Text, View } from '@gluestack-ui/themed';
 import { FC, useMemo } from 'react';
 import { Price } from 'src/components/text/formatted-price';
 import { useAppSelector } from 'src/hooks';
-import { AppStore, PickedOrderItems } from 'src/types';
-import { productUtil } from 'src/utils/product.util';
+import { Entity } from 'src/types';
+import { skuUtil } from 'src/utils';
 
 export const ConfirmOrderPrices: FC<{
-  pickedProducts: AppStore.Product[];
-  cartItems: PickedOrderItems;
-}> = ({ pickedProducts }) => {
+  pickedSkus: Entity.Sku[];
+}> = ({ pickedSkus }) => {
   const cartItems = useAppSelector(s => s.cart.items);
 
-  const { totalAmount, price, productQuantity } = useMemo(() => {
-    return pickedProducts.reduce(
-      (result, product) => {
+  const { totalAmount, price, quantity } = useMemo(() => {
+    return pickedSkus.reduce(
+      (result, sku) => {
+        const cartItem = cartItems[sku.id];
+        if (!cartItem) {
+          return {
+            totalAmount: result.totalAmount,
+            price: result.price,
+            quantity: result.quantity,
+          };
+        }
         return {
-          totalAmount:
-            result.totalAmount +
-            productUtil.getTotalAmountByOrderItem(product, cartItems[product.id]),
-          price: result.price + productUtil.getPriceByOrderItem(product, cartItems[product.id]),
-          productQuantity: result.productQuantity + cartItems[product.id].quantity,
+          totalAmount: result.totalAmount + skuUtil.getTotalAmountByCartItem(cartItem, sku),
+          price: result.price + skuUtil.getPriceByCartItem(cartItem, sku),
+          quantity: result.quantity + cartItem.quantity,
         };
       },
-      { totalAmount: 0, price: 0, productQuantity: 0 },
+      { totalAmount: 0, price: 0, quantity: 0 },
     );
-  }, [cartItems, pickedProducts]);
+  }, [cartItems, pickedSkus]);
 
   const diffPrice = useMemo(() => price - totalAmount, [price, totalAmount]);
 
@@ -32,7 +37,7 @@ export const ConfirmOrderPrices: FC<{
     <>
       <HStack justifyContent="space-between">
         <View>
-          <Text>{`Tổng ${productQuantity} sản phẩm`}</Text>
+          <Text>{`Tổng ${quantity} sản phẩm`}</Text>
         </View>
         <View>
           <Text color="$textLight900" bold>
