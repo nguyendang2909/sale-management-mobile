@@ -11,7 +11,6 @@ export const ProductInStockControl: FC<
       <Controller
         control={control}
         name="isInStock"
-        rules={{ required: true }}
         render={({ field }) => (
           <View {...viewProps}>
             <FormControlSwitch

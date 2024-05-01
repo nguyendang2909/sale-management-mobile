@@ -10,7 +10,6 @@ export const ProductSkuControl: FC<
     <Controller
       control={control}
       name="skus.0.code"
-      rules={{ required: true }}
       render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
         <View {...viewProps}>
           <FormControlInput

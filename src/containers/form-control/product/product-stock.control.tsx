@@ -1,7 +1,7 @@
 import { View } from '@gluestack-ui/themed';
 import { ComponentProps, FC } from 'react';
 import { Control, Controller } from 'react-hook-form';
-import { FormControlNumberInput } from 'src/components/form/form-control-number-input';
+import { IntegerInput } from 'src/components/form/integer-input';
 
 export const ProductStockControl: FC<
   ComponentProps<typeof View> & { control: Control<any, any> }
@@ -10,16 +10,13 @@ export const ProductStockControl: FC<
     <>
       <Controller
         control={control}
-        name="skus.0.price"
-        rules={{ required: true }}
+        name="skus.0.stock"
         render={({ field }) => (
           <View {...viewProps}>
-            <FormControlNumberInput
+            <IntegerInput
               label="Tồn kho"
               value={field.value?.toString()}
-              onChange={e => {
-                field.onChange(e ? +e : undefined);
-              }}
+              onChange={field.onChange}
               focusable={true}
             />
           </View>

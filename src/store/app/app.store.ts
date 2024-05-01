@@ -16,6 +16,7 @@ const initialState: AppStore.AppState = {
   },
   productSettings: {},
   orderSettings: {},
+  isLoading: false,
 };
 
 export const appSlice = createSlice({
@@ -45,6 +46,9 @@ export const appSlice = createSlice({
       state.socket = {};
       state.productSettings = {};
       state.shop = {};
+      state.shops = [];
+      state.orderSettings = {};
+      state.isLoading = false;
     },
 
     setSocketConnected: state => {
@@ -60,6 +64,10 @@ export const appSlice = createSlice({
 
     updateOrderSettings: (state, { payload }: PayloadAction<Partial<AppStore.OrderSetting>>) => {
       state.orderSettings = { ...state.orderSettings, ...payload };
+    },
+
+    setAppLoading: (state, { payload }: PayloadAction<boolean>) => {
+      state.isLoading = payload;
     },
   },
   extraReducers: builder => {

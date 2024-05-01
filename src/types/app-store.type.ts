@@ -31,6 +31,7 @@ export declare namespace AppStore {
     };
     productSettings: ProductSetting;
     orderSettings: OrderSetting;
+    isLoading: boolean;
   };
 
   type Cache = {

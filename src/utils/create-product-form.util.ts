@@ -55,6 +55,7 @@ class CreateProductFormUtil {
               promotionalPrice: Yup.number()
                 .positive('Giá không đúng')
                 .notOneOf([0], 'Giá không đúng')
+                .lessThan(Yup.ref('price'), 'Giá khuyến mãi cần nhỏ hơn giá bán')
                 .required()
                 .nullable(),
               wholesalePrice: Yup.number()

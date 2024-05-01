@@ -12,12 +12,11 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { Platform } from 'react-native';
 import Toast from 'react-native-toast-message';
 import { useCreateProductMutation } from 'src/api';
-import { LoadingLayout } from 'src/components';
 import { HOME_SCREENS, SCREENS } from 'src/constants';
 import { FormControlProductAdditional } from 'src/containers/form-control/product/form-control-product-additional';
-import { ProductCategoriesControl } from 'src/containers/form-control/product/form-control-product-categories';
 import { ProductInStockControl } from 'src/containers/form-control/product/form-control-product-in-stock';
 import { ProductCapitalPriceControl } from 'src/containers/form-control/product/product-capital-price.control';
+import { ProductCategoriesControl } from 'src/containers/form-control/product/product-categories.control';
 import { ProductImagesControl } from 'src/containers/form-control/product/product-images.control';
 import { ProductPriceControl } from 'src/containers/form-control/product/product-price.control';
 import { ProductPromotionalPriceControl } from 'src/containers/form-control/product/product-promotional-price.control';
@@ -26,7 +25,7 @@ import { ProductStockControl } from 'src/containers/form-control/product/product
 import { ProductTitleControl } from 'src/containers/form-control/product/product-title.control';
 import { ProductTrackingStockControl } from 'src/containers/form-control/product/product-tracking-stock.control';
 import { ProductUnitControl } from 'src/containers/form-control/product/product-unit.control';
-import { useMessages, useProductSettings } from 'src/hooks';
+import { useAppLoading, useMessages } from 'src/hooks';
 import { useCategories } from 'src/hooks/useCategories';
 import { ApiRequest, FormParams } from 'src/types';
 import { createProductFormUtil } from 'src/utils';
@@ -34,7 +33,6 @@ import { createProductFormUtil } from 'src/utils';
 export const CreateProductForm: FC = () => {
   useCategories();
 
-  const { data: settings } = useProductSettings();
   const navigation = useNavigation();
   const { formatErrorMessage } = useMessages();
   const [createProduct] = useCreateProductMutation();
@@ -46,7 +44,6 @@ export const CreateProductForm: FC = () => {
     control,
     formState: { isSubmitting, errors },
     watch,
-    getValues,
   } = useForm<FormParams.CreateProduct>({
     defaultValues: createProductFormUtil.getDefaultValues(),
     resolver: createProductFormUtil.getResolver(),
@@ -56,6 +53,7 @@ export const CreateProductForm: FC = () => {
 
   const onSubmit: SubmitHandler<FormParams.CreateProduct> = async values => {
     try {
+      console.log(111);
       const { createMore, images, categories, skus, ...restValues } = values;
       const payload: ApiRequest.CreateProduct = {
         ...restValues,
@@ -82,19 +80,17 @@ export const CreateProductForm: FC = () => {
 
   const handleCreateProduct = async () => {
     setValue('createMore', false);
-    handleSubmit(onSubmit);
+    await handleSubmit(onSubmit)();
   };
 
-  const handleCreateMoreProduct = () => {
+  const handleCreateMoreProduct = async () => {
     setValue('createMore', true);
-    handleSubmit(onSubmit);
+    await handleSubmit(onSubmit)();
   };
 
   const isInStock = watch('isInStock');
   const isTrackingStock = useMemo(() => isInStock === null, [isInStock]);
-
   const attributesValue = watch('attributes');
-
   const attributeProperties = useMemo(
     () =>
       attributesValue.reduce<{ skuTotal: number }>(
@@ -107,16 +103,15 @@ export const CreateProductForm: FC = () => {
       ),
     [attributesValue],
   );
-
   const hasOnlyOneSku = useMemo(
     () => attributeProperties.skuTotal === 1,
     [attributeProperties.skuTotal],
   );
+  useAppLoading(isSubmitting);
 
   return (
     <>
       <View flex={1}>
-        <LoadingLayout isLoading={isSubmitting} />
         <View flex={1}>
           <View flex={1}>
             <View flex={1}>
@@ -169,7 +164,7 @@ export const CreateProductForm: FC = () => {
                     </Button>
                   </View>
                   <View flex={1}>
-                    <Button onPress={handleSubmit(onSubmit)}>
+                    <Button onPress={handleCreateProduct}>
                       <ButtonText>Hoàn tất</ButtonText>
                     </Button>
                   </View>

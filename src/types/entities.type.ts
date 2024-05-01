@@ -156,7 +156,7 @@ export declare namespace Entity {
       customer?: Customer;
       customerId: string;
       status: OrderStatus;
-      lastChangedStatus: Date;
+      statusUpdatedAt: string;
       paymentMethod: PaymentMethod;
       price: number;
       promotionPrice?: number;

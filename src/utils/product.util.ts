@@ -21,7 +21,12 @@ class ProductUtil extends BaseUtil {
   }
 
   formatManyAndSort(news: Entity.Product[], olds: AppStore.Product[]) {
-    return _.chain(news).map(this.formatOne).concat(olds).uniqBy('id').orderBy('id', 'asc').value();
+    return _.chain(news)
+      .map(e => this.formatOne(e))
+      .concat(olds)
+      .uniqBy('id')
+      .orderBy('id', 'asc')
+      .value();
   }
 
   filter(

@@ -11,7 +11,6 @@ export const ProductCategoriesControl: FC<
       <Controller
         control={control}
         name="categories"
-        rules={{ required: true }}
         render={({ field }) => {
           return (
             <View {...viewProps}>

@@ -1,9 +1,35 @@
-import { Spinner, View } from '@gluestack-ui/themed';
+import { View } from '@gluestack-ui/themed';
+import { FC } from 'react';
+import { ActivityIndicator } from 'react-native';
 
-export const LoadingOverlay = () => {
+export const LoadingOverlay: FC<{ isLoading?: boolean }> = ({ isLoading }) => {
+  if (!isLoading) {
+    return null;
+  }
   return (
-    <View flex={1} justifyContent="center" alignItems="center">
-      <Spinner />
-    </View>
+    <>
+      <View
+        position="absolute"
+        left={0}
+        right={0}
+        top={0}
+        bottom={0}
+        bgColor="$blueGray100"
+        opacity={0.4}
+        zIndex={9}
+      ></View>
+      <View
+        justifyContent="center"
+        alignItems="center"
+        position="absolute"
+        left={0}
+        right={0}
+        top={0}
+        bottom={0}
+        zIndex={10}
+      >
+        <ActivityIndicator />
+      </View>
+    </>
   );
 };

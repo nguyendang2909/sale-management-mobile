@@ -32,7 +32,7 @@ export default function App() {
     <>
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
-          <IntlProvider defaultLocale="vi" locale="vi" messages={translators.en}>
+          <IntlProvider defaultLocale="vi" locale="vi-VN" messages={translators.en}>
             <ConnectSocket />
             <SafeAreaProvider>
               <ActionSheetProvider>
@@ -45,10 +45,8 @@ export default function App() {
                         const previousRouteName = currentRouteRef.current;
                         const currentRouteName =
                           navigationRef.current?.getCurrentRoute()?.name || '';
-
                         if (previousRouteName !== currentRouteName) {
                           currentRouteRef.current = currentRouteName;
-
                           // await analytics().logScreenView({ screen_name: currentRouteName });
                         }
                       }}

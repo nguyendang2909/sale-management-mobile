@@ -1,7 +1,7 @@
 import { View } from '@gluestack-ui/themed';
 import { ComponentProps, FC } from 'react';
 import { Control, Controller } from 'react-hook-form';
-import { FormControlNumberInput } from 'src/components/form/form-control-number-input';
+import { PriceInput } from 'src/components/form/price-input';
 import { useAppSelector } from 'src/hooks';
 
 export const ProductPromotionalPriceControl: FC<
@@ -19,7 +19,7 @@ export const ProductPromotionalPriceControl: FC<
           if (!!showCreateProductPromotionPrice || !!field.value) {
             return (
               <View {...viewProps}>
-                <FormControlNumberInput
+                <PriceInput
                   label="Giá khuyến mãi"
                   inputMode="numeric"
                   value={field.value}

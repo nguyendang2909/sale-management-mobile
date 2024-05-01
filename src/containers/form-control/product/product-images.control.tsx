@@ -15,7 +15,6 @@ export const ProductImagesControl: FC<
       <Controller
         control={control}
         name="images"
-        rules={{ required: true }}
         render={({ field: { value, onChange } }) => {
           if (!!showCreateProductImage || !!value?.length) {
             return <ProductImagesForm {...viewProps} value={value} onChange={onChange} />;

@@ -232,7 +232,7 @@ export declare namespace ApiResponse {
     type: string;
   };
 
-  type Product = FetchData<Entity.Match>;
+  type Product = FetchData<Entity.Product>;
 
   type Products = PaginatedResponse<Entity.Product>;
 

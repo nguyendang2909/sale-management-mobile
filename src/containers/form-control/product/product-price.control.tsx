@@ -1,7 +1,7 @@
 import { View } from '@gluestack-ui/themed';
 import { ComponentProps, FC } from 'react';
 import { Control, Controller } from 'react-hook-form';
-import { FormControlNumberInput } from 'src/components/form/form-control-number-input';
+import { PriceInput } from 'src/components/form/price-input';
 
 export const ProductPriceControl: FC<
   ComponentProps<typeof View> & { control: Control<any, any> }
@@ -15,7 +15,7 @@ export const ProductPriceControl: FC<
         render={({ field, fieldState }) => {
           return (
             <View {...viewProps}>
-              <FormControlNumberInput
+              <PriceInput
                 isRequired={true}
                 label="Giá bán"
                 inputMode="numeric"

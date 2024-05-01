@@ -38,5 +38,6 @@ export const useMessages = () => {
     formatMessage,
     formatErrorMessage,
     formatNumber,
+    locale: intl.locale,
   };
 };

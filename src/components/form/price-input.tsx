@@ -14,7 +14,7 @@ import {
 } from '@gluestack-ui/themed';
 import _ from 'lodash';
 import { Stack } from 'native-base';
-import React, { useCallback, useState } from 'react';
+import React, { useCallback } from 'react';
 import { InputModeOptions } from 'react-native';
 import { useMessages } from 'src/hooks';
 
@@ -22,7 +22,7 @@ import { MaterialIcons } from '../icon';
 
 type FCProps = {
   label: string;
-  onChange: (e: string | null) => void;
+  onChange: (e: number | null) => void;
   value?: number;
   error?: string;
   maxLength?: number;
@@ -34,7 +34,7 @@ type FCProps = {
   focusable?: boolean;
 };
 
-export const FormControlNumberInput: React.FC<FCProps> = ({
+export const PriceInput: React.FC<FCProps> = ({
   label,
   onChange,
   value,
@@ -47,31 +47,34 @@ export const FormControlNumberInput: React.FC<FCProps> = ({
   onBlur,
   focusable,
 }) => {
-  const [displayValue, setDisplayValue] = useState<string>('');
-  const { formatNumber } = useMessages();
+  const { formatNumber, locale } = useMessages();
 
   const handleClear = useCallback(() => {
     onChange(null);
-    setDisplayValue('');
   }, [onChange]);
 
   const handleChange = useCallback(
     (e: string) => {
       if (e) {
-        const eNumber = +e.replaceAll('.', '');
+        const eNumber = +e.replaceAll('.', '').replace(',', '');
         if (!isNaN(eNumber) && _.isNumber(eNumber)) {
           if (eNumber < Number.MAX_SAFE_INTEGER) {
-            setDisplayValue(formatNumber(eNumber));
-            onChange(e);
+            onChange(eNumber);
           }
           return;
         }
       }
-      setDisplayValue('');
       onChange(null);
     },
-    [formatNumber, onChange],
+    [onChange],
   );
+
+  const getDisplayValue = (e?: number | null) => {
+    if (e) {
+      return formatNumber(e);
+    }
+    return '';
+  };
 
   return (
     <FormControl {...(isRequired ? { isRequired } : {})} isInvalid={!!error}>
@@ -83,7 +86,7 @@ export const FormControlNumberInput: React.FC<FCProps> = ({
           <InputField
             focusable={focusable}
             inputMode={inputMode}
-            value={displayValue}
+            value={getDisplayValue(value)}
             onChangeText={handleChange}
             placeholder={placeholder}
             maxLength={maxLength}
