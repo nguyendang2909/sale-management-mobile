@@ -13,11 +13,13 @@ import { HOME_SCREENS, ORDER_STATUSES, SCREENS } from 'src/constants';
 import { FormControlOrderAdditional } from 'src/containers/form-control/order/form-control-order-additional';
 import { FormControlOrderNote } from 'src/containers/form-control/order/form-control-order-note';
 import { useAppDispatch, useAppSelector, useMessages, useProducts } from 'src/hooks';
+import { getState } from 'src/store';
 import { cartActions } from 'src/store/cart';
 import { FormParams } from 'src/types';
 import { createOrderFormUtil, skuUtil } from 'src/utils';
 
 import { ConfirmOrderItem } from './confirm-order-item';
+import { ConfirmOrderPrices } from './confirm-order-prices';
 
 export const OrderConfirmForm: FC<{ values: FormParams.CreateOrder }> = ({ values }) => {
   const dispatch = useAppDispatch();
@@ -32,7 +34,6 @@ export const OrderConfirmForm: FC<{ values: FormParams.CreateOrder }> = ({ value
       return { ...acc, [item.skuId]: item.skuId };
     }, {});
   }, _.isEqual);
-
   const pickedSkus = useMemo(
     () => skuUtil.getPickedSkusFromProducts(products, skuItemsObj),
     [skuItemsObj, products],
@@ -61,12 +62,6 @@ export const OrderConfirmForm: FC<{ values: FormParams.CreateOrder }> = ({ value
     }
   }, [defaultValues, reset]);
 
-  // const handleDelete = useCallback((productId: string) => {
-  //   setOrderItems(prev => {
-  //     return prev.filter(e => e.productId !== productId);
-  //   });
-  // }, []);
-
   const onLeftPress = useCallback(() => {
     navigation.navigate(SCREENS.ORDER_CREATE, {
       values: getValues(),
@@ -75,16 +70,17 @@ export const OrderConfirmForm: FC<{ values: FormParams.CreateOrder }> = ({ value
 
   const saveOrder = useCallback(async () => {
     try {
+      const cartItems = getState().cart.items;
       await createOrder({
         status: ORDER_STATUSES.PROCESSING,
-        items: Object.values(skuItemsObj),
+        items: Object.values(cartItems),
       }).unwrap();
       navigation.navigate(SCREENS.Home, { screen: HOME_SCREENS.ORDER });
       dispatch(cartActions.setCartItems({}));
     } catch (err) {
       Toast.show({ text1: formatErrorMessage(err), type: 'error' });
     }
-  }, [skuItemsObj, createOrder, dispatch, formatErrorMessage, navigation]);
+  }, [createOrder, dispatch, formatErrorMessage, navigation]);
 
   return (
     <>
@@ -169,9 +165,9 @@ export const OrderConfirmForm: FC<{ values: FormParams.CreateOrder }> = ({ value
         borderColor="$backgroundLight200"
         px={16}
       >
-        {/* <View>
-          <ConfirmOrderPrices pickedSkus={pickedSkus} cartItems={cartItemsObj} />
-        </View> */}
+        <View>
+          <ConfirmOrderPrices pickedSkus={pickedSkus} />
+        </View>
         <View mt={16}>
           <HStack columnGap={16} flex={1}>
             <View flex={1}>

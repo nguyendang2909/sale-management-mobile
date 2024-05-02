@@ -4,10 +4,14 @@ import { ParamListBase, Route, TabNavigationState, useTheme } from '@react-navig
 import Color from 'color';
 import { StyleSheet, useWindowDimensions } from 'react-native';
 import { TabBar, TabBarIndicator } from 'react-native-tab-view';
-import { ORDER_STATUSES, ORDER_TABS } from 'src/constants';
+import { ORDER_TABS } from 'src/constants';
 
 import { AllOrdersTab } from './all-orders/all-orders.tab';
-import { OrderTab } from './orders-with-status/order.tab';
+import { OrderCancelledTab } from './orders-with-status/order-cancelled.tab';
+import { OrderReturnedTab } from './orders-with-status/order-delivered.tab';
+import { OrderProcessingTab } from './orders-with-status/order-processing.tab';
+import { OrderDeliveredTab } from './orders-with-status/order-returned.tab';
+import { OrderWaitToConfirmTab } from './orders-with-status/order-wait-to-confirm.tab';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -149,27 +153,27 @@ export const OrderTabs = () => {
         />
         <Tab.Screen
           name={ORDER_TABS.WAIT_TO_CONFIRM}
-          component={() => <OrderTab status={ORDER_STATUSES.WAIT_TO_CONFIRM} />}
+          component={OrderWaitToConfirmTab}
           options={{ tabBarLabel: 'Chờ xác nhận' }}
         />
         <Tab.Screen
           name={ORDER_TABS.PROCESSING}
-          component={() => <OrderTab status={ORDER_STATUSES.PROCESSING} />}
+          component={OrderProcessingTab}
           options={{ tabBarLabel: 'Đang xử lý' }}
         />
         <Tab.Screen
           name={ORDER_TABS.DELIVERED}
-          component={() => <OrderTab status={ORDER_STATUSES.DELIVERED} />}
+          component={OrderDeliveredTab}
           options={{ tabBarLabel: 'Hoàn thành' }}
         />
         <Tab.Screen
           name={ORDER_TABS.RETURNED}
-          component={() => <OrderTab status={ORDER_STATUSES.RETURNED} />}
+          component={OrderReturnedTab}
           options={{ tabBarLabel: 'Trả hàng' }}
         />
         <Tab.Screen
           name={ORDER_TABS.CANCELLED}
-          component={() => <OrderTab status={ORDER_STATUSES.CANCELLED} />}
+          component={OrderCancelledTab}
           options={{ tabBarLabel: 'Huỷ' }}
         />
       </Tab.Navigator>
