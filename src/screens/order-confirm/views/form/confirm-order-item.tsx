@@ -16,7 +16,6 @@ import _ from 'lodash';
 import { MinusCircle, PlusCircle } from 'lucide-react-native';
 import React, { FC, useCallback, useMemo } from 'react';
 import { TouchableHighlight } from 'react-native';
-import Toast from 'react-native-toast-message';
 import { SkuPrice } from 'src/components/text/sku-price';
 import { ProductIconBox } from 'src/containers/icon/product-icon-box';
 import { useAppDispatch, useAppSelector } from 'src/hooks';
@@ -44,15 +43,15 @@ export const ConfirmOrderItem: FC<FCProps> = ({ sku }) => {
   );
 
   const handleAdd = useCallback(() => {
-    if (!_.isNil(sku.product?.isInStock)) {
-      if (!sku.product.isInStock) {
-        Toast.show({ text1: 'Sản phẩm hết hàng', type: 'error' });
-        return;
-      }
-    } else if (!_.isNil(sku.stock) && sku.stock <= cartItem.quantity) {
-      Toast.show({ text1: 'Vượt quá số lượng sản phẩm tồn kho', type: 'error' });
-      return;
-    }
+    // if (!_.isNil(sku.product?.isInStock)) {
+    //   if (!sku.product.isInStock) {
+    //     Toast.show({ text1: 'Sản phẩm hết hàng', type: 'error' });
+    //     return;
+    //   }
+    // } else if (!_.isNil(sku.stock) && sku.stock <= cartItem.quantity) {
+    //   Toast.show({ text1: 'Vượt quá số lượng sản phẩm tồn kho', type: 'error' });
+    //   return;
+    // }
     dispatch(cartActions.addCartItem(skuId));
   }, [cartItem.quantity, dispatch, sku.product?.isInStock, sku.stock, skuId]);
 

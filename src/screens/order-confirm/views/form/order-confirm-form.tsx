@@ -1,6 +1,7 @@
 import { Button, ButtonIcon, ButtonText, HStack, Text, View } from '@gluestack-ui/themed';
 import { useNavigation } from '@react-navigation/native';
 import { FlashList } from '@shopify/flash-list';
+import _ from 'lodash';
 import { ChevronLeft, Plus } from 'lucide-react-native';
 import { FC, useCallback, useEffect, useMemo } from 'react';
 import { useForm } from 'react-hook-form';
@@ -17,7 +18,6 @@ import { FormParams } from 'src/types';
 import { createOrderFormUtil, skuUtil } from 'src/utils';
 
 import { ConfirmOrderItem } from './confirm-order-item';
-import { ConfirmOrderPrices } from './confirm-order-prices';
 
 export const OrderConfirmForm: FC<{ values: FormParams.CreateOrder }> = ({ values }) => {
   const dispatch = useAppDispatch();
@@ -27,9 +27,16 @@ export const OrderConfirmForm: FC<{ values: FormParams.CreateOrder }> = ({ value
 
   const { data: products } = useProducts();
   const settings = useAppSelector(s => s.app.orderSettings);
-  const cartItemsObj = useAppSelector(s => s.cart.items);
+  const skuItemsObj = useAppSelector(s => {
+    return Object.values(s.cart.items).reduce((acc, item) => {
+      return { ...acc, [item.skuId]: item.skuId };
+    }, {});
+  }, _.isEqual);
 
-  const pickedSkus = skuUtil.getPickedSkusFromProducts(products, cartItemsObj);
+  const pickedSkus = useMemo(
+    () => skuUtil.getPickedSkusFromProducts(products, skuItemsObj),
+    [skuItemsObj, products],
+  );
 
   const defaultValues = useMemo(() => {
     return createOrderFormUtil.getDefaultValues(values);
@@ -70,14 +77,14 @@ export const OrderConfirmForm: FC<{ values: FormParams.CreateOrder }> = ({ value
     try {
       await createOrder({
         status: ORDER_STATUSES.PROCESSING,
-        items: Object.values(cartItemsObj),
+        items: Object.values(skuItemsObj),
       }).unwrap();
       navigation.navigate(SCREENS.Home, { screen: HOME_SCREENS.ORDER });
       dispatch(cartActions.setCartItems({}));
     } catch (err) {
       Toast.show({ text1: formatErrorMessage(err), type: 'error' });
     }
-  }, [cartItemsObj, createOrder, dispatch, formatErrorMessage, navigation]);
+  }, [skuItemsObj, createOrder, dispatch, formatErrorMessage, navigation]);
 
   return (
     <>
@@ -100,6 +107,7 @@ export const OrderConfirmForm: FC<{ values: FormParams.CreateOrder }> = ({ value
             //   a: 1,
             // }}
             renderItem={({ item }) => {
+              console.log(4444);
               return (
                 <ConfirmOrderItem
                   sku={item}
@@ -161,9 +169,9 @@ export const OrderConfirmForm: FC<{ values: FormParams.CreateOrder }> = ({ value
         borderColor="$backgroundLight200"
         px={16}
       >
-        <View>
+        {/* <View>
           <ConfirmOrderPrices pickedSkus={pickedSkus} cartItems={cartItemsObj} />
-        </View>
+        </View> */}
         <View mt={16}>
           <HStack columnGap={16} flex={1}>
             <View flex={1}>
