@@ -27,7 +27,6 @@ import { updateProductFormUtil } from 'src/utils';
 import { formParamUtil } from 'src/utils/form-params.util';
 
 import { ProductDetailFooter } from './product-detail-footer';
-import { ProductDetailHeader } from './product-detail-header';
 
 type FCProps = {
   detail: AppStore.Product;
@@ -124,7 +123,6 @@ export const ProductDetailForm: FC<FCProps> = ({ detail }) => {
   return (
     <>
       <LoadingOverlay isLoading={isLoading || isFetchingProduct} />
-      <ProductDetailHeader />
       <View
         as={SafeAreaView}
         // @ts-ignore
