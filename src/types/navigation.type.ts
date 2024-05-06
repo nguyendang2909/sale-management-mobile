@@ -78,6 +78,9 @@ export type AppStackParamList = {
     values: FormParams.CreateOrder;
   };
   ORDER_SETTING: undefined;
+  ORDER_DETAIL: {
+    detail: Entity.Order;
+  };
 };
 
 export type AppStackScreenProps<T extends keyof AppStackParamList> = NativeStackScreenProps<

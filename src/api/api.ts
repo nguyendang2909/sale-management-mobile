@@ -25,6 +25,7 @@ const baseQuery = fetchBaseQuery({
 });
 
 export const api = createApi({
+  keepUnusedDataFor: 30,
   baseQuery: async (args, baseQueryApi, extraOptions) => {
     await mutex.waitForUnlock();
     let result = await baseQuery(args, baseQueryApi, extraOptions);

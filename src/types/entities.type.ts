@@ -171,7 +171,7 @@ export declare namespace Entity {
       deliveryAddress?: string;
       note?: string;
       code: string;
-      at: Date;
+      at: string;
       items?: OrderItem[];
     }>;
 

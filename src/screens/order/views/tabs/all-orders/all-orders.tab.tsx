@@ -1,7 +1,7 @@
 import { View } from '@gluestack-ui/themed';
 import { CreateOrderFab } from 'src/screens/products/views/buttons/create-order-fab';
 
-import { OrderList } from './flat-list/order-list';
+import { OrderList } from '../../order-list/order-list';
 
 export const AllOrdersTab = () => {
   return (

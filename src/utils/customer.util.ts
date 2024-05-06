@@ -27,6 +27,10 @@ class CustomerUtil extends BaseUtil {
       .orderBy('fullName', 'asc')
       .value();
   }
+
+  getFullName(customer?: AppStore.Customer | Entity.Customer) {
+    return customer?.fullName || 'Khách lẻ';
+  }
 }
 
-export const productUtil = new CustomerUtil();
+export const customerUtil = new CustomerUtil();

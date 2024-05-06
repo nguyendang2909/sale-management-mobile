@@ -2,7 +2,7 @@ import { HStack, Pressable, Text, View, VStack } from '@gluestack-ui/themed';
 import { useNavigation } from '@react-navigation/native';
 import _ from 'lodash';
 import { FC } from 'react';
-import { ProductPrices } from 'src/components/text/formatted-prices';
+import { ProductPrices } from 'src/components/text/product-prices';
 import { SCREENS } from 'src/constants';
 import { ProductIconBox } from 'src/containers/icon/product-icon-box';
 import { AppStore } from 'src/types';

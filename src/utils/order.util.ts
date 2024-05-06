@@ -1,5 +1,6 @@
+import moment from 'moment';
 import { ORDER_STATUSES } from 'src/constants';
-import { OrderStatus } from 'src/types';
+import { Entity, OrderStatus } from 'src/types';
 
 import { BaseUtil } from './base/base.util';
 
@@ -19,6 +20,13 @@ class OrderUtil extends BaseUtil {
       default:
         return '';
     }
+  }
+
+  getTime(order: Entity.Order) {
+    if (!order.at) {
+      return undefined;
+    }
+    return moment(order.at).format('HH:mm DD/MM');
   }
 }
 

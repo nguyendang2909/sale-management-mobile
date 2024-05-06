@@ -3,9 +3,10 @@ import { useNavigation } from '@react-navigation/native';
 import { FC } from 'react';
 import { FormattedTime } from 'react-intl';
 import { Price } from 'src/components/text/formatted-price';
+import { SCREENS } from 'src/constants';
 import { Entity } from 'src/types';
 
-import { OrderCardStatusTag } from '../../../tags/order-card-status-tag';
+import { OrderCardStatusTag } from '../tags/order-card-status-tag';
 
 type FCProps = {
   order: Entity.Order;
@@ -14,7 +15,9 @@ type FCProps = {
 export const OrderListItem: FC<FCProps> = ({ order }) => {
   const navigation = useNavigation();
 
-  const handlePress = () => {};
+  const handlePress = () => {
+    navigation.navigate(SCREENS.ORDER_DETAIL, { detail: order });
+  };
 
   return (
     <Pressable onPress={handlePress}>

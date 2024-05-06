@@ -14,7 +14,7 @@ import { MinusCircle, PlusCircle } from 'lucide-react-native';
 import React, { FC, useCallback, useMemo } from 'react';
 import { TouchableHighlight } from 'react-native';
 import Toast from 'react-native-toast-message';
-import { ProductPrices } from 'src/components/text/formatted-prices';
+import { ProductPrices } from 'src/components/text/product-prices';
 import { ProductIconBox } from 'src/containers/icon/product-icon-box';
 import { useAppDispatch, useAppSelector } from 'src/hooks';
 import { cartActions } from 'src/store/cart';
