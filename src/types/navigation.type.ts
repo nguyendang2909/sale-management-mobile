@@ -81,6 +81,9 @@ export type AppStackParamList = {
   ORDER_DETAIL: {
     detail: Entity.Order;
   };
+  ORDER_PAYMENT: {
+    order: Entity.Order;
+  };
 };
 
 export type AppStackScreenProps<T extends keyof AppStackParamList> = NativeStackScreenProps<

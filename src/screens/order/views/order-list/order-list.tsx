@@ -12,8 +12,6 @@ export const OrderList = () => {
 
   const [deleteOrderId, setDeleteOrderId] = useState<string | null>(null);
 
-  const handleDelivery = () => {};
-
   return (
     <>
       <View flex={1}>
@@ -25,9 +23,7 @@ export const OrderList = () => {
           numColumns={1}
           data={orders}
           keyExtractor={(item, index) => item.id || index.toString()}
-          renderItem={({ item }) => (
-            <OrderListItem order={item} onDelete={setDeleteOrderId} onDelivery={handleDelivery} />
-          )}
+          renderItem={({ item }) => <OrderListItem order={item} onDelete={setDeleteOrderId} />}
           estimatedItemSize={1}
           ListFooterComponent={<View mb={100}></View>}
         ></FlashList>

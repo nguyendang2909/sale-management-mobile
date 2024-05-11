@@ -12,10 +12,9 @@ import { OrderCardStatusTag } from '../tags/order-card-status-tag';
 type FCProps = {
   order: Entity.Order;
   onDelete: (id: string) => void;
-  onDelivery: (id: string) => void;
 };
 
-export const OrderListItem: FC<FCProps> = ({ order, onDelete, onDelivery }) => {
+export const OrderListItem: FC<FCProps> = ({ order, onDelete }) => {
   const navigation = useNavigation();
 
   const handlePress = () => {
@@ -27,6 +26,13 @@ export const OrderListItem: FC<FCProps> = ({ order, onDelete, onDelivery }) => {
   const handleDelete = useCallback(() => {
     onDelete(order.id);
   }, [onDelete, order.id]);
+
+  const handleDelivery = useCallback(
+    (order: Entity.Order) => {
+      navigation.navigate(SCREENS.ORDER_PAYMENT, { order });
+    },
+    [navigation],
+  );
 
   return (
     <Pressable onPress={handlePress}>
@@ -82,7 +88,7 @@ export const OrderListItem: FC<FCProps> = ({ order, onDelete, onDelivery }) => {
                     </Button>
                   </View>
                   <View flex={1}>
-                    <Button>
+                    <Button onPress={handleDelivery}>
                       <ButtonText>Đã giao</ButtonText>
                     </Button>
                   </View>

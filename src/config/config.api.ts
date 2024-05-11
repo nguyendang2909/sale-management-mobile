@@ -11,6 +11,7 @@ export const API_ENDPOINTS = {
   },
   SHOPS: {
     INDEX: '/shops',
+    ALL: '/shops/all',
   },
   LIKES: {
     INDEX: '/likes',

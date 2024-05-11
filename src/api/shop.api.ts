@@ -8,7 +8,7 @@ const shopApi = api.injectEndpoints({
   endpoints: builder => ({
     fetchAllShops: builder.query<ApiResponse.Shops, void>({
       query: () => ({
-        url: API_ENDPOINTS.SHOPS.INDEX,
+        url: API_ENDPOINTS.SHOPS.ALL,
         method: API_METHODS.GET,
       }),
     }),
