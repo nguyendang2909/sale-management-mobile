@@ -1,13 +1,14 @@
 import { View } from '@gluestack-ui/themed';
 import { FlashList } from '@shopify/flash-list';
 import { useState } from 'react';
+import { LoadingOverlay } from 'src/components';
 import { useOrders } from 'src/hooks';
 
 import { DeleteOrderDialog } from '../delete-order-dialog';
 import { OrderListItem } from './order-list-item';
 
 export const OrderList = () => {
-  const { data: orders, isRefreshing, refresh, deleteById } = useOrders({});
+  const { data: orders, isRefreshing, refresh, deleteById, isLoading } = useOrders({});
 
   const [deleteOrderId, setDeleteOrderId] = useState<string | null>(null);
 
@@ -16,6 +17,7 @@ export const OrderList = () => {
   return (
     <>
       <View flex={1}>
+        <LoadingOverlay isLoading={isLoading} />
         <FlashList
           showsVerticalScrollIndicator={false}
           refreshing={isRefreshing}

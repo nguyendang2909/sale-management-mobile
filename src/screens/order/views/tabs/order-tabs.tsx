@@ -62,7 +62,6 @@ export const OrderTabs = () => {
                     target: route.key,
                     canPreventDefault: true,
                   });
-
                   if (event.defaultPrevented) {
                     preventDefault();
                   }
@@ -75,33 +74,26 @@ export const OrderTabs = () => {
                 }
                 renderIcon={({ route, focused, color }) => {
                   const { options } = descriptors[route.key];
-
                   if (options.tabBarShowIcon === false) {
                     return null;
                   }
-
                   if (options.tabBarIcon !== undefined) {
                     const icon = options.tabBarIcon({ focused, color });
-
                     return <View style={[styles.icon, options.tabBarIconStyle]}>{icon}</View>;
                   }
-
                   return null;
                 }}
                 renderLabel={({ route, focused, color }) => {
                   const { options } = descriptors[route.key];
-
                   if (options.tabBarShowLabel === false) {
                     return null;
                   }
-
                   const label =
                     options.tabBarLabel !== undefined
                       ? options.tabBarLabel
                       : options.title !== undefined
                         ? options.title
                         : (route as Route<string>).name;
-
                   if (typeof label === 'string') {
                     return (
                       <Text
@@ -112,7 +104,6 @@ export const OrderTabs = () => {
                       </Text>
                     );
                   }
-
                   const children =
                     typeof options.tabBarLabel === 'string'
                       ? options.tabBarLabel

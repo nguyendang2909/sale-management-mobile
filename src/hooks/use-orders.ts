@@ -47,6 +47,7 @@ export const useOrders = ({ status }: { status?: OrderStatus }) => {
   const isFocused = useIsFocused();
 
   useEffect(() => {
+    console.log(111);
     fetchFirstData();
   }, [fetchFirstData, isFocused]);
 
