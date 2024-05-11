@@ -82,6 +82,7 @@ export function Header(props: HeaderProps) {
 
   return (
     <View
+      zIndex={5}
       w="$full"
       {...(backgroundColor ? { backgroundColor } : {})}
       style={[$containerInsets, $containerStyleOverride]}

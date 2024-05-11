@@ -16,7 +16,7 @@ export const LoadingOverlay: FC<{ isLoading?: boolean }> = ({ isLoading }) => {
         bottom={0}
         bgColor="$blueGray100"
         opacity={0.4}
-        zIndex={9}
+        zIndex={3}
       ></View>
       <View
         justifyContent="center"
@@ -26,7 +26,7 @@ export const LoadingOverlay: FC<{ isLoading?: boolean }> = ({ isLoading }) => {
         right={0}
         top={0}
         bottom={0}
-        zIndex={10}
+        zIndex={4}
       >
         <ActivityIndicator />
       </View>

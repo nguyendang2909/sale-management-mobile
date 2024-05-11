@@ -1,6 +1,6 @@
 import { Avatar, AvatarFallbackText, HStack, ScrollView, Text, View } from '@gluestack-ui/themed';
 import _ from 'lodash';
-import { FC } from 'react';
+import { FC, useMemo } from 'react';
 import { LoadingOverlay } from 'src/components';
 import { Price } from 'src/components/text/formatted-price';
 import { useOrder } from 'src/hooks';
@@ -29,8 +29,11 @@ export const OrderDetailContent: FC<{ detail: Entity.Order }> = ({ detail }) => 
     },
   );
 
+  const totalAmount = useMemo(() => orderUtil.getTotalAmount(order), [order]);
+  const totalPromotional = useMemo(() => orderUtil.getTotalPromotional(order), [order]);
+
   return (
-    <View flex={1}>
+    <>
       <LoadingOverlay isLoading={isLoadingOrder} />
       <ScrollView>
         <View bg={'$white'} p={16}>
@@ -85,7 +88,7 @@ export const OrderDetailContent: FC<{ detail: Entity.Order }> = ({ detail }) => 
             </View>
             <View>
               <Text>
-                <Price value={_.subtract(order.price || 0, order.promotionalPrice || 0)} />
+                <Price value={totalPromotional} />
               </Text>
             </View>
           </HStack>
@@ -95,12 +98,12 @@ export const OrderDetailContent: FC<{ detail: Entity.Order }> = ({ detail }) => 
             </View>
             <View>
               <Text bold>
-                <Price value={_.subtract(order.price || 0, order.promotionalPrice || 0)} />
+                <Price value={totalAmount} />
               </Text>
             </View>
           </HStack>
         </View>
       </ScrollView>
-    </View>
+    </>
   );
 };

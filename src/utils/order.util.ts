@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import moment from 'moment';
 import { ORDER_STATUSES } from 'src/constants';
 import { Entity, OrderStatus } from 'src/types';
@@ -27,6 +28,19 @@ class OrderUtil extends BaseUtil {
       return undefined;
     }
     return moment(order.at).format('HH:mm DD/MM');
+  }
+
+  getPrice(order: Entity.Order) {
+    return order.price || 0;
+  }
+
+  getTotalAmount(order: Entity.Order) {
+    return order.totalAmount || order.price;
+  }
+
+  getTotalPromotional(order: Entity.Order) {
+    const price = this.getPrice(order);
+    return order.totalAmount ? _.subtract(price, order.totalAmount) : price;
   }
 }
 

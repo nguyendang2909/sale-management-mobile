@@ -1,10 +1,11 @@
 import { Divider, HStack, Pressable, Text, View } from '@gluestack-ui/themed';
 import { useNavigation } from '@react-navigation/native';
-import { FC } from 'react';
+import { FC, useMemo } from 'react';
 import { FormattedTime } from 'react-intl';
 import { Price } from 'src/components/text/formatted-price';
 import { SCREENS } from 'src/constants';
 import { Entity } from 'src/types';
+import { orderUtil } from 'src/utils';
 
 import { OrderCardStatusTag } from '../tags/order-card-status-tag';
 
@@ -18,6 +19,8 @@ export const OrderListItem: FC<FCProps> = ({ order }) => {
   const handlePress = () => {
     navigation.navigate(SCREENS.ORDER_DETAIL, { detail: order });
   };
+
+  const totalAmount = useMemo(() => orderUtil.getTotalAmount(order), [order]);
 
   return (
     <Pressable onPress={handlePress}>
@@ -60,7 +63,7 @@ export const OrderListItem: FC<FCProps> = ({ order }) => {
                 </View>
                 <View>
                   <Text>
-                    <Price value={order.price} />
+                    <Price value={totalAmount} />
                   </Text>
                 </View>
               </View>
