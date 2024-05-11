@@ -1,3 +1,4 @@
+import { useIsFocused } from '@react-navigation/native';
 import _ from 'lodash';
 import { useCallback, useEffect, useState } from 'react';
 import Toast from 'react-native-toast-message';
@@ -31,7 +32,6 @@ export const useOrders = ({ status }: { status?: OrderStatus }) => {
 
   const fetchFirstData = useCallback(async () => {
     try {
-      console.log(111, status);
       const data = await fetchOrders({
         status,
       }).unwrap();
@@ -42,11 +42,13 @@ export const useOrders = ({ status }: { status?: OrderStatus }) => {
         text1: formatErrorMessage(err),
       });
     }
-  }, [fetchOrders, formatErrorMessage, status]);
+  }, []);
+
+  const isFocused = useIsFocused();
 
   useEffect(() => {
     fetchFirstData();
-  }, []);
+  }, [fetchFirstData, isFocused]);
 
   const fetchNext = useCallback(async () => {
     if (loading) {
