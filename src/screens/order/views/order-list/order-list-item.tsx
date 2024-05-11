@@ -1,8 +1,8 @@
-import { Divider, HStack, Pressable, Text, View } from '@gluestack-ui/themed';
+import { Button, ButtonText, Divider, HStack, Pressable, Text, View } from '@gluestack-ui/themed';
 import { useNavigation } from '@react-navigation/native';
-import { FC, useMemo } from 'react';
+import { FC, useCallback, useMemo } from 'react';
 import { FormattedTime } from 'react-intl';
-import { Price } from 'src/components/text/formatted-price';
+import { TextPrice } from 'src/components/text/text-price';
 import { SCREENS } from 'src/constants';
 import { Entity } from 'src/types';
 import { orderUtil } from 'src/utils';
@@ -11,9 +11,11 @@ import { OrderCardStatusTag } from '../tags/order-card-status-tag';
 
 type FCProps = {
   order: Entity.Order;
+  onDelete: (id: string) => void;
+  onDelivery: (id: string) => void;
 };
 
-export const OrderListItem: FC<FCProps> = ({ order }) => {
+export const OrderListItem: FC<FCProps> = ({ order, onDelete, onDelivery }) => {
   const navigation = useNavigation();
 
   const handlePress = () => {
@@ -21,6 +23,10 @@ export const OrderListItem: FC<FCProps> = ({ order }) => {
   };
 
   const totalAmount = useMemo(() => orderUtil.getTotalAmount(order), [order]);
+
+  const handleDelete = useCallback(() => {
+    onDelete(order.id);
+  }, [onDelete, order.id]);
 
   return (
     <Pressable onPress={handlePress}>
@@ -58,14 +64,29 @@ export const OrderListItem: FC<FCProps> = ({ order }) => {
               </HStack>
               <Divider my={8} />
               <View>
-                <View>
-                  <Text>Tổng cộng</Text>
-                </View>
-                <View>
-                  <Text>
-                    <Price value={totalAmount} />
-                  </Text>
-                </View>
+                <HStack justifyContent="space-between">
+                  <View>
+                    <Text>Tổng cộng</Text>
+                  </View>
+                  <View>
+                    <TextPrice value={totalAmount} />
+                  </View>
+                </HStack>
+              </View>
+
+              <View>
+                <HStack columnGap={16} rowGap={16}>
+                  <View flex={1}>
+                    <Button variant="outline" onPress={handleDelete}>
+                      <ButtonText>Huỷ</ButtonText>
+                    </Button>
+                  </View>
+                  <View flex={1}>
+                    <Button>
+                      <ButtonText>Đã giao</ButtonText>
+                    </Button>
+                  </View>
+                </HStack>
               </View>
             </View>
           </View>

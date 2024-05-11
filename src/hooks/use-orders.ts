@@ -25,8 +25,13 @@ export const useOrders = ({ status }: { status?: OrderStatus }) => {
     setPagination(data.pagination);
   };
 
+  const deleteById = useCallback((id: string) => {
+    setOrders(prev => prev.filter(order => order.id !== id));
+  }, []);
+
   const fetchFirstData = useCallback(async () => {
     try {
+      console.log(111, status);
       const data = await fetchOrders({
         status,
       }).unwrap();
@@ -90,5 +95,6 @@ export const useOrders = ({ status }: { status?: OrderStatus }) => {
     fetchNext,
     refresh,
     isRefreshing,
+    deleteById,
   };
 };
