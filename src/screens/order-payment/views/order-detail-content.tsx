@@ -31,6 +31,10 @@ export const OrderDetailContent: FC<{ detail: Entity.Order }> = ({ detail }) => 
 
   const totalAmount = useMemo(() => orderUtil.getTotalAmount(order), [order]);
   const totalPromotional = useMemo(() => orderUtil.getTotalPromotional(order), [order]);
+  const customerFullName = useMemo(
+    () => customerUtil.getFullName(order.customer?.fullName),
+    [order.customer?.fullName],
+  );
 
   return (
     <>
@@ -53,9 +57,9 @@ export const OrderDetailContent: FC<{ detail: Entity.Order }> = ({ detail }) => 
         <View bg={'$white'} p={16} mt={16}>
           <HStack alignItems="center" rowGap={16} columnGap={16}>
             <Avatar height={40} width={40} bgColor="$secondary300" size="md" borderRadius="$full">
-              <AvatarFallbackText>{order.customer?.fullName}</AvatarFallbackText>
+              <AvatarFallbackText>{customerFullName}</AvatarFallbackText>
             </Avatar>
-            <Text>{customerUtil.getFullName(order.customer)}</Text>
+            <Text>{customerFullName}</Text>
           </HStack>
         </View>
 

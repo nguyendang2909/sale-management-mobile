@@ -25,7 +25,7 @@ import { ProductStockControl } from 'src/containers/form-control/product/product
 import { ProductTitleControl } from 'src/containers/form-control/product/product-title.control';
 import { ProductTrackingStockControl } from 'src/containers/form-control/product/product-tracking-stock.control';
 import { ProductUnitControl } from 'src/containers/form-control/product/product-unit.control';
-import { useAppLoading, useMessages } from 'src/hooks';
+import { useMessages } from 'src/hooks';
 import { useCategories } from 'src/hooks/useCategories';
 import { ApiRequest, FormParams } from 'src/types';
 import { createProductFormUtil } from 'src/utils';
@@ -53,7 +53,6 @@ export const CreateProductForm: FC = () => {
 
   const onSubmit: SubmitHandler<FormParams.CreateProduct> = async values => {
     try {
-      console.log(111);
       const { createMore, images, categories, skus, ...restValues } = values;
       const payload: ApiRequest.CreateProduct = {
         ...restValues,
@@ -107,7 +106,6 @@ export const CreateProductForm: FC = () => {
     () => attributeProperties.skuTotal === 1,
     [attributeProperties.skuTotal],
   );
-  useAppLoading(isSubmitting);
 
   return (
     <>

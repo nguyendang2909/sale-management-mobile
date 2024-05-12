@@ -1,3 +1,5 @@
+import { View } from '@gluestack-ui/themed';
+import { ComponentProps } from 'react';
 import { AUTH_GRANT_TYPES } from 'src/constants';
 import { BOTTOM_NAVIGATOR_NAMES, PRODUCT_SORT_TYPES, SIZES } from 'src/constants/constants';
 
@@ -28,3 +30,7 @@ export type CartItemsObj = Record<string, CartItem>;
 export type Size = ValueOf<typeof SIZES>;
 
 export type SkusObj = Record<string, Entity.Sku>;
+
+export type ViewType = typeof View;
+
+export type ViewProps = ComponentProps<ViewType>;

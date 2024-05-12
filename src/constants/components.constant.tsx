@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { CustomersScreen } from 'src/screens/customers/customers.screen';
 import { Management } from 'src/screens/management/management';
-import { OrderScreen } from 'src/screens/order/order.screen';
+import { OrdersScreen } from 'src/screens/orders/orders.screen';
 import { ProductsScreen } from 'src/screens/products/products.screen';
 import { BottomNavigatorName, HomeTabParamList } from 'src/types';
 
@@ -41,7 +41,7 @@ export const NAVIGATOR_DATA: Record<
     id: BOTTOM_NAVIGATOR_NAMES.ORDER,
     name: BOTTOM_NAVIGATOR_NAMES.ORDER,
     title: 'Đơn hàng',
-    screen: OrderScreen,
+    screen: OrdersScreen,
     icon: NAVIGATION_ICONS.ORDER,
     isShow: false,
   },

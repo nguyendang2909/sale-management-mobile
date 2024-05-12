@@ -28,8 +28,8 @@ class CustomerUtil extends BaseUtil {
       .value();
   }
 
-  getFullName(customer?: AppStore.Customer | Entity.Customer) {
-    return customer?.fullName || 'Khách lẻ';
+  getFullName(fullName?: string) {
+    return fullName || 'Khách lẻ';
   }
 }
 

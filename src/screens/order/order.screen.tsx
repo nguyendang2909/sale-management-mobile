@@ -1,20 +1,19 @@
-import { Box, StatusBar } from '@gluestack-ui/themed';
-import React, { FC } from 'react';
-import { Header } from 'src/components';
+import { StatusBar, View } from '@gluestack-ui/themed';
+import { FC } from 'react';
+import { AppStackScreenProps } from 'src/types';
 
-import { CreateOrderFab } from '../products/views/buttons/create-order-fab';
-import { OrderTabs } from './views/tabs/order-tabs';
+import { OrderDetailContent } from './views/order-detail-content';
+import { OrderDetailHeader } from './views/order-detail-header';
 
-export const OrderScreen: FC = () => {
+type FCProps = AppStackScreenProps<'ORDER_DETAIL'>;
+
+export const OrderScreen: FC<FCProps> = props => {
   return (
     <>
       <StatusBar barStyle="default" />
-      <Header title="Đơn hàng" />
-      <Box flex={1}>
-        <OrderTabs />
-
-        <CreateOrderFab />
-      </Box>
+      <OrderDetailHeader />
+      <View mt={8} />
+      <OrderDetailContent detail={props.route.params.detail} />
     </>
   );
 };
