@@ -2,7 +2,8 @@ import { HStack, Text } from '@gluestack-ui/themed';
 import { FC } from 'react';
 import { Entity } from 'src/types';
 
-import { Price } from './formatted-price';
+import { TextPricePrimary } from './text-price-primary';
+import { TextPriceUnderline } from './text-price-underline';
 
 export const OrderItemPrices: FC<{ orderItem: Entity.OrderItem }> = ({ orderItem }) => {
   const { promotionalPrice = 0, price = 0, quantity = 0 } = orderItem;
@@ -12,19 +13,16 @@ export const OrderItemPrices: FC<{ orderItem: Entity.OrderItem }> = ({ orderItem
   if (!promotionalPrice || promotionalPrice === price) {
     return (
       <Text color="$textLight900">
-        <Price value={price * quantity}></Price>
+        <TextPricePrimary value={price * quantity} />
       </Text>
     );
   }
 
   return (
     <HStack>
-      <Text color="$textLight600" textDecorationLine="line-through">
-        <Price value={promotionalPrice * quantity} />{' '}
-      </Text>
-      <Text bold color="$textLight900">
-        <Price value={price * quantity} />
-      </Text>
+      <TextPriceUnderline value={price * quantity} />
+      <Text> </Text>
+      <TextPricePrimary value={promotionalPrice * quantity} />
     </HStack>
   );
 };

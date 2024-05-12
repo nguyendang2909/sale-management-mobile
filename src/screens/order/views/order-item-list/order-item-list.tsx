@@ -10,12 +10,8 @@ export const OrderItemList: FC<ViewProps & { orderItems: Entity.OrderItem[] }> =
 }) => {
   return (
     <View {...viewProps}>
-      {orderItems.map(item => {
-        return (
-          <>
-            <OrderItemListItem orderItem={item} />
-          </>
-        );
+      {orderItems.map((item, index) => {
+        return <OrderItemListItem key={item.id || index} orderItem={item} />;
       })}
     </View>
   );

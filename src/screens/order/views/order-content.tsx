@@ -1,14 +1,14 @@
 import { ScrollView, Text, View } from '@gluestack-ui/themed';
 import { FC } from 'react';
-import { LoadingOverlay } from 'src/components';
+import { LoadingOverlay, ViewSafeArea } from 'src/components';
 import { useOrder } from 'src/hooks';
 import { OrderCardStatusTag } from 'src/screens/orders/views/tags/order-card-status-tag';
 import { Entity, ViewProps } from 'src/types';
 import { orderUtil } from 'src/utils';
 
-import { OrderDetailCustomerSection } from './customer/order-detail-customer-section';
+import { OrderCustomerSection } from './customer/order-customer-section';
 import { OrderItemList } from './order-item-list/order-item-list';
-import { OrderDetailPriceSection } from './price/order-detail-price-section';
+import { OrderPaymentSection } from './price/order-detail-price-section';
 
 export const OrderContent: FC<ViewProps & { detail: Entity.Order }> = ({
   detail,
@@ -23,9 +23,9 @@ export const OrderContent: FC<ViewProps & { detail: Entity.Order }> = ({
   });
 
   return (
-    <View {...viewProps}>
+    <View {...viewProps} flex={1}>
       <LoadingOverlay isLoading={isLoadingOrder} />
-      <ScrollView>
+      <ScrollView flex={1}>
         <View bg={'$white'} p={16}>
           <View>
             {order.status && (
@@ -44,9 +44,11 @@ export const OrderContent: FC<ViewProps & { detail: Entity.Order }> = ({
 
         {!!order.items && <OrderItemList orderItems={order.items} bg={'$white'} py={16} mt={16} />}
 
-        <OrderDetailPriceSection order={order} bg={'$white'} p={16} mt={16} />
+        <OrderPaymentSection order={order} bg={'$white'} p={16} mt={16} />
 
-        <OrderDetailCustomerSection bg={'$white'} p={16} mt={16} customer={order.customer} />
+        <OrderCustomerSection bg={'$white'} p={16} mt={16} customer={order.customer} />
+
+        <ViewSafeArea bottom></ViewSafeArea>
       </ScrollView>
     </View>
   );

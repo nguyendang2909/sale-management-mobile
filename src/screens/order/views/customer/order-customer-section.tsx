@@ -3,7 +3,7 @@ import { FC, useMemo } from 'react';
 import { Entity, ViewProps } from 'src/types';
 import { customerUtil } from 'src/utils/customer.util';
 
-export const OrderDetailCustomerSection: FC<ViewProps & { customer?: Entity.Customer }> = ({
+export const OrderCustomerSection: FC<ViewProps & { customer?: Entity.Customer }> = ({
   customer,
   ...viewProps
 }) => {
@@ -11,6 +11,7 @@ export const OrderDetailCustomerSection: FC<ViewProps & { customer?: Entity.Cust
     () => customerUtil.getFullName(customer?.fullName),
     [customer?.fullName],
   );
+
   return (
     <View {...viewProps}>
       <HStack alignItems="center" rowGap={16} columnGap={16}>

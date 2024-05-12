@@ -1,11 +1,12 @@
-import { HStack, Text, View } from '@gluestack-ui/themed';
+import { Button, ButtonIcon, ButtonText, HStack, Text, View } from '@gluestack-ui/themed';
+import { CreditCard } from 'lucide-react-native';
 import { FC, useMemo } from 'react';
 import { Price } from 'src/components/text/formatted-price';
 import { Entity, ViewProps } from 'src/types';
 import { orderUtil } from 'src/utils';
 import { orderItemUtil } from 'src/utils/order-item.util';
 
-export const OrderDetailPriceSection: FC<ViewProps & { order: Entity.Order }> = ({
+export const OrderPaymentSection: FC<ViewProps & { order: Entity.Order }> = ({
   order,
   ...viewProps
 }) => {
@@ -25,6 +26,7 @@ export const OrderDetailPriceSection: FC<ViewProps & { order: Entity.Order }> = 
           </Text>
         </View>
       </HStack>
+
       <HStack justifyContent="space-between">
         <View>
           <Text>Giảm giá</Text>
@@ -35,6 +37,7 @@ export const OrderDetailPriceSection: FC<ViewProps & { order: Entity.Order }> = 
           </Text>
         </View>
       </HStack>
+
       <HStack justifyContent="space-between">
         <View>
           <Text bold>Tổng cộng</Text>
@@ -45,6 +48,13 @@ export const OrderDetailPriceSection: FC<ViewProps & { order: Entity.Order }> = 
           </Text>
         </View>
       </HStack>
+
+      <View mt={16}>
+        <Button variant="outline">
+          <ButtonIcon as={CreditCard} mr={8}></ButtonIcon>
+          <ButtonText>Thanh toán</ButtonText>
+        </Button>
+      </View>
     </View>
   );
 };
