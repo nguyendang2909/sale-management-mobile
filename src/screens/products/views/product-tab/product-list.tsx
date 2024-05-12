@@ -6,7 +6,7 @@ import { AppStore } from 'src/types';
 
 import { ProductListItem } from './product-list-item';
 
-export const ProductsFlatList = () => {
+export const ProductList = () => {
   const { isFetching: isFetchingProducts, refetch: refetchProducts } = useProducts();
   const { data: products } = useSearchProducts();
 

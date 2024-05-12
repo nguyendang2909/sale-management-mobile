@@ -8,17 +8,17 @@ import { FormParams } from './form-params.type';
 
 export type HomeTabParamList = {
   MANAGEMENT: undefined;
-  ORDER: undefined;
-  REPORT: undefined;
-  TABLE: undefined;
+  ORDERS: undefined;
+  REPORTS: undefined;
+  TABLES: undefined;
   SELL: undefined;
   DEBT_BOOK: undefined;
   RECEIPT_AND_EXPENSE: undefined;
   // ONLINE_STORE: undefined,
-  CUSTOMER: undefined;
+  CUSTOMERS: undefined;
   WAREHOUSE: undefined;
-  MESSAGE: undefined;
-  PRODUCT: undefined;
+  MESSAGES: undefined;
+  PRODUCTS: undefined;
 };
 
 export type AppStackParamList = {

@@ -66,17 +66,17 @@ export const DEFAULT_LANGUAGE = 'en';
 export const APP_NAME = 'iBán hàng';
 
 export const BOTTOM_NAVIGATOR_NAMES = {
-  ORDER: 'ORDER',
-  REPORT: 'REPORT',
-  TABLE: 'TABLE',
+  ORDERS: 'ORDERS',
+  REPORTS: 'REPORTS',
+  TABLES: 'TABLES',
   SELL: 'SELL',
   DEBT_BOOK: 'DEBT_BOOK',
   RECEIPT_AND_EXPENSE: 'RECEIPT_AND_EXPENSE',
   // ONLINE_STORE: 'online_store',
-  CUSTOMER: 'CUSTOMER',
+  CUSTOMERS: 'CUSTOMERS',
   WAREHOUSE: 'WAREHOUSE',
-  MESSAGE: 'MESSAGE',
-  PRODUCT: 'PRODUCT',
+  MESSAGES: 'MESSAGES',
+  PRODUCTS: 'PRODUCTS',
 } as const;
 
 export const PRODUCT_SORT_TYPES = {
@@ -114,7 +114,7 @@ export const PRODUCT_SETTINGS: Record<
     title: 'Mô tả sản phẩm',
     description: 'Quản lý mô tả sản phẩm',
   },
-  showCPromotionalPrice: {
+  showPromotionalPrice: {
     id: 'showPromotionalPrice',
     title: 'Giá khuyến mãi',
     description: 'Quản lý giá khuyến mãi',
@@ -202,10 +202,7 @@ export const ORDER_CUSTOMER_SETTINGS = {
 
 export const ORDER_SETTING_MENU = [ORDER_GENERAL_SETTINGS, ORDER_CUSTOMER_SETTINGS];
 
-export const ARR_ORDER_SETTINGS = [
-  ORDER_SETTINGS.showNote,
-  ORDER_SETTINGS.showCustomer,
-] as const;
+export const ARR_ORDER_SETTINGS = [ORDER_SETTINGS.showNote, ORDER_SETTINGS.showCustomer] as const;
 
 export const SIZES = {
   XL: 'xl',

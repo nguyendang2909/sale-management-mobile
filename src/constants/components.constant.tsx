@@ -37,25 +37,25 @@ export const NAVIGATOR_DATA: Record<
     isShow: boolean;
   }
 > = {
-  ORDER: {
-    id: BOTTOM_NAVIGATOR_NAMES.ORDER,
-    name: BOTTOM_NAVIGATOR_NAMES.ORDER,
+  ORDERS: {
+    id: BOTTOM_NAVIGATOR_NAMES.ORDERS,
+    name: BOTTOM_NAVIGATOR_NAMES.ORDERS,
     title: 'Đơn hàng',
     screen: OrdersScreen,
     icon: NAVIGATION_ICONS.ORDER,
     isShow: false,
   },
-  REPORT: {
-    id: BOTTOM_NAVIGATOR_NAMES.REPORT,
-    name: BOTTOM_NAVIGATOR_NAMES.REPORT,
+  REPORTS: {
+    id: BOTTOM_NAVIGATOR_NAMES.REPORTS,
+    name: BOTTOM_NAVIGATOR_NAMES.REPORTS,
     title: 'Báo cáo',
     screen: CustomersScreen,
     icon: NAVIGATION_ICONS.ORDER,
     isShow: false,
   },
-  TABLE: {
-    id: BOTTOM_NAVIGATOR_NAMES.TABLE,
-    name: BOTTOM_NAVIGATOR_NAMES.TABLE,
+  TABLES: {
+    id: BOTTOM_NAVIGATOR_NAMES.TABLES,
+    name: BOTTOM_NAVIGATOR_NAMES.TABLES,
     title: 'Bàn',
     screen: CustomersScreen,
     icon: NAVIGATION_ICONS.ORDER,
@@ -85,9 +85,9 @@ export const NAVIGATOR_DATA: Record<
     icon: NAVIGATION_ICONS.ORDER,
     isShow: false,
   },
-  CUSTOMER: {
-    id: BOTTOM_NAVIGATOR_NAMES.CUSTOMER,
-    name: BOTTOM_NAVIGATOR_NAMES.CUSTOMER,
+  CUSTOMERS: {
+    id: BOTTOM_NAVIGATOR_NAMES.CUSTOMERS,
+    name: BOTTOM_NAVIGATOR_NAMES.CUSTOMERS,
     title: 'Khách hàng',
     screen: CustomersScreen,
     icon: NAVIGATION_ICONS.ORDER,
@@ -101,17 +101,17 @@ export const NAVIGATOR_DATA: Record<
     icon: NAVIGATION_ICONS.WARE_HOUSE,
     isShow: false,
   },
-  MESSAGE: {
-    id: BOTTOM_NAVIGATOR_NAMES.MESSAGE,
-    name: BOTTOM_NAVIGATOR_NAMES.MESSAGE,
+  MESSAGES: {
+    id: BOTTOM_NAVIGATOR_NAMES.MESSAGES,
+    name: BOTTOM_NAVIGATOR_NAMES.MESSAGES,
     title: 'Tin nhắn',
     screen: CustomersScreen,
     icon: NAVIGATION_ICONS.WARE_HOUSE,
     isShow: false,
   },
-  PRODUCT: {
-    id: BOTTOM_NAVIGATOR_NAMES.PRODUCT,
-    name: BOTTOM_NAVIGATOR_NAMES.PRODUCT,
+  PRODUCTS: {
+    id: BOTTOM_NAVIGATOR_NAMES.PRODUCTS,
+    name: BOTTOM_NAVIGATOR_NAMES.PRODUCTS,
     title: 'Sản phẩm',
     screen: ProductsScreen,
     icon: NAVIGATION_ICONS.PRODUCT,

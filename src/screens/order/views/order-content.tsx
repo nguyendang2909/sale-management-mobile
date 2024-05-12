@@ -1,6 +1,7 @@
 import { ScrollView, View } from '@gluestack-ui/themed';
 import { FC } from 'react';
-import { LoadingOverlay, ViewSafeArea } from 'src/components';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { LoadingOverlay } from 'src/components';
 import { useOrder } from 'src/hooks';
 import { Entity, ViewProps } from 'src/types';
 
@@ -18,14 +19,19 @@ export const OrderContent: FC<ViewProps & { detail: Entity.Order }> = ({
   });
 
   return (
-    <View {...viewProps} flex={1}>
+    <View
+      {...viewProps}
+      as={SafeAreaView}
+      // @ts-ignore
+      edges={['bottom']}
+      flex={1}
+    >
       <LoadingOverlay isLoading={isLoadingOrder} />
       <ScrollView flex={1}>
         <OrderOverviewSection order={order} bg={'$white'} p={16} />
         {!!order.items && <OrderItemList orderItems={order.items} bg={'$white'} py={16} mt={16} />}
         <OrderPaymentSection order={order} bg={'$white'} p={16} mt={16} />
         <OrderCustomerSection bg={'$white'} p={16} mt={16} customer={order.customer} />
-        <ViewSafeArea bottom></ViewSafeArea>
       </ScrollView>
     </View>
   );

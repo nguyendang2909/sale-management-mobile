@@ -20,9 +20,9 @@ export const HomeNavigator: FC<FCProps> = () => {
   const { bottom } = useSafeAreaInsets();
 
   const screens = [
-    BOTTOM_NAVIGATOR_NAMES.PRODUCT,
-    BOTTOM_NAVIGATOR_NAMES.CUSTOMER,
-    BOTTOM_NAVIGATOR_NAMES.ORDER,
+    BOTTOM_NAVIGATOR_NAMES.PRODUCTS,
+    BOTTOM_NAVIGATOR_NAMES.CUSTOMERS,
+    BOTTOM_NAVIGATOR_NAMES.ORDERS,
   ];
 
   const navigators = [
