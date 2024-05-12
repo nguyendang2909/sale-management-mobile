@@ -8,7 +8,7 @@ import { useAppDispatch } from 'src/hooks';
 import { goBack } from 'src/navigations/navigation-ref';
 import { cartActions } from 'src/store/cart';
 
-export const OrderDetailHeader = () => {
+export const OrderHeader = () => {
   const dispatch = useAppDispatch();
 
   const onLeftPress = () => {

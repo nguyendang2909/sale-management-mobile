@@ -3,14 +3,17 @@ import { FC } from 'react';
 import { LoadingOverlay } from 'src/components';
 import { useOrder } from 'src/hooks';
 import { OrderCardStatusTag } from 'src/screens/orders/views/tags/order-card-status-tag';
-import { Entity } from 'src/types';
+import { Entity, ViewProps } from 'src/types';
 import { orderUtil } from 'src/utils';
 
 import { OrderDetailCustomerSection } from './customer/order-detail-customer-section';
-import { OrderItemListItem } from './order-item-list/order-item-list-item';
+import { OrderItemList } from './order-item-list/order-item-list';
 import { OrderDetailPriceSection } from './price/order-detail-price-section';
 
-export const OrderDetailContent: FC<{ detail: Entity.Order }> = ({ detail }) => {
+export const OrderContent: FC<ViewProps & { detail: Entity.Order }> = ({
+  detail,
+  ...viewProps
+}) => {
   const {
     data: order,
     isLoading: isLoadingOrder,
@@ -20,7 +23,7 @@ export const OrderDetailContent: FC<{ detail: Entity.Order }> = ({ detail }) => 
   });
 
   return (
-    <>
+    <View {...viewProps}>
       <LoadingOverlay isLoading={isLoadingOrder} />
       <ScrollView>
         <View bg={'$white'} p={16}>
@@ -39,22 +42,12 @@ export const OrderDetailContent: FC<{ detail: Entity.Order }> = ({ detail }) => 
           </View>
         </View>
 
-        <View bg={'$white'} py={16} mt={16}>
-          <View>
-            {order.items?.map(item => {
-              return (
-                <>
-                  <OrderItemListItem orderItem={item} />
-                </>
-              );
-            })}
-          </View>
-        </View>
+        {!!order.items && <OrderItemList orderItems={order.items} bg={'$white'} py={16} mt={16} />}
 
         <OrderDetailPriceSection order={order} bg={'$white'} p={16} mt={16} />
 
         <OrderDetailCustomerSection bg={'$white'} p={16} mt={16} customer={order.customer} />
       </ScrollView>
-    </>
+    </View>
   );
 };
