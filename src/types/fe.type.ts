@@ -154,6 +154,19 @@ export declare namespace ApiRequest {
     customerId?: string;
   };
 
+  type UpdateOrderItem = {
+    id?: string;
+    skuId?: string;
+    quantity: string;
+  };
+
+  type UpdateOrder = {
+    status?: OrderStatus;
+    paymentMethod?: PaymentMethod;
+    deliveryMethod?: string;
+    items: UpdateOrderItem[];
+  };
+
   type SendView = {
     targetUserId: string;
   };

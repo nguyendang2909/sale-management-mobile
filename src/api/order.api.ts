@@ -29,13 +29,13 @@ const productApi = api.injectEndpoints({
       }),
     }),
 
-    // updateOrder: builder.mutation<void, { id: string; payload: ApiRequest.UpdateProduct }>({
-    //   query: params => ({
-    //     url: API_ENDPOINTS.ORDERS.INDEX,
-    //     method: API_METHODS.PUT,
-    //     params,
-    //   }),
-    // }),
+    updateOrder: builder.mutation<void, { id: string; payload: ApiRequest.UpdateOrder }>({
+      query: params => ({
+        url: API_ENDPOINTS.ORDERS.INDEX,
+        method: API_METHODS.PATCH,
+        params,
+      }),
+    }),
 
     deleteOrder: builder.mutation<void, string>({
       query: id => ({
@@ -52,5 +52,6 @@ export const {
   useFetchOrdersQuery,
   useLazyFetchOrdersQuery,
   useDeleteOrderMutation,
+  useUpdateOrderMutation,
   endpoints: orderEndpoints,
 } = productApi;
