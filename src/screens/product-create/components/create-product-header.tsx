@@ -7,7 +7,7 @@ export const CreateProductHeader = () => {
   const navigation = useNavigation();
   const onLeftPress = () => {
     navigation.navigate(SCREENS.Home, {
-      screen: HOME_SCREENS.PRODUCT,
+      screen: HOME_SCREENS.PRODUCTS,
     });
   };
 

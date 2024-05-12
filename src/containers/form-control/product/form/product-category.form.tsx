@@ -11,7 +11,7 @@ import {
 } from '@gluestack-ui/themed';
 import { Menu } from 'lucide-react-native';
 import { FormControl } from 'native-base';
-import { FC, useCallback } from 'react';
+import { FC, useCallback, useState } from 'react';
 import { TouchableOpacity } from 'react-native';
 import { FontAwesome } from 'src/components';
 import { SelectCategoriesActionsheetContent } from 'src/containers/actionsheet/select-category-item';
@@ -27,6 +27,8 @@ type FCProps = {
 
 export const ProductCategoryForm: FC<FCProps> = ({ value, onChange }) => {
   const categories = useAppSelector(s => s.category.data);
+  const [isInitActionsheet, setInitActionsheet] = useState<boolean>(false);
+  const [isInitModal, setInitModal] = useState<boolean>(false);
 
   const setCategory = useCallback(
     (category: AppStore.Category) => {
@@ -52,7 +54,13 @@ export const ProductCategoryForm: FC<FCProps> = ({ value, onChange }) => {
   } = useDisclose();
 
   const handlePressCategoryNavMenu = () => {
+    setInitActionsheet(true);
     onOpenSelectCategories();
+  };
+
+  const handleOpenCreateCategory = () => {
+    setInitModal(true);
+    onOpenCreateCategory();
   };
 
   return (
@@ -77,7 +85,7 @@ export const ProductCategoryForm: FC<FCProps> = ({ value, onChange }) => {
                 />
               </View>
               <View>
-                <Button size="sm" variant="outline" onPress={onOpenCreateCategory}>
+                <Button size="sm" variant="outline" onPress={handleOpenCreateCategory}>
                   {/* 
                         //@ts-ignore */}
                   <ButtonIcon as={FontAwesome} name="plus"></ButtonIcon>
@@ -88,15 +96,19 @@ export const ProductCategoryForm: FC<FCProps> = ({ value, onChange }) => {
           </ScrollView>
         </View>
       </FormControl>
-      <CreateCategoryModal onClose={onCloseCreateCategory} isVisible={isOpenCreateCategory} />
-      <Actionsheet isOpen={isOpenSelectCategories} onClose={onCloseSelectCategories}>
-        <SelectCategoriesActionsheetContent
-          categories={categories}
-          setCategory={setCategory}
-          value={value}
-          onOpenCreateCategory={onOpenCreateCategory}
-        />
-      </Actionsheet>
+      {isInitModal && (
+        <CreateCategoryModal onClose={onCloseCreateCategory} isVisible={isOpenCreateCategory} />
+      )}
+      {isInitActionsheet && (
+        <Actionsheet isOpen={isOpenSelectCategories} onClose={onCloseSelectCategories}>
+          <SelectCategoriesActionsheetContent
+            categories={categories}
+            setCategory={setCategory}
+            value={value}
+            onOpenCreateCategory={onOpenCreateCategory}
+          />
+        </Actionsheet>
+      )}
     </>
   );
 };

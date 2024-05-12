@@ -46,7 +46,7 @@ export const MainScreen: React.FC = () => {
     // }
     if (currentUser.id) {
       if (shop.id) {
-        navigation.dispatch(StackActions.replace(SCREENS.Home, { screen: HOME_SCREENS.PRODUCT }));
+        navigation.dispatch(StackActions.replace(SCREENS.Home, { screen: HOME_SCREENS.PRODUCTS }));
       }
       // if (!shops.length && !shopData?.data.length) {
       //   navigation.dispatch(StackActions.replace(SCREENS.CREATE_BASIC_PROFILE));

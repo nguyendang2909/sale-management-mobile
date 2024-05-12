@@ -5,7 +5,7 @@ import { goBack } from 'src/navigations/navigation-ref';
 
 export const OrderConfirmHeader = () => {
   const onLeftPress = () => {
-    goBack(SCREENS.Home, { screen: HOME_SCREENS.ORDER });
+    goBack(SCREENS.Home, { screen: HOME_SCREENS.ORDERS });
   };
 
   return (

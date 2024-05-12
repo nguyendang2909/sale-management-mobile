@@ -31,7 +31,7 @@ import { ProductDetailFooter } from './product-detail-footer';
 type FCProps = {
   detail: AppStore.Product;
 };
-export const ProductDetailForm: FC<FCProps> = ({ detail }) => {
+export const ProductContent: FC<FCProps> = ({ detail }) => {
   const navigation = useNavigation();
   useCategories();
   const {
@@ -89,7 +89,7 @@ export const ProductDetailForm: FC<FCProps> = ({ detail }) => {
       await refetchProduct();
       Toast.show({ text1: 'Cập nhật sản phẩm thành công', type: 'success' });
       navigation.navigate(SCREENS.Home, {
-        screen: HOME_SCREENS.PRODUCT,
+        screen: HOME_SCREENS.PRODUCTS,
       });
     } catch (error) {
       Toast.show({
@@ -121,7 +121,7 @@ export const ProductDetailForm: FC<FCProps> = ({ detail }) => {
   );
 
   return (
-    <>
+    <View flex={1}>
       <LoadingOverlay isLoading={isLoading || isLoadingProduct} />
       <View
         as={SafeAreaView}
@@ -176,6 +176,6 @@ export const ProductDetailForm: FC<FCProps> = ({ detail }) => {
           {Platform.OS === 'android' && <KeyboardAvoidingView behavior={'padding'} />}
         </View>
       </View>
-    </>
+    </View>
   );
 };

@@ -13,7 +13,7 @@ type FCProps = {
 
 export const ProductDetailFooter: FC<FCProps> = ({ product, onUpdate, setLoading, isLoading }) => {
   return (
-    <View px={16} py={16}>
+    <View px={16}>
       <View flexDirection="row" columnGap={16}>
         <View flex={1}>
           <DeleteProductButton product={product} setLoading={setLoading} isLoading={isLoading} />

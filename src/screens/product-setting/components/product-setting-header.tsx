@@ -12,7 +12,7 @@ export const ProductSettingHeader = () => {
       return;
     }
     navigation.navigate(SCREENS.Home, {
-      screen: HOME_SCREENS.PRODUCT,
+      screen: HOME_SCREENS.PRODUCTS,
     });
   };
 

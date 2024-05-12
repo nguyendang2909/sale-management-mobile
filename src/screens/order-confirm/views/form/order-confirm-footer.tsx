@@ -36,7 +36,7 @@ export const OrderConfirmFooter = () => {
         items: Object.values(cartItems),
       }).unwrap();
       dispatch(cartActions.setCartItems({}));
-      navigation.navigate(SCREENS.Home, { screen: HOME_SCREENS.ORDER });
+      navigation.navigate(SCREENS.Home, { screen: HOME_SCREENS.ORDERS });
     } catch (err) {
       Toast.show({ text1: formatErrorMessage(err), type: 'error' });
     }

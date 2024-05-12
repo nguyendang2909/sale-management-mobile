@@ -75,7 +75,7 @@ export const OrderConfirmForm: FC<{ values: FormParams.CreateOrder }> = ({ value
         status: ORDER_STATUSES.PROCESSING,
         items: Object.values(cartItems),
       }).unwrap();
-      navigation.navigate(SCREENS.Home, { screen: HOME_SCREENS.ORDER });
+      navigation.navigate(SCREENS.Home, { screen: HOME_SCREENS.ORDERS });
       dispatch(cartActions.setCartItems({}));
     } catch (err) {
       Toast.show({ text1: formatErrorMessage(err), type: 'error' });

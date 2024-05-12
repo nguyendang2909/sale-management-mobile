@@ -14,7 +14,7 @@ import {
   Text,
 } from '@gluestack-ui/themed';
 import { useNavigation } from '@react-navigation/native';
-import { FC, useRef } from 'react';
+import { FC, useRef, useState } from 'react';
 import Toast from 'react-native-toast-message';
 import { useDispatch } from 'react-redux';
 import { useDeleteProductMutation } from 'src/api';
@@ -33,6 +33,7 @@ export const DeleteProductButton: FC<FCProps> = ({ product, setLoading, isLoadin
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const [deleteProductMutation] = useDeleteProductMutation();
+  const [isInit, setInit] = useState<boolean>(false);
 
   const deleteModalRef = useRef(null);
 
@@ -48,7 +49,7 @@ export const DeleteProductButton: FC<FCProps> = ({ product, setLoading, isLoadin
       onCloseDeleteModal();
       await deleteProductMutation(product.id).unwrap();
       dispatch(productActions.deleteProductById(product.id));
-      navigation.navigate(SCREENS.Home, { screen: HOME_SCREENS.PRODUCT });
+      navigation.navigate(SCREENS.Home, { screen: HOME_SCREENS.PRODUCTS });
     } catch (err) {
       Toast.show({
         text1: 'Xoá sản phẩm thất bại. Xin vui lòng thử lại.',
@@ -59,39 +60,50 @@ export const DeleteProductButton: FC<FCProps> = ({ product, setLoading, isLoadin
     }
   };
 
+  const handleOpenDelete = () => {
+    setInit(true);
+    onOpenDeleteModal();
+  };
+
   return (
     <>
-      <Button variant="outline" onPress={onOpenDeleteModal} disabled={isLoading}>
+      <Button variant="outline" onPress={handleOpenDelete} disabled={isLoading}>
         <ButtonText>Xoá</ButtonText>
       </Button>
-      <Modal isOpen={isOpenDeleteModal} onClose={onCloseDeleteModal} finalFocusRef={deleteModalRef}>
-        <ModalBackdrop />
-        <ModalContent>
-          <ModalHeader>
-            <Heading size="lg">Xoá sản phẩm</Heading>
-            <ModalCloseButton>
-              <Icon as={CloseIcon} />
-            </ModalCloseButton>
-          </ModalHeader>
-          <ModalBody>
-            <Text>Bạn có chắc chắn rằng muốn xoá sản phẩm này?</Text>
-          </ModalBody>
-          <ModalFooter>
-            <Button
-              variant="outline"
-              size="sm"
-              // action="secondary"
-              mr="$3"
-              onPress={onCloseDeleteModal}
-            >
-              <ButtonText>Huỷ</ButtonText>
-            </Button>
-            <Button size="sm" borderWidth="$0" onPress={handleDelete}>
-              <ButtonText>Xoá</ButtonText>
-            </Button>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
+      {isInit && (
+        <Modal
+          isOpen={isOpenDeleteModal}
+          onClose={onCloseDeleteModal}
+          finalFocusRef={deleteModalRef}
+        >
+          <ModalBackdrop />
+          <ModalContent>
+            <ModalHeader>
+              <Heading size="lg">Xoá sản phẩm</Heading>
+              <ModalCloseButton>
+                <Icon as={CloseIcon} />
+              </ModalCloseButton>
+            </ModalHeader>
+            <ModalBody>
+              <Text>Bạn có chắc chắn rằng muốn xoá sản phẩm này?</Text>
+            </ModalBody>
+            <ModalFooter>
+              <Button
+                variant="outline"
+                size="sm"
+                // action="secondary"
+                mr="$3"
+                onPress={onCloseDeleteModal}
+              >
+                <ButtonText>Huỷ</ButtonText>
+              </Button>
+              <Button size="sm" borderWidth="$0" onPress={handleDelete}>
+                <ButtonText>Xoá</ButtonText>
+              </Button>
+            </ModalFooter>
+          </ModalContent>
+        </Modal>
+      )}
     </>
   );
 };
