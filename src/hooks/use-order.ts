@@ -7,7 +7,9 @@ export const useOrder = ({ detail }: { detail: Entity.Order }) => {
     isFetching,
     data: fetchedData,
     isLoading,
-  } = useFetchOrderQuery(detail.id, { refetchOnMountOrArgChange: true });
+  } = useFetchOrderQuery(detail.id, {
+    refetchOnMountOrArgChange: true,
+  });
 
   const data = fetchedData?.data || detail;
 

@@ -16,7 +16,7 @@ export const CreateCustomerFab = () => {
 
   const handlePress = () => {
     onOpenCreateModal();
-    // navigation.navigate(SCREENS.CREATE_PRODUCT);
+    // navigation.navigate(SCREENS.PRODUCT_CREATE);
   };
 
   return (

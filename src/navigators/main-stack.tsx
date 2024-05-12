@@ -22,8 +22,8 @@ import { OrderCreateScreen } from 'src/screens/order-create/order-create.screen'
 import { OrderPaymentScreen } from 'src/screens/order-payment/order-payment.screen';
 import { OrderSettingScreen } from 'src/screens/order-setting/order-setting.screen';
 import { MainScreen } from 'src/screens/Pre/MainScreen';
-import { CreateProduct } from 'src/screens/product-create/create-product';
-import { ProductDetailScreen } from 'src/screens/product-detail/product-detail';
+import { CreateProductScreen } from 'src/screens/product-create/create-product';
+import { ProductScreen } from 'src/screens/product-detail/product.screen';
 import { ProductSettingScreen } from 'src/screens/product-setting/product-setting.screen';
 import { LikedMeProfileScreen } from 'src/screens/Star/LikedMeProfileScreen';
 import { SubjectScreen } from 'src/screens/subjects/subject-screen';
@@ -65,15 +65,15 @@ export const MainStack: React.FC = () => {
           <Stack.Screen name={SCREENS.EDIT_INFO_LOCATION} component={EditInfoLocationScreen} />
           <Stack.Screen name={SCREENS.SUBJECT} component={SubjectScreen} />
           {/* Product */}
-          <Stack.Screen name={SCREENS.CREATE_PRODUCT} component={CreateProduct} />
-          <Stack.Screen name={SCREENS.PRODUCT_DETAIL} component={ProductDetailScreen} />
+          <Stack.Screen name={SCREENS.PRODUCT_CREATE} component={CreateProductScreen} />
+          <Stack.Screen name={SCREENS.PRODUCT} component={ProductScreen} />
           <Stack.Screen name={SCREENS.PRODUCT_SETTING} component={ProductSettingScreen} />
 
           {/* Order */}
           <Stack.Screen name={SCREENS.ORDER_CREATE} component={OrderCreateScreen} />
           <Stack.Screen name={SCREENS.ORDER_CONFIRM} component={OrderConfirmScreen} />
           <Stack.Screen name={SCREENS.ORDER_SETTING} component={OrderSettingScreen} />
-          <Stack.Screen name={SCREENS.ORDER_DETAIL} component={OrderScreen} />
+          <Stack.Screen name={SCREENS.ORDER} component={OrderScreen} />
         </Stack.Group>
 
         <Stack.Group

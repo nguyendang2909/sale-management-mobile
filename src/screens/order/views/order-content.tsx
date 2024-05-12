@@ -13,11 +13,7 @@ export const OrderContent: FC<ViewProps & { detail: Entity.Order }> = ({
   detail,
   ...viewProps
 }) => {
-  const {
-    data: order,
-    isLoading: isLoadingOrder,
-    isFetching,
-  } = useOrder({
+  const { data: order, isLoading: isLoadingOrder } = useOrder({
     detail,
   });
 

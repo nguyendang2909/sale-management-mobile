@@ -14,7 +14,7 @@ export const OrderListItem: FC<FCProps> = ({ order }) => {
   const navigation = useNavigation();
 
   const handlePress = () => {
-    navigation.navigate(SCREENS.ORDER_DETAIL, {
+    navigation.navigate(SCREENS.ORDER, {
       detail: order,
     });
   };

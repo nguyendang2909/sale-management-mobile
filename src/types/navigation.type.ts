@@ -65,8 +65,8 @@ export type AppStackParamList = {
     subject: string;
   };
   // Product
-  CREATE_PRODUCT: undefined;
-  PRODUCT_DETAIL: {
+  PRODUCT_CREATE: undefined;
+  PRODUCT: {
     detail: AppStore.Product;
   };
   PRODUCT_SETTING: undefined;
@@ -78,7 +78,7 @@ export type AppStackParamList = {
     values: FormParams.CreateOrder;
   };
   ORDER_SETTING: undefined;
-  ORDER_DETAIL: {
+  ORDER: {
     detail: Entity.Order;
   };
   ORDER_PAYMENT: {

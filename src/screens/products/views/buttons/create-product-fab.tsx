@@ -7,7 +7,7 @@ export const CreateProductFab = () => {
   const navigation = useNavigation();
 
   const handlePress = () => {
-    navigation.navigate(SCREENS.CREATE_PRODUCT);
+    navigation.navigate(SCREENS.PRODUCT_CREATE);
   };
 
   return (

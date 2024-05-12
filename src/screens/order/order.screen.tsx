@@ -4,7 +4,7 @@ import { AppStackScreenProps } from 'src/types';
 import { OrderContent } from './views/order-content';
 import { OrderHeader } from './views/order-header';
 
-type FCProps = AppStackScreenProps<'ORDER_DETAIL'>;
+type FCProps = AppStackScreenProps<'ORDER'>;
 
 export const OrderScreen: FC<FCProps> = props => {
   return (

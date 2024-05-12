@@ -12,7 +12,6 @@ export const OrdersScreen: FC = () => {
       <Header title="Đơn hàng" />
       <Box flex={1}>
         <OrderTabs />
-
         <CreateOrderFab />
       </Box>
     </>

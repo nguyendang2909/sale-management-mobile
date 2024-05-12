@@ -18,7 +18,7 @@ export const OrderListItem: FC<FCProps> = ({ order, onDelete }) => {
   const navigation = useNavigation();
 
   const handlePress = () => {
-    navigation.navigate(SCREENS.ORDER_DETAIL, { detail: order });
+    navigation.navigate(SCREENS.ORDER, { detail: order });
   };
 
   const totalAmount = useMemo(() => orderUtil.getTotalAmount(order), [order]);

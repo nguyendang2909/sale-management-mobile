@@ -36,7 +36,7 @@ export const ProductDetailForm: FC<FCProps> = ({ detail }) => {
   useCategories();
   const {
     data: product,
-    isFetching: isFetchingProduct,
+    isLoading: isLoadingProduct,
     refetch: refetchProduct,
   } = useProduct({ detail });
 
@@ -122,7 +122,7 @@ export const ProductDetailForm: FC<FCProps> = ({ detail }) => {
 
   return (
     <>
-      <LoadingOverlay isLoading={isLoading || isFetchingProduct} />
+      <LoadingOverlay isLoading={isLoading || isLoadingProduct} />
       <View
         as={SafeAreaView}
         // @ts-ignore
