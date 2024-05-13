@@ -5,7 +5,10 @@
 //   phD = 'phD',
 // }
 
+import _ from 'lodash';
 import { OrderSettingKey, ProductSettingKey } from 'src/types';
+
+import { ORDER_STATUSES } from './data.constant';
 
 export const DATE_FORMATS = {
   DATE: 'YYYY-MM-DD',
@@ -209,3 +212,7 @@ export const SIZES = {
   LG: 'lg',
   MD: 'md',
 } as const;
+
+export const ORDER_UNDELIVERED_STATUSES = _.pick(ORDER_STATUSES, ['PROCESSING', 'WAIT_TO_CONFIRM']);
+
+export const ORDER_UNDELIVERED_STATUS_ARR = Object.values(ORDER_UNDELIVERED_STATUSES);

@@ -1,7 +1,7 @@
 import { useFetchOrderQuery } from 'src/api';
 import { Entity } from 'src/types';
 
-export const useOrder = ({ detail }: { detail: Entity.Order }) => {
+export const useOrder = (detail: Entity.Order) => {
   const {
     refetch,
     isFetching,

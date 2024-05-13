@@ -1,14 +1,15 @@
 import { View } from '@gluestack-ui/themed';
 import { ChevronLeft } from 'lucide-react-native';
+import { FC } from 'react';
 import { Header } from 'src/components';
 import { HOME_SCREENS, SCREENS } from 'src/constants';
 import { IconButtonSearchProducts } from 'src/containers/icon-button/icon-button-search-products';
-import { SearchInputProducts } from 'src/containers/Input/search-input-products';
 import { useAppDispatch } from 'src/hooks';
 import { goBack } from 'src/navigations/navigation-ref';
 import { cartActions } from 'src/store/cart';
+import { Entity } from 'src/types';
 
-export const OrderHeader = () => {
+export const OrderHeader: FC<{ order: Entity.Order }> = () => {
   const dispatch = useAppDispatch();
 
   const onLeftPress = () => {
@@ -31,13 +32,6 @@ export const OrderHeader = () => {
         // onRightPress={() => {
         //   navigate.navigate(SCREENS.DATING_NEARBY_FILTER);
         // }}
-      />
-      <SearchInputProducts
-        viewProps={{
-          px: 16,
-          bg: '$white',
-          pb: 8,
-        }}
       />
     </>
   );
