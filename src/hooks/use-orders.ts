@@ -38,7 +38,6 @@ export const useOrders = ({
 
   const fetchFirstData = useCallback(async () => {
     try {
-      console.log(222);
       const data = await fetchOrders({}).unwrap();
       dispatch(orderActions.setOrders({ status, data: data.data }));
       dispatch(orderActions.setPagination({ status, pagination: data.pagination }));
