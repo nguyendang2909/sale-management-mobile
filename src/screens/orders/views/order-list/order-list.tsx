@@ -1,14 +1,34 @@
 import { View } from '@gluestack-ui/themed';
+import { UseLazyQuery } from '@reduxjs/toolkit/dist/query/react/buildHooks';
+import { QueryDefinition } from '@reduxjs/toolkit/query';
 import { FlashList } from '@shopify/flash-list';
 import { useState } from 'react';
 import { LoadingOverlay } from 'src/components';
 import { useOrders } from 'src/hooks';
+import { ApiRequest, ApiResponse, OrderStoreStatus } from 'src/types';
 
 import { DeleteOrderListItemDialog } from '../delete-order-list-item-dialog';
 import { OrderListItem } from './order-list-item';
 
-export const OrderList = () => {
-  const { data: orders, isRefreshing, refresh, deleteById, isLoading } = useOrders({});
+export const OrderList = ({
+  status,
+  lazyQuery,
+}: {
+  status?: OrderStoreStatus;
+  lazyQuery: UseLazyQuery<
+    QueryDefinition<ApiRequest.FindManyOrders, any, any, ApiResponse.Orders, 'api'>
+  >;
+}) => {
+  const {
+    data: orders,
+    isRefreshing,
+    refresh,
+    deleteById,
+    isLoading,
+  } = useOrders({
+    status,
+    lazyQuery,
+  });
 
   const [deleteOrderId, setDeleteOrderId] = useState<string | null>(null);
 

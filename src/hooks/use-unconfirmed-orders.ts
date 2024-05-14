@@ -1,34 +1,26 @@
-import { UseLazyQuery } from '@reduxjs/toolkit/dist/query/react/buildHooks';
-import { QueryDefinition } from '@reduxjs/toolkit/query';
 import { useCallback, useEffect, useState } from 'react';
 import Toast from 'react-native-toast-message';
+import { useLazyFetchUnconfirmedOrdersQuery } from 'src/api';
 import { ORDER_STATUSES } from 'src/constants';
 import { orderActions } from 'src/store/order';
-import { ApiRequest, ApiResponse, OrderStoreStatus } from 'src/types';
 
 import { useAppDispatch } from './usAppDispatch';
 import { useAppSelector } from './useAppSelector';
 import { useMessages } from './useMessages';
 
-export const useOrders = ({
-  status,
-  lazyQuery,
-}: {
-  status?: OrderStoreStatus;
-  lazyQuery: UseLazyQuery<
-    QueryDefinition<ApiRequest.FindManyOrders, any, any, ApiResponse.Orders, 'api'>
-  >;
-}) => {
+const status = ORDER_STATUSES.UNCONFIRMED;
+
+export const useUnconfirmedOrders = () => {
   const dispatch = useAppDispatch();
   const { formatErrorMessage } = useMessages();
 
-  const orders = useAppSelector(s => (status ? s.order[status].data : s.order.all.data));
-  const _next = useAppSelector(s =>
-    status ? s.order[status].pagination._next : s.order.all.pagination._next,
-  );
+  const orders = useAppSelector(s => s.order.unconfirmed.data);
+  const _next = useAppSelector(s => s.order.unconfirmed.pagination._next);
   const [isRefreshing, setRefreshing] = useState<boolean>(false);
-  const [fetchOrders, { isLoading, isFetching }] = lazyQuery();
+
+  const [fetchOrders, { isLoading, isFetching }] = useLazyFetchUnconfirmedOrdersQuery();
   const loading = isLoading || isFetching;
+
   const deleteById = useCallback(
     (id: string) => {
       dispatch(orderActions.deleteOrder(id));
@@ -36,10 +28,13 @@ export const useOrders = ({
     [dispatch],
   );
 
+  // const isFocused = useIsFocused();
+
   const fetchFirstData = useCallback(async () => {
     try {
-      console.log(222);
-      const data = await fetchOrders({}).unwrap();
+      const data = await fetchOrders({
+        status,
+      }).unwrap();
       dispatch(orderActions.setOrders({ status, data: data.data }));
       dispatch(orderActions.setPagination({ status, pagination: data.pagination }));
     } catch (err) {
@@ -47,7 +42,7 @@ export const useOrders = ({
         text1: formatErrorMessage(err),
       });
     }
-  }, [fetchOrders, dispatch, status, formatErrorMessage]);
+  }, [dispatch, fetchOrders, formatErrorMessage]);
 
   useEffect(() => {
     fetchFirstData();
@@ -66,7 +61,7 @@ export const useOrders = ({
     }).unwrap();
     dispatch(orderActions.setOrders({ status, data: data.data }));
     dispatch(orderActions.setPagination({ status, pagination: data.pagination }));
-  }, [_next, dispatch, fetchOrders, loading, status]);
+  }, [_next, dispatch, fetchOrders, loading]);
 
   const refresh = useCallback(async () => {
     if (loading) {
@@ -74,7 +69,9 @@ export const useOrders = ({
     }
     setRefreshing(true);
     try {
-      const data = await fetchOrders({}).unwrap();
+      const data = await fetchOrders({
+        status,
+      }).unwrap();
       dispatch(orderActions.setOrders({ status, data: data.data }));
       dispatch(orderActions.setPagination({ status, pagination: data.pagination }));
     } catch (err) {
@@ -84,7 +81,7 @@ export const useOrders = ({
     } finally {
       setRefreshing(false);
     }
-  }, [dispatch, fetchOrders, formatErrorMessage, loading, status]);
+  }, [dispatch, fetchOrders, formatErrorMessage, loading]);
 
   return {
     data: orders,

@@ -7,11 +7,11 @@ import { TabBar, TabBarIndicator } from 'react-native-tab-view';
 import { ORDER_TABS } from 'src/constants';
 
 import { AllOrdersTab } from './all-orders/all-orders.tab';
-import { OrderCancelledTab } from './orders-with-status/order-cancelled.tab';
-import { OrderReturnedTab } from './orders-with-status/order-delivered.tab';
-import { OrderProcessingTab } from './orders-with-status/order-processing.tab';
-import { OrderDeliveredTab } from './orders-with-status/order-returned.tab';
-import { OrderWaitToConfirmTab } from './orders-with-status/order-wait-to-confirm.tab';
+import { OrderCancelledTab } from './unconfirmed-orders/order-cancelled.tab';
+import { OrderDeliveredTab } from './unconfirmed-orders/order-delivered.tab';
+import { OrderProcessingTab } from './unconfirmed-orders/order-processing.tab';
+import { OrderReturnedTab } from './unconfirmed-orders/order-returned.tab';
+import { OrderWaitToConfirmTab } from './unconfirmed-orders/order-unconfirmed.tab';
 
 const Tab = createMaterialTopTabNavigator();
 

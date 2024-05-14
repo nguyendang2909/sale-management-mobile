@@ -6,6 +6,7 @@ import { store } from 'src/store/store';
 
 import { CartItemsObj, OrderStoreStatus, ProductSortType } from './common.type';
 import { Entity } from './entities.type';
+import { ApiResponse } from './fe.type';
 
 export declare namespace AppStore {
   type RootState = ReturnType<typeof store.getState>;
@@ -102,6 +103,8 @@ export declare namespace AppStore {
 
   type Order = Entity.Order;
 
+  type Pagination = Partial<ApiResponse.Pagination>;
+
   type ProductStore = {
     data: Product[];
     info: {
@@ -110,8 +113,11 @@ export declare namespace AppStore {
     };
   };
 
-  type OrderStore = Record<OrderStoreStatus, { data: Order[] }> & {
-    data: Order[];
+  type OrderStore = Record<OrderStoreStatus, { data: Order[]; pagination: Pagination }> & {
+    all: {
+      data: Order[];
+      pagination: Pagination;
+    };
   };
 
   type CartStore = {

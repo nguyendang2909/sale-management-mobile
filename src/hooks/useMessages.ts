@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import { useCallback } from 'react';
 import { useIntl } from 'react-intl';
 import { messages } from 'src/locales/messages';
 import { TxKey, TxKeyValue } from 'src/types';
@@ -20,19 +21,28 @@ export const getMessageKeyFromResponse = (
 export const useMessages = () => {
   const intl = useIntl();
 
-  const formatMessage = (value: TxKey): string => {
-    return intl.formatMessage(messages[value]);
-  };
+  const formatMessage = useCallback(
+    (value: TxKey): string => {
+      return intl.formatMessage(messages[value]);
+    },
+    [intl],
+  );
 
-  const formatNumber = (value: number | bigint) => {
-    return intl.formatNumber(value, {
-      currency: 'VND',
-    });
-  };
+  const formatNumber = useCallback(
+    (value: number | bigint) => {
+      return intl.formatNumber(value, {
+        currency: 'VND',
+      });
+    },
+    [intl],
+  );
 
-  const formatErrorMessage = (error: unknown, defaultMessage?: TxKey) => {
-    return intl.formatMessage(getMessageKeyFromResponse(error, defaultMessage));
-  };
+  const formatErrorMessage = useCallback(
+    (error: unknown, defaultMessage?: TxKey) => {
+      return intl.formatMessage(getMessageKeyFromResponse(error, defaultMessage));
+    },
+    [intl],
+  );
 
   return {
     formatMessage,
