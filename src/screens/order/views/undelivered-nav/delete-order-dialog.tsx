@@ -13,35 +13,21 @@ import {
   ModalHeader,
   Text,
 } from '@gluestack-ui/themed';
-import { FC, useCallback } from 'react';
-import Toast from 'react-native-toast-message';
-import { useDeleteOrderMutation } from 'src/api';
+import { FC } from 'react';
 import { LoadingOverlay } from 'src/components';
 import { useMessages } from 'src/hooks';
 
 export const DialogDeleteOrder: FC<{
-  orderId: string;
   isOpen: boolean;
   onClose: () => void;
-}> = ({ orderId, onClose, isOpen }) => {
+  onSubmit: () => void;
+  isSubmitting: () => void;
+}> = ({ onClose, isOpen, onSubmit, isSubmitting }) => {
   const { formatErrorMessage } = useMessages();
-  const [deleteOrder, { isLoading }] = useDeleteOrderMutation();
-
-  const handleSubmit = useCallback(async () => {
-    try {
-      await deleteOrder(orderId).unwrap();
-    } catch (err) {
-      Toast.show({
-        text1: formatErrorMessage(err),
-      });
-    } finally {
-      onClose();
-    }
-  }, [deleteOrder, formatErrorMessage, onClose, orderId]);
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
-      <LoadingOverlay isLoading={isLoading} />
+      <LoadingOverlay isLoading={isSubmitting} />
       <ModalBackdrop />
       <ModalContent>
         <ModalHeader>
@@ -62,7 +48,7 @@ export const DialogDeleteOrder: FC<{
           >
             <ButtonText>Quay lại</ButtonText>
           </Button>
-          <Button borderWidth="$0" onPress={handleSubmit} isDisabled={isLoading}>
+          <Button borderWidth="$0" onPress={onSubmit} isDisabled={isSubmitting}>
             <ButtonText>Xác nhận</ButtonText>
           </Button>
         </ModalFooter>

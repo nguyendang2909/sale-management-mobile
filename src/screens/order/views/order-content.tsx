@@ -3,7 +3,6 @@ import { useNavigation } from '@react-navigation/native';
 import _ from 'lodash';
 import { FC } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useDeleteOrderMutation } from 'src/api';
 import { LoadingOverlay } from 'src/components';
 import { ORDER_UNDELIVERED_STATUS_ARR, SCREENS } from 'src/constants';
 import { Entity, ViewProps } from 'src/types';
@@ -21,15 +20,13 @@ export const OrderContent: FC<ViewProps & { order: Entity.Order; isFetchingOrder
 }) => {
   const navigation = useNavigation();
 
-  const [deleteOrder, { isLoading: isDeletingOrder }] = useDeleteOrderMutation();
-
   const handleConfirmDelivery = () => {
     navigation.navigate(SCREENS.ORDER_PAYMENT, { order });
   };
 
   return (
     <View {...viewProps} flex={1}>
-      <LoadingOverlay isLoading={isFetchingOrder || isDeletingOrder} />
+      <LoadingOverlay isLoading={isFetchingOrder} />
       <ScrollView flex={1}>
         <OrderOverviewSection order={order} bg={'$white'} p={16} />
         {!!order.items && <OrderItemList orderItems={order.items} bg={'$white'} py={16} mt={16} />}
@@ -43,10 +40,9 @@ export const OrderContent: FC<ViewProps & { order: Entity.Order; isFetchingOrder
           pt={16}
           bgColor="white"
           as={SafeAreaView}
+          orderId={order.id}
           // @ts-ignore
           edges={['bottom']}
-          delete={deleteOrder}
-          isDeleting={isDeletingOrder}
         />
       )}
     </View>
