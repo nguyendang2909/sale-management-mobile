@@ -1,14 +1,14 @@
 import _ from 'lodash';
 import moment from 'moment';
 import { ORDER_STATUSES } from 'src/constants';
-import { Entity, OrderStatus } from 'src/types';
+import { AppStore, Entity, OrderStatus } from 'src/types';
 
 import { BaseUtil } from './base/base.util';
 
 class OrderUtil extends BaseUtil {
   getOrderStatusTagTranslation(status?: OrderStatus) {
     switch (status) {
-      case ORDER_STATUSES.WAIT_TO_CONFIRM:
+      case ORDER_STATUSES.UNCONFIRMED:
         return 'Chờ xác nhận';
       case ORDER_STATUSES.PROCESSING:
         return 'Đang xử lý';
@@ -41,6 +41,23 @@ class OrderUtil extends BaseUtil {
   getTotalPromotional(order: Entity.Order) {
     const price = this.getPrice(order);
     return order.totalAmount ? _.subtract(price, order.totalAmount) : price;
+  }
+
+  format(payload: Entity.Order): AppStore.Order {
+    return payload;
+  }
+
+  formatManyAndSort(news: Entity.Order[], olds: AppStore.Order[]) {
+    return _.chain(news)
+      .map(e => this.format(e))
+      .concat(olds)
+      .uniqBy('id')
+      .orderBy('at', 'desc')
+      .value();
+  }
+
+  deleteFromArrById(id: string, orders: AppStore.Order[]) {
+    return orders.filter(order => order.id !== id);
   }
 }
 

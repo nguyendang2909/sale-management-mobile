@@ -1,4 +1,5 @@
 import { API_ENDPOINTS } from 'src/config/config.api';
+import { ORDER_STATUSES } from 'src/constants';
 import { API_METHODS } from 'src/constants/constants';
 import { ApiRequest, ApiResponse } from 'src/types';
 
@@ -19,6 +20,46 @@ const productApi = api.injectEndpoints({
         url: API_ENDPOINTS.ORDERS.INDEX,
         method: API_METHODS.GET,
         params,
+      }),
+    }),
+
+    fetchUnconfirmedOrders: builder.query<ApiResponse.Orders, ApiRequest.FindManyOrders>({
+      query: params => ({
+        url: API_ENDPOINTS.ORDERS.INDEX,
+        method: API_METHODS.GET,
+        params: { ...params, status: ORDER_STATUSES.UNCONFIRMED },
+      }),
+    }),
+
+    fetchProcessingOrders: builder.query<ApiResponse.Orders, ApiRequest.FindManyOrders>({
+      query: params => ({
+        url: API_ENDPOINTS.ORDERS.INDEX,
+        method: API_METHODS.GET,
+        params: { ...params, status: ORDER_STATUSES.PROCESSING },
+      }),
+    }),
+
+    fetchDeliveredOrders: builder.query<ApiResponse.Orders, ApiRequest.FindManyOrders>({
+      query: params => ({
+        url: API_ENDPOINTS.ORDERS.INDEX,
+        method: API_METHODS.GET,
+        params: { ...params, status: ORDER_STATUSES.DELIVERED },
+      }),
+    }),
+
+    fetchReturnedOrders: builder.query<ApiResponse.Orders, ApiRequest.FindManyOrders>({
+      query: params => ({
+        url: API_ENDPOINTS.ORDERS.INDEX,
+        method: API_METHODS.GET,
+        params: { ...params, status: ORDER_STATUSES.RETURNED },
+      }),
+    }),
+
+    fetchCancelledOrders: builder.query<ApiResponse.Orders, ApiRequest.FindManyOrders>({
+      query: params => ({
+        url: API_ENDPOINTS.ORDERS.INDEX,
+        method: API_METHODS.GET,
+        params: { ...params, status: ORDER_STATUSES.CANCELLED },
       }),
     }),
 
@@ -51,6 +92,16 @@ export const {
   useFetchOrderQuery,
   useFetchOrdersQuery,
   useLazyFetchOrdersQuery,
+  useFetchUnconfirmedOrdersQuery,
+  useLazyFetchUnconfirmedOrdersQuery,
+  useFetchProcessingOrdersQuery,
+  useLazyFetchProcessingOrdersQuery,
+  useFetchDeliveredOrdersQuery,
+  useLazyFetchDeliveredOrdersQuery,
+  useFetchReturnedOrdersQuery,
+  useLazyFetchReturnedOrdersQuery,
+  useFetchCancelledOrdersQuery,
+  useLazyFetchCancelledOrdersQuery,
   useDeleteOrderMutation,
   useUpdateOrderMutation,
   endpoints: orderEndpoints,

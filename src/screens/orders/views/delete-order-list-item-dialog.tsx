@@ -19,7 +19,7 @@ import { useDeleteOrderMutation } from 'src/api';
 import { LoadingOverlay } from 'src/components';
 import { useMessages } from 'src/hooks';
 
-export const DeleteOrderDialog: FC<{
+export const DeleteOrderListItemDialog: FC<{
   deleteOrderId: string | null;
   setDeleteOrderId: (id: string | null) => void;
   onDelete: (id: string) => void;

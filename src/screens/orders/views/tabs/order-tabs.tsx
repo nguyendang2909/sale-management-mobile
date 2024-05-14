@@ -143,7 +143,7 @@ export const OrderTabs = () => {
           }}
         />
         <Tab.Screen
-          name={ORDER_TABS.WAIT_TO_CONFIRM}
+          name={ORDER_TABS.UNCONFIRMED}
           component={OrderWaitToConfirmTab}
           options={{ tabBarLabel: 'Chờ xác nhận' }}
         />

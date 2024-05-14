@@ -4,7 +4,7 @@ import { IMessage } from 'react-native-gifted-chat';
 import { ThunkAction } from 'redux-thunk';
 import { store } from 'src/store/store';
 
-import { CartItemsObj, ProductSortType } from './common.type';
+import { CartItemsObj, OrderStoreStatus, ProductSortType } from './common.type';
 import { Entity } from './entities.type';
 
 export declare namespace AppStore {
@@ -100,6 +100,8 @@ export declare namespace AppStore {
 
   type Customer = Entity.Customer;
 
+  type Order = Entity.Order;
+
   type ProductStore = {
     data: Product[];
     info: {
@@ -108,12 +110,8 @@ export declare namespace AppStore {
     };
   };
 
-  type OrderStore = {
-    data: Product[];
-    info: {
-      lastRefreshedAt?: string;
-      isReachedEnd?: boolean;
-    };
+  type OrderStore = Record<OrderStoreStatus, { data: Order[] }> & {
+    data: Order[];
   };
 
   type CartStore = {

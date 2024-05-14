@@ -106,7 +106,7 @@ export const WORKING_TIME_TYPES = {
 } as const;
 
 export const ORDER_STATUSES = {
-  WAIT_TO_CONFIRM: 'wait_to_confirm',
+  UNCONFIRMED: 'unconfirmed',
   PROCESSING: 'processing',
   DELIVERED: 'delivered',
   RETURNED: 'returned',

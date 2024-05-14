@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { LoadingOverlay } from 'src/components';
 import { useOrders } from 'src/hooks';
 
-import { DeleteOrderDialog } from '../delete-order-dialog';
+import { DeleteOrderListItemDialog } from '../delete-order-list-item-dialog';
 import { OrderListItem } from './order-list-item';
 
 export const OrderList = () => {
@@ -28,7 +28,7 @@ export const OrderList = () => {
           ListFooterComponent={<View mb={100}></View>}
         ></FlashList>
       </View>
-      <DeleteOrderDialog
+      <DeleteOrderListItemDialog
         deleteOrderId={deleteOrderId}
         setDeleteOrderId={setDeleteOrderId}
         onDelete={deleteById}

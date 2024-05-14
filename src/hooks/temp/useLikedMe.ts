@@ -1,49 +1,49 @@
-// import moment from 'moment';
-// import {
-//   useGetNewestLikedMeMutation,
-//   useGetNextLikedMeMutation,
-//   useRefreshLikedMeQuery,
-// } from 'src/api';
-// import { likedMeService } from 'src/services/liked-me.service';
+import moment from 'moment';
+import {
+  useGetNewestLikedMeMutation,
+  useGetNextLikedMeMutation,
+  useRefreshLikedMeQuery,
+} from 'src/api';
+import { likedMeService } from 'src/services/liked-me.service';
 
-// import { useAppSelector } from '../useAppSelector';
+import { useAppSelector } from '../useAppSelector';
 
-// export const useLikedMe = () => {
-//   const likedMe = useAppSelector(state => state.likedMe.data);
-//   const isReachedEnd = !!useAppSelector(s => s.likedMe.info.isReachedEnd);
-//   const lastRefreshedAt = useAppSelector(s => s.likedMe.info.lastRefreshedAt);
-//   const socketConnectedAt = useAppSelector(s => s.app.socket.connectedAt);
-//   const length = likedMe.length;
-//   const [getNewest, { isLoading: isLoadingNewest }] = useGetNewestLikedMeMutation();
-//   const [getNext, { isLoading: isLoadingNext }] = useGetNextLikedMeMutation();
-//   const { isLoading } = useRefreshLikedMeQuery(
-//     {},
-//     {
-//       skip: !!lastRefreshedAt && moment(lastRefreshedAt).isAfter(moment(socketConnectedAt)),
-//     },
-//   );
+export const useLikedMe = () => {
+  const likedMe = useAppSelector(state => state.likedMe.data);
+  const isReachedEnd = !!useAppSelector(s => s.likedMe.info.isReachedEnd);
+  const lastRefreshedAt = useAppSelector(s => s.likedMe.info.lastRefreshedAt);
+  const socketConnectedAt = useAppSelector(s => s.app.socket.connectedAt);
+  const length = likedMe.length;
+  const [getNewest, { isLoading: isLoadingNewest }] = useGetNewestLikedMeMutation();
+  const [getNext, { isLoading: isLoadingNext }] = useGetNextLikedMeMutation();
+  const { isLoading } = useRefreshLikedMeQuery(
+    {},
+    {
+      skip: !!lastRefreshedAt && moment(lastRefreshedAt).isAfter(moment(socketConnectedAt)),
+    },
+  );
 
-//   const fetchNewest = () => {
-//     getNewest({});
-//   };
+  const fetchNewest = () => {
+    getNewest({});
+  };
 
-//   const fetchNext = () => {
-//     const _next = likedMeService.getCursor(likedMe);
-//     if (isReachedEnd || !_next) {
-//       return;
-//     }
-//     getNext({ _next });
-//   };
+  const fetchNext = () => {
+    const _next = likedMeService.getCursor(likedMe);
+    if (isReachedEnd || !_next) {
+      return;
+    }
+    getNext({ _next });
+  };
 
-//   return {
-//     length,
-//     data: likedMe,
-//     fetchNewest,
-//     fetchNext,
-//     isLoadingNewest,
-//     isLoadingNext,
-//     isLoading,
-//     isReachedEnd,
-//     lastRefreshedAt,
-//   };
-// };
+  return {
+    length,
+    data: likedMe,
+    fetchNewest,
+    fetchNext,
+    isLoadingNewest,
+    isLoadingNext,
+    isLoading,
+    isReachedEnd,
+    lastRefreshedAt,
+  };
+};

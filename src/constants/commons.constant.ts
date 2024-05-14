@@ -62,12 +62,6 @@ export const CURRENCIES = {
 } as const;
 
 export const ORDER_TABS = {
-  ..._.pick(ORDER_STATUSES, [
-    'WAIT_TO_CONFIRM',
-    'PROCESSING',
-    'DELIVERED',
-    'RETURNED',
-    'CANCELLED',
-  ]),
+  ..._.pick(ORDER_STATUSES, ['UNCONFIRMED', 'PROCESSING', 'DELIVERED', 'RETURNED', 'CANCELLED']),
   ALL: 'all',
 } as const;

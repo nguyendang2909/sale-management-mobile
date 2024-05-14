@@ -1,4 +1,4 @@
-import { Button, ButtonText, ScrollView, View } from '@gluestack-ui/themed';
+import { ScrollView, View } from '@gluestack-ui/themed';
 import { useNavigation } from '@react-navigation/native';
 import _ from 'lodash';
 import { FC } from 'react';
@@ -12,6 +12,7 @@ import { OrderCustomerSection } from './customer/order-customer-section';
 import { OrderItemList } from './order-item-list/order-item-list';
 import { OrderOverviewSection } from './overview/order-overview-section';
 import { OrderPaymentSection } from './price/order-detail-price-section';
+import { UndeliveredOrderNav } from './undelivered-nav/undelivered-order.nav';
 
 export const OrderContent: FC<ViewProps & { order: Entity.Order; isFetchingOrder: boolean }> = ({
   order,
@@ -20,7 +21,7 @@ export const OrderContent: FC<ViewProps & { order: Entity.Order; isFetchingOrder
 }) => {
   const navigation = useNavigation();
 
-  const [deleteOrder, { isLoading: isDeleteOrderLoading }] = useDeleteOrderMutation();
+  const [deleteOrder, { isLoading: isDeletingOrder }] = useDeleteOrderMutation();
 
   const handleConfirmDelivery = () => {
     navigation.navigate(SCREENS.ORDER_PAYMENT, { order });
@@ -28,7 +29,7 @@ export const OrderContent: FC<ViewProps & { order: Entity.Order; isFetchingOrder
 
   return (
     <View {...viewProps} flex={1}>
-      <LoadingOverlay isLoading={isFetchingOrder || isDeleteOrderLoading} />
+      <LoadingOverlay isLoading={isFetchingOrder || isDeletingOrder} />
       <ScrollView flex={1}>
         <OrderOverviewSection order={order} bg={'$white'} p={16} />
         {!!order.items && <OrderItemList orderItems={order.items} bg={'$white'} py={16} mt={16} />}
@@ -37,27 +38,16 @@ export const OrderContent: FC<ViewProps & { order: Entity.Order; isFetchingOrder
       </ScrollView>
 
       {_.includes(ORDER_UNDELIVERED_STATUS_ARR, order.status) && (
-        <View
+        <UndeliveredOrderNav
           px={16}
           pt={16}
           bgColor="white"
           as={SafeAreaView}
           // @ts-ignore
           edges={['bottom']}
-        >
-          <View flexDirection="row" columnGap={16}>
-            <View flex={1}>
-              <Button variant="outline" disabled={isDeleteOrderLoading}>
-                <ButtonText>Huỷ</ButtonText>
-              </Button>
-            </View>
-            <View flex={1}>
-              <Button onPress={handleConfirmDelivery}>
-                <ButtonText>Đã giao</ButtonText>
-              </Button>
-            </View>
-          </View>
-        </View>
+          delete={deleteOrder}
+          isDeleting={isDeletingOrder}
+        />
       )}
     </View>
   );
