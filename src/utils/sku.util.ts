@@ -3,7 +3,7 @@ import { AppStore, CartItem, CartItemsObj, Entity, SkusObj } from 'src/types';
 import { BaseUtil } from './base/base.util';
 
 class SkuUtil extends BaseUtil {
-  getTotalAmountByCartItem(cartItem: CartItem, sku: Entity.Sku): number {
+  getAmountByCartItem(cartItem: CartItem, sku: Entity.Sku): number {
     const { quantity } = cartItem;
     if (
       sku.wholesalePrice &&
@@ -24,21 +24,21 @@ class SkuUtil extends BaseUtil {
   getTotalAndAmountByCartItems(
     cartItems: CartItem[],
     skusObj: SkusObj,
-  ): { skuTotal: number; skuTotalAmount: number } {
-    return cartItems.reduce<{ skuTotal: number; skuTotalAmount: number }>(
+  ): { skuTotal: number; skuAmount: number } {
+    return cartItems.reduce<{ skuTotal: number; skuAmount: number }>(
       (result, cartItem) => {
         return {
           skuTotal: result.skuTotal + cartItem.quantity,
-          skuTotalAmount:
-            result.skuTotalAmount +
+          skuAmount:
+            result.skuAmount +
             (skusObj[cartItem.skuId]
-              ? this.getTotalAmountByCartItem(cartItem, skusObj[cartItem.skuId])
+              ? this.getAmountByCartItem(cartItem, skusObj[cartItem.skuId])
               : 0),
         };
       },
       {
         skuTotal: 0,
-        skuTotalAmount: 0,
+        skuAmount: 0,
       },
     );
   }

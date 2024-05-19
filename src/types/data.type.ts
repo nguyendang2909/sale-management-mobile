@@ -2,8 +2,8 @@ import {
   AUTH_GRANT_TYPES,
   BUSINESSES,
   DEVICE_PLATFORMS,
+  ORDER_PAYMENT_METHODS,
   ORDER_STATUSES,
-  PAYMENT_METHODS,
   PAYMENT_STATUSES,
   ROLES,
   USER_STATUSES,
@@ -55,7 +55,7 @@ export type OrderStatus = ValueOf<typeof ORDER_STATUSES>;
 
 export type AuthGrantType = ValueOf<typeof AUTH_GRANT_TYPES>;
 
-export type PaymentMethod = ValueOf<typeof PAYMENT_METHODS>;
+export type OrderPaymentMethod = ValueOf<typeof ORDER_PAYMENT_METHODS>;
 
 export type PaymentStatus = ValueOf<typeof PAYMENT_STATUSES>;
 

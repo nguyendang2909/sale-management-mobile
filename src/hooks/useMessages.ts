@@ -37,6 +37,18 @@ export const useMessages = () => {
     [intl],
   );
 
+  const formatPrice = useCallback(
+    (value: number | bigint | undefined | null) => {
+      if (!value) {
+        return '';
+      }
+      return intl.formatNumber(value, {
+        currency: 'VND',
+      });
+    },
+    [intl],
+  );
+
   const formatErrorMessage = useCallback(
     (error: unknown, defaultMessage?: TxKey) => {
       return intl.formatMessage(getMessageKeyFromResponse(error, defaultMessage));
@@ -49,5 +61,6 @@ export const useMessages = () => {
     formatErrorMessage,
     formatNumber,
     locale: intl.locale,
+    formatPrice,
   };
 };

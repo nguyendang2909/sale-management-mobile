@@ -118,11 +118,10 @@ export const AUTH_GRANT_TYPES = {
   PHONE_TOKEN: 'phone_token',
 } as const;
 
-export const PAYMENT_METHODS = {
+export const ORDER_PAYMENT_METHODS = {
   CASH: 'cash',
   DIGITAL_WALLET: 'digital_wallet',
   BANK: 'bank',
-  NONE: 'none',
 } as const;
 
 export const PAYMENT_STATUSES = {

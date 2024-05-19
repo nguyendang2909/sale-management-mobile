@@ -1,5 +1,5 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { ORDER_STATUSES, PAYMENT_METHODS } from 'src/constants';
+import { ORDER_PAYMENT_METHODS, ORDER_STATUSES } from 'src/constants';
 import { FormParams } from 'src/types';
 import * as Yup from 'yup';
 
@@ -8,7 +8,10 @@ class CreateOrderFormUtil {
     return yupResolver<FormParams.CreateOrder>(
       Yup.object({
         status: Yup.string().oneOf(Object.values(ORDER_STATUSES)).required(),
-        paymentMethod: Yup.string().oneOf(Object.values(PAYMENT_METHODS)).required().nullable(),
+        paymentMethod: Yup.string()
+          .oneOf(Object.values(ORDER_PAYMENT_METHODS))
+          .required()
+          .nullable(),
         customerId: Yup.string().uuid().required().nullable(),
         deliveryMethod: Yup.string().required().nullable(),
         note: Yup.string().required().nullable(),

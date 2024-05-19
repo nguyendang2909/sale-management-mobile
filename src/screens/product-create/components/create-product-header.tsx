@@ -6,7 +6,7 @@ import { HOME_SCREENS, SCREENS } from 'src/constants';
 export const CreateProductHeader = () => {
   const navigation = useNavigation();
   const onLeftPress = () => {
-    navigation.navigate(SCREENS.Home, {
+    navigation.navigate(SCREENS.HOME, {
       screen: HOME_SCREENS.PRODUCTS,
     });
   };

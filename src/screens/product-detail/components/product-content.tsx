@@ -88,7 +88,7 @@ export const ProductContent: FC<FCProps> = ({ detail }) => {
       await updateProductMutation({ id: product.id, body }).unwrap();
       await refetchProduct();
       Toast.show({ text1: 'Cập nhật sản phẩm thành công', type: 'success' });
-      navigation.navigate(SCREENS.Home, {
+      navigation.navigate(SCREENS.HOME, {
         screen: HOME_SCREENS.PRODUCTS,
       });
     } catch (error) {

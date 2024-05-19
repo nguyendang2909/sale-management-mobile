@@ -19,7 +19,7 @@ export const ButtonDeleteOrder: FC<{ orderId: string; isDeleting: boolean }> = (
     try {
       await deleteOrder(orderId).unwrap();
       dispatch(orderActions.deleteOrder(orderId));
-      goBack(SCREENS.Home, {
+      goBack(SCREENS.HOME, {
         screen: HOME_SCREENS.ORDERS,
       });
     } catch (err) {

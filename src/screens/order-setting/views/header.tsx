@@ -11,7 +11,7 @@ export const OrderSettingHeader = () => {
       navigation.goBack();
       return;
     }
-    navigation.navigate(SCREENS.Home, {
+    navigation.navigate(SCREENS.HOME, {
       screen: HOME_SCREENS.PRODUCTS,
     });
   };

@@ -2,7 +2,7 @@ import { Button, ButtonText, Divider, HStack, Pressable, Text, View } from '@glu
 import { useNavigation } from '@react-navigation/native';
 import { FC, useCallback, useMemo } from 'react';
 import { FormattedTime } from 'react-intl';
-import { TextPricePrimary } from 'src/components/text/text-price-primary';
+import { TextPrice } from 'src/components/text/text-price';
 import { SCREENS } from 'src/constants';
 import { Entity } from 'src/types';
 import { orderUtil } from 'src/utils';
@@ -21,18 +21,15 @@ export const OrderListItem: FC<FCProps> = ({ order, onDelete }) => {
     navigation.navigate(SCREENS.ORDER, { detail: order });
   };
 
-  const totalAmount = useMemo(() => orderUtil.getTotalAmount(order), [order]);
+  const amount = useMemo(() => orderUtil.getAmount(order), [order]);
 
   const handleDelete = useCallback(() => {
     onDelete(order.id);
   }, [onDelete, order.id]);
 
-  const handleDelivery = useCallback(
-    (order: Entity.Order) => {
-      navigation.navigate(SCREENS.ORDER_PAYMENT, { order });
-    },
-    [navigation],
-  );
+  const handleDelivery = useCallback(() => {
+    navigation.navigate(SCREENS.ORDER_PAYMENT, { order });
+  }, [navigation, order]);
 
   return (
     <Pressable onPress={handlePress}>
@@ -76,7 +73,7 @@ export const OrderListItem: FC<FCProps> = ({ order, onDelete }) => {
                   <Text>Tổng cộng</Text>
                 </View>
                 <View>
-                  <TextPricePrimary value={totalAmount} />
+                  <TextPrice value={amount} variant="primary" />
                 </View>
               </HStack>
             </View>

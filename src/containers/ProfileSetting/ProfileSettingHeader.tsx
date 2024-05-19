@@ -5,7 +5,7 @@ import { goBack } from 'src/navigations/navigation-ref';
 
 export const ProfileSettingHeader: React.FC = () => {
   const handleLeftPress = () => {
-    goBack(SCREENS.Home, { screen: 'Profile' });
+    goBack(SCREENS.HOME, { screen: 'Profile' });
   };
 
   return (

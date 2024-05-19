@@ -352,14 +352,6 @@ export const messages = defineMessages({
     defaultMessage: 'Yes',
     id: '6b99acba1e',
   },
-  'Update to Gold to see people who already liked you.': {
-    defaultMessage: 'Update to Gold to see people who already liked you.',
-    id: '6ab6b58adb',
-  },
-  'Please make sure you are over 18 years old': {
-    defaultMessage: 'Please make sure you are over 18 years old',
-    id: 'efc7d11716',
-  },
   'Oops, something went wrong. Please try again.': {
     defaultMessage: 'Oops, something went wrong. Please try again.',
     id: '311ca8f3d4',
@@ -476,6 +468,22 @@ export const messages = defineMessages({
   'Product already exists': {
     defaultMessage: 'Sản phẩm đã tồn tại',
     id: 'fb1eeb3fb3',
+  },
+  cash: {
+    defaultMessage: 'Tiền mặt',
+    id: 'a3bd672385',
+  },
+  digital_wallet: {
+    defaultMessage: 'Ví điện tử',
+    id: 'ec0b030de4',
+  },
+  bank: {
+    defaultMessage: 'ngân hàng',
+    id: '03abc4fa30',
+  },
+  qr_code: {
+    defaultMessage: 'mã QR',
+    id: '5bc1dd2dd2',
   },
 });
 

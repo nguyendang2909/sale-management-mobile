@@ -19,8 +19,8 @@ import { ProfileSettingScreen } from 'src/screens/Me/ProfileSettingScreen';
 import { OrderScreen } from 'src/screens/order/order.screen';
 import { OrderConfirmScreen } from 'src/screens/order-confirm/order-confirm.screen';
 import { OrderCreateScreen } from 'src/screens/order-create/order-create.screen';
-import { OrderPaymentScreen } from 'src/screens/order-payment/order-payment.screen';
 import { OrderSettingScreen } from 'src/screens/order-setting/order-setting.screen';
+import { OrderUpdatePaymentScreen } from 'src/screens/order-update-payment/order-update-payment.screen';
 import { MainScreen } from 'src/screens/Pre/MainScreen';
 import { CreateProductScreen } from 'src/screens/product-create/create-product';
 import { ProductScreen } from 'src/screens/product-detail/product.screen';
@@ -46,7 +46,7 @@ export const MainStack: React.FC = () => {
       >
         <Stack.Group>
           <Stack.Screen name={SCREENS.Main} component={MainScreen} />
-          <Stack.Screen name={SCREENS.Home} component={HomeNavigator} />
+          <Stack.Screen name={SCREENS.HOME} component={HomeNavigator} />
           <Stack.Screen name={SCREENS.LikedMe} component={LikedMeScreen} />
           <Stack.Screen name={SCREENS.CREATE_BASIC_PROFILE} component={CreateBasicProfileScreen} />
           <Stack.Screen name={SCREENS.CREATE_BASIC_PHOTOS} component={CreateBasicPhotosScreen} />
@@ -74,6 +74,7 @@ export const MainStack: React.FC = () => {
           <Stack.Screen name={SCREENS.ORDER_CONFIRM} component={OrderConfirmScreen} />
           <Stack.Screen name={SCREENS.ORDER_SETTING} component={OrderSettingScreen} />
           <Stack.Screen name={SCREENS.ORDER} component={OrderScreen} />
+          <Stack.Screen name={SCREENS.ORDER_PAYMENT} component={OrderUpdatePaymentScreen} />
         </Stack.Group>
 
         <Stack.Group
@@ -84,7 +85,6 @@ export const MainStack: React.FC = () => {
           <Stack.Screen name={SCREENS.EditInfoHeight} component={EditInfoHeightScreen} />
           <Stack.Screen name={SCREENS.EditInfoNickname} component={EditInfoNicknameScreen} />
           <Stack.Screen name={SCREENS.EditInfoWeight} component={EditInfoWeightScreen} />
-          <Stack.Screen name={SCREENS.ORDER_PAYMENT} component={OrderPaymentScreen} />
         </Stack.Group>
       </Stack.Navigator>
     </>

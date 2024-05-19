@@ -153,7 +153,7 @@ export const CreateBasicPhotosScreen: React.FC<FCProps> = () => {
     }
     const { data } = await refreshAccessToken({ refreshToken }).unwrap();
     dispatch(appActions.updateAccessToken({ accessToken: data.accessToken }));
-    navigation.dispatch(StackActions.replace(SCREENS.Home, { screen: 'DatingSwipe' }));
+    navigation.dispatch(StackActions.replace(SCREENS.HOME, { screen: 'DatingSwipe' }));
   }, [dispatch, formatMessage, mediaFiles.length, navigation, refreshAccessToken, refreshToken]);
 
   return (

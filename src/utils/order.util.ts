@@ -34,13 +34,13 @@ class OrderUtil extends BaseUtil {
     return order.price || 0;
   }
 
-  getTotalAmount(order: Entity.Order) {
-    return order.totalAmount || order.price;
+  getAmount(order: Entity.Order) {
+    return order.amount || 0;
   }
 
   getTotalPromotional(order: Entity.Order) {
     const price = this.getPrice(order);
-    return order.totalAmount ? _.subtract(price, order.totalAmount) : price;
+    return order.amount ? _.subtract(price, order.amount) : price;
   }
 
   format(payload: Entity.Order): AppStore.Order {

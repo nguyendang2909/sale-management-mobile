@@ -10,28 +10,28 @@ export const ConfirmOrderPrices: FC<{
 }> = ({ pickedSkus }) => {
   const cartItems = useAppSelector(s => s.cart.items);
 
-  const { totalAmount, price, quantity } = useMemo(() => {
+  const { amount, price, quantity } = useMemo(() => {
     return pickedSkus.reduce(
       (result, sku) => {
         const cartItem = cartItems[sku.id];
         if (!cartItem) {
           return {
-            totalAmount: result.totalAmount,
+            amount: result.amount,
             price: result.price,
             quantity: result.quantity,
           };
         }
         return {
-          totalAmount: result.totalAmount + skuUtil.getTotalAmountByCartItem(cartItem, sku),
+          amount: result.amount + skuUtil.getAmountByCartItem(cartItem, sku),
           price: result.price + skuUtil.getPriceByCartItem(cartItem, sku),
           quantity: result.quantity + cartItem.quantity,
         };
       },
-      { totalAmount: 0, price: 0, quantity: 0 },
+      { amount: 0, price: 0, quantity: 0 },
     );
   }, [cartItems, pickedSkus]);
 
-  const diffPrice = useMemo(() => price - totalAmount, [price, totalAmount]);
+  const diffPrice = useMemo(() => price - amount, [price, amount]);
 
   return (
     <>
@@ -41,7 +41,7 @@ export const ConfirmOrderPrices: FC<{
         </View>
         <View>
           <Text color="$textLight900" bold>
-            <Price value={totalAmount} />
+            <Price value={amount} />
           </Text>
         </View>
       </HStack>
@@ -49,7 +49,7 @@ export const ConfirmOrderPrices: FC<{
         <HStack justifyContent="space-between">
           <View>
             <Text>
-              Giảm giá <Price value={price - totalAmount}></Price>
+              Giảm giá <Price value={price - amount}></Price>
             </Text>
           </View>
           <View>

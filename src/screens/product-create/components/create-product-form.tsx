@@ -69,7 +69,7 @@ export const CreateProductForm: FC = () => {
         reset();
         return;
       }
-      navigation.dispatch(StackActions.replace(SCREENS.Home, { screen: HOME_SCREENS.PRODUCTS }));
+      navigation.dispatch(StackActions.replace(SCREENS.HOME, { screen: HOME_SCREENS.PRODUCTS }));
     } catch (error) {
       Toast.show({
         text1: formatErrorMessage(error),

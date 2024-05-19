@@ -14,7 +14,7 @@ export const OrderHeader: FC<{ order: Entity.Order }> = () => {
 
   const onLeftPress = () => {
     dispatch(cartActions.setCartItems({}));
-    goBack(SCREENS.Home, { screen: HOME_SCREENS.ORDERS });
+    goBack(SCREENS.HOME, { screen: HOME_SCREENS.ORDERS });
   };
 
   return (

@@ -2,7 +2,7 @@ import _ from 'lodash';
 import { FC } from 'react';
 import { FormattedNumber } from 'react-intl';
 
-export const Price: FC<{ value?: number }> = ({ value }) => {
+export const Price: FC<{ value?: number | null }> = ({ value }) => {
   if (!_.isNumber(value)) {
     return null;
   }

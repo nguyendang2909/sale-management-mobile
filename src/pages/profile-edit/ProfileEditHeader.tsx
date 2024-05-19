@@ -6,7 +6,7 @@ import { colors } from 'src/theme';
 
 export const ProfileEditPageHeader: React.FC = () => {
   const handleLeftPress = () => {
-    goBack(SCREENS.Home, { screen: 'Profile' });
+    goBack(SCREENS.HOME, { screen: 'Profile' });
   };
   return (
     <>

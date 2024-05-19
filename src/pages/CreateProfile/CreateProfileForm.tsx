@@ -39,7 +39,7 @@ export const CreateProfileForm: FC = () => {
     onSubmit: async values => {
       try {
         await createMe(_.pickBy(values, _.identity)).unwrap();
-        navigation.dispatch(StackActions.replace(SCREENS.Home, { screen: 'DatingSwipe' }));
+        navigation.dispatch(StackActions.replace(SCREENS.HOME, { screen: 'DatingSwipe' }));
       } catch (error) {
         Toast.show({
           text1: formatMessage('Oops, something went wrong. Please try again.'),

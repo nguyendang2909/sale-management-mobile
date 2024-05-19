@@ -1,6 +1,6 @@
 import { Image } from 'react-native-image-crop-picker';
 
-import { OrderStatus, PaymentMethod } from './data.type';
+import { OrderPaymentMethod, OrderStatus } from './data.type';
 import { Entity } from './entities.type';
 import { ApiRequest } from './fe.type';
 
@@ -59,14 +59,23 @@ export declare namespace FormParams {
     skus: Array<Partial<Entity.Sku>>;
   };
 
+  type CreateOrderPaymentDto = {
+    amount: number;
+    method?: OrderPaymentMethod;
+  };
+
   type CreateOrder = {
     status: OrderStatus;
-    paymentMethod: PaymentMethod | null;
     address: string | null;
     deliveryMethod: string | null;
     // items: ProductWithQuantity[];
     customerId: string | null;
     note: string | null;
+  };
+
+  type UpdateOrderPayment = {
+    amount: number | null;
+    paymentMethod: OrderPaymentMethod;
   };
 
   type CreateCategory = {

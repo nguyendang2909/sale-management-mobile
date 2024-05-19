@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-import { ORDER_STATUSES } from './data.constant';
+import { ORDER_PAYMENT_METHODS, ORDER_STATUSES } from './data.constant';
 
 export const SCREENS = {
   EditInfoHeight: 'EditInfoHeight',
@@ -9,7 +9,7 @@ export const SCREENS = {
   DATING_NEARBY_FILTER: 'DATING_NEARBY_FILTER',
   CREATE_BASIC_PROFILE: 'CREATE_BASIC_PROFILE',
   CREATE_BASIC_PHOTOS: 'CREATE_BASIC_PHOTOS',
-  Home: 'Home',
+  HOME: 'HOME',
   LikedMe: 'LikedMe',
   Main: 'Main',
   Messages: 'Messages',
@@ -65,3 +65,5 @@ export const ORDER_TABS = {
   ..._.pick(ORDER_STATUSES, ['UNCONFIRMED', 'PROCESSING', 'DELIVERED', 'RETURNED', 'CANCELLED']),
   ALL: 'all',
 } as const;
+
+export const ORDER_PAYMENT_METHOD_ARR = Object.values(ORDER_PAYMENT_METHODS);

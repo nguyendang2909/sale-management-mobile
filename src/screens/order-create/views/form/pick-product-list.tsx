@@ -32,7 +32,7 @@ export const PickProducts: FC<{ values: FormParams.CreateOrder }> = ({ values })
 
   const skusObj = useMemo(() => skuUtil.getObjFromProducts(products), [products]);
 
-  const { skuTotal, skuTotalAmount } = useMemo(
+  const { skuTotal, skuAmount } = useMemo(
     () => skuUtil.getTotalAndAmountByCartItems(cartItems, skusObj),
     [cartItems, skusObj],
   );
@@ -102,7 +102,7 @@ export const PickProducts: FC<{ values: FormParams.CreateOrder }> = ({ values })
                 </View>
                 <View flex={1}>
                   <ButtonText>
-                    <Price value={skuTotalAmount} />
+                    <Price value={skuAmount} />
                   </ButtonText>
                 </View>
                 <View>

@@ -165,7 +165,7 @@ export declare namespace Entity {
       statusUpdatedAt: Date;
       paymentMethod?: PaymentMethod;
       price: number;
-      totalAmount: number;
+      amount: number;
       promotionalPrice?: number;
       deliveryMethod?: string;
       deliveryAddress?: string;

@@ -40,7 +40,7 @@ export const DatingNearbyFilterScreen: React.FC<
     enableReinitialize: true,
     onSubmit: async values => {
       handleUpdateMyProfileFilter(values);
-      goBack(SCREENS.Home, {
+      goBack(SCREENS.HOME, {
         screen: 'DatingNearby',
       });
     },

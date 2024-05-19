@@ -49,7 +49,7 @@ export const DeleteProductButton: FC<FCProps> = ({ product, setLoading, isLoadin
       onCloseDeleteModal();
       await deleteProductMutation(product.id).unwrap();
       dispatch(productActions.deleteProductById(product.id));
-      navigation.navigate(SCREENS.Home, { screen: HOME_SCREENS.PRODUCTS });
+      navigation.navigate(SCREENS.HOME, { screen: HOME_SCREENS.PRODUCTS });
     } catch (err) {
       Toast.show({
         text1: 'Xoá sản phẩm thất bại. Xin vui lòng thử lại.',
