@@ -8,7 +8,6 @@ import { PickPaymentMethodList } from './pick-payment-method-list';
 export const ControlPickPaymentMethod: FC<
   ViewProps & {
     control: Control<FormParams.UpdateOrderPayment, any>;
-    amount: number;
   }
 > = ({ control, ...viewProps }) => {
   return (
