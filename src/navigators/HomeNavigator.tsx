@@ -1,16 +1,34 @@
 import { Icon } from '@gluestack-ui/themed';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { User } from 'lucide-react-native';
 import React, { FC } from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { APP_CONFIG } from 'src/config/config.app';
 import { NAVIGATOR_DATA } from 'src/constants';
 import { BOTTOM_NAVIGATOR_NAMES } from 'src/constants/constants';
 import { useMessages } from 'src/hooks';
+import { ProfileScreen } from 'src/screens/profile/profile.screen';
 import { backgroundColor, borderTopColor } from 'src/styles';
 import { colors } from 'src/theme';
-import { AppStackScreenProps, HomeTabParamList } from 'src/types';
+import { AppStackScreenProps } from 'src/types';
 
-type FCProps = AppStackScreenProps<'Home'>;
+type FCProps = AppStackScreenProps<'HOME'>;
+
+export type HomeTabParamList = {
+  MANAGEMENT: undefined;
+  ORDERS: undefined;
+  REPORTS: undefined;
+  TABLES: undefined;
+  SELL: undefined;
+  DEBT_BOOK: undefined;
+  RECEIPT_AND_EXPENSE: undefined;
+  // ONLINE_STORE: undefined,
+  CUSTOMERS: undefined;
+  WAREHOUSE: undefined;
+  MESSAGES: undefined;
+  PRODUCTS: undefined;
+  PROFILE: undefined;
+};
 
 const Tab = createBottomTabNavigator<HomeTabParamList>();
 
@@ -70,13 +88,33 @@ export const HomeNavigator: FC<FCProps> = () => {
                     as={ItemIcon}
                     width={20}
                     height={20}
-                    fill={focused ? '$blue700' : '$coolGray500'}
+                    color="$blue700"
+                    // fill={focused ? '$blue700' : '$white'}
                   />
                 ),
               }}
             ></Tab.Screen>
           );
         })}
+
+        <Tab.Screen
+          name="PROFILE"
+          component={ProfileScreen}
+          options={{
+            // tabBarShowLabel: false,
+            tabBarLabel: formatMessage('Profile'),
+            tabBarIcon: ({ focused }) => (
+              <>
+                <Icon
+                  as={User}
+                  width={40}
+                  height={40}
+                  fill={focused ? '$blue700' : '$coolGray500'}
+                />
+              </>
+            ),
+          }}
+        />
 
         {/* <Tab.Screen
           name="DatingNearby"
@@ -157,8 +195,9 @@ export const HomeNavigator: FC<FCProps> = () => {
               />
             ),
           }}
-        />
-        <Tab.Screen
+        /> */}
+
+        {/* <Tab.Screen
           name="Profile"
           component={ProfileScreen}
           options={{

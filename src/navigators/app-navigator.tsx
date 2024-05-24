@@ -5,7 +5,8 @@ import { AuthStack } from './AuthStack';
 import { MainStack } from './main-stack';
 
 export const AppNavigator: React.FC = () => {
-  const isAuthenticated = useAppSelector(state => state.app.accessToken);
+  const accessToken = useAppSelector(state => state.app.accessToken);
+  console.log(222, accessToken);
 
-  return <>{isAuthenticated ? <MainStack /> : <AuthStack />}</>;
+  return <>{accessToken ? <MainStack /> : <AuthStack />}</>;
 };

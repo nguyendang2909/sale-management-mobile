@@ -1,11 +1,11 @@
 import { View } from '@gluestack-ui/themed';
 import React, { FC } from 'react';
 import { ImageBackground } from 'react-native';
+import { AppStackScreenProps } from 'src/navigators/main-stack';
 import { SignInButtons } from 'src/pages/sign-in/sign-in-buttons';
 import { backgroundColor, heightFull, posititionAbsolute, widthFull, zIndex } from 'src/styles';
-import { AppStackScreenProps } from 'src/types';
 
-type FCProps = AppStackScreenProps<'SignIn'>;
+type FCProps = AppStackScreenProps<'SIGN_IN'>;
 
 export const SignInScreen: FC<FCProps> = () => {
   return (

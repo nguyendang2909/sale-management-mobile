@@ -1,9 +1,10 @@
 import { FC } from 'react';
+import { HomeTabParamList } from 'src/navigators/HomeNavigator';
 import { CustomersScreen } from 'src/screens/customers/customers.screen';
 import { Management } from 'src/screens/management/management';
 import { OrdersScreen } from 'src/screens/orders/orders.screen';
 import { ProductsScreen } from 'src/screens/products/products.screen';
-import { BottomNavigatorName, HomeTabParamList } from 'src/types';
+import { BottomNavigatorName } from 'src/types';
 
 import { BOTTOM_NAVIGATOR_NAMES, PRODUCT_SORT_TYPES } from './constants';
 import { NAVIGATION_ICONS } from './icons.constant';
@@ -90,7 +91,7 @@ export const NAVIGATOR_DATA: Record<
     name: BOTTOM_NAVIGATOR_NAMES.CUSTOMERS,
     title: 'Khách hàng',
     screen: CustomersScreen,
-    icon: NAVIGATION_ICONS.ORDER,
+    icon: NAVIGATION_ICONS.CUSTOMER,
     isShow: false,
   },
   WAREHOUSE: {

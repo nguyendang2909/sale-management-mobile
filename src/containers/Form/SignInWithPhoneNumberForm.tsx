@@ -1,17 +1,28 @@
-import { View } from '@gluestack-ui/themed';
+import {
+  Button,
+  ButtonText,
+  FormControl,
+  FormControlError,
+  FormControlErrorIcon,
+  FormControlErrorText,
+  FormControlLabel,
+  FormControlLabelText,
+  Input,
+  InputField,
+  View,
+} from '@gluestack-ui/themed';
 import auth from '@react-native-firebase/auth';
 import { useNavigation } from '@react-navigation/native';
 import { useFormik } from 'formik';
 import { isValidPhoneNumber } from 'libphonenumber-js/max';
 import _ from 'lodash';
-import { FormControl, Input, WarningOutlineIcon } from 'native-base';
+// import { FormControl, Input, WarningOutlineIcon } from 'native-base';
 import React, { FC, useState } from 'react';
-import { LoadingButton } from 'src/components/button';
+import { LoadingOverlay, MaterialIcons } from 'src/components';
 import { SCREENS } from 'src/constants';
 import { useAppDispatch, useMessages } from 'src/hooks';
-import { messages } from 'src/locales/messages';
-import { flexGrow, marginBottom, marginTop, widthFull } from 'src/styles';
-import { spacing } from 'src/theme';
+import messages from 'src/locales/messages';
+import { widthFull } from 'src/styles';
 import { FormParams, TxKey } from 'src/types';
 
 export const SignInWithPhoneNumberForm: FC = () => {
@@ -45,9 +56,8 @@ export const SignInWithPhoneNumberForm: FC = () => {
           setErrorCode('Please enter a valid phone number!');
           return;
         }
-
         const confirmation = await auth().signInWithPhoneNumber(fullPhoneNumber);
-        navigate(SCREENS.SignInWithOtpPhoneNumber, {
+        navigate(SCREENS.SIGN_IN_WITH_OTP_PHONE_NUMBER, {
           otpConfirm: confirmation,
           user: { phoneNumber: fullPhoneNumber },
         });
@@ -68,40 +78,43 @@ export const SignInWithPhoneNumberForm: FC = () => {
 
   return (
     <>
+      <LoadingOverlay isLoading={formik.isSubmitting}></LoadingOverlay>
       <View>
-        <View style={marginBottom(spacing.lg)}>
+        <View mb={24}>
           <View style={widthFull}>
             <FormControl style={widthFull} isInvalid={!!errorCode} isRequired>
-              <FormControl.Label>Số điện thoại</FormControl.Label>
-              <View style={flexGrow}>
-                <Input
-                  height={12}
-                  size="xl"
-                  testID="phoneNumber"
-                  variant="underlined"
+              <FormControlLabel>
+                <FormControlLabelText>Số điện thoại</FormControlLabelText>
+              </FormControlLabel>
+              <Input variant="underlined">
+                <InputField
+                  inputMode="numeric"
+                  // value={value || ''}
                   onChangeText={onChangeText}
                   placeholder="Ví dụ: 0971231234"
-                  onBlur={formik.handleBlur('phoneNumber')}
-                  autoFocus
-                ></Input>
-              </View>
-
+                  maxLength={20}
+                  // onBlur={onBlur}
+                ></InputField>
+              </Input>
               <View>
-                <FormControl.ErrorMessage
-                  position="absolute"
-                  leftIcon={<WarningOutlineIcon size="xs" />}
-                >
-                  {!!errorCode && messages[errorCode] && formatMessage(errorCode)}
-                </FormControl.ErrorMessage>
+                <FormControlError position="absolute">
+                  <FormControlErrorIcon
+                    as={MaterialIcons}
+                    // @ts-ignore
+                    name="error-outline"
+                  ></FormControlErrorIcon>
+                  <FormControlErrorText>
+                    {!!errorCode && messages[errorCode] && formatMessage(errorCode)}
+                  </FormControlErrorText>
+                </FormControlError>
               </View>
             </FormControl>
           </View>
         </View>
-
-        <View style={marginTop(spacing.lg)}>
-          <LoadingButton onPress={handlePressSubmit} isLoading={formik.isSubmitting}>
-            Tiếp tục
-          </LoadingButton>
+        <View mt={48}>
+          <Button onPress={handlePressSubmit}>
+            <ButtonText>Tiếp tục</ButtonText>
+          </Button>
         </View>
       </View>
     </>

@@ -18,7 +18,7 @@ export const SignInWithPhoneNumberButton: FC<FCProps> = ({ setLoading }) => {
   const handlePress = () => {
     try {
       setLoading(true);
-      navigate(SCREENS.SignInWithPhoneNumber);
+      navigate(SCREENS.SIGN_IN_WITH_PHONE_NUMBER);
     } catch (err) {
       Toast.show({ text1: formatMessage('Oops, something went wrong. Please try again.') });
     } finally {

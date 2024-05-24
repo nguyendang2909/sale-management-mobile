@@ -1,9 +1,8 @@
-import OrderIcon from '../assests/icons/order.icon.svg';
-import ProductIcon from '../assests/icons/product.icon.svg';
-import WareHouseIcon from '../assests/icons/warehouse.icon.svg';
+import { Package, ShoppingBag, Users, Warehouse } from 'lucide-react-native';
 
 export const NAVIGATION_ICONS = {
-  ORDER: OrderIcon,
-  PRODUCT: ProductIcon,
-  WARE_HOUSE: WareHouseIcon,
+  ORDER: ShoppingBag,
+  PRODUCT: Package,
+  WARE_HOUSE: Warehouse,
+  CUSTOMER: Users,
 } as const;

@@ -11,7 +11,7 @@ export const ProfileSettingHeader: React.FC = () => {
   return (
     <>
       <Header
-        leftIcon="caretLeft"
+        // leftIcon="caretLeft"
         onLeftPress={handleLeftPress}
         titleTx="Settings"
         backgroundColor="$backgroundLight100"

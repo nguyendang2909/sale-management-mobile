@@ -12,7 +12,6 @@ import {
   InputSlot,
   View,
 } from '@gluestack-ui/themed';
-import { Stack } from 'native-base';
 import React, { useCallback } from 'react';
 import { InputModeOptions } from 'react-native';
 
@@ -50,35 +49,33 @@ export const FormControlInput: React.FC<FCProps> = ({
   }, [onChange]);
   return (
     <FormControl {...(isRequired ? { isRequired } : {})} isInvalid={!!error}>
-      <Stack>
-        <FormControlLabel>
-          <FormControlLabelText>{label}</FormControlLabelText>
-        </FormControlLabel>
-        <Input testID={testID} variant="underlined">
-          <InputField
-            focusable={focusable}
-            inputMode={inputMode}
-            value={value || ''}
-            onChangeText={onChange}
-            placeholder={placeholder}
-            maxLength={maxLength}
-            onBlur={onBlur}
-          ></InputField>
-          {!!value && (
-            <InputSlot onPress={handleClear}>
-              <InputIcon as={CloseCircleIcon}></InputIcon>
-            </InputSlot>
-          )}
-        </Input>
-        <View pb={12}>
-          <FormControlError position="absolute">
-            {/* 
+      <FormControlLabel>
+        <FormControlLabelText>{label}</FormControlLabelText>
+      </FormControlLabel>
+      <Input testID={testID} variant="underlined">
+        <InputField
+          focusable={focusable}
+          inputMode={inputMode}
+          value={value || ''}
+          onChangeText={onChange}
+          placeholder={placeholder}
+          maxLength={maxLength}
+          onBlur={onBlur}
+        ></InputField>
+        {!!value && (
+          <InputSlot onPress={handleClear}>
+            <InputIcon as={CloseCircleIcon}></InputIcon>
+          </InputSlot>
+        )}
+      </Input>
+      <View pb={12}>
+        <FormControlError position="absolute">
+          {/* 
             // @ts-ignore */}
-            <FormControlErrorIcon as={MaterialIcons} name="error-outline"></FormControlErrorIcon>
-            <FormControlErrorText>{error}</FormControlErrorText>
-          </FormControlError>
-        </View>
-      </Stack>
+          <FormControlErrorIcon as={MaterialIcons} name="error-outline"></FormControlErrorIcon>
+          <FormControlErrorText>{error}</FormControlErrorText>
+        </FormControlError>
+      </View>
     </FormControl>
   );
 };

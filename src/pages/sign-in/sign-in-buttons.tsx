@@ -1,7 +1,7 @@
 import { View, VStack } from '@gluestack-ui/themed';
 import { useState } from 'react';
 import { Platform } from 'react-native';
-import { LoadingLayout } from 'src/components';
+import { LoadingOverlay } from 'src/components';
 import { SignInWithPhoneNumberButton } from 'src/pages/sign-in/sign-in-with-phone-number/sign-in-with-phone-number-button';
 
 import { SignInWithAppleButton } from './sign-in-with-apple/sign-in-with-apple-button';
@@ -12,7 +12,7 @@ export const SignInButtons = () => {
 
   return (
     <>
-      <LoadingLayout isLoading={isLoading} />
+      <LoadingOverlay isLoading={isLoading} />
 
       <View px={16}>
         <VStack rowGap={16}>

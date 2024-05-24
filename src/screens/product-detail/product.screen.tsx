@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { AppStackScreenProps } from 'src/types';
+import { AppStackScreenProps } from 'src/navigators/main-stack';
 
 import { ProductContent } from './components/product-content';
 import { ProductDetailHeader } from './components/product-detail-header';

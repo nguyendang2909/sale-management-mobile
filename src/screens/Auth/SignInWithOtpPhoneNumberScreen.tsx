@@ -4,13 +4,14 @@ import { Box, FormControl, Heading, HStack, Text, WarningOutlineIcon } from 'nat
 import React, { FC, useEffect, useState } from 'react';
 import { Keyboard, Pressable } from 'react-native';
 import { useSignInMutation } from 'src/api';
-import { LoadingLayout } from 'src/components';
+import { LoadingOverlay } from 'src/components';
 import { LoadingButton } from 'src/components/button';
 import { AnimatedOtpInput } from 'src/components/input/animated-otp-input';
 import { AUTH_GRANT_TYPES, SCREENS } from 'src/constants';
 import { BackIconButton } from 'src/containers/IconButton/BackIconButton';
 import { useAppDispatch, useMessages } from 'src/hooks';
 import { goBack } from 'src/navigations/navigation-ref';
+import { AppStackScreenProps } from 'src/navigators/main-stack';
 import { appActions } from 'src/store/app/app.store';
 import {
   flexGrow,
@@ -20,10 +21,9 @@ import {
   posititionAbsolute,
 } from 'src/styles';
 import { spacing } from 'src/theme';
-import { AppStackScreenProps } from 'src/types';
 import { ValueOf } from 'src/types/common.type';
 
-type FCProps = AppStackScreenProps<'SignInWithOtpPhoneNumber'>;
+type FCProps = AppStackScreenProps<'SIGN_IN_WITH_OTP_PHONE_NUMBER'>;
 
 const ResendStatusObj = {
   resent: 'sent',
@@ -51,7 +51,7 @@ export const SignInWithOtpPhoneNumberScreen: FC<FCProps> = props => {
   const signUp = async (e: string) => {
     setIsSubmitting(true);
     if (!otpConfirmation) {
-      goBack(SCREENS.SignInWithPhoneNumber);
+      goBack(SCREENS.SIGN_IN_WITH_PHONE_NUMBER);
       return;
     }
     try {
@@ -83,13 +83,13 @@ export const SignInWithOtpPhoneNumberScreen: FC<FCProps> = props => {
 
   useEffect(() => {
     if (!otpConfirmation) {
-      goBack(SCREENS.SignInWithPhoneNumber);
+      goBack(SCREENS.SIGN_IN_WITH_PHONE_NUMBER);
     }
   }, [otpConfirmation]);
 
   const handleResendingOtpCode = async () => {
     if (!user || !user?.phoneNumber) {
-      goBack(SCREENS.SignInWithPhoneNumber);
+      goBack(SCREENS.SIGN_IN_WITH_PHONE_NUMBER);
       return;
     }
     try {
@@ -105,12 +105,12 @@ export const SignInWithOtpPhoneNumberScreen: FC<FCProps> = props => {
 
   return (
     <View flex={1}>
-      <LoadingLayout isLoading={isSubmiting} />
+      <LoadingOverlay isLoading={isSubmiting} />
       <Box flex={1} safeAreaY>
         <Pressable style={flexGrow} onPress={Keyboard.dismiss}>
           <View style={[paddingHorizontal(spacing.lg), paddingVertical(spacing.lg)]}>
             <View>
-              <BackIconButton />
+              <BackIconButton prevScreen={SCREENS.SIGN_IN_WITH_PHONE_NUMBER} />
             </View>
             <View>
               <Heading size="2xl">{formatMessage('Enter your code')}</Heading>
