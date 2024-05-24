@@ -16,7 +16,6 @@ import { useNavigation } from '@react-navigation/native';
 import { useFormik } from 'formik';
 import { isValidPhoneNumber } from 'libphonenumber-js/max';
 import _ from 'lodash';
-// import { FormControl, Input, WarningOutlineIcon } from 'native-base';
 import React, { FC, useState } from 'react';
 import { LoadingOverlay, MaterialIcons } from 'src/components';
 import { SCREENS } from 'src/constants';

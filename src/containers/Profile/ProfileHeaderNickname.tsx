@@ -1,4 +1,4 @@
-import { Text } from 'native-base';
+import { Text } from '@gluestack-ui/themed';
 import React from 'react';
 import { useAppSelector } from 'src/hooks';
 

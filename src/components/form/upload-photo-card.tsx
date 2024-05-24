@@ -1,4 +1,4 @@
-import { Icon, Image, View } from 'native-base';
+import { Icon, Image, View } from '@gluestack-ui/themed';
 import React from 'react';
 import { TouchableHighlight } from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -40,7 +40,12 @@ export const UploadPhotoCard: React.FC<FCProps> = ({ onPress, value }) => {
         </>
       ) : (
         <View style={[flex(1), justifyContentCenter, alignItemsCenter]}>
-          <Icon size={10} as={<MaterialIcons name="add-to-photos" />} />
+          <Icon
+            size={10}
+            as={MaterialIcons}
+            // @ts-ignore
+            name="add-to-photos"
+          />
         </View>
       )}
     </TouchableHighlight>

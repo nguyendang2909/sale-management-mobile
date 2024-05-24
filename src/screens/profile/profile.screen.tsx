@@ -1,4 +1,4 @@
-import { Box, HStack, View, VStack } from 'native-base';
+import { Box, HStack, View, VStack } from '@gluestack-ui/themed';
 import React, { FC } from 'react';
 import { Header } from 'src/components';
 import { ProfileSettingIconButton } from 'src/containers/IconButton/ProfileSettingIconButton';
@@ -10,7 +10,7 @@ export const ProfileScreen: FC = () => {
     <>
       <Header
         RightActionComponent={
-          <View mr={4}>
+          <View mr={16}>
             <ProfileSettingIconButton />
           </View>
         }

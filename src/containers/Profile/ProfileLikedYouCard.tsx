@@ -1,5 +1,6 @@
+import { Text } from '@gluestack-ui/themed';
+import { Center, Icon, Pressable, View, VStack } from '@gluestack-ui/themed';
 import { useNavigation } from '@react-navigation/native';
-import { Center, Icon, Pressable, Text, View, VStack } from 'native-base';
 import React from 'react';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { useMessages } from 'src/hooks';
@@ -14,29 +15,30 @@ export const ProfileLikedYouCard: React.FC = () => {
 
   return (
     <>
-      <Pressable onPress={onPress}>
-        {({ isPressed }) => {
-          return (
-            <View
-              borderWidth="1"
-              borderRadius="2xl"
-              borderColor="coolGray.200"
-              py="4"
-              bg={isPressed ? 'coolGray.200' : undefined}
-            >
-              <VStack space="1">
-                <Center>
-                  <View>
-                    <Icon size={10} color="#DE685A" as={<FontAwesome name="heart" />} />
-                  </View>
-                </Center>
-                <Center>
-                  <Text>{formatMessage('Liked you')}</Text>
-                </Center>
-              </VStack>
+      <Pressable
+        onPress={onPress}
+        $hover-bg="$coolGray200"
+        borderWidth={1}
+        borderRadius={8}
+        borderColor="$$coolGray200"
+        py={16}
+      >
+        <VStack rowGap={4} columnGap={4}>
+          <Center>
+            <View>
+              <Icon
+                size={10}
+                color="#DE685A"
+                as={FontAwesome}
+                // @ts-ignore
+                name="heart"
+              />
             </View>
-          );
-        }}
+          </Center>
+          <Center>
+            <Text>{formatMessage('Liked you')}</Text>
+          </Center>
+        </VStack>
       </Pressable>
     </>
   );

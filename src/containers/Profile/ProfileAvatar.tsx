@@ -1,4 +1,4 @@
-import { Avatar } from 'native-base';
+import { Avatar } from '@gluestack-ui/themed';
 import React from 'react';
 import { useAppSelector } from 'src/hooks';
 import { mediaFileUtil } from 'src/utils/media-files.util';

@@ -3,6 +3,7 @@ import {
   Button,
   ButtonIcon,
   ButtonText,
+  FormControl,
   FormControlLabel,
   FormControlLabelText,
   Icon,
@@ -10,7 +11,6 @@ import {
   View,
 } from '@gluestack-ui/themed';
 import { Menu } from 'lucide-react-native';
-import { FormControl } from 'native-base';
 import { FC, useCallback, useState } from 'react';
 import { TouchableOpacity } from 'react-native';
 import { FontAwesome } from 'src/components';

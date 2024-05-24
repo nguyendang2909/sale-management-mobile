@@ -1,7 +1,7 @@
+import { Button } from '@gluestack-ui/themed';
 import { useNavigation } from '@react-navigation/native';
-import { useMessages } from 'src/hooks/useMessages';
-import { Button } from 'native-base';
 import React from 'react';
+import { useMessages } from 'src/hooks/useMessages';
 
 import { Header, HeaderProps } from './header';
 
@@ -17,10 +17,9 @@ export const HeaderSave: React.FC<FCProps> = ({ onSave, isLoading, ...props }) =
 
   return (
     <Header
-      leftIcon="caretLeft"
       onLeftPress={goBack}
       RightActionComponent={
-        <Button variant="unstyled" onPress={onSave} isLoading={isLoading}>
+        <Button variant="link" onPress={onSave} disabled={isLoading}>
           {formatMessage('Save')}
         </Button>
       }

@@ -36,6 +36,13 @@ export const OrderContent: FC<ViewProps & { order: Entity.Order; isFetchingOrder
 
       {_.includes(ORDER_UNDELIVERED_STATUS_ARR, order.status) && (
         <UndeliveredOrderNav
+          shadowOffset={{
+            width: 0,
+            height: 1,
+          }}
+          shadowOpacity={0.25}
+          shadowRadius={3}
+          elevation={0}
           px={16}
           pt={16}
           bgColor="white"

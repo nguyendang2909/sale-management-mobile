@@ -1,6 +1,15 @@
-import { View } from '@gluestack-ui/themed';
+import {
+  Box,
+  FormControl,
+  FormControlError,
+  FormControlErrorIcon,
+  Heading,
+  HStack,
+  Text,
+  View,
+} from '@gluestack-ui/themed';
 import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
-import { Box, FormControl, Heading, HStack, Text, WarningOutlineIcon } from 'native-base';
+import { CircleAlert } from 'lucide-react-native';
 import React, { FC, useEffect, useState } from 'react';
 import { Keyboard, Pressable } from 'react-native';
 import { useSignInMutation } from 'src/api';
@@ -13,13 +22,7 @@ import { useAppDispatch, useMessages } from 'src/hooks';
 import { goBack } from 'src/navigations/navigation-ref';
 import { AppStackScreenProps } from 'src/navigators/main-stack';
 import { appActions } from 'src/store/app/app.store';
-import {
-  flexGrow,
-  marginTop,
-  paddingHorizontal,
-  paddingVertical,
-  posititionAbsolute,
-} from 'src/styles';
+import { flexGrow, marginTop, paddingHorizontal, paddingVertical } from 'src/styles';
 import { spacing } from 'src/theme';
 import { ValueOf } from 'src/types/common.type';
 
@@ -64,6 +67,7 @@ export const SignInWithOtpPhoneNumberScreen: FC<FCProps> = props => {
         token: idToken,
         grantType: AUTH_GRANT_TYPES.PHONE_TOKEN,
       }).unwrap();
+      console.log(111, signInResponse);
       dispatch(appActions.updateAccessToken(signInResponse.data));
     } catch (err) {
       setError(true);
@@ -106,7 +110,7 @@ export const SignInWithOtpPhoneNumberScreen: FC<FCProps> = props => {
   return (
     <View flex={1}>
       <LoadingOverlay isLoading={isSubmiting} />
-      <Box flex={1} safeAreaY>
+      <Box flex={1}>
         <Pressable style={flexGrow} onPress={Keyboard.dismiss}>
           <View style={[paddingHorizontal(spacing.lg), paddingVertical(spacing.lg)]}>
             <View>
@@ -117,7 +121,7 @@ export const SignInWithOtpPhoneNumberScreen: FC<FCProps> = props => {
             </View>
             <View style={marginTop(spacing.md)}>
               <HStack>
-                <Text fontWeight={600} fontSize={18}>
+                <Text bold fontSize={18}>
                   {user?.phoneNumber}
                 </Text>
               </HStack>
@@ -125,7 +129,7 @@ export const SignInWithOtpPhoneNumberScreen: FC<FCProps> = props => {
           </View>
 
           <View style={[flexGrow, marginTop(spacing.lg)]}>
-            <HStack space="2" style={paddingVertical(spacing.lg)}>
+            <HStack rowGap={8} columnGap={8} pt={24}>
               <FormControl isInvalid={isError}>
                 <AnimatedOtpInput
                   otpCount={OTP_MAX_LENGTH}
@@ -133,13 +137,10 @@ export const SignInWithOtpPhoneNumberScreen: FC<FCProps> = props => {
                   onCodeChanged={handleChangeOtp}
                 />
                 <View mx={16}>
-                  <FormControl.ErrorMessage
-                    textAlign="center"
-                    style={posititionAbsolute}
-                    leftIcon={<WarningOutlineIcon size="xs" />}
-                  >
+                  <FormControlError position="absolute">
+                    <FormControlErrorIcon as={CircleAlert}></FormControlErrorIcon>
                     {isError && formatMessage('Wrong verification code, try again!')}
-                  </FormControl.ErrorMessage>
+                  </FormControlError>
                 </View>
               </FormControl>
             </HStack>

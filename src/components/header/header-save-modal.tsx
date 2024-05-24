@@ -1,5 +1,5 @@
+import { Button } from '@gluestack-ui/themed';
 import { useNavigation } from '@react-navigation/native';
-import { Button } from 'native-base';
 import React from 'react';
 import { useIntl } from 'react-intl';
 import { messages } from 'src/locales/messages';
@@ -21,7 +21,7 @@ export const HeaderSaveModal: React.FC<FCProps> = ({ onSave, isLoading, ...props
       leftTx="Cancel"
       onLeftPress={goBack}
       RightActionComponent={
-        <Button variant="unstyled" onPress={onSave} isLoading={isLoading}>
+        <Button variant="link" onPress={onSave} disabled={isLoading}>
           {t.formatMessage(messages.Save)}
         </Button>
       }

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { PermissionStatus, RESULTS } from 'react-native-permissions';
-import { RequireEnalbeLocationSharing } from 'src/containers/DatingSwipe/RequireEnableLocationSharing';
+import { PermissionStatus } from 'react-native-permissions';
+// import { RequireEnalbeLocationSharing } from 'src/containers/DatingSwipe/RequireEnableLocationSharing';
 import { useAppSelector } from 'src/hooks';
 import { locationPermissionsService } from 'src/services/location-permissions.service';
 
@@ -33,14 +33,14 @@ export const DatingNearbyWrapper: React.FC = () => {
       );
     }
 
-    if (
-      [RESULTS.BLOCKED, RESULTS.DENIED, RESULTS.UNAVAILABLE, RESULTS.LIMITED].includes(
-        permission,
-      ) ||
-      geolocation
-    ) {
-      return <RequireEnalbeLocationSharing onChange={setPermission} />;
-    }
+    // if (
+    //   [RESULTS.BLOCKED, RESULTS.DENIED, RESULTS.UNAVAILABLE, RESULTS.LIMITED].includes(
+    //     permission,
+    //   ) ||
+    //   geolocation
+    // ) {
+    //   return <RequireEnalbeLocationSharing onChange={setPermission} />;
+    // }
   }
 
   return <></>;

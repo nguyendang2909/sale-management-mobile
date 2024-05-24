@@ -1,5 +1,4 @@
-import { Box, FlatList, ScrollView, View } from '@gluestack-ui/themed';
-import { Spinner } from 'native-base';
+import { Box, FlatList, ScrollView, Spinner, View } from '@gluestack-ui/themed';
 import React, { useCallback, useState } from 'react';
 import { Modal, NativeScrollEvent, NativeSyntheticEvent, RefreshControl } from 'react-native';
 import { LoadingContent, ViewSafeArea } from 'src/components';

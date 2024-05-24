@@ -1,4 +1,4 @@
-import { ChevronRightIcon, HStack, Icon, Pressable, Text, View } from 'native-base';
+import { ChevronRightIcon, HStack, Icon, Pressable, Text, View } from '@gluestack-ui/themed';
 import React from 'react';
 import { useMessages } from 'src/hooks';
 import { TxKey } from 'src/types';
@@ -34,7 +34,7 @@ export const MenuItem: React.FC<FCProps> = ({
     >
       {({ isPressed }) => {
         return (
-          <View px={4} py={4} bg={isPressed ? 'coolGray.200' : undefined}>
+          <View px={16} py={16} bg={isPressed ? 'coolGray.200' : undefined}>
             <HStack alignItems="center">
               {!!leftIcon && (
                 <View mr={2}>

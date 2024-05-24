@@ -11,9 +11,9 @@ import {
   InputIcon,
   InputSlot,
   View,
+  VStack,
 } from '@gluestack-ui/themed';
 import _ from 'lodash';
-import { Stack } from 'native-base';
 import React, { useCallback } from 'react';
 import { InputModeOptions } from 'react-native';
 import { useMessages } from 'src/hooks';
@@ -78,7 +78,7 @@ export const PriceInput: React.FC<FCProps> = ({
 
   return (
     <FormControl {...(isRequired ? { isRequired } : {})} isInvalid={!!error}>
-      <Stack>
+      <VStack>
         <FormControlLabel>
           <FormControlLabelText>{label}</FormControlLabelText>
         </FormControlLabel>
@@ -106,7 +106,7 @@ export const PriceInput: React.FC<FCProps> = ({
             <FormControlErrorText>{error}</FormControlErrorText>
           </FormControlError>
         </View>
-      </Stack>
+      </VStack>
     </FormControl>
   );
 };

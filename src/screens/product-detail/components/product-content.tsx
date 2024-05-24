@@ -123,12 +123,7 @@ export const ProductContent: FC<FCProps> = ({ detail }) => {
   return (
     <View flex={1}>
       <LoadingOverlay isLoading={isLoading || isLoadingProduct} />
-      <View
-        as={SafeAreaView}
-        // @ts-ignore
-        edges={['bottom']}
-        flex={1}
-      >
+      <View flex={1}>
         <View flex={1}>
           <View flex={1}>
             <View flex={1}>
@@ -165,10 +160,23 @@ export const ProductContent: FC<FCProps> = ({ detail }) => {
                 </ScrollView>
 
                 <ProductDetailFooter
+                  as={SafeAreaView}
+                  // @ts-ignore
+                  edges={['bottom']}
+                  bgColor="$white"
                   onUpdate={handleSubmit(onSubmit)}
                   product={product}
                   setLoading={setLoading}
                   isLoading={isSubmitting}
+                  px={16}
+                  pt={16}
+                  shadowOffset={{
+                    width: 0,
+                    height: 1,
+                  }}
+                  shadowOpacity={0.25}
+                  shadowRadius={3}
+                  elevation={0}
                 />
               </View>
             </View>

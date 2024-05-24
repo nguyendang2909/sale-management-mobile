@@ -86,6 +86,12 @@ export function Header(props: HeaderProps) {
       w="$full"
       {...(backgroundColor ? { backgroundColor } : {})}
       style={[$containerInsets, $containerStyleOverride]}
+      shadowOffset={{
+        width: 0,
+        height: 1,
+      }}
+      shadowOpacity={0.25}
+      shadowRadius={3}
     >
       <View
         height={APP_CONFIG.SIZE.TOP_BAR.HEIGHT}
