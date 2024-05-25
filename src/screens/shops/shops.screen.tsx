@@ -7,16 +7,23 @@ import { useShops } from 'src/hooks';
 export const ShopsScreen: React.FC = () => {
   const navigation = useNavigation();
 
-  const { data: shopData } = useShops();
+  const { data: shopData, isFetching } = useShops();
 
   useEffect(() => {
-    if (!shopData.length) {
-      navigation.dispatch(StackActions.replace(SCREENS.CREATE_BASIC_PROFILE));
+    if (!isFetching) {
+      setTimeout(() => {
+        if (!shopData.length) {
+          navigation.dispatch(StackActions.replace(SCREENS.CREATE_BASIC_PROFILE));
+          return;
+        }
+        if (shopData.length === 1) {
+          navigation.dispatch(
+            StackActions.replace(SCREENS.HOME, { screen: HOME_SCREENS.PRODUCTS }),
+          );
+        }
+      }, 100);
     }
-    if (shopData.length) {
-      navigation.dispatch(StackActions.replace(SCREENS.HOME, { screen: HOME_SCREENS.PRODUCTS }));
-    }
-  }, [navigation, shopData.length]);
+  }, [isFetching, navigation, shopData, shopData.length]);
 
-  return <LoadingOverlay />;
+  return <LoadingOverlay isLoading={isFetching} />;
 };

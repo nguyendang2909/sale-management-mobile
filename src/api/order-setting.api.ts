@@ -27,5 +27,6 @@ const orderApi = api.injectEndpoints({
 export const {
   endpoints: orderSettingEndpoints,
   useFetchOrderSettingsQuery,
+  useLazyFetchOrderSettingsQuery,
   useUpdateOrderSettingsMutation,
 } = orderApi;

@@ -65,8 +65,8 @@ export declare namespace ApiRequest {
   };
 
   type CreateMe = {
-    email?: string;
-    shopTitle?: string;
+    email?: string | null;
+    shopTitle?: string | null;
   };
 
   type SearchUsersNearby = Pagination;

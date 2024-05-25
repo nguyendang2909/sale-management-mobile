@@ -42,7 +42,7 @@ export const OrderContent: FC<ViewProps & { order: Entity.Order; isFetchingOrder
           }}
           shadowOpacity={0.25}
           shadowRadius={3}
-          elevation={0}
+          elevation={3}
           px={16}
           pt={16}
           bgColor="white"

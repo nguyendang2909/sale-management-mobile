@@ -3,7 +3,6 @@ import { NavigatorScreenParams } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React from 'react';
 import { SCREENS } from 'src/constants';
-import { CreateBasicProfileScreen } from 'src/screens';
 import { ProfileSettingScreen } from 'src/screens/Me/ProfileSettingScreen';
 import { OrderScreen } from 'src/screens/order/order.screen';
 import { OrderConfirmScreen } from 'src/screens/order-confirm/order-confirm.screen';
@@ -13,6 +12,7 @@ import { OrderUpdatePaymentScreen } from 'src/screens/order-update-payment/order
 import { CreateProductScreen } from 'src/screens/product-create/create-product';
 import { ProductScreen } from 'src/screens/product-detail/product.screen';
 import { ProductSettingScreen } from 'src/screens/product-setting/product-setting.screen';
+import { ProfileCreateScreen } from 'src/screens/profile-create/profile-create.screen';
 import { ShopsScreen } from 'src/screens/shops/shops.screen';
 import { colors } from 'src/theme';
 import { AppStore, Entity, FormParams } from 'src/types';
@@ -77,13 +77,13 @@ export const MainStack: React.FC = () => {
           navigationBarColor: colors.background,
           orientation: 'portrait',
         }}
-        initialRouteName={SCREENS.HOME}
+        initialRouteName={SCREENS.SHOPS}
       >
         <Stack.Group>
           <Stack.Screen name={SCREENS.SHOPS} component={ShopsScreen} />
           <Stack.Screen name={SCREENS.HOME} component={HomeNavigator} />
           {/* <Stack.Screen name={SCREENS.LikedMe} component={LikedMeScreen} /> */}
-          <Stack.Screen name={SCREENS.CREATE_BASIC_PROFILE} component={CreateBasicProfileScreen} />
+          <Stack.Screen name={SCREENS.CREATE_BASIC_PROFILE} component={ProfileCreateScreen} />
           {/* <Stack.Screen name={SCREENS.CREATE_BASIC_PHOTOS} component={CreateBasicPhotosScreen} /> */}
           {/* <Stack.Screen name={SCREENS.ProfileEdit} component={ProfileEditScreen} /> */}
           <Stack.Screen name={SCREENS.PROFILE_SETTING} component={ProfileSettingScreen} />

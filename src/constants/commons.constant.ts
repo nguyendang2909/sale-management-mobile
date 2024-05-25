@@ -54,6 +54,8 @@ export const HOME_SCREENS = {
   PRODUCTS: 'PRODUCTS',
 } as const;
 
+export const DEFAULT_HOME_SCREEN = HOME_SCREENS.PRODUCTS;
+
 export const AGES = {
   MIN: 18,
   MAX: 100,

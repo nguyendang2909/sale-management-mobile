@@ -10,6 +10,7 @@ export * from './use-products';
 export * from './use-search-categories';
 export * from './use-search-products';
 export * from './use-shops';
+export * from './use-sign-in-data';
 export * from './useAppSelector';
 export * from './useDisclose';
 export * from './useMessages';

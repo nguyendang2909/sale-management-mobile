@@ -485,6 +485,10 @@ export const messages = defineMessages({
     defaultMessage: 'mã QR',
     id: '5bc1dd2dd2',
   },
+  'Email already exists': {
+    defaultMessage: 'Email đã tồn tại, vui lòng thử email khác',
+    id: '9b30eb942b',
+  },
 });
 
 export default messages;

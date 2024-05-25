@@ -20,7 +20,7 @@ import { LoadingButton } from 'src/components/button';
 import { AnimatedOtpInput } from 'src/components/input/animated-otp-input';
 import { AUTH_GRANT_TYPES, SCREENS } from 'src/constants';
 import { BackIconButton } from 'src/containers/IconButton/BackIconButton';
-import { useAppDispatch, useMessages } from 'src/hooks';
+import { useAppDispatch, useMessages, useUserData } from 'src/hooks';
 import { goBack } from 'src/navigations/navigation-ref';
 import { AppStackScreenProps } from 'src/navigators/main-stack';
 import { appActions } from 'src/store/app/app.store';
@@ -52,6 +52,8 @@ export const SignInWithOtpPhoneNumberScreen: FC<FCProps> = props => {
   const [otpConfirmation, setOtpConfirmation] = useState<
     FirebaseAuthTypes.ConfirmationResult | undefined
   >(otpConfirm);
+
+  const { isFetching: isFetchingUserData } = useUserData();
 
   const signUp = async (e: string) => {
     setIsSubmitting(true);
@@ -110,7 +112,7 @@ export const SignInWithOtpPhoneNumberScreen: FC<FCProps> = props => {
 
   return (
     <View as={SafeAreaView} flex={1}>
-      <LoadingOverlay isLoading={isSubmiting} />
+      <LoadingOverlay isLoading={isSubmiting || isFetchingUserData} />
       <Box flex={1}>
         <Pressable style={flexGrow} onPress={Keyboard.dismiss}>
           <View style={[paddingHorizontal(spacing.lg), paddingVertical(spacing.lg)]}>

@@ -17,6 +17,11 @@ export declare namespace FormParams {
     phoneNumber: string;
   };
 
+  type CreateProfile = {
+    email: string | null;
+    shopTitle: string | null;
+  };
+
   type CreateProduct = {
     createMore: boolean;
     title: string;

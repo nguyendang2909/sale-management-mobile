@@ -25,4 +25,9 @@ const meApi = api.injectEndpoints({
   }),
 });
 
-export const { useFetchMeQuery, useCreateMeMutation, endpoints: meEndpoints } = meApi;
+export const {
+  useFetchMeQuery,
+  useLazyFetchMeQuery,
+  useCreateMeMutation,
+  endpoints: meEndpoints,
+} = meApi;
