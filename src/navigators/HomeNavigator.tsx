@@ -3,14 +3,13 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { User } from 'lucide-react-native';
 import React, { FC } from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { APP_CONFIG } from 'src/config/config.app';
 import { NAVIGATOR_DATA } from 'src/constants';
 import { BOTTOM_NAVIGATOR_NAMES } from 'src/constants/constants';
 import { useMessages } from 'src/hooks';
 import { ProfileScreen } from 'src/screens/profile/profile.screen';
-import { backgroundColor, borderTopColor } from 'src/styles';
 import { colors } from 'src/theme';
-import { AppStackScreenProps } from 'src/types';
+
+import { AppStackScreenProps } from './main-stack';
 
 type FCProps = AppStackScreenProps<'HOME'>;
 
@@ -58,16 +57,25 @@ export const HomeNavigator: FC<FCProps> = () => {
           headerShown: false,
           tabBarHideOnKeyboard: true,
           tabBarStyle: [
-            backgroundColor(colors.background),
-            borderTopColor(colors.transparent),
-            { height: bottom + APP_CONFIG.SIZE.BOTTOM_BAR.HEIGHT },
+            // backgroundColor(colors.background),
+            // borderTopColor(colors.transparent),
+            // { height: bottom + APP_CONFIG.SIZE.BOTTOM_BAR.HEIGHT },
+            [
+              {
+                shadowOffset: {
+                  width: 0,
+                  height: 1,
+                },
+                shadowOpacity: 0.25,
+                shadowRadius: 3,
+              },
+            ],
           ],
           tabBarActiveTintColor: colors.text,
           tabBarInactiveTintColor: colors.text,
           tabBarLabelStyle: {
             fontSize: 12,
-            lineHeight: 16,
-            flex: 1,
+            lineHeight: 12,
           },
           tabBarShowLabel: true,
         }}
@@ -88,8 +96,8 @@ export const HomeNavigator: FC<FCProps> = () => {
                     as={ItemIcon}
                     width={20}
                     height={20}
-                    color="$blue700"
-                    // fill={focused ? '$blue700' : '$white'}
+                    // color="$blue700"
+                    fill={focused ? '$blue600' : '$white'}
                   />
                 ),
               }}
@@ -105,12 +113,7 @@ export const HomeNavigator: FC<FCProps> = () => {
             tabBarLabel: formatMessage('Profile'),
             tabBarIcon: ({ focused }) => (
               <>
-                <Icon
-                  as={User}
-                  width={40}
-                  height={40}
-                  fill={focused ? '$blue700' : '$coolGray500'}
-                />
+                <Icon as={User} width={40} height={40} fill={focused ? '$blue600' : '$white'} />
               </>
             ),
           }}

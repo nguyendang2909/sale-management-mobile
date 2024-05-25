@@ -76,7 +76,6 @@ export const MainStack: React.FC = () => {
           orientation: 'portrait',
         }}
         initialRouteName={SCREENS.Main}
-        // initialRouteName={SCREENS.CREATE_ORDER}
       >
         <Stack.Group>
           <Stack.Screen name={SCREENS.Main} component={MainScreen} />

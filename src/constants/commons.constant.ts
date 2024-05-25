@@ -35,6 +35,7 @@ export const SCREENS = {
   ORDER_CONFIRM: 'ORDER_CONFIRM',
   ORDER: 'ORDER',
   ORDER_PAYMENT: 'ORDER_PAYMENT',
+  PROFILE: 'PROFILE',
 } as const;
 
 export const HOME_SCREENS = {

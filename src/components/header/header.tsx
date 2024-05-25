@@ -10,12 +10,12 @@ import {
 } from 'react-native';
 import { APP_CONFIG } from 'src/config/config.app';
 import { useMessages } from 'src/hooks/useMessages';
-import { TxKey } from 'src/types';
+import { TxKey, ViewProps } from 'src/types';
 
-import { colors, spacing } from '../../theme';
+import { spacing } from '../../theme';
 import { ExtendedEdge, useSafeAreaInsetsStyle } from '../../utils/useSafeAreaInsetsStyle';
 
-export interface HeaderProps {
+export type HeaderProps = ViewProps & {
   titleMode?: 'center' | 'flex';
   titleStyle?: StyleProp<TextStyle>;
   titleContainerStyle?: StyleProp<ViewStyle>;
@@ -37,7 +37,7 @@ export interface HeaderProps {
   RightActionComponent?: ReactElement;
   onRightPress?: TouchableOpacityProps['onPress'];
   safeAreaEdges?: ExtendedEdge[];
-}
+};
 
 interface HeaderActionProps {
   backgroundColor?: string;
@@ -49,9 +49,8 @@ interface HeaderActionProps {
   ActionComponent?: ReactElement;
 }
 
-export function Header(props: HeaderProps) {
+export const Header: FC<HeaderProps> = (props: HeaderProps) => {
   const {
-    backgroundColor = colors.background,
     LeftActionComponent,
     leftIcon,
     leftIconColor,
@@ -72,7 +71,12 @@ export function Header(props: HeaderProps) {
     style: $styleOverride,
     titleStyle: $titleStyleOverride,
     containerStyle: $containerStyleOverride,
+    bgColor,
+    backgroundColor,
+    ...viewProps
   } = props;
+
+  const finalBackgroundColor = bgColor || backgroundColor || '$white';
 
   const { formatMessage } = useMessages();
 
@@ -84,14 +88,17 @@ export function Header(props: HeaderProps) {
     <View
       zIndex={5}
       w="$full"
-      {...(backgroundColor ? { backgroundColor } : {})}
       style={[$containerInsets, $containerStyleOverride]}
-      shadowOffset={{
-        width: 0,
-        height: 1,
-      }}
-      shadowOpacity={0.25}
-      shadowRadius={3}
+      backgroundColor={finalBackgroundColor}
+      // shadowOffset={{
+      //   width: 0,
+      //   height: 1,
+      // }}
+      // shadowOpacity={0.25}
+      // shadowRadius={3}
+      borderBottomColor="$coolGray100"
+      borderBottomWidth={1}
+      {...viewProps}
     >
       <View
         height={APP_CONFIG.SIZE.TOP_BAR.HEIGHT}
@@ -107,7 +114,7 @@ export function Header(props: HeaderProps) {
           iconColor={leftIconColor}
           onPress={onLeftPress}
           // txOptions={leftTxOptions}
-          backgroundColor={backgroundColor}
+          backgroundColor={finalBackgroundColor}
           ActionComponent={LeftActionComponent}
         />
 
@@ -133,13 +140,13 @@ export function Header(props: HeaderProps) {
           iconColor={rightIconColor}
           onPress={onRightPress}
           // txOptions={rightTxOptions}
-          backgroundColor={backgroundColor}
+          // backgroundColor={backgroundColor}
           ActionComponent={RightActionComponent}
         />
       </View>
     </View>
   );
-}
+};
 
 function HeaderAction(props: HeaderActionProps) {
   const {
