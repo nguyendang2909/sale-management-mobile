@@ -13,6 +13,7 @@ import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
 import { CircleAlert } from 'lucide-react-native';
 import React, { FC, useEffect, useState } from 'react';
 import { Keyboard, Pressable } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { useSignInMutation } from 'src/api';
 import { LoadingOverlay } from 'src/components';
 import { LoadingButton } from 'src/components/button';
@@ -108,7 +109,7 @@ export const SignInWithOtpPhoneNumberScreen: FC<FCProps> = props => {
   };
 
   return (
-    <View flex={1}>
+    <View as={SafeAreaView} flex={1}>
       <LoadingOverlay isLoading={isSubmiting} />
       <Box flex={1}>
         <Pressable style={flexGrow} onPress={Keyboard.dismiss}>

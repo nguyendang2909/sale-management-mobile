@@ -23,7 +23,7 @@ export declare namespace AppStore {
     isLogged?: boolean;
     user: Partial<Entity.User>;
     shop: Partial<Entity.Shop>;
-    shops: Partial<Entity.Shop>[];
+    shops?: Partial<Entity.Shop>[];
     osPermissions?: {
       locationService?: AuthorizationResult;
     };

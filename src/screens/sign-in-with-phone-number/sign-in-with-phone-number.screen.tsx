@@ -22,11 +22,7 @@ export const SignInWithPhoneNumberScreen: FC<FCProps> = _props => {
             <Text>Vui lòng nhập số điện thoại để tiếp tục</Text>
           </View>
 
-          <View mt={24} flexGrow={1}>
-            <View px={24}>
-              <SignInWithPhoneNumberForm />
-            </View>
-          </View>
+          <SignInWithPhoneNumberForm mt={24} flex={1} px={24} />
 
           <View>
             <Text textAlign="center">{APP_NAME}</Text>

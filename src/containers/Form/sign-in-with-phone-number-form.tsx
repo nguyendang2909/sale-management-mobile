@@ -22,9 +22,9 @@ import { SCREENS } from 'src/constants';
 import { useAppDispatch, useMessages } from 'src/hooks';
 import messages from 'src/locales/messages';
 import { widthFull } from 'src/styles';
-import { FormParams, TxKey } from 'src/types';
+import { FormParams, TxKey, ViewProps } from 'src/types';
 
-export const SignInWithPhoneNumberForm: FC = () => {
+export const SignInWithPhoneNumberForm: FC<ViewProps> = ({ ...viewProps }) => {
   const dispatch = useAppDispatch();
   const { formatMessage } = useMessages();
   const { navigate } = useNavigation();
@@ -78,7 +78,7 @@ export const SignInWithPhoneNumberForm: FC = () => {
   return (
     <>
       <LoadingOverlay isLoading={formik.isSubmitting}></LoadingOverlay>
-      <View>
+      <View {...viewProps}>
         <View mb={24}>
           <View style={widthFull}>
             <FormControl style={widthFull} isInvalid={!!errorCode} isRequired>

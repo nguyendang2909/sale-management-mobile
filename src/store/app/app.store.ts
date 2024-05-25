@@ -10,7 +10,7 @@ const initialState: AppStore.AppState = {
   refreshToken: undefined,
   user: {},
   shop: {},
-  shops: [],
+  shops: undefined,
   socket: {
     connectedAt: moment().toISOString(),
   },
@@ -46,7 +46,7 @@ export const appSlice = createSlice({
       state.socket = {};
       state.productSettings = {};
       state.shop = {};
-      state.shops = [];
+      state.shops = undefined;
       state.orderSettings = {};
       state.isLoading = false;
     },
@@ -89,13 +89,9 @@ export const appSlice = createSlice({
     builder.addMatcher(
       shopEndpoints.fetchAllShops.matchFulfilled,
       (state, { payload: { data } }) => {
-        if (data.length === 1) {
-          state.shop = data[0];
-        }
-        state.shops = data;
+        state.shops = data || [];
       },
     );
-    // builder.addMatcher()
   },
 });
 
