@@ -9,13 +9,6 @@ const profilesApi = api.injectEndpoints({
   endpoints: builder => ({
     // Profile
 
-    fetchMyProfile: builder.mutation<ApiResponse.Profile, void>({
-      query: () => ({
-        url: API_ENDPOINTS.PROFILES.ME.INDEX,
-        method: 'GET',
-      }),
-    }),
-
     updateProfile: builder.mutation<ApiResponse.Logged, ApiRequest.UpdateProfile>({
       query: body => ({
         url: API_ENDPOINTS.PROFILES.ME.INDEX,
@@ -26,12 +19,12 @@ const profilesApi = api.injectEndpoints({
         if (error) {
           return [];
         }
-        return [PROVIDE_TAGS.MY_PROFILE];
+        return [PROVIDE_TAGS.ME];
       },
     }),
 
     // NearbyUser
-    refreshNearbyProfiles: builder.query<ApiResponse.Profiles, ApiRequest.FindManyNearbyProfiles>({
+    refreshNearbyProfiles: builder.query<ApiResponse.Profile, ApiRequest.FindManyNearbyProfiles>({
       query: params => ({
         url: API_ENDPOINTS.PROFILES.NEARBY,
         method: 'GET',
@@ -39,7 +32,7 @@ const profilesApi = api.injectEndpoints({
       }),
     }),
     getNewestNearbyProfiles: builder.mutation<
-      ApiResponse.Profiles,
+      ApiResponse.Profile,
       ApiRequest.FindManyNearbyProfiles
     >({
       query: params => ({
@@ -127,7 +120,6 @@ export const {
   useRefreshSwipeProfilesQuery,
   // useGetNewestSwipeProfilesMutation,
   useGetNextSwipeProfilesMutation,
-  useFetchMyProfileMutation,
   endpoints: profileEndpoints,
   useUploadBasicPhotoMutation,
   useGetSubjectProfilesQuery,

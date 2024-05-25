@@ -15,4 +15,8 @@ const shopApi = api.injectEndpoints({
   }),
 });
 
-export const { useFetchAllShopsQuery, endpoints: shopEndpoints } = shopApi;
+export const {
+  useFetchAllShopsQuery,
+  useLazyFetchAllShopsQuery,
+  endpoints: shopEndpoints,
+} = shopApi;

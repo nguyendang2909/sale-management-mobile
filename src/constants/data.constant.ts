@@ -51,6 +51,12 @@ export const API_TAGS = {
   BANKS: '/banks',
   PAYMENTS: '/payments',
   QR_CODE: '/qr-code',
+  STATISTICS: '/statistics',
+  SKUS: '/skus',
+  ITEMS: '/items',
+  NOTIFICATIONS: '/notifications',
+  CASH_ITEMS: '/cash-items',
+  INVOICES: '/invoices',
 } as const;
 
 export const BUSINESS_CATEGORIES = {
@@ -122,10 +128,17 @@ export const ORDER_PAYMENT_METHODS = {
   CASH: 'cash',
   DIGITAL_WALLET: 'digital_wallet',
   BANK: 'bank',
+  QR_CODE: 'qr_code',
 } as const;
 
-export const PAYMENT_STATUSES = {
-  UNPAID: 'unpaid',
-  PARTIAL_PAID: 'partial',
-  PAID: 'paid',
+export const CASH_ITEM_SOURCES = {
+  CASH: 'cash',
+  DIGITAL_WALLET: 'digital_wallet',
+  BANK: 'bank',
+} as const;
+
+export const INVOICE_SETTING_FONT_SIZES = {
+  SMALL: 'small',
+  MEDIUM: 'medium',
+  LARGE: 'large',
 } as const;

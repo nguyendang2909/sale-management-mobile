@@ -10,10 +10,10 @@ import { OrderConfirmScreen } from 'src/screens/order-confirm/order-confirm.scre
 import { OrderCreateScreen } from 'src/screens/order-create/order-create.screen';
 import { OrderSettingScreen } from 'src/screens/order-setting/order-setting.screen';
 import { OrderUpdatePaymentScreen } from 'src/screens/order-update-payment/order-update-payment.screen';
-import { MainScreen } from 'src/screens/Pre/MainScreen';
 import { CreateProductScreen } from 'src/screens/product-create/create-product';
 import { ProductScreen } from 'src/screens/product-detail/product.screen';
 import { ProductSettingScreen } from 'src/screens/product-setting/product-setting.screen';
+import { ShopsScreen } from 'src/screens/shops/shops.screen';
 import { colors } from 'src/theme';
 import { AppStore, Entity, FormParams } from 'src/types';
 
@@ -25,6 +25,7 @@ export type AppStackParamList = {
   CREATE_BASIC_PHOTOS: undefined;
   HOME: NavigatorScreenParams<HomeTabParamList>;
   Main: undefined;
+  PROFILE_SETTING: undefined;
   // Messages: {
   //   matchId: string;
   //   match: Entity.Match;
@@ -58,6 +59,8 @@ export type AppStackParamList = {
   ORDER_PAYMENT: {
     order: Entity.Order;
   };
+  AUTH_PROFILE: undefined;
+  SHOPS: undefined;
 };
 
 export type AppStackScreenProps<T extends keyof AppStackParamList> = NativeStackScreenProps<
@@ -66,7 +69,6 @@ export type AppStackScreenProps<T extends keyof AppStackParamList> = NativeStack
 >;
 
 export const MainStack: React.FC = () => {
-  console.log(111);
   return (
     <>
       <Stack.Navigator
@@ -75,16 +77,16 @@ export const MainStack: React.FC = () => {
           navigationBarColor: colors.background,
           orientation: 'portrait',
         }}
-        initialRouteName={SCREENS.Main}
+        initialRouteName={SCREENS.HOME}
       >
         <Stack.Group>
-          <Stack.Screen name={SCREENS.Main} component={MainScreen} />
+          <Stack.Screen name={SCREENS.SHOPS} component={ShopsScreen} />
           <Stack.Screen name={SCREENS.HOME} component={HomeNavigator} />
           {/* <Stack.Screen name={SCREENS.LikedMe} component={LikedMeScreen} /> */}
           <Stack.Screen name={SCREENS.CREATE_BASIC_PROFILE} component={CreateBasicProfileScreen} />
           {/* <Stack.Screen name={SCREENS.CREATE_BASIC_PHOTOS} component={CreateBasicPhotosScreen} /> */}
           {/* <Stack.Screen name={SCREENS.ProfileEdit} component={ProfileEditScreen} /> */}
-          <Stack.Screen name={SCREENS.ProfileSetting} component={ProfileSettingScreen} />
+          <Stack.Screen name={SCREENS.PROFILE_SETTING} component={ProfileSettingScreen} />
           {/* <Stack.Screen name={SCREENS.Messages} component={MessagesScreen} /> */}
           {/* <Stack.Screen
             name={SCREENS.DATING_NEARBY_FILTER}

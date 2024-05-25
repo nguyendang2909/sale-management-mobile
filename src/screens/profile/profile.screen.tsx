@@ -21,9 +21,9 @@ export const ProfileScreen: FC = () => {
         </View>
 
         <View padding={4}>
-          <VStack space={4}>
-            <HStack space={4}>
-              <View flex="1">{/* <ProfileEditCard /> */}</View>
+          <VStack rowGap={16} columnGap={16}>
+            <HStack rowGap={16} columnGap={16}>
+              <View flex={1}>{/* <ProfileEditCard /> */}</View>
             </HStack>
           </VStack>
         </View>

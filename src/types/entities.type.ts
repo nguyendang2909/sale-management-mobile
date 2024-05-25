@@ -1,5 +1,6 @@
 /* eslint-disable no-use-before-define */
 import {
+  InvoiceSettingFontSize,
   OrderItemSpecification,
   OrderStatus,
   PaymentMethod,
@@ -231,5 +232,40 @@ export declare namespace Entity {
     Partial<{
       showCustomer: boolean;
       showNote: boolean;
+    }>;
+
+  type InvoiceSetting = BaseEntity &
+    Partial<{
+      user?: User;
+      userId: string;
+      fontSize: InvoiceSettingFontSize;
+      title?: string;
+      phoneCode?: string;
+      phoneNumber?: string;
+      showPhoneNumber: boolean;
+      showAddress: boolean;
+      showQRCode: boolean;
+      description: string;
+      showShopDescription: boolean;
+      showCustomerName: boolean;
+      showCustomerPhone: boolean;
+      showCustomerPoint: boolean;
+      showCustomerAddress: boolean;
+      showOrderCode: boolean;
+      showOrderNote: boolean;
+      showEmployee: boolean;
+      showDiningTable: boolean;
+      showTime: boolean;
+      showPromotionalPrice: boolean;
+      showVatRate: boolean;
+      vatRate: number;
+      showPayout: boolean;
+      showDebt: boolean;
+      showBankAccount: boolean;
+      showBankQR: boolean;
+      showShopNote: boolean;
+      showShopLogo: boolean;
+      showFooterNote: boolean;
+      footerNote: string;
     }>;
 }

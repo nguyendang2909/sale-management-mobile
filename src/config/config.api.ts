@@ -64,6 +64,9 @@ export const API_ENDPOINTS = {
       PRODUCTS: {
         INDEX: `${API_TAGS.ME}${API_TAGS.SETTINGS}${API_TAGS.PRODUCTS}`,
       },
+      INVOICES: {
+        INDEX: `${API_TAGS.ME}${API_TAGS.SETTINGS}${API_TAGS.INVOICES}`,
+      },
       ORDERS: {
         INDEX: `${API_TAGS.ME}${API_TAGS.SETTINGS}${API_TAGS.ORDERS}`,
       },

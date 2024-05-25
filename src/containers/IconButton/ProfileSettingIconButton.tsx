@@ -3,11 +3,12 @@ import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { TouchableOpacity } from 'react-native';
 import Feather from 'react-native-vector-icons/Feather';
+import { SCREENS } from 'src/constants';
 
 export const ProfileSettingIconButton: React.FC = () => {
   const { navigate } = useNavigation();
   const handlePress = () => {
-    navigate('ProfileSetting');
+    navigate(SCREENS.PROFILE_SETTING);
   };
 
   return (

@@ -3,13 +3,7 @@ import { ORDER_SETTINGS, PRODUCT_SETTINGS } from 'src/constants/constants';
 
 import { AppStore } from './app-store.type';
 import { ValueOf } from './common.type';
-import {
-  AuthGrantType,
-  DevicePlatform,
-  OrderStatus,
-  PaymentMethod,
-  PaymentStatus,
-} from './data.type';
+import { AuthGrantType, DevicePlatform, OrderPaymentMethod, OrderStatus } from './data.type';
 import { Entity } from './entities.type';
 
 export declare namespace ApiRequest {
@@ -148,7 +142,6 @@ export declare namespace ApiRequest {
 
   type CreateOrder = {
     status: OrderStatus;
-    paymentMethod?: PaymentMethod;
     deliveryMethod?: string;
     items: CreateOrderItem[];
     customerId?: string;
@@ -162,7 +155,7 @@ export declare namespace ApiRequest {
 
   type UpdateOrder = {
     status?: OrderStatus;
-    paymentMethod?: PaymentMethod;
+    paymentMethod?: OrderPaymentMethod;
     deliveryMethod?: string;
     items: UpdateOrderItem[];
   };
@@ -192,8 +185,7 @@ export declare namespace ApiRequest {
     status?: OrderStatus;
     startDate?: string;
     endDate?: string;
-    paymentStatus?: PaymentStatus;
-    paymentMethod?: PaymentMethod;
+    paymentMethod?: OrderPaymentMethod;
   };
 
   type FindManyOrders = FindAllOrders & Pagination;
@@ -288,6 +280,8 @@ export declare namespace ApiResponse {
   type ProductSetting = FetchData<Entity.ProductSetting>;
 
   type OrderSetting = FetchData<Entity.OrderSetting>;
+
+  type InvoiceSetting = FetchData<Entity.InvoiceSetting>;
 
   type ProductImage = FetchData<Entity.ProductImage>;
 

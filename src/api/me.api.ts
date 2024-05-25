@@ -6,7 +6,7 @@ import { api } from './api';
 
 const meApi = api.injectEndpoints({
   endpoints: builder => ({
-    fetchMe: builder.query<ApiResponse.User, undefined>({
+    fetchMe: builder.query<ApiResponse.User, void>({
       query: () => ({
         url: API_ENDPOINTS.ME.INDEX,
         method: API_METHODS.GET,

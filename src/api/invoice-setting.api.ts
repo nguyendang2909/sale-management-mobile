@@ -4,18 +4,15 @@ import { ApiRequest, ApiResponse } from 'src/types';
 
 import { api } from './api';
 
-const orderApi = api.injectEndpoints({
+const invoiceSettingApi = api.injectEndpoints({
   endpoints: builder => ({
-    fetchProductSettings: builder.query<ApiResponse.ProductSetting, void>({
+    fetchInvoiceSettings: builder.query<ApiResponse.InvoiceSetting, void>({
       query: () => ({
-        url: API_ENDPOINTS.ME.SETTINGS.PRODUCTS.INDEX,
+        url: API_ENDPOINTS.ME.SETTINGS.INVOICES.INDEX,
         method: API_METHODS.GET,
       }),
     }),
-    updateProductSettings: builder.mutation<
-      ApiResponse.ProductSetting,
-      ApiRequest.UpdateProductSettings
-    >({
+    updateInvoiceSettings: builder.mutation<void, ApiRequest.UpdateProductSettings>({
       query: body => ({
         url: API_ENDPOINTS.ME.SETTINGS.PRODUCTS.INDEX,
         method: API_METHODS.PATCH,
@@ -27,7 +24,7 @@ const orderApi = api.injectEndpoints({
 
 export const {
   endpoints: productSettingEndpoints,
-  useFetchProductSettingsQuery,
-  useLazyFetchProductSettingsQuery,
-  useUpdateProductSettingsMutation,
-} = orderApi;
+  useUpdateInvoiceSettingsMutation,
+  useFetchInvoiceSettingsQuery,
+  useLazyFetchInvoiceSettingsQuery,
+} = invoiceSettingApi;

@@ -1,10 +1,11 @@
 import {
   AUTH_GRANT_TYPES,
   BUSINESSES,
+  CASH_ITEM_SOURCES,
   DEVICE_PLATFORMS,
+  INVOICE_SETTING_FONT_SIZES,
   ORDER_PAYMENT_METHODS,
   ORDER_STATUSES,
-  PAYMENT_STATUSES,
   ROLES,
   USER_STATUSES,
   WORKING_TIME_TYPES,
@@ -57,10 +58,8 @@ export type AuthGrantType = ValueOf<typeof AUTH_GRANT_TYPES>;
 
 export type OrderPaymentMethod = ValueOf<typeof ORDER_PAYMENT_METHODS>;
 
-export type PaymentStatus = ValueOf<typeof PAYMENT_STATUSES>;
-
 export type OrderPrice = {
-  payoutPrice: number;
+  amount: number;
   price: number;
   promotionalPrice: number;
 };
@@ -73,3 +72,7 @@ export type OrderItemSpecification = {
   id: string;
   title: string;
 };
+
+export type CashItemSource = ValueOf<typeof CASH_ITEM_SOURCES>;
+
+export type InvoiceSettingFontSize = ValueOf<typeof INVOICE_SETTING_FONT_SIZES>;

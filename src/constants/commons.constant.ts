@@ -11,11 +11,11 @@ export const SCREENS = {
   CREATE_BASIC_PHOTOS: 'CREATE_BASIC_PHOTOS',
   HOME: 'HOME',
   LikedMe: 'LikedMe',
-  Main: 'Main',
+  SHOPS: 'SHOPS',
   Messages: 'Messages',
   ProfileEdit: 'ProfileEdit',
   ProfileNearby: 'ProfileNearby',
-  ProfileSetting: 'ProfileSetting',
+  PROFILE_SETTING: 'PROFILE_SETTING',
   SelectRelationshipGoal: 'SelectRelationshipGoal',
   SIGN_IN: 'SIGN_IN',
   SIGN_IN_WITH_OTP_PHONE_NUMBER: 'SIGN_IN_WITH_OTP_PHONE_NUMBER',
@@ -36,6 +36,7 @@ export const SCREENS = {
   ORDER: 'ORDER',
   ORDER_PAYMENT: 'ORDER_PAYMENT',
   PROFILE: 'PROFILE',
+  AUTH_PROFILE: 'AUTH_PROFILE',
 } as const;
 
 export const HOME_SCREENS = {

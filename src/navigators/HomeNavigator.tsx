@@ -9,7 +9,7 @@ import { useMessages } from 'src/hooks';
 import { ProfileScreen } from 'src/screens/profile/profile.screen';
 import { colors } from 'src/theme';
 
-import { AppStackScreenProps } from './main-stack';
+import { AppStackScreenProps } from './main.stack';
 
 type FCProps = AppStackScreenProps<'HOME'>;
 

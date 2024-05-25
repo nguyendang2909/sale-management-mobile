@@ -1,8 +1,8 @@
 import { NativeStackNavigationOptions } from '@react-navigation/native-stack';
 import React from 'react';
 import { SCREENS } from 'src/constants';
+import { SignInWithOtpPhoneNumberScreen } from 'src/screens/Auth/sign-in-with-otp-phone-number.screen';
 import { SignInScreen } from 'src/screens/Auth/SignInScreen';
-import { SignInWithOtpPhoneNumberScreen } from 'src/screens/Auth/SignInWithOtpPhoneNumberScreen';
 import { SignInWithPhoneNumberScreen } from 'src/screens/sign-in-with-phone-number/sign-in-with-phone-number.screen';
 
 import { Stack } from './Stack';

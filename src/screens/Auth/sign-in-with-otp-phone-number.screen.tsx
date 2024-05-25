@@ -3,6 +3,7 @@ import {
   FormControl,
   FormControlError,
   FormControlErrorIcon,
+  FormControlErrorText,
   Heading,
   HStack,
   Text,
@@ -67,7 +68,6 @@ export const SignInWithOtpPhoneNumberScreen: FC<FCProps> = props => {
         token: idToken,
         grantType: AUTH_GRANT_TYPES.PHONE_TOKEN,
       }).unwrap();
-      console.log(111, signInResponse);
       dispatch(appActions.updateAccessToken(signInResponse.data));
     } catch (err) {
       setError(true);
@@ -139,7 +139,9 @@ export const SignInWithOtpPhoneNumberScreen: FC<FCProps> = props => {
                 <View mx={16}>
                   <FormControlError position="absolute">
                     <FormControlErrorIcon as={CircleAlert}></FormControlErrorIcon>
-                    {isError && formatMessage('Wrong verification code, try again!')}
+                    <FormControlErrorText>
+                      {isError && formatMessage('Wrong verification code, try again!')}
+                    </FormControlErrorText>
                   </FormControlError>
                 </View>
               </FormControl>
