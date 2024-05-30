@@ -6,6 +6,8 @@ import {
   INVOICE_SETTING_FONT_SIZES,
   ORDER_PAYMENT_METHODS,
   ORDER_STATUSES,
+  PRODUCT_ATTRIBUTE_TYPES,
+  PRODUCT_SPECIFICATION_TYPES,
   ROLES,
   USER_STATUSES,
   WORKING_TIME_TYPES,
@@ -67,12 +69,18 @@ export type OrderPrice = {
 export type OrderItemSpecification = {
   attribute: {
     id: string;
-    title: string;
+    title: string | null;
+    type: string | null;
   };
   id: string;
-  title: string;
+  title: string | null;
+  type: string | null;
 };
 
 export type CashItemSource = ValueOf<typeof CASH_ITEM_SOURCES>;
 
 export type InvoiceSettingFontSize = ValueOf<typeof INVOICE_SETTING_FONT_SIZES>;
+
+export type ProductAttributeType = ValueOf<typeof PRODUCT_ATTRIBUTE_TYPES>;
+
+export type ProductSpecificationType = ValueOf<typeof PRODUCT_SPECIFICATION_TYPES>;

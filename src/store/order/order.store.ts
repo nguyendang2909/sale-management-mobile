@@ -48,17 +48,14 @@ export const orderSlice = createSlice({
       }
       state.all.data = orderUtil.formatManyAndSort(data, []);
     },
-    addOrders: (
-      state,
-      {
-        payload: { data, status },
-      }: PayloadAction<{ data: Entity.Order[]; status?: OrderStoreStatus }>,
-    ) => {
-      if (status) {
-        state[status].data = orderUtil.formatManyAndSort(data, state[status].data);
-        return;
+    addOrder: (state, { payload }: PayloadAction<Entity.Order>) => {
+      if (payload.status) {
+        state[payload.status].data = orderUtil.formatManyAndSort(
+          [payload],
+          state[payload.status].data,
+        );
       }
-      state.all.data = orderUtil.formatManyAndSort(data, state.all.data);
+      state.all.data = orderUtil.formatManyAndSort([payload], state.all.data);
     },
     deleteOrder(state, { payload: id }: PayloadAction<string>) {
       ORDER_STORE_STATUS_ARR.forEach(status => {

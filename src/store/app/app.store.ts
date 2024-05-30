@@ -9,7 +9,9 @@ const initialState: AppStore.AppState = {
   accessToken: undefined,
   refreshToken: undefined,
   user: {},
-  shop: {},
+  shop: {
+    id: '',
+  },
   shops: undefined,
   socket: {
     connectedAt: moment().toISOString(),
@@ -39,13 +41,16 @@ export const appSlice = createSlice({
         state.refreshToken = payload.refreshToken;
       }
     },
+
     logout: state => {
       state.accessToken = undefined;
       state.refreshToken = undefined;
       state.user = {};
       state.socket = {};
       state.productSettings = {};
-      state.shop = {};
+      state.shop = {
+        id: '',
+      };
       state.shops = undefined;
       state.orderSettings = {};
       state.isLoading = false;

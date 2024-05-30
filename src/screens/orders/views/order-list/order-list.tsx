@@ -16,7 +16,13 @@ export const OrderList = ({
 }: {
   status?: OrderStoreStatus;
   lazyQuery: UseLazyQuery<
-    QueryDefinition<ApiRequest.FindManyOrders, any, any, ApiResponse.Orders, 'api'>
+    QueryDefinition<
+      { shopId: string; params: ApiRequest.FindManyOrders },
+      any,
+      any,
+      ApiResponse.Orders,
+      'api'
+    >
   >;
 }) => {
   const {

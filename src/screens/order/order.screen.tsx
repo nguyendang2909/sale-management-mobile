@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { useOrder } from 'src/hooks';
-import { AppStackScreenProps } from 'src/types';
+import { AppStackScreenProps } from 'src/navigators/main.stack';
 
 import { OrderContent } from './views/order-content';
 import { OrderHeader } from './views/order-header';

@@ -7,57 +7,78 @@ import { api } from './api';
 
 const productApi = api.injectEndpoints({
   endpoints: builder => ({
-    createOrder: builder.mutation<ApiResponse.Order, ApiRequest.CreateOrder>({
-      query: body => ({
-        url: API_ENDPOINTS.ORDERS.INDEX,
+    createOrder: builder.mutation<
+      ApiResponse.Order,
+      { shopId: string; body: ApiRequest.CreateOrder }
+    >({
+      query: ({ shopId, body }) => ({
+        url: API_ENDPOINTS.SHOPS.ORDERS_BY_SHOP(shopId),
         method: API_METHODS.POST,
         body,
       }),
     }),
 
-    fetchOrders: builder.query<ApiResponse.Orders, ApiRequest.FindManyOrders>({
-      query: params => ({
-        url: API_ENDPOINTS.ORDERS.INDEX,
+    fetchOrders: builder.query<
+      ApiResponse.Orders,
+      { shopId: string; params: ApiRequest.FindManyOrders }
+    >({
+      query: ({ shopId, params }) => ({
+        url: API_ENDPOINTS.SHOPS.ORDERS_BY_SHOP(shopId),
         method: API_METHODS.GET,
         params,
       }),
     }),
 
-    fetchUnconfirmedOrders: builder.query<ApiResponse.Orders, ApiRequest.FindManyOrders>({
-      query: params => ({
-        url: API_ENDPOINTS.ORDERS.INDEX,
+    fetchUnconfirmedOrders: builder.query<
+      ApiResponse.Orders,
+      { shopId: string; params: ApiRequest.FindManyOrders }
+    >({
+      query: ({ shopId, params }) => ({
+        url: API_ENDPOINTS.SHOPS.ORDERS_BY_SHOP(shopId),
         method: API_METHODS.GET,
         params: { ...params, status: ORDER_STATUSES.UNCONFIRMED },
       }),
     }),
 
-    fetchProcessingOrders: builder.query<ApiResponse.Orders, ApiRequest.FindManyOrders>({
-      query: params => ({
-        url: API_ENDPOINTS.ORDERS.INDEX,
+    fetchProcessingOrders: builder.query<
+      ApiResponse.Orders,
+      { shopId: string; params: ApiRequest.FindManyOrders }
+    >({
+      query: ({ shopId, params }) => ({
+        url: API_ENDPOINTS.SHOPS.ORDERS_BY_SHOP(shopId),
         method: API_METHODS.GET,
         params: { ...params, status: ORDER_STATUSES.PROCESSING },
       }),
     }),
 
-    fetchDeliveredOrders: builder.query<ApiResponse.Orders, ApiRequest.FindManyOrders>({
-      query: params => ({
-        url: API_ENDPOINTS.ORDERS.INDEX,
+    fetchDeliveredOrders: builder.query<
+      ApiResponse.Orders,
+      { shopId: string; params: ApiRequest.FindManyOrders }
+    >({
+      query: ({ shopId, params }) => ({
+        url: API_ENDPOINTS.SHOPS.ORDERS_BY_SHOP(shopId),
         method: API_METHODS.GET,
         params: { ...params, status: ORDER_STATUSES.DELIVERED },
       }),
     }),
 
-    fetchReturnedOrders: builder.query<ApiResponse.Orders, ApiRequest.FindManyOrders>({
-      query: params => ({
-        url: API_ENDPOINTS.ORDERS.INDEX,
+    fetchReturnedOrders: builder.query<
+      ApiResponse.Orders,
+      { shopId: string; params: ApiRequest.FindManyOrders }
+    >({
+      query: ({ shopId, params }) => ({
+        url: API_ENDPOINTS.SHOPS.ORDERS_BY_SHOP(shopId),
         method: API_METHODS.GET,
         params: { ...params, status: ORDER_STATUSES.RETURNED },
       }),
     }),
 
-    fetchCancelledOrders: builder.query<ApiResponse.Orders, ApiRequest.FindManyOrders>({
-      query: params => ({
-        url: API_ENDPOINTS.ORDERS.INDEX,
+    fetchCancelledOrders: builder.query<
+      ApiResponse.Orders,
+      { shopId: string; params: ApiRequest.FindManyOrders }
+    >({
+      query: ({ shopId, params }) => ({
+        url: API_ENDPOINTS.SHOPS.ORDERS_BY_SHOP(shopId),
         method: API_METHODS.GET,
         params: { ...params, status: ORDER_STATUSES.CANCELLED },
       }),

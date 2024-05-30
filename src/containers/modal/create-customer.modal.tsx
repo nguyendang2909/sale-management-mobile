@@ -1,5 +1,6 @@
 import { Button, ButtonText, View } from '@gluestack-ui/themed';
 import { useFormik } from 'formik';
+import { ChevronLeft } from 'lucide-react-native';
 import { FC } from 'react';
 import Toast from 'react-native-toast-message';
 import { useCreateCustomerMutation } from 'src/api';
@@ -55,7 +56,7 @@ export const CreateCustomerModal: FC<FCProps> = ({ onClose }) => {
   return (
     <>
       <Header
-        leftIcon="x"
+        leftIcon={ChevronLeft}
         onLeftPress={onClose}
         title="Khách hàng"
         RightActionComponent={

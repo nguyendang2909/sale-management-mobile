@@ -61,6 +61,9 @@ export type AppStackParamList = {
   };
   AUTH_PROFILE: undefined;
   SHOPS: undefined;
+  CUSTOMER: {
+    detail: AppStore.Customer;
+  };
 };
 
 export type AppStackScreenProps<T extends keyof AppStackParamList> = NativeStackScreenProps<

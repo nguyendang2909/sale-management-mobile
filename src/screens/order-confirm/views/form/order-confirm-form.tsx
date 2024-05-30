@@ -15,6 +15,7 @@ import { FormControlOrderNote } from 'src/containers/form-control/order/form-con
 import { useAppDispatch, useAppSelector, useMessages, useProducts } from 'src/hooks';
 import { getState } from 'src/store';
 import { cartActions } from 'src/store/cart';
+import { orderActions } from 'src/store/order';
 import { FormParams } from 'src/types';
 import { createOrderFormUtil, skuUtil } from 'src/utils';
 
@@ -24,6 +25,7 @@ import { ConfirmOrderPrices } from './confirm-order-prices';
 export const OrderConfirmForm: FC<{ values: FormParams.CreateOrder }> = ({ values }) => {
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
+  const shopId = useAppSelector(s => s.app.shop.id);
   const [createOrder] = useCreateOrderMutation();
   const { formatErrorMessage } = useMessages();
 
@@ -43,15 +45,7 @@ export const OrderConfirmForm: FC<{ values: FormParams.CreateOrder }> = ({ value
     return createOrderFormUtil.getDefaultValues(values);
   }, [values]);
 
-  const {
-    setValue,
-    reset,
-    handleSubmit,
-    control,
-    formState: { isSubmitting, errors },
-    watch,
-    getValues,
-  } = useForm<FormParams.CreateOrder>({
+  const { reset, handleSubmit, control, getValues } = useForm<FormParams.CreateOrder>({
     defaultValues,
     resolver: createOrderFormUtil.getResolver(),
   });
@@ -71,16 +65,20 @@ export const OrderConfirmForm: FC<{ values: FormParams.CreateOrder }> = ({ value
   const saveOrder = useCallback(async () => {
     try {
       const cartItems = getState().cart.items;
-      await createOrder({
-        status: ORDER_STATUSES.PROCESSING,
-        items: Object.values(cartItems),
+      const { data: order } = await createOrder({
+        shopId,
+        body: {
+          status: ORDER_STATUSES.PROCESSING,
+          items: Object.values(cartItems),
+        },
       }).unwrap();
       navigation.navigate(SCREENS.HOME, { screen: HOME_SCREENS.ORDERS });
+      dispatch(orderActions.addOrder(order));
       dispatch(cartActions.setCartItems({}));
     } catch (err) {
       Toast.show({ text1: formatErrorMessage(err), type: 'error' });
     }
-  }, [createOrder, dispatch, formatErrorMessage, navigation]);
+  }, [createOrder, dispatch, formatErrorMessage, navigation, shopId]);
 
   return (
     <>

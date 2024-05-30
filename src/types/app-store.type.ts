@@ -22,8 +22,8 @@ export declare namespace AppStore {
     refreshToken?: string;
     isLogged?: boolean;
     user: Partial<Entity.User>;
-    shop: Partial<Entity.Shop>;
-    shops?: Partial<Entity.Shop>[];
+    shop: Entity.Shop;
+    shops?: Entity.Shop[];
     osPermissions?: {
       locationService?: AuthorizationResult;
     };

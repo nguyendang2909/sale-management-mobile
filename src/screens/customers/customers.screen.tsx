@@ -1,8 +1,9 @@
 import { Box, StatusBar } from '@gluestack-ui/themed';
 import React from 'react';
 import { Header } from 'src/components';
-import { CreateCustomerFab } from 'src/pages/customers/create/create-customer-fab';
-import { CustomerTabs } from 'src/pages/customers/tabs/customer-tabs';
+
+import { CreateCustomerFab } from './views/create/create-customer-fab';
+import { CustomerTabs } from './views/tabs/customer-tabs';
 
 export const CustomersScreen = () => {
   return (

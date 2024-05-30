@@ -17,6 +17,12 @@ export const DEVICE_PLATFORMS = {
   ANDROID: 'android',
 } as const;
 
+export const ID_PATH = '/:';
+
+export const ID = 'id';
+
+export const SHOP_ID = 'shop_id';
+
 export const API_TAGS = {
   AUTH: '/auth',
   USERS: '/users',
@@ -40,7 +46,8 @@ export const API_TAGS = {
   DINING_TABLES: '/dining-tables',
   DINING_TABLE_GROUPS: '/dining-table-groups',
   DINING_TABLE_PRODUCTS: '/dining-table-products',
-  ID: ':/id',
+  ID: ID_PATH + ID,
+  SHOP_ID: ID_PATH + SHOP_ID,
   REPORTS: '/reports',
   REVENUE: '/revenue',
   UNCOMPLETED: '/uncompleted',
@@ -141,4 +148,29 @@ export const INVOICE_SETTING_FONT_SIZES = {
   SMALL: 'small',
   MEDIUM: 'medium',
   LARGE: 'large',
+} as const;
+
+export const PRODUCT_ATTRIBUTE_TYPES = {
+  COLOR: 'color',
+  SIZE: 'size',
+  MATERIAL: 'material',
+  TASTE: 'taste',
+  ORIGIN: 'origin',
+} as const;
+
+export const PRODUCT_COLOR_TYPES = {
+  RED: 'red',
+  BLACK: 'black',
+  WHITE: 'white',
+} as const;
+
+export const PRODUCT_SIZE_TYPES = {
+  SMALL: 'small',
+  MEDIUM: 'medium',
+  LARGE: 'large',
+} as const;
+
+export const PRODUCT_SPECIFICATION_TYPES = {
+  ...PRODUCT_COLOR_TYPES,
+  ...PRODUCT_SIZE_TYPES,
 } as const;

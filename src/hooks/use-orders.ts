@@ -2,7 +2,6 @@ import { UseLazyQuery } from '@reduxjs/toolkit/dist/query/react/buildHooks';
 import { QueryDefinition } from '@reduxjs/toolkit/query';
 import { useCallback, useEffect, useState } from 'react';
 import Toast from 'react-native-toast-message';
-import { ORDER_STATUSES } from 'src/constants';
 import { orderActions } from 'src/store/order';
 import { ApiRequest, ApiResponse, OrderStoreStatus } from 'src/types';
 
@@ -16,9 +15,16 @@ export const useOrders = ({
 }: {
   status?: OrderStoreStatus;
   lazyQuery: UseLazyQuery<
-    QueryDefinition<ApiRequest.FindManyOrders, any, any, ApiResponse.Orders, 'api'>
+    QueryDefinition<
+      { shopId: string; params: ApiRequest.FindManyOrders },
+      any,
+      any,
+      ApiResponse.Orders,
+      'api'
+    >
   >;
 }) => {
+  const shopId = useAppSelector(s => s.app.shop.id);
   const dispatch = useAppDispatch();
   const { formatErrorMessage } = useMessages();
 
@@ -38,7 +44,12 @@ export const useOrders = ({
 
   const fetchFirstData = useCallback(async () => {
     try {
-      const data = await fetchOrders({}).unwrap();
+      const data = await fetchOrders({
+        shopId,
+        params: {
+          status,
+        },
+      }).unwrap();
       dispatch(orderActions.setOrders({ status, data: data.data }));
       dispatch(orderActions.setPagination({ status, pagination: data.pagination }));
     } catch (err) {
@@ -46,7 +57,7 @@ export const useOrders = ({
         text1: formatErrorMessage(err),
       });
     }
-  }, [fetchOrders, dispatch, status, formatErrorMessage]);
+  }, [fetchOrders, shopId, status, dispatch, formatErrorMessage]);
 
   useEffect(() => {
     fetchFirstData();
@@ -60,12 +71,15 @@ export const useOrders = ({
       return;
     }
     const data = await fetchOrders({
-      status: ORDER_STATUSES.UNCONFIRMED,
-      _next,
+      shopId,
+      params: {
+        status,
+        _next,
+      },
     }).unwrap();
     dispatch(orderActions.setOrders({ status, data: data.data }));
     dispatch(orderActions.setPagination({ status, pagination: data.pagination }));
-  }, [_next, dispatch, fetchOrders, loading, status]);
+  }, [_next, dispatch, fetchOrders, loading, shopId, status]);
 
   const refresh = useCallback(async () => {
     if (loading) {
@@ -73,7 +87,12 @@ export const useOrders = ({
     }
     setRefreshing(true);
     try {
-      const data = await fetchOrders({}).unwrap();
+      const data = await fetchOrders({
+        shopId,
+        params: {
+          status,
+        },
+      }).unwrap();
       dispatch(orderActions.setOrders({ status, data: data.data }));
       dispatch(orderActions.setPagination({ status, pagination: data.pagination }));
     } catch (err) {
@@ -83,7 +102,7 @@ export const useOrders = ({
     } finally {
       setRefreshing(false);
     }
-  }, [dispatch, fetchOrders, formatErrorMessage, loading, status]);
+  }, [dispatch, fetchOrders, formatErrorMessage, loading, shopId, status]);
 
   return {
     data: orders,

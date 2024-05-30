@@ -2,8 +2,10 @@
 import {
   InvoiceSettingFontSize,
   OrderItemSpecification,
+  OrderPaymentMethod,
   OrderStatus,
-  PaymentMethod,
+  ProductAttributeType,
+  ProductSpecificationType,
   Role,
   UserStatus,
   WorkingTimeType,
@@ -121,6 +123,7 @@ export declare namespace Entity {
       product?: Product;
       productId: string;
       title: string;
+      type?: ProductAttributeType;
       specifications?: Specification[];
     }>;
 
@@ -129,6 +132,7 @@ export declare namespace Entity {
       attribute?: Attribute;
       productToAttributeId: string;
       title: string;
+      type: ProductSpecificationType;
       sort: number;
     }>;
 
@@ -152,19 +156,18 @@ export declare namespace Entity {
       user: User;
       userId: string;
       title: string;
-      orderPosition: string;
       products: Product[];
     }>;
 
   type Order = BaseEntity &
     Partial<{
-      user?: User;
-      userId: string;
+      shop?: Shop;
+      shopId: string;
       customer?: Customer;
       customerId?: string;
       status: OrderStatus;
       statusUpdatedAt: Date;
-      paymentMethod?: PaymentMethod;
+      paymentMethod?: OrderPaymentMethod;
       price: number;
       amount: number;
       promotionalPrice?: number;
