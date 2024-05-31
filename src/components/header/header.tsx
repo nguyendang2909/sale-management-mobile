@@ -1,6 +1,6 @@
 import { HStack, Icon, Text, View } from '@gluestack-ui/themed';
 import { ChevronLeft } from 'lucide-react-native';
-import React, { FC, ReactElement } from 'react';
+import React, { FC, ReactElement, ReactNode } from 'react';
 import {
   StyleProp,
   TextStyle,
@@ -47,6 +47,7 @@ interface HeaderActionProps {
   tx?: TxKey;
   onPress?: TouchableOpacityProps['onPress'];
   ActionComponent?: ReactElement;
+  children?: ReactNode;
 }
 
 export const Header: FC<HeaderProps> = (props: HeaderProps) => {
@@ -73,6 +74,7 @@ export const Header: FC<HeaderProps> = (props: HeaderProps) => {
     containerStyle: $containerStyleOverride,
     bgColor,
     backgroundColor,
+    children,
     ...viewProps
   } = props;
 
@@ -144,6 +146,7 @@ export const Header: FC<HeaderProps> = (props: HeaderProps) => {
           ActionComponent={RightActionComponent}
         />
       </View>
+      {children}
     </View>
   );
 };

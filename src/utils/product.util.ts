@@ -16,7 +16,7 @@ class ProductUtil extends BaseUtil {
   sortAndUniq(news: AppStore.Product[], olds: AppStore.Product[]) {
     return _.chain([...news, ...olds])
       .uniqBy('id')
-      .orderBy(['id'], ['asc'])
+      .orderBy(['title'], ['asc'])
       .value();
   }
 
@@ -25,20 +25,19 @@ class ProductUtil extends BaseUtil {
       .map(e => this.formatOne(e))
       .concat(olds)
       .uniqBy('id')
-      .orderBy('id', 'asc')
+      .orderBy('title', 'asc')
       .value();
   }
 
   filter(
     data: AppStore.Product[],
-    { searchText, sortBy }: { searchText?: string; sortBy: ProductSortType },
+    { searchText, sortBy }: { searchText?: string; sortBy?: ProductSortType },
   ) {
     let products = _.chain(data);
     if (searchText) {
       const textRegExp = new RegExp(searchText);
-
       products = products.filter(e => {
-        return (!!e.title && textRegExp.test(e.title)) || (!!e.sku && textRegExp.test(e.sku));
+        return !!e.title && textRegExp.test(e.title);
       });
     }
     if (sortBy) {

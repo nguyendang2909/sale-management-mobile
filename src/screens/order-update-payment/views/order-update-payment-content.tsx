@@ -1,9 +1,9 @@
-import { ScrollView, View } from '@gluestack-ui/themed';
+import { Button, ButtonText, ScrollView, View } from '@gluestack-ui/themed';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { FC, useCallback, useEffect, useMemo } from 'react';
-import { useForm } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { useUpdateOrderMutation } from 'src/api';
-import { LoadingOverlay } from 'src/components';
+import { LoadingOverlay, ViewFooter } from 'src/components';
 import { ORDER_PAYMENT_METHODS } from 'src/constants';
 import { useOrder } from 'src/hooks';
 import { ControlPaymentAmount } from 'src/screens/order-update-payment/views/control/control-payment-amount';
@@ -62,6 +62,22 @@ export const OrderUpdatePaymentContent: FC<{ detail: Entity.Order }> = ({ detail
     // }
   }, []);
 
+  const onSubmit: SubmitHandler<FormParams.UpdateOrderPayment> = async values => {
+    try {
+      await createMe(values).unwrap();
+      await navigateShopsScreen();
+    } catch (error) {
+      const errorMessage: string = _.get(error, 'data.message', '');
+      if (errorMessage === 'You have already registered') {
+        await navigateShopsScreen();
+      } else {
+        Toast.show({
+          text1: formatErrorMessage(error),
+        });
+      }
+    }
+  };
+
   return (
     <>
       <View flex={1}>
@@ -73,6 +89,12 @@ export const OrderUpdatePaymentContent: FC<{ detail: Entity.Order }> = ({ detail
             <PickPaymentSection control={control} mt={100} />
           </View>
         </ScrollView>
+
+        <ViewFooter px={16} py={16} bgColor="#fff">
+          <Button onPress={handleSubmit(onSubmit)}>
+            <ButtonText>Tiếp tục</ButtonText>
+          </Button>
+        </ViewFooter>
       </View>
     </>
   );

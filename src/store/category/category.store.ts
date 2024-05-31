@@ -32,6 +32,12 @@ export const categorySlice = createSlice({
         },
       )
       .addMatcher(
+        categoryEndpoints.fetchCategory.matchFulfilled,
+        (state, { payload: { data } }) => {
+          state.data = categoryUtil.formatManyAndSort([data], state.data);
+        },
+      )
+      .addMatcher(
         categoryEndpoints.createCategory.matchFulfilled,
         (state, { payload: { data } }) => {
           state.data = categoryUtil.formatManyAndSort([data], state.data);

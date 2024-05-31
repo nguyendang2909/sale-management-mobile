@@ -32,13 +32,13 @@ export const SearchInput: FC<FCProps> = ({
           <InputIcon as={SearchIcon} />
         </InputSlot>
         <InputField
-          // @ts-ignore
-          ref={textInputRef}
           focusable={focusable}
           placeholder={placeholder || 'Tìm kiếm'}
           onChangeText={onChangeText}
           defaultValue={defaultValue}
           value={value}
+          // @ts-ignore
+          ref={textInputRef}
         />
       </Input>
     </>

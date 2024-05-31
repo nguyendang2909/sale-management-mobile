@@ -34,6 +34,12 @@ export const productSlice = createSlice({
           state.data = productUtil.formatManyAndSort(data, []);
         },
       )
+      .addMatcher(
+        productEndpoints.fetchAllProductsByCategoryId.matchFulfilled,
+        (state, { payload: { data } }) => {
+          state.data = productUtil.formatManyAndSort(data, []);
+        },
+      )
       .addMatcher(productEndpoints.createProduct.matchFulfilled, (state, { payload: { data } }) => {
         state.data = productUtil.formatManyAndSort([data], state.data);
       })

@@ -22,6 +22,18 @@ const productApi = api.injectEndpoints({
       }),
     }),
 
+    fetchAllProductsByCategoryId: builder.query<
+      ApiResponse.Products,
+      {
+        categoryId: string;
+      }
+    >({
+      query: ({ categoryId }) => ({
+        url: API_ENDPOINTS.CATEGORIES.ALL_PRODUCTS_BY_CATEGORY_ID(categoryId),
+        method: API_METHODS.GET,
+      }),
+    }),
+
     fetchProducts: builder.query<ApiResponse.Products, ApiRequest.FindManyProducts>({
       query: () => ({
         url: API_ENDPOINTS.PRODUCTS.INDEX,
@@ -82,6 +94,7 @@ export const {
   useCreateProductMutation,
   useFetchAllProductsQuery,
   useFetchProductsQuery,
+  useFetchAllProductsByCategoryIdQuery,
   useFetchProductQuery,
   useUpdateProductMutation,
   useDeleteProductMutation,

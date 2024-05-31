@@ -3,6 +3,7 @@ import { NavigatorScreenParams } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React from 'react';
 import { SCREENS } from 'src/constants';
+import { CategoryScreen } from 'src/screens/category/category.screen';
 import { ProfileSettingScreen } from 'src/screens/Me/ProfileSettingScreen';
 import { OrderScreen } from 'src/screens/order/order.screen';
 import { OrderConfirmScreen } from 'src/screens/order-confirm/order-confirm.screen';
@@ -17,7 +18,7 @@ import { ShopsScreen } from 'src/screens/shops/shops.screen';
 import { colors } from 'src/theme';
 import { AppStore, Entity, FormParams } from 'src/types';
 
-import { HomeNavigator, HomeTabParamList } from './HomeNavigator';
+import { HomeNavigator, HomeTabParamList } from './home-navigator';
 import { Stack } from './Stack';
 
 export type AppStackParamList = {
@@ -45,6 +46,10 @@ export type AppStackParamList = {
     detail: AppStore.Product;
   };
   PRODUCT_SETTING: undefined;
+  // Category
+  CATEGORY: {
+    detail: AppStore.Category;
+  };
   // Order
   ORDER_CREATE: {
     values: FormParams.CreateOrder;
@@ -106,6 +111,9 @@ export const MainStack: React.FC = () => {
           <Stack.Screen name={SCREENS.PRODUCT_CREATE} component={CreateProductScreen} />
           <Stack.Screen name={SCREENS.PRODUCT} component={ProductScreen} />
           <Stack.Screen name={SCREENS.PRODUCT_SETTING} component={ProductSettingScreen} />
+
+          {/* Category */}
+          <Stack.Screen name={SCREENS.CATEGORY} component={CategoryScreen} />
 
           {/* Order */}
           <Stack.Screen name={SCREENS.ORDER_CREATE} component={OrderCreateScreen} />

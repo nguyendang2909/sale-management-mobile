@@ -157,6 +157,7 @@ export declare namespace Entity {
       userId: string;
       title: string;
       products: Product[];
+      totalProducts: number;
     }>;
 
   type Order = BaseEntity &

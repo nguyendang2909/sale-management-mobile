@@ -78,6 +78,15 @@ export declare namespace FormParams {
     note: string | null;
   };
 
+  type UpdateOrder = {
+    status: OrderStatus | null;
+    address: string | null;
+    deliveryMethod: string | null;
+    // items: ProductWithQuantity[];
+    customerId: string | null;
+    note: string | null;
+  };
+
   type UpdateOrderPayment = {
     amount: number | null;
     paymentMethod: OrderPaymentMethod;

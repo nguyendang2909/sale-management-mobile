@@ -1,6 +1,8 @@
 import { HStack, Pressable, Text, View, VStack } from '@gluestack-ui/themed';
+import { useNavigation } from '@react-navigation/native';
 import _ from 'lodash';
 import { FC } from 'react';
+import { SCREENS } from 'src/constants';
 import { EmptyProductIconBox } from 'src/containers/icon/empty-product-icon-box';
 import { AppStore } from 'src/types';
 
@@ -8,9 +10,15 @@ type FCProps = {
   category: AppStore.Category;
 };
 
-export const CategoryFlatListItem: FC<FCProps> = ({ category }) => {
+export const CategoryListItem: FC<FCProps> = ({ category }) => {
+  const navigation = useNavigation();
   const image = _.get(category, 'images[0]');
-  const handlePress = () => {};
+
+  const handlePress = () => {
+    navigation.navigate(SCREENS.CATEGORY, {
+      detail: category,
+    });
+  };
 
   return (
     <Pressable onPress={handlePress}>
@@ -30,7 +38,7 @@ export const CategoryFlatListItem: FC<FCProps> = ({ category }) => {
                 </View>
                 <View height={21}>
                   <Text lineHeight={21} color="$red600">
-                    0 sản phẩm
+                    {category.totalProducts} sản phẩm
                   </Text>
                 </View>
               </VStack>

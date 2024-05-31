@@ -1,4 +1,5 @@
 export * from './usAppDispatch';
+export * from './use-category';
 export * from './use-customers';
 export * from './use-geo-location';
 export * from './use-order';
@@ -7,6 +8,7 @@ export * from './use-orders';
 export * from './use-product';
 export * from './use-product-settings';
 export * from './use-products';
+export * from './use-refreshing-query';
 export * from './use-search-categories';
 export * from './use-search-products';
 export * from './use-shops';

@@ -20,7 +20,12 @@ class CategoryUtil extends BaseUtil {
   }
 
   formatManyAndSort(news: Entity.Category[], olds: AppStore.Category[]) {
-    return _.chain(news).map(this.formatOne).concat(olds).uniqBy('id').orderBy('id', 'asc').value();
+    return _.chain(news)
+      .map(e => this.formatOne(e))
+      .concat(olds)
+      .uniqBy('id')
+      .orderBy('title', 'asc')
+      .value();
   }
 
   filter(data: AppStore.Category[], { searchText }: { searchText?: string }) {
