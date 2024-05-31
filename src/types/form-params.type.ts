@@ -12,6 +12,10 @@ export declare namespace FormParams {
     token: string;
   };
 
+  type UpdateCategory = {
+    title: string;
+  };
+
   type SignInWithPhoneNumber = {
     phoneCode: string;
     phoneNumber: string;

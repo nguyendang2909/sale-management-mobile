@@ -11,11 +11,11 @@ import {
   View,
 } from '@gluestack-ui/themed';
 import { Menu } from 'lucide-react-native';
-import { FC, useCallback, useState } from 'react';
+import { FC, useCallback, useEffect, useState } from 'react';
 import { TouchableOpacity } from 'react-native';
 import { FontAwesome } from 'src/components';
 import { SelectCategoriesActionsheetContent } from 'src/containers/actionsheet/select-category-item';
-import { CreateCategoryModal } from 'src/containers/modal/create-category.modal';
+import { ModalCreateCategory } from 'src/containers/modal/modal-create-category';
 import { SelectCategoriesCheckbox } from 'src/containers/select/select-categories';
 import { useAppSelector, useDisclose } from 'src/hooks';
 import { AppStore } from 'src/types';
@@ -53,8 +53,14 @@ export const ProductCategoryForm: FC<FCProps> = ({ value, onChange }) => {
     onOpen: onOpenSelectCategories,
   } = useDisclose();
 
+  useEffect(() => {
+    if (!isInitActionsheet) {
+      setInitActionsheet(true);
+    }
+  }, [isInitActionsheet]);
+
   const handlePressCategoryNavMenu = () => {
-    setInitActionsheet(true);
+    // setInitActionsheet(true);
     onOpenSelectCategories();
   };
 
@@ -97,7 +103,7 @@ export const ProductCategoryForm: FC<FCProps> = ({ value, onChange }) => {
         </View>
       </FormControl>
       {isInitModal && (
-        <CreateCategoryModal onClose={onCloseCreateCategory} isVisible={isOpenCreateCategory} />
+        <ModalCreateCategory onClose={onCloseCreateCategory} isVisible={isOpenCreateCategory} />
       )}
       {isInitActionsheet && (
         <Actionsheet isOpen={isOpenSelectCategories} onClose={onCloseSelectCategories}>

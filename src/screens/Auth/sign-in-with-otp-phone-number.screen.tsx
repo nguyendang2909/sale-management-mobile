@@ -1,5 +1,6 @@
 import {
   Box,
+  ButtonText,
   FormControl,
   FormControlError,
   FormControlErrorIcon,
@@ -159,7 +160,7 @@ export const SignInWithOtpPhoneNumberScreen: FC<FCProps> = props => {
                   isLoading={resendStatus === ResendStatusObj.resending}
                   onPress={handleResendingOtpCode}
                 >
-                  {formatMessage('Resend OTP code')}
+                  <ButtonText>{formatMessage('Resend OTP code')}</ButtonText>
                 </LoadingButton>
               </View>
             </View>

@@ -86,6 +86,9 @@ export const API_ENDPOINTS = {
     ALL_PRODUCTS_BY_CATEGORY_ID: (categoryId: string) => {
       return API_TAGS.CATEGORIES + '/' + categoryId + API_TAGS.PRODUCTS + API_TAGS.ALL;
     },
+    BY_ID: (categoryId: string) => {
+      return API_TAGS.CATEGORIES + '/' + categoryId;
+    },
   },
   ORDERS: {
     INDEX: API_TAGS.ORDERS,

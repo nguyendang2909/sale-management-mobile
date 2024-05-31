@@ -29,17 +29,17 @@ const categoryApi = api.injectEndpoints({
     // }),
 
     fetchCategory: builder.query<ApiResponse.Category, string>({
-      query: () => ({
-        url: API_ENDPOINTS.CATEGORIES.INDEX,
+      query: (id: string) => ({
+        url: API_ENDPOINTS.CATEGORIES.BY_ID(id),
         method: API_METHODS.GET,
       }),
     }),
 
-    updateCategory: builder.mutation<void, { id: string; payload: ApiRequest.UpdateCategory }>({
-      query: params => ({
-        url: API_ENDPOINTS.CATEGORIES.INDEX,
-        method: API_METHODS.PUT,
-        params,
+    updateCategory: builder.mutation<void, { id: string; body: ApiRequest.UpdateCategory }>({
+      query: ({ id, body }) => ({
+        url: API_ENDPOINTS.CATEGORIES.BY_ID(id),
+        method: API_METHODS.PATCH,
+        body,
       }),
     }),
 
@@ -58,6 +58,7 @@ export const {
   // useFetchCategoriesQuery,
   useLazyFetchAllCategoriesQuery,
   useFetchCategoryQuery,
+  useLazyFetchCategoryQuery,
   useUpdateCategoryMutation,
   useDeleteCategoryMutation,
   endpoints: categoryEndpoints,

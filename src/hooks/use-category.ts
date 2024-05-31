@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { useFetchCategoryQuery } from 'src/api';
 import { AppStore } from 'src/types';
 
@@ -12,8 +13,10 @@ export const useCategory = ({ detail }: { detail: AppStore.Category }) => {
     refetchOnMountOrArgChange: true,
   });
 
+  const dataMemo = useMemo(() => data || detail, [data, detail]);
+
   return {
-    data: data || detail,
+    data: dataMemo,
     refetch,
     isLoading,
     isFetching,

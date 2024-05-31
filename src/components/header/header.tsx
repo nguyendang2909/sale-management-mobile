@@ -129,7 +129,12 @@ export const Header: FC<HeaderProps> = (props: HeaderProps) => {
             ]}
             pointerEvents="none"
           >
-            <Text fontWeight="$medium" size="md" style={[$title, $titleStyleOverride]}>
+            <Text
+              numberOfLines={1}
+              fontWeight="$medium"
+              size="md"
+              style={[$title, $titleStyleOverride]}
+            >
               {titleContent}
             </Text>
           </View>
@@ -166,7 +171,7 @@ function HeaderAction(props: HeaderActionProps) {
 
   const content = tx ? formatMessage(tx) : text;
 
-  if (ActionComponent) return ActionComponent;
+  if (ActionComponent) return <View pr={8}>{ActionComponent}</View>;
 
   if (content || icon) {
     const Wrapper = onPress ? TouchableOpacity : View;
@@ -183,7 +188,12 @@ function HeaderAction(props: HeaderActionProps) {
         <Icon as={icon || ChevronLeft} size="xl" color={onPress ? '$primary600' : '$coolGray500'} />
         {!!content && (
           <View style={[$actionTextContainer, { backgroundColor }]}>
-            <Text fontWeight="$medium" size="md" color={onPress ? '$primary600' : ''}>
+            <Text
+              numberOfLines={1}
+              fontWeight="$medium"
+              size="md"
+              color={onPress ? '$primary600' : ''}
+            >
               {content}
             </Text>
           </View>

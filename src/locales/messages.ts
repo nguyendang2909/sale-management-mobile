@@ -489,6 +489,10 @@ export const messages = defineMessages({
     defaultMessage: 'Email đã tồn tại, vui lòng thử email khác',
     id: '9b30eb942b',
   },
+  'Category already exists': {
+    defaultMessage: 'Danh mục đã tồn tại',
+    id: '7977fba0ea',
+  },
 });
 
 export default messages;

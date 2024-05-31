@@ -2,6 +2,7 @@ export * from './usAppDispatch';
 export * from './use-category';
 export * from './use-customers';
 export * from './use-geo-location';
+export * from './use-init';
 export * from './use-order';
 export * from './use-order-settings';
 export * from './use-orders';

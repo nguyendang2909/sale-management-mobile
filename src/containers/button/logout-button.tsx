@@ -1,4 +1,4 @@
-import { Button } from '@gluestack-ui/themed';
+import { Button, ButtonText } from '@gluestack-ui/themed';
 import React from 'react';
 import { useIntl } from 'react-intl';
 import { useDispatch } from 'react-redux';
@@ -28,7 +28,7 @@ export const LogoutButton: React.FC<FC> = () => {
   return (
     <>
       <LoadingButton isLoading={isLoading} onPress={handleLogout}>
-        {t.formatMessage(messages.Logout)}
+        <ButtonText>{t.formatMessage(messages.Logout)}</ButtonText>
       </LoadingButton>
     </>
   );

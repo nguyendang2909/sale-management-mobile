@@ -34,6 +34,7 @@ export const categorySlice = createSlice({
       .addMatcher(
         categoryEndpoints.fetchCategory.matchFulfilled,
         (state, { payload: { data } }) => {
+          console.log(111, data);
           state.data = categoryUtil.formatManyAndSort([data], state.data);
         },
       )

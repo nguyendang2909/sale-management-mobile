@@ -1,11 +1,10 @@
-import { useNavigation } from '@react-navigation/native';
 import { Header } from 'src/components';
 import { HOME_SCREENS, SCREENS } from 'src/constants';
+import { goBack } from 'src/navigations/navigation-ref';
 
 export const ProductDetailHeader = () => {
-  const navigation = useNavigation();
   const onLeftPress = () => {
-    navigation.navigate(SCREENS.HOME, {
+    goBack(SCREENS.HOME, {
       screen: HOME_SCREENS.PRODUCTS,
     });
   };

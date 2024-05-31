@@ -1,6 +1,6 @@
 import { Fab, FabIcon } from '@gluestack-ui/themed';
 import { Plus } from 'lucide-react-native';
-import { CreateCategoryModal } from 'src/containers/modal/create-category.modal';
+import { ModalCreateCategory } from 'src/containers/modal/modal-create-category';
 import { useDisclose } from 'src/hooks';
 
 export const CreateCategoryFab = () => {
@@ -20,7 +20,7 @@ export const CreateCategoryFab = () => {
         <FabIcon as={Plus} h="$4" w="$4" />
       </Fab>
 
-      <CreateCategoryModal onClose={onCloseCreateCategory} isVisible={isOpenCreateCategory} />
+      <ModalCreateCategory onClose={onCloseCreateCategory} isVisible={isOpenCreateCategory} />
     </>
   );
 };
