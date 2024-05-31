@@ -35,7 +35,7 @@ class ProductUtil extends BaseUtil {
   ) {
     let products = _.chain(data);
     if (searchText) {
-      const textRegExp = new RegExp(searchText);
+      const textRegExp = new RegExp(searchText, 'i');
       products = products.filter(e => {
         return !!e.title && textRegExp.test(e.title);
       });

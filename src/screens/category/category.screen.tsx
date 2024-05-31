@@ -1,7 +1,6 @@
 import { ChevronLeftIcon, View } from '@gluestack-ui/themed';
-import { FlashList } from '@shopify/flash-list';
 import { FC } from 'react';
-import { Header } from 'src/components';
+import { Header, LoadingOverlay } from 'src/components';
 import { IconButtonSearch } from 'src/components/icon-button/icon-button-search';
 import { SearchInput } from 'src/components/input/search-input';
 import { HOME_SCREENS, SCREENS } from 'src/constants';
@@ -11,7 +10,7 @@ import { useSearchProductsByCategoryId } from 'src/hooks/use-search-product-by-c
 import { goBack } from 'src/navigations/navigation-ref';
 import { AppStackScreenProps } from 'src/navigators/main.stack';
 
-import { ProductListItem } from '../products/views/product-tab/product-list-item';
+import { ProductList } from '../products/views/product-tab/product-list';
 
 export const CategoryScreen: FC<AppStackScreenProps<'CATEGORY'>> = ({
   route: {
@@ -29,6 +28,7 @@ export const CategoryScreen: FC<AppStackScreenProps<'CATEGORY'>> = ({
     setSearchText,
     data: products,
     isLoading,
+    isFetching,
     isRefreshing: isRefreshingProducts,
     refresh: refreshProducts,
   } = useSearchProductsByCategoryId({ categoryId: detail.id });
@@ -74,17 +74,13 @@ export const CategoryScreen: FC<AppStackScreenProps<'CATEGORY'>> = ({
       </Header>
 
       <View flex={1}>
-        <FlashList
-          showsVerticalScrollIndicator={false}
-          refreshing={isRefreshingProducts}
-          onRefresh={refreshProducts}
-          numColumns={1}
-          data={products}
-          keyExtractor={(item, index) => item.id || index.toString()}
-          renderItem={({ item }) => <ProductListItem product={item} />}
-          estimatedItemSize={1}
-          ListFooterComponent={<View height={100}></View>}
-        ></FlashList>
+        <LoadingOverlay isLoading={isLoading} />
+        <ProductList
+          mt={16}
+          isRefreshing={isRefreshingProducts}
+          refresh={refreshProducts}
+          products={products}
+        />
       </View>
     </>
   );

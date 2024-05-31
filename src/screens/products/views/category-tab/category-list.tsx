@@ -6,18 +6,14 @@ import { AppStore } from 'src/types';
 import { CategoryListItem } from './category-list-item';
 
 export const CategoryList = () => {
-  const {
-    data: categories,
-    isFetching: isFetchingCategories,
-    refetch: refetchCategories,
-  } = useSearchCategories();
+  const { data: categories, isRefreshing, refresh } = useSearchCategories();
 
   return (
     <View flex={1}>
       <FlashList
         showsVerticalScrollIndicator={false}
-        refreshing={isFetchingCategories}
-        onRefresh={refetchCategories}
+        refreshing={isRefreshing}
+        onRefresh={refresh}
         numColumns={1}
         data={categories}
         keyExtractor={(item, index) => item.id || index.toString()}

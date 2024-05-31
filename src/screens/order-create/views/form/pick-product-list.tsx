@@ -21,11 +21,7 @@ import { skuUtil } from 'src/utils';
 import { PickProduct } from './pick-product-list-item';
 
 export const PickProducts: FC<{ values: FormParams.CreateOrder }> = ({ values }) => {
-  const {
-    data: products,
-    refetch: refetchProducts,
-    isFetching: isFetchingProducts,
-  } = useSearchProducts();
+  const { data: products, isRefreshing, refresh } = useSearchProducts();
   const navigation = useNavigation();
   const cartItemsObj = useAppSelector(s => s.cart.items);
   const cartItems = useMemo(() => Object.values(cartItemsObj), [cartItemsObj]);
@@ -44,8 +40,8 @@ export const PickProducts: FC<{ values: FormParams.CreateOrder }> = ({ values })
   return (
     <View flex={1}>
       <FlashList
-        refreshing={isFetchingProducts}
-        onRefresh={refetchProducts}
+        refreshing={isRefreshing}
+        onRefresh={refresh}
         showsVerticalScrollIndicator={false}
         numColumns={1}
         data={products}

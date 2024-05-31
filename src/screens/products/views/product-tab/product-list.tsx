@@ -1,21 +1,23 @@
 import { View } from '@gluestack-ui/themed';
 import { FlashList } from '@shopify/flash-list';
-import { useSearchProducts } from 'src/hooks';
-import { useProducts } from 'src/hooks/use-products';
-import { AppStore } from 'src/types';
+import { FC } from 'react';
+import { AppStore, ViewProps } from 'src/types';
 
 import { ProductListItem } from './product-list-item';
 
-export const ProductList = () => {
-  const { isFetching: isFetchingProducts, refetch: refetchProducts } = useProducts();
-  const { data: products } = useSearchProducts();
-
+export const ProductList: FC<
+  ViewProps & {
+    products: AppStore.Product[];
+    isRefreshing: boolean;
+    refresh: () => void;
+  }
+> = ({ products, isRefreshing, refresh, ...viewProps }) => {
   return (
-    <View flex={1}>
+    <View flex={1} {...viewProps}>
       <FlashList
         showsVerticalScrollIndicator={false}
-        refreshing={isFetchingProducts}
-        onRefresh={refetchProducts}
+        refreshing={isRefreshing}
+        onRefresh={refresh}
         numColumns={1}
         data={products}
         keyExtractor={(item: AppStore.Product, index) => item.id || index.toString()}

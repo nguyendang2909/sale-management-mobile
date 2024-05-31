@@ -24,26 +24,25 @@ export const CategoryListItem: FC<FCProps> = ({ category }) => {
     <Pressable onPress={handlePress}>
       {({ pressed }) => {
         return (
-          <View bg={pressed ? '$backgroundLight200' : '$white'} px={16}>
-            <HStack columnGap={8} borderBottomWidth={1} borderColor="$backgroundLight200" py={8}>
-              <View>{image ? <></> : <EmptyProductIconBox />}</View>
-              <VStack>
-                <View height={22}>
-                  <Text lineHeight={22} numberOfLines={1}>
-                    {category.title}
-                  </Text>
-                </View>
-                <View height={21}>
-                  <Text lineHeight={21}>{''}</Text>
-                </View>
-                <View height={21}>
-                  <Text lineHeight={21} color="$red600">
-                    {category.totalProducts} sản phẩm
-                  </Text>
-                </View>
-              </VStack>
-            </HStack>
-          </View>
+          <>
+            <View bg={pressed ? '$backgroundLight200' : '$white'} px={16}>
+              <HStack columnGap={8} borderBottomWidth={1} borderColor="$backgroundLight200" py={8}>
+                <View>{image ? <></> : <EmptyProductIconBox />}</View>
+                <VStack flex={1}>
+                  <View height={32}>
+                    <Text lineHeight={32} numberOfLines={1}>
+                      {category.title}
+                    </Text>
+                  </View>
+                  <View height={32}>
+                    <Text lineHeight={32} color="$secondary500" fontSize={14} numberOfLines={1}>
+                      {category.totalProducts} sản phẩm
+                    </Text>
+                  </View>
+                </VStack>
+              </HStack>
+            </View>
+          </>
         );
       }}
     </Pressable>

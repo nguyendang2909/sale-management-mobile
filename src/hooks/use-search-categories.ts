@@ -2,6 +2,7 @@ import { useMemo } from 'react';
 import { useFetchAllCategoriesQuery } from 'src/api';
 import { categoryUtil } from 'src/utils/category.util';
 
+import { useRefreshingQuery } from './use-refreshing-query';
 import { useAppSelector } from './useAppSelector';
 
 export const useSearchCategories = () => {
@@ -9,6 +10,7 @@ export const useSearchCategories = () => {
   const searchText = useAppSelector(s => s.cache.category.searchText);
 
   const { refetch, isFetching } = useFetchAllCategoriesQuery({});
+  const { isRefreshing, refresh } = useRefreshingQuery(refetch);
 
   const categories = useMemo(() => categoryUtil.filter(data, { searchText }), [data, searchText]);
 
@@ -16,5 +18,7 @@ export const useSearchCategories = () => {
     data: categories,
     refetch,
     isFetching,
+    isRefreshing,
+    refresh,
   };
 };
