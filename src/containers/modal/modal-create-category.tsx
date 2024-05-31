@@ -28,7 +28,7 @@ export const ModalCreateCategory: FC<FCProps> = ({ onClose, isVisible }) => {
     },
     resolver: yupResolver(
       Yup.object({
-        title: Yup.string().required(),
+        title: Yup.string().required('Thông tin bắt buộc'),
       }),
     ),
   });
