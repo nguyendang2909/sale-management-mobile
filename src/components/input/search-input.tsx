@@ -1,8 +1,9 @@
-import { Input, InputField, InputIcon, InputSlot, SearchIcon } from '@gluestack-ui/themed';
+import { Input, InputField, InputIcon, InputSlot, SearchIcon, View } from '@gluestack-ui/themed';
 import { FC, useEffect, useRef } from 'react';
 import { TextInput } from 'react-native';
+import { ViewProps } from 'src/types';
 
-type FCProps = {
+type FCProps = ViewProps & {
   placeholder?: string;
   onChangeText?: (text: string) => void;
   focusable?: boolean;
@@ -16,6 +17,7 @@ export const SearchInput: FC<FCProps> = ({
   focusable,
   defaultValue,
   value,
+  ...viewProps
 }) => {
   const textInputRef = useRef<TextInput>();
 
@@ -26,7 +28,7 @@ export const SearchInput: FC<FCProps> = ({
   }, []);
 
   return (
-    <>
+    <View {...viewProps}>
       <Input>
         <InputSlot pl="$3">
           <InputIcon as={SearchIcon} />
@@ -41,6 +43,6 @@ export const SearchInput: FC<FCProps> = ({
           ref={textInputRef}
         />
       </Input>
-    </>
+    </View>
   );
 };

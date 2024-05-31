@@ -1,11 +1,13 @@
 import { Button, ButtonText, CloseIcon, View } from '@gluestack-ui/themed';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { FC, useEffect, useRef } from 'react';
+import { useNavigation } from '@react-navigation/native';
+import { FC, useEffect, useRef, useState } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { Modal, TextInput } from 'react-native';
-import Toast from 'react-native-toast-message';
 import { useCreateCategoryMutation } from 'src/api';
 import { FormControlInput, Header } from 'src/components';
+import { AlertError } from 'src/components/alert/alert-error';
+import { SCREENS } from 'src/constants';
 import { useMessages } from 'src/hooks';
 import { FormParams } from 'src/types';
 import * as Yup from 'yup';
@@ -16,8 +18,10 @@ type FCProps = {
 };
 
 export const ModalCreateCategory: FC<FCProps> = ({ onClose, isVisible }) => {
+  const navigation = useNavigation();
   const { formatErrorMessage } = useMessages();
   const [createCategory] = useCreateCategoryMutation();
+  const [errorResponse, setErrorResponse] = useState<any>();
   const { reset, handleSubmit, control } = useForm<FormParams.CreateCategory>({
     defaultValues: {
       title: '',
@@ -31,13 +35,15 @@ export const ModalCreateCategory: FC<FCProps> = ({ onClose, isVisible }) => {
 
   const onSubmit: SubmitHandler<FormParams.CreateCategory> = async values => {
     try {
-      await createCategory(values).unwrap();
+      setErrorResponse(null);
+      const category = await createCategory(values).unwrap();
       reset();
       onClose();
-    } catch (error) {
-      Toast.show({
-        text1: formatErrorMessage(error),
+      navigation.navigate(SCREENS.CATEGORY_PICK_PRODUCTS, {
+        detail: category.data,
       });
+    } catch (error) {
+      setErrorResponse(error);
     }
   };
 
@@ -97,6 +103,11 @@ export const ModalCreateCategory: FC<FCProps> = ({ onClose, isVisible }) => {
             ></Controller>
           </View>
         </View>
+        {!!errorResponse && (
+          <View px={16}>
+            <AlertError mt={16} description={formatErrorMessage(errorResponse)} />
+          </View>
+        )}
       </View>
     </Modal>
   );

@@ -4,6 +4,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React from 'react';
 import { SCREENS } from 'src/constants';
 import { CategoryScreen } from 'src/screens/category/category.screen';
+import { CategoryPickProductsScreen } from 'src/screens/category-pick-product/category-pick-products.screen';
 import { ProfileSettingScreen } from 'src/screens/Me/ProfileSettingScreen';
 import { OrderScreen } from 'src/screens/order/order.screen';
 import { OrderConfirmScreen } from 'src/screens/order-confirm/order-confirm.screen';
@@ -48,6 +49,9 @@ export type AppStackParamList = {
   PRODUCT_SETTING: undefined;
   // Category
   CATEGORY: {
+    detail: AppStore.Category;
+  };
+  CATEGORY_PICK_PRODUCTS: {
     detail: AppStore.Category;
   };
   // Order
@@ -114,6 +118,10 @@ export const MainStack: React.FC = () => {
 
           {/* Category */}
           <Stack.Screen name={SCREENS.CATEGORY} component={CategoryScreen} />
+          <Stack.Screen
+            name={SCREENS.CATEGORY_PICK_PRODUCTS}
+            component={CategoryPickProductsScreen}
+          />
 
           {/* Order */}
           <Stack.Screen name={SCREENS.ORDER_CREATE} component={OrderCreateScreen} />
