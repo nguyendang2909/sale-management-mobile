@@ -10,7 +10,7 @@ export const useSearchProducts = () => {
   const { isFetching, refetch, isLoading } = useFetchAllProductsQuery({});
   const { isRefreshing, setRefreshing, refresh } = useRefreshQuery(refetch);
   const data = useAppSelector(s => s.product.data);
-  const [searchText, setSearchText] = useState<string>();
+  const searchText = useAppSelector(s => s.cache.product.searchText);
   const [sortBy, setSortBy] = useState<ProductSortType | undefined>();
 
   const products = useMemo(
@@ -26,7 +26,6 @@ export const useSearchProducts = () => {
     isRefreshing,
     setRefreshing,
     refresh,
-    setSearchText,
     setSortBy,
   };
 };
