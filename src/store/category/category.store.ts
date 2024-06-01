@@ -17,6 +17,9 @@ export const categorySlice = createSlice({
     setCategories: (state, { payload }: PayloadAction<Entity.Category[]>) => {
       state.data = payload;
     },
+    deleteById: (state, { payload }: PayloadAction<string>) => {
+      state.data = state.data.filter(e => e.id !== payload);
+    },
   },
   extraReducers: builder => {
     builder.addCase(appActions.logout, state => {

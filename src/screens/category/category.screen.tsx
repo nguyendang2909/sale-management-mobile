@@ -13,6 +13,7 @@ import { AppStackScreenProps } from 'src/navigators/main.stack';
 
 import { ProductList } from '../products/views/product-tab/product-list';
 import { CategoryEditActionsheet } from './views/actionsheet/category-edit.actionsheet';
+import { IconButtonDeleteCategory } from './views/delete-category/icon-button-delete-category';
 
 export const CategoryScreen: FC<AppStackScreenProps<'CATEGORY'>> = ({
   route: {
@@ -60,12 +61,13 @@ export const CategoryScreen: FC<AppStackScreenProps<'CATEGORY'>> = ({
         RightActionComponent={
           <>
             <HStack gap={16}>
-              <IconButtonEdit onPress={handleEditCategory} />
               <IconButtonSearch
                 isSearching={isSearching}
                 onOpen={onOpenSearch}
                 onClose={onCloseSearch}
               />
+              <IconButtonEdit onPress={handleEditCategory} />
+              <IconButtonDeleteCategory category={category} />
             </HStack>
           </>
         }
