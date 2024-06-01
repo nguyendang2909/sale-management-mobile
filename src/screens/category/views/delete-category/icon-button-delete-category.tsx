@@ -20,7 +20,7 @@ import { LoadingButton } from 'src/components';
 import { AlertError } from 'src/components/alert/alert-error';
 import { IconButtonDelete } from 'src/components/icon-button/icon-button-delete';
 import { HOME_SCREENS, SCREENS } from 'src/constants';
-import { useDisclose, useInit } from 'src/hooks';
+import { useDisclose, useInit, useMessages } from 'src/hooks';
 import { goBack } from 'src/navigations/navigation-ref';
 import { categoryActions } from 'src/store';
 import { AppStore } from 'src/types';
@@ -30,6 +30,7 @@ type FCProps = {
 };
 
 export const IconButtonDeleteCategory: FC<FCProps> = ({ category }) => {
+  const { formatErrorMessage } = useMessages();
   const dispatch = useDispatch();
   const [deleteCategoryMutation, { isLoading: isLoadingDelete }] = useDeleteCategoryMutation();
   const [errorResponse, setErrorResponse] = useState<any | null>(null);
@@ -57,6 +58,7 @@ export const IconButtonDeleteCategory: FC<FCProps> = ({ category }) => {
 
   const handleOpenDelete = () => {
     onOpenDeleteModal();
+    setErrorResponse(null);
   };
 
   return (
@@ -78,7 +80,9 @@ export const IconButtonDeleteCategory: FC<FCProps> = ({ category }) => {
             </ModalHeader>
             <ModalBody>
               <Text>Bạn có chắc chắn rằng muốn xoá danh mục?</Text>
-              {!errorResponse && <AlertError description="asdasd" />}
+              {errorResponse && (
+                <AlertError mt={16} description={formatErrorMessage(errorResponse)} />
+              )}
             </ModalBody>
             <ModalFooter>
               <Button
