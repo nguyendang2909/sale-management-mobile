@@ -9,23 +9,23 @@ import Toast from 'react-native-toast-message';
 import { useUpdateProductMutation } from 'src/api';
 import { LoadingOverlay } from 'src/components';
 import { HOME_SCREENS, SCREENS } from 'src/constants';
-import { ProductInStockControl } from 'src/containers/form-control/product/form-control-product-in-stock';
-import { ProductCapitalPriceControl } from 'src/containers/form-control/product/product-capital-price.control';
-import { ProductCategoriesControl } from 'src/containers/form-control/product/product-categories.control';
-import { ProductImagesControl } from 'src/containers/form-control/product/product-images.control';
-import { ProductPriceControl } from 'src/containers/form-control/product/product-price.control';
-import { ProductPromotionalPriceControl } from 'src/containers/form-control/product/product-promotional-price.control';
-import { ProductSkuControl } from 'src/containers/form-control/product/product-sku.control';
-import { ProductStockControl } from 'src/containers/form-control/product/product-stock.control';
-import { ProductTitleControl } from 'src/containers/form-control/product/product-title.control';
-import { ProductTrackingStockControl } from 'src/containers/form-control/product/product-tracking-stock.control';
-import { ProductUnitControl } from 'src/containers/form-control/product/product-unit.control';
 import { useMessages, useProduct } from 'src/hooks';
 import { useCategories } from 'src/hooks/useCategories';
 import { ApiRequest, AppStore, FormParams } from 'src/types';
 import { updateProductFormUtil } from 'src/utils';
 import { formParamUtil } from 'src/utils/form-params.util';
 
+import { ProductInStockControl } from './form/form-control-product-in-stock';
+import { ProductCapitalPriceControl } from './form/product-capital-price.control';
+import { ProductCategoriesControl } from './form/product-categories.control';
+import { ProductImagesControl } from './form/product-images.control';
+import { ProductPriceControl } from './form/product-price.control';
+import { ProductPromotionalPriceControl } from './form/product-promotional-price.control';
+import { ProductSkuControl } from './form/product-sku.control';
+import { ProductStockControl } from './form/product-stock.control';
+import { ProductTitleControl } from './form/product-title.control';
+import { ProductTrackingStockControl } from './form/product-tracking-stock.control';
+import { ProductUnitControl } from './form/product-unit.control';
 import { ProductDetailFooter } from './product-detail-footer';
 
 type FCProps = {

@@ -3,12 +3,12 @@ import { useFetchAllProductsQuery } from 'src/api';
 import { ProductSortType } from 'src/types';
 import { productUtil } from 'src/utils/product.util';
 
-import { useRefreshingQuery } from './use-refreshing-query';
+import { useRefreshQuery } from './use-refreshing-query';
 import { useAppSelector } from './useAppSelector';
 
 export const useSearchProducts = () => {
   const { isFetching, refetch, isLoading } = useFetchAllProductsQuery({});
-  const { isRefreshing, setRefreshing, refresh } = useRefreshingQuery(refetch);
+  const { isRefreshing, setRefreshing, refresh } = useRefreshQuery(refetch);
   const data = useAppSelector(s => s.product.data);
   const [searchText, setSearchText] = useState<string>();
   const [sortBy, setSortBy] = useState<ProductSortType | undefined>();

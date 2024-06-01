@@ -1,21 +1,25 @@
 import { View } from '@gluestack-ui/themed';
 import { ComponentProps, FC } from 'react';
 import { Control, Controller } from 'react-hook-form';
+import { FormControlSwitch } from 'src/components';
+import { FormParams } from 'src/types';
 
-import { ProductTrackingStockSwitch } from './form/product-tracking-stock.switch';
-
-export const ProductTrackingStockControl: FC<
-  ComponentProps<typeof View> & { control: Control<any, any> }
+export const ProductInStockControl: FC<
+  ComponentProps<typeof View> & { control: Control<FormParams.CreateProduct, any> }
 > = ({ control, ...viewProps }) => {
   return (
     <>
       <Controller
         control={control}
         name="isInStock"
-        rules={{ required: true }}
         render={({ field }) => (
           <View {...viewProps}>
-            <ProductTrackingStockSwitch value={field.value} onChange={field.onChange} />
+            <FormControlSwitch
+              {...viewProps}
+              title="Còn hàng"
+              value={field.value}
+              setValue={field.onChange}
+            />
           </View>
         )}
       ></Controller>

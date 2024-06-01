@@ -3,7 +3,7 @@ import { ChevronLeft } from 'lucide-react-native';
 import { Header } from 'src/components';
 import { HOME_SCREENS, SCREENS } from 'src/constants';
 
-export const CreateProductHeader = () => {
+export const HeaderProductCreate = () => {
   const navigation = useNavigation();
   const onLeftPress = () => {
     navigation.navigate(SCREENS.HOME, {

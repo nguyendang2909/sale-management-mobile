@@ -7,9 +7,9 @@ import { check, PERMISSIONS, request, RESULTS } from 'react-native-permissions';
 import Toast from 'react-native-toast-message';
 import { useUploadProductImageMutation } from 'src/api';
 import { useMessages } from 'src/hooks';
+import { ProductImageCard } from 'src/screens/product-create/views/form/product-image-card';
 import { Entity } from 'src/types';
 
-import { ProductImageCard } from '../../../containers/form-control/product/product-image-card';
 import { AddProductImageCard } from './add-product-image-card';
 
 type FCProps = {

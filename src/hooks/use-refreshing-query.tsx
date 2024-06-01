@@ -1,13 +1,15 @@
 import { QueryActionCreatorResult } from '@reduxjs/toolkit/query';
-import { useCallback, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 
-export const useRefreshingQuery = (
+export const useRefreshQuery = (
   cb: () => QueryActionCreatorResult<any>,
   options: { isEnabled?: boolean } = {
     isEnabled: true,
   },
 ) => {
   const [isRefreshing, setRefreshing] = useState<boolean>(false);
+
+  const isRefreshingMemo = useMemo(() => isRefreshing, [isRefreshing]);
 
   const refresh = useCallback(async () => {
     try {
@@ -25,5 +27,5 @@ export const useRefreshingQuery = (
     }
   }, [cb, isRefreshing, options.isEnabled]);
 
-  return { isRefreshing, setRefreshing, refresh };
+  return { isRefreshing: isRefreshingMemo, setRefreshing, refresh };
 };

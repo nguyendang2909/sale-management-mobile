@@ -1,11 +1,12 @@
 import { View } from '@gluestack-ui/themed';
 import { ComponentProps, FC } from 'react';
 import { Control, Controller } from 'react-hook-form';
+import { FormParams } from 'src/types';
 
 import { ProductTitleInput } from './form/product-title-input';
 
 export const ProductTitleControl: FC<
-  ComponentProps<typeof View> & { control: Control<any, any> }
+  ComponentProps<typeof View> & { control: Control<FormParams.UpdateProduct, any> }
 > = ({ control, ...viewProps }) => {
   return (
     <>

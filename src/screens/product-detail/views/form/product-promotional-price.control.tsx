@@ -3,9 +3,10 @@ import { ComponentProps, FC } from 'react';
 import { Control, Controller } from 'react-hook-form';
 import { PriceInput } from 'src/components/form/price-input';
 import { useAppSelector } from 'src/hooks';
+import { FormParams } from 'src/types';
 
 export const ProductPromotionalPriceControl: FC<
-  ComponentProps<typeof View> & { control: Control<any, any> }
+  ComponentProps<typeof View> & { control: Control<FormParams.UpdateProduct, any> }
 > = ({ control, ...viewProps }) => {
   const showPromotionalPrice = useAppSelector(s => s.app.productSettings.showPromotionalPrice);
   return (

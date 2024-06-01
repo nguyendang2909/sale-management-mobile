@@ -3,7 +3,7 @@ import { useFetchAllProductsByCategoryIdQuery } from 'src/api';
 import { ProductSortType } from 'src/types';
 import { productUtil } from 'src/utils/product.util';
 
-import { useRefreshingQuery } from './use-refreshing-query';
+import { useRefreshQuery } from './use-refreshing-query';
 
 export const useSearchProductsByCategoryId = ({ categoryId }: { categoryId: string }) => {
   const [searchText, setSearchText] = useState<string>();
@@ -17,7 +17,7 @@ export const useSearchProductsByCategoryId = ({ categoryId }: { categoryId: stri
   } = useFetchAllProductsByCategoryIdQuery({
     categoryId,
   });
-  const { isRefreshing, setRefreshing, refresh } = useRefreshingQuery(refetch);
+  const { isRefreshing, setRefreshing, refresh } = useRefreshQuery(refetch);
 
   const data = useMemo(() => fetchData?.data || [], [fetchData?.data]);
 

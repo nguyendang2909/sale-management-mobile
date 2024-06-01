@@ -1,8 +1,7 @@
 import { FormControlLabel, FormControlLabelText, View } from '@gluestack-ui/themed';
 import { ComponentProps, FC } from 'react';
+import { CreateProductImageCards } from 'src/components/card/product/create-product-image-cards';
 import { Entity } from 'src/types';
-
-import { CreateProductImageCards } from '../../../../components/card/product/create-product-image-cards';
 
 export const ProductImagesForm: FC<
   ComponentProps<typeof View> & {

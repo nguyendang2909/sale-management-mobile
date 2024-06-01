@@ -1,8 +1,8 @@
 import { FC } from 'react';
-import { AppStackScreenProps } from 'src/navigators/main-stack';
+import { AppStackScreenProps } from 'src/navigators/main.stack';
 
-import { ProductContent } from './components/product-content';
-import { ProductDetailHeader } from './components/product-detail-header';
+import { ProductContent } from './views/product-content';
+import { ProductDetailHeader } from './views/product-detail-header';
 
 type FCProps = AppStackScreenProps<'PRODUCT'>;
 

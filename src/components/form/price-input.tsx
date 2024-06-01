@@ -23,7 +23,7 @@ import { MaterialIcons } from '../icon';
 type FCProps = {
   label: string;
   onChange: (e: number | null) => void;
-  value?: number;
+  value?: number | null;
   error?: string;
   maxLength?: number;
   placeholder?: string;

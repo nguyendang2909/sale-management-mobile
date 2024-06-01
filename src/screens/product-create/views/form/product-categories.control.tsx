@@ -1,10 +1,12 @@
 import { View } from '@gluestack-ui/themed';
 import { ComponentProps, FC } from 'react';
 import { Control, Controller } from 'react-hook-form';
-import { ProductCategoryForm } from 'src/containers/form-control/product/form/product-category.form';
+import { FormParams } from 'src/types';
+
+import { ProductCategoryForm } from './form/product-category.form';
 
 export const ProductCategoriesControl: FC<
-  ComponentProps<typeof View> & { control: Control<any, any> }
+  ComponentProps<typeof View> & { control: Control<FormParams.CreateProduct, any> }
 > = ({ control, ...viewProps }) => {
   return (
     <>

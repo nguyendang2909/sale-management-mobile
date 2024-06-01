@@ -13,22 +13,23 @@ import { Platform } from 'react-native';
 import Toast from 'react-native-toast-message';
 import { useCreateProductMutation } from 'src/api';
 import { HOME_SCREENS, SCREENS } from 'src/constants';
-import { FormControlProductAdditional } from 'src/containers/form-control/product/form-control-product-additional';
-import { ProductInStockControl } from 'src/containers/form-control/product/form-control-product-in-stock';
-import { ProductCapitalPriceControl } from 'src/containers/form-control/product/product-capital-price.control';
-import { ProductCategoriesControl } from 'src/containers/form-control/product/product-categories.control';
-import { ProductImagesControl } from 'src/containers/form-control/product/product-images.control';
-import { ProductPriceControl } from 'src/containers/form-control/product/product-price.control';
-import { ProductPromotionalPriceControl } from 'src/containers/form-control/product/product-promotional-price.control';
-import { ProductSkuControl } from 'src/containers/form-control/product/product-sku.control';
-import { ProductStockControl } from 'src/containers/form-control/product/product-stock.control';
-import { ProductTitleControl } from 'src/containers/form-control/product/product-title.control';
-import { ProductTrackingStockControl } from 'src/containers/form-control/product/product-tracking-stock.control';
-import { ProductUnitControl } from 'src/containers/form-control/product/product-unit.control';
 import { useMessages } from 'src/hooks';
 import { useCategories } from 'src/hooks/useCategories';
 import { ApiRequest, FormParams } from 'src/types';
 import { createProductFormUtil } from 'src/utils';
+
+import { ProductInStockControl } from './form/form-control-product-in-stock';
+import { ProductCapitalPriceControl } from './form/product-capital-price.control';
+import { ProductCategoriesControl } from './form/product-categories.control';
+import { ProductImagesControl } from './form/product-images.control';
+import { ProductPriceControl } from './form/product-price.control';
+import { ProductPromotionalPriceControl } from './form/product-promotional-price.control';
+import { ProductSkuControl } from './form/product-sku.control';
+import { ProductStockControl } from './form/product-stock.control';
+import { ProductTitleControl } from './form/product-title.control';
+import { ProductTrackingStockControl } from './form/product-tracking-stock.control';
+import { ProductUnitControl } from './form/product-unit.control';
+import { FormControlProductAdditional } from './form/form-control-product-additional';
 
 export const CreateProductForm: FC = () => {
   useCategories();

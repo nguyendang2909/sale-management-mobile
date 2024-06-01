@@ -11,7 +11,7 @@ import { OrderConfirmScreen } from 'src/screens/order-confirm/order-confirm.scre
 import { OrderCreateScreen } from 'src/screens/order-create/order-create.screen';
 import { OrderSettingScreen } from 'src/screens/order-setting/order-setting.screen';
 import { OrderUpdatePaymentScreen } from 'src/screens/order-update-payment/order-update-payment.screen';
-import { CreateProductScreen } from 'src/screens/product-create/create-product';
+import { ProductCreateScreen } from 'src/screens/product-create/create-product.screen';
 import { ProductScreen } from 'src/screens/product-detail/product.screen';
 import { ProductSettingScreen } from 'src/screens/product-setting/product-setting.screen';
 import { ProfileCreateScreen } from 'src/screens/profile-create/profile-create.screen';
@@ -112,7 +112,7 @@ export const MainStack: React.FC = () => {
           {/* <Stack.Screen name={SCREENS.EDIT_INFO_LOCATION} component={EditInfoLocationScreen} /> */}
           {/* <Stack.Screen name={SCREENS.SUBJECT} component={SubjectScreen} /> */}
           {/* Product */}
-          <Stack.Screen name={SCREENS.PRODUCT_CREATE} component={CreateProductScreen} />
+          <Stack.Screen name={SCREENS.PRODUCT_CREATE} component={ProductCreateScreen} />
           <Stack.Screen name={SCREENS.PRODUCT} component={ProductScreen} />
           <Stack.Screen name={SCREENS.PRODUCT_SETTING} component={ProductSettingScreen} />
 
