@@ -1,7 +1,5 @@
-import { Icon, Menu, MenuItem, MenuItemLabel, Pressable, View } from '@gluestack-ui/themed';
-import { SortAscIcon } from 'lucide-react-native';
+import { View } from '@gluestack-ui/themed';
 import { Header } from 'src/components';
-import { PRODUCT_SORT_TYPE_DATA } from 'src/constants';
 import { IconButtonSearchProducts } from 'src/containers/icon-button/icon-button-search-products';
 import { SearchInputProducts } from 'src/containers/Input/search-input-products';
 import { useAppDispatch } from 'src/hooks';
@@ -29,7 +27,7 @@ export const ProductTabHeader = () => {
                 columnGap={8}
                 rowGap={8}
               >
-                <Menu
+                {/* <Menu
                   placement="bottom left"
                   trigger={({ ...triggerProps }) => {
                     return (
@@ -52,19 +50,21 @@ export const ProductTabHeader = () => {
                       </MenuItem>
                     );
                   })}
-                </Menu>
+                </Menu> */}
                 <IconButtonSearchProducts />
               </View>
             </View>
           </>
         }
-      />
-      <SearchInputProducts
-        viewProps={{
-          px: 16,
-          bg: '$white',
-        }}
-      />
+      >
+        <SearchInputProducts
+          viewProps={{
+            px: 16,
+            bg: '$white',
+            mb: 16,
+          }}
+        />
+      </Header>
     </>
   );
 };

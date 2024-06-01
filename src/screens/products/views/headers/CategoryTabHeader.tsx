@@ -23,13 +23,15 @@ export const CategoryTabHeader = () => {
             </View>
           </>
         }
-      />
-      <SearchInputCategories
-        viewProps={{
-          px: 16,
-          bg: '$white',
-        }}
-      />
+      >
+        <SearchInputCategories
+          viewProps={{
+            px: 16,
+            bg: '$white',
+            mb: 16,
+          }}
+        />
+      </Header>
     </>
   );
 };
