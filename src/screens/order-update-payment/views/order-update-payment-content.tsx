@@ -3,12 +3,12 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { FC, useEffect, useMemo } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import Toast from 'react-native-toast-message';
-import { useUpdateOrderMutation } from 'src/api';
+import { useLazyFetchOrderQuery, useUpdateOrderMutation } from 'src/api';
 import { LoadingOverlay, ViewFooter } from 'src/components';
-import { ORDER_PAYMENT_METHODS } from 'src/constants';
+import { ORDER_PAYMENT_METHODS, ORDER_STATUSES } from 'src/constants';
 import { useMessages, useOrder } from 'src/hooks';
 import { ControlPaymentAmount } from 'src/screens/order-update-payment/views/control/control-payment-amount';
-import { Entity, FormParams } from 'src/types';
+import { ApiRequest, Entity, FormParams } from 'src/types';
 import { orderUtil } from 'src/utils';
 import * as Yup from 'yup';
 
@@ -20,6 +20,7 @@ export const OrderUpdatePaymentContent: FC<{ detail: Entity.Order }> = ({ detail
   const { formatErrorMessage } = useMessages();
 
   const [updateOrder, { isLoading: isLoadingUpdateOrder }] = useUpdateOrderMutation();
+  const [fetchOrder] = useLazyFetchOrderQuery();
 
   const defaultValues = useMemo(
     () => ({
@@ -55,15 +56,20 @@ export const OrderUpdatePaymentContent: FC<{ detail: Entity.Order }> = ({ detail
   const onSubmit: SubmitHandler<FormParams.UpdateOrderPayment> = async values => {
     try {
       const { amount, paymentMethod } = values;
+      const body: ApiRequest.UpdateOrder = {
+        status: ORDER_STATUSES.DELIVERED,
+      };
+      if (amount) {
+        body.addPayment = {
+          amount,
+          method: paymentMethod,
+        };
+      }
       await updateOrder({
         id: order.id,
-        body: {
-          addPayment: {
-            amount: amount || 0,
-            method: paymentMethod,
-          },
-        },
+        body,
       }).unwrap();
+      fetchOrder(order.id);
     } catch (error) {
       Toast.show({
         text1: formatErrorMessage(error),

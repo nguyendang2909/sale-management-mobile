@@ -1,5 +1,6 @@
 import { UseLazyQuery } from '@reduxjs/toolkit/dist/query/react/buildHooks';
 import { QueryDefinition } from '@reduxjs/toolkit/query';
+import { ReactElement } from 'react';
 import { ContentData } from 'src/components/content/content-data';
 import { useOrders } from 'src/hooks';
 import { ApiRequest, ApiResponse, OrderStoreStatus } from 'src/types';
@@ -10,7 +11,9 @@ export const ContentOrders = ({
   status,
   lazyQuery,
   description,
+  ActionComponent,
 }: {
+  ActionComponent?: ReactElement;
   description?: string;
   status?: OrderStoreStatus;
   lazyQuery: UseLazyQuery<
@@ -38,6 +41,7 @@ export const ContentOrders = ({
         isLoading={isLoading}
         description={description}
         hasData={!!orders.length}
+        ActionComponent={ActionComponent}
       >
         <OrderList query={query} />
       </ContentData>

@@ -1,7 +1,7 @@
 import { StatusBar, View } from '@gluestack-ui/themed';
 import { FC } from 'react';
 import { useOrder } from 'src/hooks';
-import { AppStackScreenProps } from 'src/types';
+import { AppStackScreenProps } from 'src/navigators/main.stack';
 
 import { OrderUpdatePaymentHeader } from './views/header/order-update-payment-header';
 import { OrderUpdatePaymentContent } from './views/order-update-payment-content';

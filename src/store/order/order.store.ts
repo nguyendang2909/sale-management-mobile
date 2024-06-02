@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { orderEndpoints } from 'src/api';
 import { ORDER_STORE_STATUS_ARR } from 'src/constants';
 import { AppStore, Entity, OrderStoreStatus } from 'src/types';
 import { orderUtil } from 'src/utils';
@@ -48,15 +49,15 @@ export const orderSlice = createSlice({
       }
       state.all.data = orderUtil.formatManyAndSort(data, []);
     },
-    addOrder: (state, { payload }: PayloadAction<Entity.Order>) => {
-      if (payload.status) {
-        state[payload.status].data = orderUtil.formatManyAndSort(
-          [payload],
-          state[payload.status].data,
-        );
-      }
-      state.all.data = orderUtil.formatManyAndSort([payload], state.all.data);
-    },
+    // addOrder: (state, { payload }: PayloadAction<Entity.Order>) => {
+    //   if (payload.status) {
+    //     state[payload.status].data = orderUtil.formatManyAndSort(
+    //       [payload],
+    //       state[payload.status].data,
+    //     );
+    //   }
+    //   state.all.data = orderUtil.formatManyAndSort([payload], state.all.data);
+    // },
     deleteOrder(state, { payload: id }: PayloadAction<string>) {
       ORDER_STORE_STATUS_ARR.forEach(status => {
         state[status].data = orderUtil.deleteFromArrById(id, state[status].data);
@@ -77,14 +78,21 @@ export const orderSlice = createSlice({
     },
   },
   extraReducers: builder => {
-    builder.addCase(appActions.logout, state => {
-      state.all = { data: [], pagination: {} };
-      state.unconfirmed = { data: [], pagination: {} };
-      state.processing = { data: [], pagination: {} };
-      state.delivered = { data: [], pagination: {} };
-      state.returned = { data: [], pagination: {} };
-      state.cancelled = { data: [], pagination: {} };
-    });
+    builder
+      .addCase(appActions.logout, state => {
+        state.all = { data: [], pagination: {} };
+        state.unconfirmed = { data: [], pagination: {} };
+        state.processing = { data: [], pagination: {} };
+        state.delivered = { data: [], pagination: {} };
+        state.returned = { data: [], pagination: {} };
+        state.cancelled = { data: [], pagination: {} };
+      })
+      .addMatcher(orderEndpoints.fetchOrder.matchFulfilled, (state, { payload: { data } }) => {
+        if (data.status && state[data.status]) {
+          state[data.status].data = orderUtil.formatManyAndSort([data], state[data.status].data);
+        }
+        state.all.data = orderUtil.formatManyAndSort([data], state.all.data);
+      });
   },
 });
 

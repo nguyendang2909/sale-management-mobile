@@ -7,7 +7,7 @@ import { FC, useCallback, useEffect, useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Toast from 'react-native-toast-message';
-import { useCreateOrderMutation } from 'src/api';
+import { useCreateOrderMutation, useLazyFetchOrderQuery } from 'src/api';
 import { Header } from 'src/components';
 import { HOME_SCREENS, ORDER_STATUSES, SCREENS } from 'src/constants';
 import { FormControlOrderAdditional } from 'src/containers/form-control/order/form-control-order-additional';
@@ -15,7 +15,6 @@ import { FormControlOrderNote } from 'src/containers/form-control/order/form-con
 import { useAppDispatch, useAppSelector, useMessages, useProducts } from 'src/hooks';
 import { getState } from 'src/store';
 import { cartActions } from 'src/store/cart';
-import { orderActions } from 'src/store/order';
 import { FormParams } from 'src/types';
 import { createOrderFormUtil, skuUtil } from 'src/utils';
 
@@ -27,6 +26,7 @@ export const OrderConfirmForm: FC<{ values: FormParams.CreateOrder }> = ({ value
   const navigation = useNavigation();
   const shopId = useAppSelector(s => s.app.shop.id);
   const [createOrder] = useCreateOrderMutation();
+  const [fetchOrder] = useLazyFetchOrderQuery();
   const { formatErrorMessage } = useMessages();
 
   const { data: products } = useProducts();
@@ -73,12 +73,12 @@ export const OrderConfirmForm: FC<{ values: FormParams.CreateOrder }> = ({ value
         },
       }).unwrap();
       navigation.navigate(SCREENS.HOME, { screen: HOME_SCREENS.ORDERS });
-      dispatch(orderActions.addOrder(order));
+      fetchOrder(order.id);
       dispatch(cartActions.setCartItems({}));
     } catch (err) {
       Toast.show({ text1: formatErrorMessage(err), type: 'error' });
     }
-  }, [createOrder, dispatch, formatErrorMessage, navigation, shopId]);
+  }, [createOrder, dispatch, fetchOrder, formatErrorMessage, navigation, shopId]);
 
   return (
     <>

@@ -113,6 +113,7 @@ export const {
   useFetchOrderQuery,
   useFetchOrdersQuery,
   useLazyFetchOrdersQuery,
+  useLazyFetchOrderQuery,
   useFetchUnconfirmedOrdersQuery,
   useLazyFetchUnconfirmedOrdersQuery,
   useFetchProcessingOrdersQuery,
