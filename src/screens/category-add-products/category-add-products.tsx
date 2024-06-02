@@ -1,6 +1,5 @@
 import { Button, ButtonText, View } from '@gluestack-ui/themed';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { StackActions, useNavigation } from '@react-navigation/native';
 import { FlashList } from '@shopify/flash-list';
 import _ from 'lodash';
 import { ChevronLeft } from 'lucide-react-native';
@@ -16,14 +15,13 @@ import { goBack } from 'src/navigations/navigation-ref';
 import { AppStackScreenProps } from 'src/navigators/main.stack';
 import * as Yup from 'yup';
 
-import { PickProductListItem } from './views/product-list/pick-product-list-item';
+import { PickProductListItem } from '../category-pick-product/views/product-list/pick-product-list-item';
 
-export const CategoryPickProductsScreen: FC<AppStackScreenProps<'CATEGORY_PICK_PRODUCTS'>> = ({
+export const CategoryAddProductsScreen: FC<AppStackScreenProps<'CATEGORY_ADD_PRODUCTS'>> = ({
   route: {
     params: { detail },
   },
 }) => {
-  const navigation = useNavigation();
   const { data: category } = useCategory({ detail });
   const [updateCategoryMutation] = useUpdateCategoryMutation();
 
@@ -83,16 +81,14 @@ export const CategoryPickProductsScreen: FC<AppStackScreenProps<'CATEGORY_PICK_P
         await updateCategoryMutation({
           id: detail.id,
           body: {
-            productIds: values.productIds,
+            addProductIds: values.productIds,
           },
         }).unwrap();
         refetchProductsByCategoryId();
       }
-      navigation.dispatch(
-        StackActions.replace(SCREENS.CATEGORY, {
-          detail: category,
-        }),
-      );
+      goBack(SCREENS.CATEGORY, {
+        detail: category,
+      });
     } catch (error) {
       Toast.show({
         text1: formatErrorMessage(error),
@@ -134,7 +130,7 @@ export const CategoryPickProductsScreen: FC<AppStackScreenProps<'CATEGORY_PICK_P
         ></FlashList>
         <ViewFooter px={16} py={16} bgColor="#fff" isShadow={true}>
           <Button onPress={handleSubmit(onSubmit)}>
-            <ButtonText>Xác nhận</ButtonText>
+            <ButtonText>Thêm sản phẩm</ButtonText>
           </Button>
         </ViewFooter>
       </View>

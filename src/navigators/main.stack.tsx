@@ -4,6 +4,8 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React from 'react';
 import { SCREENS } from 'src/constants';
 import { CategoryScreen } from 'src/screens/category/category.screen';
+import { CategoryAddProductsScreen } from 'src/screens/category-add-products/category-add-products';
+import { CategoryDeleteProductsScreen } from 'src/screens/category-delete-products/category-delete-products';
 import { CategoryPickProductsScreen } from 'src/screens/category-pick-product/category-pick-products.screen';
 import { ProfileSettingScreen } from 'src/screens/Me/ProfileSettingScreen';
 import { OrderScreen } from 'src/screens/order/order.screen';
@@ -52,6 +54,12 @@ export type AppStackParamList = {
     detail: AppStore.Category;
   };
   CATEGORY_PICK_PRODUCTS: {
+    detail: AppStore.Category;
+  };
+  CATEGORY_DELETE_PRODUCTS: {
+    detail: AppStore.Category;
+  };
+  CATEGORY_ADD_PRODUCTS: {
     detail: AppStore.Category;
   };
   // Order
@@ -121,6 +129,14 @@ export const MainStack: React.FC = () => {
           <Stack.Screen
             name={SCREENS.CATEGORY_PICK_PRODUCTS}
             component={CategoryPickProductsScreen}
+          />
+          <Stack.Screen
+            name={SCREENS.CATEGORY_ADD_PRODUCTS}
+            component={CategoryAddProductsScreen}
+          />
+          <Stack.Screen
+            name={SCREENS.CATEGORY_DELETE_PRODUCTS}
+            component={CategoryDeleteProductsScreen}
           />
 
           {/* Order */}

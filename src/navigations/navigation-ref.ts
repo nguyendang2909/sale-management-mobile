@@ -1,5 +1,5 @@
 import { createNavigationContainerRef } from '@react-navigation/native';
-import { AppStackParamList } from 'src/types';
+import { AppStackParamList } from 'src/navigators/main.stack';
 
 export const navigationRef = createNavigationContainerRef<AppStackParamList>();
 
@@ -19,3 +19,5 @@ export function goBack<RouteName extends keyof AppStackParamList>(
   }
   navigationRef.navigate(...args);
 }
+
+export const { navigate } = navigationRef;

@@ -1,29 +1,27 @@
 import { Button, ButtonText, View } from '@gluestack-ui/themed';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { StackActions, useNavigation } from '@react-navigation/native';
 import { FlashList } from '@shopify/flash-list';
-import _ from 'lodash';
 import { ChevronLeft } from 'lucide-react-native';
-import { FC, useCallback, useMemo, useState } from 'react';
+import { FC, useCallback, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import Toast from 'react-native-toast-message';
-import { useFetchAllProductsByCategoryIdQuery, useUpdateCategoryMutation } from 'src/api';
+import { useUpdateCategoryMutation } from 'src/api';
 import { Header, LoadingOverlay, ViewFooter } from 'src/components';
 import { InputSearch } from 'src/components/input/input-search';
 import { HOME_SCREENS, SCREENS } from 'src/constants';
-import { useCategory, useMessages, useSearchProducts } from 'src/hooks';
+import { useCategory, useMessages } from 'src/hooks';
+import { useSearchProductsByCategoryId } from 'src/hooks/use-search-product-by-category-id';
 import { goBack } from 'src/navigations/navigation-ref';
 import { AppStackScreenProps } from 'src/navigators/main.stack';
 import * as Yup from 'yup';
 
-import { PickProductListItem } from './views/product-list/pick-product-list-item';
+import { PickProductListItem } from '../category-pick-product/views/product-list/pick-product-list-item';
 
-export const CategoryPickProductsScreen: FC<AppStackScreenProps<'CATEGORY_PICK_PRODUCTS'>> = ({
+export const CategoryDeleteProductsScreen: FC<AppStackScreenProps<'CATEGORY_DELETE_PRODUCTS'>> = ({
   route: {
     params: { detail },
   },
 }) => {
-  const navigation = useNavigation();
   const { data: category } = useCategory({ detail });
   const [updateCategoryMutation] = useUpdateCategoryMutation();
 
@@ -32,18 +30,11 @@ export const CategoryPickProductsScreen: FC<AppStackScreenProps<'CATEGORY_PICK_P
 
   const {
     data: products,
-    isRefreshing: isRefreshingProducts,
     isLoading: isLoadingProducts,
+    refetch: refetchProducts,
+    isRefreshing: isRefreshingProducts,
     refresh: refreshProducts,
-  } = useSearchProducts();
-
-  const {
-    data: pickedProducts,
-    isLoading: isLoadingProductByCategoryId,
-    refetch: refetchProductsByCategoryId,
-  } = useFetchAllProductsByCategoryIdQuery({ categoryId: detail.id });
-
-  const pickedProductsObj = useMemo(() => _.keyBy(pickedProducts, 'id'), [pickedProducts]);
+  } = useSearchProductsByCategoryId({ categoryId: detail.id });
 
   const onLeftPress = () => {
     goBack(SCREENS.HOME, {
@@ -83,16 +74,14 @@ export const CategoryPickProductsScreen: FC<AppStackScreenProps<'CATEGORY_PICK_P
         await updateCategoryMutation({
           id: detail.id,
           body: {
-            productIds: values.productIds,
+            deleteProductIds: values.productIds,
           },
         }).unwrap();
-        refetchProductsByCategoryId();
+        refetchProducts();
       }
-      navigation.dispatch(
-        StackActions.replace(SCREENS.CATEGORY, {
-          detail: category,
-        }),
-      );
+      goBack(SCREENS.CATEGORY, {
+        detail: category,
+      });
     } catch (error) {
       Toast.show({
         text1: formatErrorMessage(error),
@@ -118,7 +107,7 @@ export const CategoryPickProductsScreen: FC<AppStackScreenProps<'CATEGORY_PICK_P
         />
       </Header>
       <View flex={1} mt={16}>
-        <LoadingOverlay isLoading={isLoadingProducts || isLoadingProductByCategoryId} />
+        <LoadingOverlay isLoading={isLoadingProducts} />
         <FlashList
           refreshing={isRefreshingProducts}
           onRefresh={refreshProducts}
@@ -134,7 +123,7 @@ export const CategoryPickProductsScreen: FC<AppStackScreenProps<'CATEGORY_PICK_P
         ></FlashList>
         <ViewFooter px={16} py={16} bgColor="#fff" isShadow={true}>
           <Button onPress={handleSubmit(onSubmit)}>
-            <ButtonText>Xác nhận</ButtonText>
+            <ButtonText>Xoá sản phẩm</ButtonText>
           </Button>
         </ViewFooter>
       </View>

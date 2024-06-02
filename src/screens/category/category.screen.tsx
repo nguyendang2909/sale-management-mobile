@@ -1,6 +1,6 @@
-import { ChevronLeftIcon, HStack, View } from '@gluestack-ui/themed';
+import { Button, ButtonText, ChevronLeftIcon, HStack, View } from '@gluestack-ui/themed';
 import { FC } from 'react';
-import { Header, LoadingOverlay } from 'src/components';
+import { Header, LoadingOverlay, ViewFooter } from 'src/components';
 import { IconButtonEdit } from 'src/components/icon-button/icon-button-edit';
 import { IconButtonSearch } from 'src/components/icon-button/icon-button-search';
 import { SearchInput } from 'src/components/input/search-input';
@@ -8,7 +8,7 @@ import { HOME_SCREENS, SCREENS } from 'src/constants';
 import { useDisclose, useInit } from 'src/hooks';
 import { useCategory } from 'src/hooks/use-category';
 import { useSearchProductsByCategoryId } from 'src/hooks/use-search-product-by-category-id';
-import { goBack } from 'src/navigations/navigation-ref';
+import { goBack, navigate } from 'src/navigations/navigation-ref';
 import { AppStackScreenProps } from 'src/navigators/main.stack';
 
 import { ProductList } from '../products/views/product-tab/product-list';
@@ -52,6 +52,16 @@ export const CategoryScreen: FC<AppStackScreenProps<'CATEGORY'>> = ({
     });
   };
 
+  const handlePressDeleteProducts = () => {
+    navigate(SCREENS.CATEGORY_DELETE_PRODUCTS, { detail: category });
+  };
+
+  const handlePressAddProducts = () => {
+    navigate(SCREENS.CATEGORY_ADD_PRODUCTS, {
+      detail: category,
+    });
+  };
+
   return (
     <>
       <Header
@@ -92,6 +102,22 @@ export const CategoryScreen: FC<AppStackScreenProps<'CATEGORY'>> = ({
           refresh={refreshProducts}
           products={products}
         />
+        <ViewFooter px={16} py={16} bgColor="$white">
+          <View>
+            <HStack gap={16}>
+              <View flex={1}>
+                <Button variant="outline" onPress={handlePressDeleteProducts}>
+                  <ButtonText>Xoá sản phẩm</ButtonText>
+                </Button>
+              </View>
+              <View flex={1}>
+                <Button onPress={handlePressAddProducts}>
+                  <ButtonText>Thêm sản phẩm</ButtonText>
+                </Button>
+              </View>
+            </HStack>
+          </View>
+        </ViewFooter>
       </View>
 
       {isInitActionsheet && (

@@ -135,6 +135,8 @@ export declare namespace ApiRequest {
   type UpdateCategory = {
     title?: string;
     productIds?: string[];
+    deleteProductIds?: string[];
+    addProductIds?: string[];
   };
 
   type FindAllCustomers = {
