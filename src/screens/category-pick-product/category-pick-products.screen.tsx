@@ -37,8 +37,11 @@ export const CategoryPickProductsScreen: FC<AppStackScreenProps<'CATEGORY_PICK_P
     refresh: refreshProducts,
   } = useSearchProducts();
 
-  const { data: pickedProducts, isLoading: isLoadingProductByCategoryId } =
-    useFetchAllProductsByCategoryIdQuery({ categoryId: detail.id });
+  const {
+    data: pickedProducts,
+    isLoading: isLoadingProductByCategoryId,
+    refetch: refetchProductsByCategoryId,
+  } = useFetchAllProductsByCategoryIdQuery({ categoryId: detail.id });
 
   const pickedProductsObj = useMemo(() => _.keyBy(pickedProducts, 'id'), [pickedProducts]);
 
@@ -82,6 +85,7 @@ export const CategoryPickProductsScreen: FC<AppStackScreenProps<'CATEGORY_PICK_P
           productIds: values.productIds,
         },
       }).unwrap();
+      refetchProductsByCategoryId();
       navigation.dispatch(
         StackActions.replace(SCREENS.CATEGORY, {
           detail: category,

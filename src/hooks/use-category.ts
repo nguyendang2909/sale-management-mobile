@@ -9,9 +9,7 @@ export const useCategory = ({ detail }: { detail: AppStore.Category }) => {
     return s.category.data.find(e => e.id === detail.id);
   });
 
-  const { refetch, isFetching, isLoading } = useFetchCategoryQuery(detail.id, {
-    refetchOnMountOrArgChange: true,
-  });
+  const { refetch, isFetching, isLoading } = useFetchCategoryQuery(detail.id);
 
   const dataMemo = useMemo(() => data || detail, [data, detail]);
 
