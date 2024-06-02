@@ -8,7 +8,6 @@ import {
   View,
   VStack,
 } from '@gluestack-ui/themed';
-import { useNavigation } from '@react-navigation/native';
 import _ from 'lodash';
 import { FC, useState } from 'react';
 import { TouchableOpacity } from 'react-native';
@@ -24,8 +23,6 @@ type FCProps = {
 export const PickProductListItem: FC<FCProps> = ({ product, onPress }) => {
   const imagePath = _.first(product.images);
   const [isChecked, setChecked] = useState<boolean>(false);
-
-  const navigation = useNavigation();
 
   const handlePress = () => {
     setChecked(prev => !prev);
@@ -43,6 +40,7 @@ export const PickProductListItem: FC<FCProps> = ({ product, onPress }) => {
         <HStack columnGap={8} borderBottomWidth={1} borderColor="$backgroundLight200" py={8}>
           <View alignItems="center" justifyContent="center">
             <Checkbox
+              aria-label="product"
               value=""
               isChecked={isChecked}
               defaultIsChecked={false}

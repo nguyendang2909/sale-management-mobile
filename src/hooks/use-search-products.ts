@@ -1,12 +1,15 @@
-import { useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useFetchAllProductsQuery } from 'src/api';
+import { cacheActions } from 'src/store/cache';
 import { ProductSortType } from 'src/types';
 import { productUtil } from 'src/utils/product.util';
 
+import { useAppDispatch } from './usAppDispatch';
 import { useRefreshQuery } from './use-refreshing-query';
 import { useAppSelector } from './useAppSelector';
 
 export const useSearchProducts = () => {
+  const dispatch = useAppDispatch();
   const { isFetching, refetch, isLoading } = useFetchAllProductsQuery({});
   const { isRefreshing, setRefreshing, refresh } = useRefreshQuery(refetch);
   const data = useAppSelector(s => s.product.data);
@@ -18,6 +21,17 @@ export const useSearchProducts = () => {
     [data, searchText, sortBy],
   );
 
+  const setSearchText = useCallback(
+    (e: string) => {
+      dispatch(cacheActions.setProductSearchText(e));
+    },
+    [dispatch],
+  );
+
+  useEffect(() => {
+    dispatch(cacheActions.setProductSearchText(''));
+  }, [dispatch]);
+
   return {
     data: products,
     refetch,
@@ -27,5 +41,7 @@ export const useSearchProducts = () => {
     setRefreshing,
     refresh,
     setSortBy,
+    searchText,
+    setSearchText,
   };
 };

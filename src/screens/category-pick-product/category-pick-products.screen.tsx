@@ -1,13 +1,17 @@
-import { View } from '@gluestack-ui/themed';
+import { Button, ButtonText, View } from '@gluestack-ui/themed';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { StackActions, useNavigation } from '@react-navigation/native';
 import { FlashList } from '@shopify/flash-list';
+import _ from 'lodash';
 import { ChevronLeft } from 'lucide-react-native';
-import { FC, useCallback } from 'react';
-import { useForm } from 'react-hook-form';
-import { Header, LoadingOverlay } from 'src/components';
+import { FC, useCallback, useMemo, useState } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import Toast from 'react-native-toast-message';
+import { useFetchAllProductsByCategoryIdQuery, useUpdateCategoryMutation } from 'src/api';
+import { Header, LoadingOverlay, ViewFooter } from 'src/components';
 import { InputSearch } from 'src/components/input/input-search';
 import { HOME_SCREENS, SCREENS } from 'src/constants';
-import { useCategory, useSearchProducts } from 'src/hooks';
+import { useCategory, useMessages, useSearchProducts } from 'src/hooks';
 import { goBack } from 'src/navigations/navigation-ref';
 import { AppStackScreenProps } from 'src/navigators/main.stack';
 import * as Yup from 'yup';
@@ -19,16 +23,24 @@ export const CategoryPickProductsScreen: FC<AppStackScreenProps<'CATEGORY_PICK_P
     params: { detail },
   },
 }) => {
+  const navigation = useNavigation();
   const { data: category } = useCategory({ detail });
+  const [updateCategoryMutation] = useUpdateCategoryMutation();
+
+  const [searchText, setSearchText] = useState<string>('');
+  const { formatErrorMessage } = useMessages();
 
   const {
     data: products,
     isRefreshing: isRefreshingProducts,
     isLoading: isLoadingProducts,
     refresh: refreshProducts,
-    searchText,
-    setSearchText,
   } = useSearchProducts();
+
+  const { data: pickedProducts, isLoading: isLoadingProductByCategoryId } =
+    useFetchAllProductsByCategoryIdQuery({ categoryId: detail.id });
+
+  const pickedProductsObj = useMemo(() => _.keyBy(pickedProducts, 'id'), [pickedProducts]);
 
   const onLeftPress = () => {
     goBack(SCREENS.HOME, {
@@ -36,7 +48,7 @@ export const CategoryPickProductsScreen: FC<AppStackScreenProps<'CATEGORY_PICK_P
     });
   };
 
-  const { setValue, getValues } = useForm<{ productIds: string[] }>({
+  const { setValue, getValues, handleSubmit } = useForm<{ productIds: string[] }>({
     defaultValues: {
       productIds: [],
     },
@@ -62,6 +74,27 @@ export const CategoryPickProductsScreen: FC<AppStackScreenProps<'CATEGORY_PICK_P
     [getValues, setValue],
   );
 
+  const onSubmit: SubmitHandler<{ productIds: string[] }> = async values => {
+    try {
+      await updateCategoryMutation({
+        id: detail.id,
+        body: {
+          productIds: values.productIds,
+        },
+      }).unwrap();
+      navigation.dispatch(
+        StackActions.replace(SCREENS.CATEGORY, {
+          detail: category,
+        }),
+      );
+    } catch (error) {
+      Toast.show({
+        text1: formatErrorMessage(error),
+        type: 'error',
+      });
+    }
+  };
+
   return (
     <>
       <Header
@@ -79,7 +112,7 @@ export const CategoryPickProductsScreen: FC<AppStackScreenProps<'CATEGORY_PICK_P
         />
       </Header>
       <View flex={1} mt={16}>
-        <LoadingOverlay isLoading={isLoadingProducts} />
+        <LoadingOverlay isLoading={isLoadingProducts || isLoadingProductByCategoryId} />
         <FlashList
           refreshing={isRefreshingProducts}
           onRefresh={refreshProducts}
@@ -87,15 +120,17 @@ export const CategoryPickProductsScreen: FC<AppStackScreenProps<'CATEGORY_PICK_P
           numColumns={1}
           data={products}
           keyExtractor={(item, index) => item.id || index.toString()}
-          // extraData={{
-          //   cartItems,
-          // }}
           renderItem={({ item }) => {
             return <PickProductListItem product={item} onPress={handlePressProduct} />;
           }}
           estimatedItemSize={100}
           ListFooterComponent={<View height={100}></View>}
         ></FlashList>
+        <ViewFooter px={16} py={16} bgColor="#fff" isShadow={true}>
+          <Button onPress={handleSubmit(onSubmit)}>
+            <ButtonText>Xác nhận</ButtonText>
+          </Button>
+        </ViewFooter>
       </View>
     </>
   );

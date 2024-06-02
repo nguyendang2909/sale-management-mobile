@@ -132,7 +132,10 @@ export declare namespace ApiRequest {
     title: string;
   };
 
-  type UpdateCategory = Partial<CreateCategory>;
+  type UpdateCategory = {
+    title?: string;
+    productIds?: string[];
+  };
 
   type FindAllCustomers = {
     searchText?: string;

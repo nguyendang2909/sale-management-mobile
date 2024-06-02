@@ -14,9 +14,14 @@ export const useSearchProductsByCategoryId = ({ categoryId }: { categoryId: stri
     refetch,
     isFetching,
     isLoading,
-  } = useFetchAllProductsByCategoryIdQuery({
-    categoryId,
-  });
+  } = useFetchAllProductsByCategoryIdQuery(
+    {
+      categoryId,
+    },
+    {
+      refetchOnMountOrArgChange: true,
+    },
+  );
   const { isRefreshing, setRefreshing, refresh } = useRefreshQuery(refetch);
 
   const data = useMemo(() => fetchData?.data || [], [fetchData?.data]);
