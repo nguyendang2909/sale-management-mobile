@@ -114,3 +114,5 @@ export const useOrders = ({
     deleteById,
   };
 };
+
+export type UserOrder = ReturnType<typeof useOrders>;

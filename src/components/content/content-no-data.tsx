@@ -3,8 +3,8 @@ import React, { ReactElement } from 'react';
 import { SearchImage } from 'src/components';
 
 type FCProps = {
-  refresh: () => void;
-  isRefreshing: boolean;
+  refresh?: () => void;
+  isRefreshing?: boolean;
   title?: string;
   description?: string;
   ActionComponent?: ReactElement;

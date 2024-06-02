@@ -1,47 +1,19 @@
 import { View } from '@gluestack-ui/themed';
-import { UseLazyQuery } from '@reduxjs/toolkit/dist/query/react/buildHooks';
-import { QueryDefinition } from '@reduxjs/toolkit/query';
 import { FlashList } from '@shopify/flash-list';
-import { useState } from 'react';
-import { LoadingOverlay } from 'src/components';
-import { useOrders } from 'src/hooks';
-import { ApiRequest, ApiResponse, OrderStoreStatus } from 'src/types';
+import { FC, useState } from 'react';
+import { UserOrder } from 'src/hooks';
 
 import { DeleteOrderListItemDialog } from '../delete-order-list-item-dialog';
 import { OrderListItem } from './order-list-item';
 
-export const OrderList = ({
-  status,
-  lazyQuery,
-}: {
-  status?: OrderStoreStatus;
-  lazyQuery: UseLazyQuery<
-    QueryDefinition<
-      { shopId: string; params: ApiRequest.FindManyOrders },
-      any,
-      any,
-      ApiResponse.Orders,
-      'api'
-    >
-  >;
-}) => {
-  const {
-    data: orders,
-    isRefreshing,
-    refresh,
-    deleteById,
-    isLoading,
-  } = useOrders({
-    status,
-    lazyQuery,
-  });
+export const OrderList: FC<{ query: UserOrder }> = ({ query }) => {
+  const { data: orders, isRefreshing, refresh, deleteById } = query;
 
   const [deleteOrderId, setDeleteOrderId] = useState<string | null>(null);
 
   return (
     <>
       <View flex={1}>
-        <LoadingOverlay isLoading={isLoading} />
         <FlashList
           showsVerticalScrollIndicator={false}
           refreshing={isRefreshing}

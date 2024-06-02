@@ -1,14 +1,12 @@
 import { View } from '@gluestack-ui/themed';
 import { useLazyFetchOrdersQuery } from 'src/api';
 
-import { OrderList } from '../../order-list/order-list';
+import { ContentOrders } from '../../content-orders';
 
 export const AllOrdersTab = () => {
   return (
-    <>
-      <View flex={1}>
-        <OrderList status={undefined} lazyQuery={useLazyFetchOrdersQuery} />
-      </View>
-    </>
+    <View flex={1}>
+      <ContentOrders status={undefined} lazyQuery={useLazyFetchOrdersQuery} />
+    </View>
   );
 };
