@@ -9,16 +9,14 @@ export const useSearchCategories = () => {
   const data = useAppSelector(s => s.category.data);
   const searchText = useAppSelector(s => s.cache.category.searchText);
 
-  const { refetch, isFetching } = useFetchAllCategoriesQuery({});
-  const { isRefreshing, refresh } = useRefreshQuery(refetch);
+  const query = useFetchAllCategoriesQuery({});
+  const refreshQuery = useRefreshQuery(query.refetch);
 
   const categories = useMemo(() => categoryUtil.filter(data, { searchText }), [data, searchText]);
 
   return {
+    ...query,
+    ...refreshQuery,
     data: categories,
-    refetch,
-    isFetching,
-    isRefreshing,
-    refresh,
   };
 };

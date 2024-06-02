@@ -40,9 +40,6 @@ export const productSlice = createSlice({
           state.data = productUtil.formatManyAndSort(data, state.data);
         },
       )
-      .addMatcher(productEndpoints.createProduct.matchFulfilled, (state, { payload: { data } }) => {
-        state.data = productUtil.formatManyAndSort([data], state.data);
-      })
       .addMatcher(productEndpoints.fetchProduct.matchFulfilled, (state, { payload: { data } }) => {
         state.data = productUtil.formatManyAndSort([data], state.data);
       })

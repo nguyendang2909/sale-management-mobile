@@ -1,15 +1,15 @@
 import { View } from '@gluestack-ui/themed';
 import { FlashList } from '@shopify/flash-list';
-import { useSearchCategories } from 'src/hooks';
-import { AppStore } from 'src/types';
+import { FC } from 'react';
+import { AppStore, ViewProps } from 'src/types';
 
 import { CategoryListItem } from './category-list-item';
 
-export const CategoryList = () => {
-  const { data: categories, isRefreshing, refresh } = useSearchCategories();
-
+export const CategoryList: FC<
+  ViewProps & { categories: AppStore.Category[]; isRefreshing: boolean; refresh: () => void }
+> = ({ categories, isRefreshing, refresh, ...viewProps }) => {
   return (
-    <View flex={1}>
+    <View {...viewProps}>
       <FlashList
         showsVerticalScrollIndicator={false}
         refreshing={isRefreshing}

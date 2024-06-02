@@ -1,9 +1,7 @@
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useState } from 'react';
 
 export function useDisclose(initState?: boolean) {
   const [isOpen, setIsOpen] = useState(initState || false);
-
-  const isOpenMemo = useMemo(() => isOpen, [isOpen]);
 
   const onOpen = useCallback(() => {
     setIsOpen(true);
@@ -18,7 +16,7 @@ export function useDisclose(initState?: boolean) {
   }, []);
 
   return {
-    isOpen: isOpenMemo,
+    isOpen,
     onOpen,
     onClose,
     onToggle,

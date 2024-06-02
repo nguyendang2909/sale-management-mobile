@@ -100,5 +100,6 @@ export const {
   useDeleteProductMutation,
   useUploadProductImageMutation,
   useDeleteProductImageMutation,
+  useLazyFetchProductQuery,
   endpoints: productEndpoints,
 } = productApi;

@@ -11,13 +11,14 @@ import React, { FC, useMemo } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { Platform } from 'react-native';
 import Toast from 'react-native-toast-message';
-import { useCreateProductMutation } from 'src/api';
+import { useCreateProductMutation, useLazyFetchProductQuery } from 'src/api';
 import { HOME_SCREENS, SCREENS } from 'src/constants';
 import { useMessages } from 'src/hooks';
 import { useCategories } from 'src/hooks/useCategories';
 import { ApiRequest, FormParams } from 'src/types';
 import { createProductFormUtil } from 'src/utils';
 
+import { FormControlProductAdditional } from './form/form-control-product-additional';
 import { ProductInStockControl } from './form/form-control-product-in-stock';
 import { ProductCapitalPriceControl } from './form/product-capital-price.control';
 import { ProductCategoriesControl } from './form/product-categories.control';
@@ -29,7 +30,6 @@ import { ProductStockControl } from './form/product-stock.control';
 import { ProductTitleControl } from './form/product-title.control';
 import { ProductTrackingStockControl } from './form/product-tracking-stock.control';
 import { ProductUnitControl } from './form/product-unit.control';
-import { FormControlProductAdditional } from './form/form-control-product-additional';
 
 export const CreateProductForm: FC = () => {
   useCategories();
@@ -37,6 +37,7 @@ export const CreateProductForm: FC = () => {
   const navigation = useNavigation();
   const { formatErrorMessage } = useMessages();
   const [createProduct] = useCreateProductMutation();
+  const [fetchProduct] = useLazyFetchProductQuery();
 
   const {
     setValue,
@@ -65,11 +66,12 @@ export const CreateProductForm: FC = () => {
       if (categories.length) {
         payload.categoryIds = categories.map(e => e.id);
       }
-      await createProduct(payload).unwrap();
+      const data = await createProduct(payload).unwrap();
       if (createMore) {
         reset();
         return;
       }
+      fetchProduct(data.data.id);
       navigation.dispatch(StackActions.replace(SCREENS.HOME, { screen: HOME_SCREENS.PRODUCTS }));
     } catch (error) {
       Toast.show({
