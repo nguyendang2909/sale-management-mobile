@@ -147,6 +147,12 @@ export declare namespace ApiRequest {
     customerId?: string;
   };
 
+  type AddPayment = {
+    amount: number;
+    method?: OrderPaymentMethod;
+    at?: string;
+  };
+
   type UpdateOrderItem = {
     id?: string;
     skuId?: string;
@@ -157,7 +163,8 @@ export declare namespace ApiRequest {
     status?: OrderStatus;
     paymentMethod?: OrderPaymentMethod;
     deliveryMethod?: string;
-    items: UpdateOrderItem[];
+    items?: UpdateOrderItem[];
+    addPayment?: AddPayment;
   };
 
   type SendView = {

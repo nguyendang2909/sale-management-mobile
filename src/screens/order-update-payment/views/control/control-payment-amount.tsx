@@ -1,16 +1,30 @@
 import { View } from '@gluestack-ui/themed';
-import { ComponentProps, FC } from 'react';
+import { ComponentProps, createRef, FC, useEffect } from 'react';
 import { Control, Controller } from 'react-hook-form';
-import { FormParams } from 'src/types';
+import { TextInput } from 'react-native';
+import { Entity, FormParams } from 'src/types';
 
 import { InputPaymentAmount } from './input/input-payment-amount';
 
 export const ControlPaymentAmount: FC<
   ComponentProps<typeof View> & {
     control: Control<FormParams.UpdateOrderPayment, any>;
-    amount: number;
+    order: Entity.Order;
   }
-> = ({ control, amount, ...viewProps }) => {
+> = ({ control, order, ...viewProps }) => {
+  const ref = createRef<TextInput>();
+
+  const payout =
+    order.payments?.reduce((result, payment) => {
+      return (payment.amount || 0) + result;
+    }, 0) || 0;
+
+  const amount = (order.amount || 0) - payout;
+
+  useEffect(() => {
+    ref.current?.focus();
+  }, [ref]);
+
   return (
     <>
       <Controller
@@ -30,6 +44,7 @@ export const ControlPaymentAmount: FC<
                 placeholder="0.000"
                 error={fieldState.error?.message}
                 amount={amount}
+                ref={ref}
               />
             </View>
           );

@@ -13,25 +13,29 @@ export const PickPaymentMethodList: FC<
 
   return (
     <View {...viewProps}>
-      <HStack rowGap={8} columnGap={8}>
+      <HStack flexWrap="wrap">
         {ORDER_PAYMENT_METHOD_ARR.map(method => {
           const isCheck = method === value;
           return (
             <View
+              width="$1/2"
+              // flex={1}
               as={TouchableOpacity}
               // @ts-ignore
               onPress={() => {
                 onChange(method);
               }}
               key={method}
-              flex={1}
-              borderColor={isCheck ? '$blue600' : '$coolGray300'}
-              borderWidth={1}
-              borderRadius={8}
-              bgColor={isCheck ? '$blue100' : undefined}
+              px={8}
+              py={8}
             >
-              <View flex={1} alignItems="center" justifyContent="center">
-                <View p={16}>
+              <View
+                borderColor={isCheck ? '$blue600' : '$coolGray300'}
+                borderWidth={1}
+                borderRadius={8}
+                bgColor={isCheck ? '$blue100' : undefined}
+              >
+                <View p={16} alignItems="center" justifyContent="center">
                   <TextCapitalize>{formatMessage(method)}</TextCapitalize>
                 </View>
               </View>

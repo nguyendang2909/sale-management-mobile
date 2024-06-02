@@ -91,11 +91,11 @@ const productApi = api.injectEndpoints({
       }),
     }),
 
-    updateOrder: builder.mutation<void, { id: string; payload: ApiRequest.UpdateOrder }>({
-      query: params => ({
-        url: API_ENDPOINTS.ORDERS.INDEX,
+    updateOrder: builder.mutation<void, { id: string; body: ApiRequest.UpdateOrder }>({
+      query: ({ id, body }) => ({
+        url: API_ENDPOINTS.ORDERS.ID(id),
         method: API_METHODS.PATCH,
-        params,
+        body,
       }),
     }),
 

@@ -92,6 +92,7 @@ export const API_ENDPOINTS = {
   },
   ORDERS: {
     INDEX: API_TAGS.ORDERS,
+    ID: (id: string) => API_TAGS.ORDERS + '/' + id,
   },
   CUSTOMERS: {
     INDEX: API_TAGS.CUSTOMERS,

@@ -160,6 +160,15 @@ export declare namespace Entity {
       totalProducts: number;
     }>;
 
+  type OrderPayment = BaseEntity &
+    Partial<{
+      order?: Order;
+      orderId: string;
+      method: OrderPaymentMethod;
+      amount: number;
+      at: Date;
+    }>;
+
   type Order = BaseEntity &
     Partial<{
       shop?: Shop;
@@ -178,6 +187,7 @@ export declare namespace Entity {
       code: string;
       at: string;
       items?: OrderItem[];
+      payments?: OrderPayment[];
     }>;
 
   type OrderItem = BaseEntity &
