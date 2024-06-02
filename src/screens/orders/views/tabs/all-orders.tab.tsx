@@ -1,7 +1,7 @@
 import { View } from '@gluestack-ui/themed';
 import { useLazyFetchOrdersQuery } from 'src/api';
 
-import { ContentOrders } from '../../content-orders';
+import { ContentOrders } from '../content-orders';
 
 export const AllOrdersTab = () => {
   return (

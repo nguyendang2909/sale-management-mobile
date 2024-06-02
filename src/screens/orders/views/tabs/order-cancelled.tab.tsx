@@ -2,7 +2,7 @@ import { View } from '@gluestack-ui/themed';
 import { useLazyFetchCancelledOrdersQuery } from 'src/api';
 import { ORDER_STATUSES } from 'src/constants';
 
-import { ContentOrders } from '../../content-orders';
+import { ContentOrders } from '../content-orders';
 
 export const OrderCancelledTab = () => {
   return (

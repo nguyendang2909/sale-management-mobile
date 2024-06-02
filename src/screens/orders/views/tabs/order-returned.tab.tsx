@@ -2,7 +2,7 @@ import { View } from '@gluestack-ui/themed';
 import { useLazyFetchReturnedOrdersQuery } from 'src/api';
 import { ORDER_STATUSES } from 'src/constants';
 
-import { ContentOrders } from '../../content-orders';
+import { ContentOrders } from '../content-orders';
 
 export const OrderReturnedTab = () => {
   return (
