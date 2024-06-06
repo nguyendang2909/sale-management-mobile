@@ -1,13 +1,15 @@
 import { Button, ButtonText, Divider, HStack, Pressable, Text, View } from '@gluestack-ui/themed';
 import { useNavigation } from '@react-navigation/native';
+import _ from 'lodash';
 import { FC, useCallback, useMemo } from 'react';
 import { FormattedTime } from 'react-intl';
 import { TextPrice } from 'src/components/text/text-price';
-import { SCREENS } from 'src/constants';
+import { ORDER_UNDELIVERED_STATUSES, SCREENS } from 'src/constants';
 import { Entity } from 'src/types';
-import { orderUtil } from 'src/utils';
+import { orderPaymentUtil, orderUtil } from 'src/utils';
 
 import { OrderCardStatusTag } from '../tags/order-card-status-tag';
+import { TextPaymentStatus } from './payment-status-text/text-payment-status';
 
 type FCProps = {
   order: Entity.Order;
@@ -30,6 +32,8 @@ export const OrderListItem: FC<FCProps> = ({ order, onDelete }) => {
   const handleDelivery = useCallback(() => {
     navigation.navigate(SCREENS.ORDER_PAYMENT, { order });
   }, [navigation, order]);
+
+  const paymentAmount = orderPaymentUtil.getAllAmount(order.payments || []);
 
   return (
     <Pressable onPress={handlePress}>
@@ -76,22 +80,31 @@ export const OrderListItem: FC<FCProps> = ({ order, onDelete }) => {
                   <TextPrice value={amount} variant="primary" />
                 </View>
               </HStack>
+              <View>
+                <TextPaymentStatus
+                  textAlign="right"
+                  orderAmount={order.amount || 0}
+                  paymentAmount={paymentAmount}
+                />
+              </View>
             </View>
 
-            <View mt={8}>
-              <HStack columnGap={16} rowGap={16}>
-                <View flex={1}>
-                  <Button variant="outline" onPress={handleDelete}>
-                    <ButtonText>Huỷ</ButtonText>
-                  </Button>
-                </View>
-                <View flex={1}>
-                  <Button onPress={handleDelivery}>
-                    <ButtonText>Đã giao</ButtonText>
-                  </Button>
-                </View>
-              </HStack>
-            </View>
+            {_.includes(ORDER_UNDELIVERED_STATUSES, order.status) && (
+              <View mt={8}>
+                <HStack columnGap={16} rowGap={16}>
+                  <View flex={1}>
+                    <Button variant="outline" onPress={handleDelete}>
+                      <ButtonText>Huỷ</ButtonText>
+                    </Button>
+                  </View>
+                  <View flex={1}>
+                    <Button onPress={handleDelivery}>
+                      <ButtonText>Đã giao</ButtonText>
+                    </Button>
+                  </View>
+                </HStack>
+              </View>
+            )}
           </View>
         );
       }}
