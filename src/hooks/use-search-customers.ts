@@ -29,5 +29,6 @@ export const useSearchCustomers = () => {
     data,
     searchText: searchTextMemo,
     setSearchText,
+    originalData: customers,
   };
 };
