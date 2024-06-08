@@ -1,5 +1,5 @@
 import { Button, ButtonIcon, ButtonText } from '@gluestack-ui/themed';
-import { Calendar } from 'lucide-react-native';
+import { Calendar, ChevronDown } from 'lucide-react-native';
 import moment from 'moment';
 import { FC, useMemo } from 'react';
 import { FormattedDate } from 'react-intl';
@@ -48,6 +48,7 @@ export const ButtonCalendar: FC<{
             <FormattedDate value={endTime}></FormattedDate>
           </ButtonText>
         )}
+        <ButtonIcon as={ChevronDown} ml={8}></ButtonIcon>
       </Button>
     </>
   );

@@ -1,11 +1,13 @@
 import {
   Button,
+  ButtonIcon,
   ButtonText,
   FormControl,
   FormControlLabel,
   FormControlLabelText,
   View,
 } from '@gluestack-ui/themed';
+import { ChevronDown } from 'lucide-react-native';
 import moment from 'moment';
 import { FC } from 'react';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
@@ -37,8 +39,9 @@ export const InputPickDate: FC<
           <FormControlLabelText>{label}</FormControlLabelText>
         </FormControlLabel>
 
-        <Button onPress={onOpen} action="picker" size="xs">
+        <Button variant="outline" onPress={onOpen} action="picker" size="xs">
           <ButtonText>{value}</ButtonText>
+          <ButtonIcon ml={8} as={ChevronDown}></ButtonIcon>
         </Button>
       </FormControl>
 
@@ -48,8 +51,8 @@ export const InputPickDate: FC<
         onConfirm={handlePickDate}
         onCancel={onClose}
         date={new Date()}
-        maximumDate={maxTime}
-        minimumDate={minTime}
+        // maximumDate={maxTime}
+        // minimumDate={minTime}
       />
     </View>
   );

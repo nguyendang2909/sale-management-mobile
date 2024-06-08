@@ -5,17 +5,19 @@ import { TextProps } from 'src/types';
 
 import { Price } from './formatted-price';
 
-export const TextPrice: FC<{
-  value?: number | null;
-  variant?: 'primary' | 'secondary' | 'hightlight' | 'underline';
-}> = ({ value, variant }) => {
+export const TextPrice: FC<
+  TextProps & {
+    value?: number | null;
+    variant?: 'primary' | 'secondary' | 'hightlight' | 'underline';
+  }
+> = ({ value, variant, ...currentTextProps }) => {
   if (_.isNil(value)) {
     return null;
   }
   const textProps = getTextProps(variant);
 
   return (
-    <Text {...textProps}>
+    <Text {...textProps} {...currentTextProps}>
       <Price value={value} />
     </Text>
   );
