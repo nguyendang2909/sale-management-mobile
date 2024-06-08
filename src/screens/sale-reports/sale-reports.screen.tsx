@@ -1,33 +1,24 @@
-import {
-  Actionsheet,
-  ActionsheetBackdrop,
-  ActionsheetContent,
-  ActionsheetDragIndicator,
-  ActionsheetDragIndicatorWrapper,
-  View,
-} from '@gluestack-ui/themed';
-import { ChevronLeft } from 'lucide-react-native';
+import { Button, ButtonIcon, ButtonText, View } from '@gluestack-ui/themed';
+import { Calendar, ChevronLeft } from 'lucide-react-native';
+import moment from 'moment';
 import { useState } from 'react';
 import { Dimensions } from 'react-native';
 import { LineChart } from 'react-native-chart-kit';
 import { Header } from 'src/components';
-import { ButtonTag } from 'src/components/button/button-tag';
-import {
-  HOME_SCREENS,
-  SALE_STATISTIC_TIME_RANGE_IDS_MAP,
-  SALE_STATISTICS_RANGES,
-  SCREENS,
-} from 'src/constants';
-import { useDisclose } from 'src/hooks';
+import { HOME_SCREENS, SCREENS, TIME_FORMATS } from 'src/constants';
+import { useDisclose, useInit } from 'src/hooks';
 import { goBack } from 'src/navigations';
-import { SaleStatisticTimeRangeId } from 'src/types';
+import { FormParams } from 'src/types';
+
+import { SaleReportActionSheet } from './views/actionsheet/sale-report-actionsheet';
 
 export const SaleReportsScreen = () => {
-  const [selectedTimeRangeId, setSelectRangeTimeId] = useState<SaleStatisticTimeRangeId>(
-    SALE_STATISTIC_TIME_RANGE_IDS_MAP.TODAY,
-  );
+  const [dateRange, setDateRange] = useState<FormParams.DateRange>({
+    startDate: moment().format(TIME_FORMATS.DATE),
+    endDate: moment().format(TIME_FORMATS.DATE),
+  });
 
-  console.log(111, selectedTimeRangeId);
+  const { isInit } = useInit();
 
   const {
     isOpen: isOpenActionsheet,
@@ -49,9 +40,10 @@ export const SaleReportsScreen = () => {
         leftIcon={ChevronLeft}
       />
       <View mt={16} px={16}>
-        {/* <Button onPress={onOpenActionSheet}>
-          <ButtonText>{SALE_STATISTICS_RANGES_MAP[selectedTimeRangeId].title}</ButtonText>
-        </Button> */}
+        <Button onPress={onOpenActionSheet} variant="outline">
+          <ButtonIcon as={Calendar} mr={8}></ButtonIcon>
+          <ButtonText>Hom nay</ButtonText>
+        </Button>
       </View>
       <View mt={16}>
         <LineChart
@@ -97,27 +89,15 @@ export const SaleReportsScreen = () => {
         />
       </View>
 
-      <Actionsheet isOpen={isOpenActionsheet} onClose={onCloseActionsheet} zIndex={999}>
-        <ActionsheetBackdrop />
-        <ActionsheetContent h="$72" zIndex={999}>
-          <ActionsheetDragIndicatorWrapper>
-            <ActionsheetDragIndicator />
-          </ActionsheetDragIndicatorWrapper>
-          <View>
-            {SALE_STATISTICS_RANGES.map(item => {
-              return (
-                <ButtonTag
-                  key={item.id}
-                  title={item.title}
-                  value={item.id}
-                  onChange={setSelectRangeTimeId}
-                  isEnabled={item.id === selectedTimeRangeId}
-                ></ButtonTag>
-              );
-            })}
-          </View>
-        </ActionsheetContent>
-      </Actionsheet>
+      {isInit && (
+        <SaleReportActionSheet
+          isOpen={isOpenActionsheet}
+          onClose={onCloseActionsheet}
+          onOpen={onOpenActionSheet}
+          dateRange={dateRange}
+          setDateRange={setDateRange}
+        />
+      )}
     </>
   );
 };

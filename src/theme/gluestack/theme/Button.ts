@@ -414,6 +414,93 @@ export const Button = createStyle({
           },
         },
       },
+      picker: {
+        bg: '$secondary500',
+        borderColor: '$secondary300',
+
+        ':hover': {
+          bg: '$secondary600',
+          borderColor: '$secondary400',
+        },
+
+        ':active': {
+          bg: '$secondary700',
+          borderColor: '$secondary700',
+        },
+
+        _text: {
+          color: '$secondary600',
+          ':hover': {
+            color: '$secondary600',
+          },
+          ':active': {
+            color: '$secondary700',
+          },
+        },
+        _icon: {
+          color: '$secondary600',
+          ':hover': {
+            color: '$secondary600',
+          },
+          ':active': {
+            color: '$secondary700',
+          },
+        },
+
+        _spinner: {
+          props: {
+            color: '$secondary600',
+          },
+          ':hover': {
+            props: { color: '$secondary600' },
+          },
+          ':active': {
+            props: { color: '$secondary700' },
+          },
+        },
+
+        _dark: {
+          bg: '$secondary400',
+          borderColor: '$secondary700',
+          ':hover': {
+            bg: '$secondary500',
+            borderColor: '$secondary400',
+          },
+          ':active': {
+            bg: '$secondary600',
+            borderColor: '$secondary300',
+          },
+          _text: {
+            color: '$secondary300',
+            ':hover': {
+              color: '$secondary300',
+            },
+            ':active': {
+              color: '$secondary200',
+            },
+          },
+          _icon: {
+            color: '$secondary300',
+            ':hover': {
+              color: '$secondary300',
+            },
+            ':active': {
+              color: '$secondary200',
+            },
+          },
+          _spinner: {
+            props: {
+              color: '$secondary300',
+            },
+            ':hover': {
+              props: { color: '$secondary300' },
+            },
+            ':active': {
+              props: { color: '$secondary200' },
+            },
+          },
+        },
+      },
     },
 
     variant: {

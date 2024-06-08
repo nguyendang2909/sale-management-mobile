@@ -120,4 +120,9 @@ export declare namespace FormParams {
     // uuid: string;
     // replyMessageId?: string;
   };
+
+  type DateRange = {
+    startDate: string;
+    endDate: string;
+  };
 }

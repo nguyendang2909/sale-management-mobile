@@ -52,7 +52,10 @@ export type SaleStatisticTimeRangeId = ValueOf<typeof SALE_STATISTIC_TIME_RANGE_
 export type SaleStatisticRange = {
   id: SaleStatisticTimeRangeId;
   title: string;
-  getRange: () => {
+  getRange: (
+    startDate?: string,
+    endDate?: string,
+  ) => {
     startDate: string;
     endDate: string;
   };

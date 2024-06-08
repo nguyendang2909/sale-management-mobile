@@ -18,9 +18,14 @@ export const NAVIGATION_PERSISTENCE_KEY = 'NAVIGATION_STATE';
 
 export const SALE_STATISTIC_TIME_RANGE_IDS_MAP = {
   TODAY: 'today',
+  YESTERDAY: 'yesterday',
   CURRENT_MONTH: 'current_month',
   LAST_MONTH: 'last_month',
+  CURRENT_YEAR: 'current_year',
+  LAST_30_DAYS: 'last_30_days',
 } as const;
+
+export const SALE_STATISTIC_TIME_RANGE_IDS = Object.values(SALE_STATISTIC_TIME_RANGE_IDS_MAP);
 
 export const SALE_STATISTICS_RANGES_MAP: Record<SaleStatisticTimeRangeId, SaleStatisticRange> = {
   [SALE_STATISTIC_TIME_RANGE_IDS_MAP.TODAY]: {
@@ -30,6 +35,16 @@ export const SALE_STATISTICS_RANGES_MAP: Record<SaleStatisticTimeRangeId, SaleSt
       return {
         startDate: moment().format(TIME_FORMATS.DATE),
         endDate: moment().format(TIME_FORMATS.DATE),
+      };
+    },
+  },
+  [SALE_STATISTIC_TIME_RANGE_IDS_MAP.YESTERDAY]: {
+    id: SALE_STATISTIC_TIME_RANGE_IDS_MAP.YESTERDAY,
+    title: 'Hôm qua',
+    getRange: () => {
+      return {
+        startDate: moment().subtract(1, 'day').format(TIME_FORMATS.DATE),
+        endDate: moment().subtract(1, 'day').format(TIME_FORMATS.DATE),
       };
     },
   },
@@ -53,10 +68,33 @@ export const SALE_STATISTICS_RANGES_MAP: Record<SaleStatisticTimeRangeId, SaleSt
       };
     },
   },
+  [SALE_STATISTIC_TIME_RANGE_IDS_MAP.CURRENT_YEAR]: {
+    id: SALE_STATISTIC_TIME_RANGE_IDS_MAP.CURRENT_YEAR,
+    title: 'Năm nay',
+    getRange: () => {
+      return {
+        startDate: moment().startOf('year').format(TIME_FORMATS.DATE),
+        endDate: moment().endOf('year').format(TIME_FORMATS.DATE),
+      };
+    },
+  },
+  [SALE_STATISTIC_TIME_RANGE_IDS_MAP.LAST_30_DAYS]: {
+    id: SALE_STATISTIC_TIME_RANGE_IDS_MAP.LAST_30_DAYS,
+    title: '30 ngày',
+    getRange: () => {
+      return {
+        startDate: moment().subtract(1, 'month').format(TIME_FORMATS.DATE),
+        endDate: moment().endOf('year').format(TIME_FORMATS.DATE),
+      };
+    },
+  },
 };
 
 export const SALE_STATISTICS_RANGES = [
   SALE_STATISTICS_RANGES_MAP[SALE_STATISTIC_TIME_RANGE_IDS_MAP.TODAY],
+  SALE_STATISTICS_RANGES_MAP[SALE_STATISTIC_TIME_RANGE_IDS_MAP.YESTERDAY],
   SALE_STATISTICS_RANGES_MAP[SALE_STATISTIC_TIME_RANGE_IDS_MAP.CURRENT_MONTH],
   SALE_STATISTICS_RANGES_MAP[SALE_STATISTIC_TIME_RANGE_IDS_MAP.LAST_MONTH],
+  SALE_STATISTICS_RANGES_MAP[SALE_STATISTIC_TIME_RANGE_IDS_MAP.CURRENT_YEAR],
+  SALE_STATISTICS_RANGES_MAP[SALE_STATISTIC_TIME_RANGE_IDS_MAP.LAST_30_DAYS],
 ];

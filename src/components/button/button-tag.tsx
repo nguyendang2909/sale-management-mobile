@@ -2,8 +2,8 @@ import { Button, ButtonText, View } from '@gluestack-ui/themed';
 import { FC, useCallback } from 'react';
 
 export const ButtonTag: FC<{
-  value: string;
-  onChange: (e: string) => void;
+  value: string | boolean;
+  onChange: (e: string | boolean) => void;
   isEnabled?: boolean;
   title: string;
 }> = ({ value, onChange, isEnabled, title }) => {
@@ -14,7 +14,7 @@ export const ButtonTag: FC<{
   return (
     <>
       <View>
-        <Button size="sm" onPress={handlePress} variant={isEnabled ? 'solid' : 'outline'}>
+        <Button size="xs" onPress={handlePress} variant={isEnabled ? 'solid' : 'outline'}>
           <ButtonText numberOfLines={1}>{title}</ButtonText>
         </Button>
       </View>
