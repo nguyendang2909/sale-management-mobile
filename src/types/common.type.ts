@@ -1,6 +1,10 @@
 import { Alert, Text, View } from '@gluestack-ui/themed';
 import { ComponentProps } from 'react';
-import { AUTH_GRANT_TYPES, ORDER_STORE_STATUSES } from 'src/constants';
+import {
+  AUTH_GRANT_TYPES,
+  ORDER_STORE_STATUSES,
+  SALE_STATISTIC_TIME_RANGE_IDS_MAP,
+} from 'src/constants';
 import { BOTTOM_NAVIGATOR_NAMES, PRODUCT_SORT_TYPES, SIZES } from 'src/constants/constants';
 
 import { Entity } from './entities.type';
@@ -42,3 +46,14 @@ export type AlertProps = ComponentProps<typeof Alert>;
 export type TextProps = ComponentProps<TextType>;
 
 export type OrderStoreStatus = ValueOf<typeof ORDER_STORE_STATUSES>;
+
+export type SaleStatisticTimeRangeId = ValueOf<typeof SALE_STATISTIC_TIME_RANGE_IDS_MAP>;
+
+export type SaleStatisticRange = {
+  id: SaleStatisticTimeRangeId;
+  title: string;
+  getRange: () => {
+    startDate: string;
+    endDate: string;
+  };
+};

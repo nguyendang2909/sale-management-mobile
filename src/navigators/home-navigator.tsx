@@ -40,6 +40,7 @@ export const HomeNavigator: FC<FCProps> = () => {
     BOTTOM_NAVIGATOR_NAMES.PRODUCTS,
     BOTTOM_NAVIGATOR_NAMES.CUSTOMERS,
     BOTTOM_NAVIGATOR_NAMES.ORDERS,
+    BOTTOM_NAVIGATOR_NAMES.REPORTS,
   ];
 
   const navigators = [

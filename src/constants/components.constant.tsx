@@ -4,6 +4,7 @@ import { CustomersScreen } from 'src/screens/customers/customers.screen';
 import { Management } from 'src/screens/management/management';
 import { OrdersScreen } from 'src/screens/orders/orders.screen';
 import { ProductsScreen } from 'src/screens/products/products.screen';
+import { ReportsScreen } from 'src/screens/reports/reports.screen';
 import { BottomNavigatorName } from 'src/types';
 
 import { BOTTOM_NAVIGATOR_NAMES, PRODUCT_SORT_TYPES } from './constants';
@@ -50,8 +51,8 @@ export const NAVIGATOR_DATA: Record<
     id: BOTTOM_NAVIGATOR_NAMES.REPORTS,
     name: BOTTOM_NAVIGATOR_NAMES.REPORTS,
     title: 'Báo cáo',
-    screen: CustomersScreen,
-    icon: NAVIGATION_ICONS.ORDER,
+    screen: ReportsScreen,
+    icon: NAVIGATION_ICONS.REPORTS,
     isShow: false,
   },
   TABLES: {

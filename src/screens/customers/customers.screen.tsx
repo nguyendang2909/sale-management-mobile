@@ -47,7 +47,7 @@ export const CustomersScreen = () => {
             <FlashList
               showsVerticalScrollIndicator={false}
               refreshing={isRefreshing}
-              onRefresh={refresh}
+              onRefresh={refresh}scree
               numColumns={1}
               data={data}
               keyExtractor={(item, index) => item.id || index.toString()}

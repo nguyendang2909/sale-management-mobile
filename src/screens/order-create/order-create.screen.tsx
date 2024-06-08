@@ -1,6 +1,6 @@
 import { StatusBar, View } from '@gluestack-ui/themed';
 import { FC } from 'react';
-import { AppStackScreenProps } from 'src/types';
+import { AppStackScreenProps } from 'src/navigators/main.stack';
 
 import { PickProducts } from './views/form/pick-product-list';
 import { CreateOrderHeader } from './views/header/create-order-header';

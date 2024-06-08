@@ -17,6 +17,7 @@ import { ProductCreateScreen } from 'src/screens/product-create/create-product.s
 import { ProductScreen } from 'src/screens/product-detail/product.screen';
 import { ProductSettingScreen } from 'src/screens/product-setting/product-setting.screen';
 import { ProfileCreateScreen } from 'src/screens/profile-create/profile-create.screen';
+import { SaleReportsScreen } from 'src/screens/sale-reports/sale-reports.screen';
 import { ShopsScreen } from 'src/screens/shops/shops.screen';
 import { colors } from 'src/theme';
 import { AppStore, Entity, FormParams } from 'src/types';
@@ -81,6 +82,8 @@ export type AppStackParamList = {
   CUSTOMER: {
     detail: AppStore.Customer;
   };
+  // Reports
+  SALE_REPORTS: undefined;
 };
 
 export type AppStackScreenProps<T extends keyof AppStackParamList> = NativeStackScreenProps<
@@ -97,7 +100,8 @@ export const MainStack: React.FC = () => {
           navigationBarColor: colors.background,
           orientation: 'portrait',
         }}
-        initialRouteName={SCREENS.SHOPS}
+        initialRouteName={SCREENS.SALE_REPORTS}
+        // initialRouteName={SCREENS.SHOPS}
       >
         <Stack.Group>
           <Stack.Screen name={SCREENS.SHOPS} component={ShopsScreen} />
@@ -145,6 +149,9 @@ export const MainStack: React.FC = () => {
           <Stack.Screen name={SCREENS.ORDER_SETTING} component={OrderSettingScreen} />
           <Stack.Screen name={SCREENS.ORDER} component={OrderScreen} />
           <Stack.Screen name={SCREENS.ORDER_PAYMENT} component={OrderUpdatePaymentScreen} />
+
+          {/* Report */}
+          <Stack.Screen name={SCREENS.SALE_REPORTS} component={SaleReportsScreen} />
         </Stack.Group>
 
         {/* <Stack.Group
