@@ -227,6 +227,13 @@ export declare namespace ApiRequest {
     showCustomer?: boolean;
     showNote?: boolean;
   }>;
+
+  type DateRange = {
+    startDate?: string;
+    endDate?: string;
+  };
+
+  type FindSaleOverallByShopId = DateRange;
 }
 
 export declare namespace ApiResponse {
@@ -305,6 +312,11 @@ export declare namespace ApiResponse {
   type Messages = PaginatedResponse<Entity.Message> & {
     _matchId: string;
   };
+
+  type SaleOverallByShopId = FetchData<{
+    totalOrders?: number;
+    revenue?: number;
+  }>;
 }
 
 export type ProductSettingKey = keyof Pick<

@@ -15,6 +15,17 @@ export const API_ENDPOINTS = {
     ORDERS_BY_SHOP_ID: (shopId: string) => {
       return API_TAGS.SHOPS + '/' + shopId + API_TAGS.ORDERS;
     },
+    SHOP_ID: {
+      STATISTICS: {
+        SALE: {
+          OVERALL: (shopId: string) => {
+            return (
+              API_TAGS.SHOPS + '/' + shopId + API_TAGS.STATISTICS + API_TAGS.SALE + API_TAGS.OVERALL
+            );
+          },
+        },
+      },
+    },
   },
   LIKES: {
     INDEX: '/likes',

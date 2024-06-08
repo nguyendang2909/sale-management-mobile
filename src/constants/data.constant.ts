@@ -18,12 +18,19 @@ export const DEVICE_PLATFORMS = {
 } as const;
 
 export const ID_PATH = '/:';
-
 export const ID = 'id';
-
 export const SHOP_ID = 'shop_id';
+export const ORDER_ID = 'order_id';
+export const CATEGORY_ID = 'category_id';
+export const PRODUCT_ID = 'product_id';
 
 export const API_TAGS = {
+  ID: ID_PATH + ID,
+  SHOP_ID: ID_PATH + SHOP_ID,
+  ORDER_ID: ID_PATH + ORDER_ID,
+  CATEGORY_ID: ID_PATH + CATEGORY_ID,
+  PRODUCT_ID: ID_PATH + PRODUCT_ID,
+
   AUTH: '/auth',
   USERS: '/users',
   ME: '/me',
@@ -46,8 +53,6 @@ export const API_TAGS = {
   DINING_TABLES: '/dining-tables',
   DINING_TABLE_GROUPS: '/dining-table-groups',
   DINING_TABLE_PRODUCTS: '/dining-table-products',
-  ID: ID_PATH + ID,
-  SHOP_ID: ID_PATH + SHOP_ID,
   REPORTS: '/reports',
   REVENUE: '/revenue',
   UNCOMPLETED: '/uncompleted',
@@ -64,6 +69,9 @@ export const API_TAGS = {
   NOTIFICATIONS: '/notifications',
   CASH_ITEMS: '/cash-items',
   INVOICES: '/invoices',
+  PACKAGES: '/packages',
+  SALE: '/sale',
+  OVERALL: '/overall',
 } as const;
 
 export const BUSINESS_CATEGORIES = {
