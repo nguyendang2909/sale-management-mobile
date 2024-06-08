@@ -1,5 +1,5 @@
-import { Button, ButtonIcon, ButtonText, View } from '@gluestack-ui/themed';
-import { Calendar, ChevronLeft } from 'lucide-react-native';
+import { View } from '@gluestack-ui/themed';
+import { ChevronLeft } from 'lucide-react-native';
 import moment from 'moment';
 import { useState } from 'react';
 import { Dimensions } from 'react-native';
@@ -11,6 +11,7 @@ import { goBack } from 'src/navigations';
 import { FormParams } from 'src/types';
 
 import { SaleReportActionSheet } from './views/actionsheet/sale-report-actionsheet';
+import { ButtonCalendar } from './views/form/button-calendar';
 
 export const SaleReportsScreen = () => {
   const [dateRange, setDateRange] = useState<FormParams.DateRange>({
@@ -26,8 +27,6 @@ export const SaleReportsScreen = () => {
     onClose: onCloseActionsheet,
   } = useDisclose();
 
-  const handlePressCalendar = () => {};
-
   return (
     <>
       <Header
@@ -40,10 +39,7 @@ export const SaleReportsScreen = () => {
         leftIcon={ChevronLeft}
       />
       <View mt={16} px={16}>
-        <Button onPress={onOpenActionSheet} variant="outline">
-          <ButtonIcon as={Calendar} mr={8}></ButtonIcon>
-          <ButtonText>Hom nay</ButtonText>
-        </Button>
+        <ButtonCalendar dateRange={dateRange} onPress={onOpenActionSheet} />
       </View>
       <View mt={16}>
         <LineChart
