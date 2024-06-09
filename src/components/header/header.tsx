@@ -103,7 +103,8 @@ export const Header: FC<HeaderProps> = (props: HeaderProps) => {
       {...viewProps}
     >
       <View
-        height={APP_CONFIG.SIZE.TOP_BAR.HEIGHT}
+        minHeight={APP_CONFIG.SIZE.TOP_BAR.HEIGHT}
+        // height={APP_CONFIG.SIZE.TOP_BAR.HEIGHT}
         flexDirection="row"
         alignItems="center"
         justifyContent="space-between"

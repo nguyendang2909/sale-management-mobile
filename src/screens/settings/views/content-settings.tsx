@@ -2,7 +2,7 @@ import { ScrollView, View } from '@gluestack-ui/themed';
 import { LogoutButton } from 'src/containers/button/logout-button';
 import { useMessages } from 'src/hooks';
 
-export const ProfileSettingScrollView = () => {
+export const ContentSettings = () => {
   const { formatMessage } = useMessages();
 
   return (

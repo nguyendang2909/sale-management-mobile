@@ -25,6 +25,8 @@ export const iconRegistry = {
   slack: require('../../../assets/icons/slack.png'),
   view: require('../../../assets/icons/view.png'),
   x: require('../../../assets/icons/x.png'),
+  shop: require('../../../assets/icons/shop.png'),
+  shop2: require('../../../assets/icons/shop2.png'),
 };
 
 export type IconTypes = keyof typeof iconRegistry;

@@ -1,4 +1,4 @@
-import { AreaChart, Package, ShoppingBag, Users, Warehouse } from 'lucide-react-native';
+import { AreaChart, Home, Package, ShoppingBag, Users, Warehouse } from 'lucide-react-native';
 
 export const NAVIGATION_ICONS = {
   ORDER: ShoppingBag,
@@ -6,4 +6,5 @@ export const NAVIGATION_ICONS = {
   WARE_HOUSE: Warehouse,
   CUSTOMER: Users,
   REPORTS: AreaChart,
+  MANAGEMENT: Home,
 } as const;

@@ -7,7 +7,6 @@ import { CategoryScreen } from 'src/screens/category/category.screen';
 import { CategoryAddProductsScreen } from 'src/screens/category-add-products/category-add-products';
 import { CategoryDeleteProductsScreen } from 'src/screens/category-delete-products/category-delete-products';
 import { CategoryPickProductsScreen } from 'src/screens/category-pick-product/category-pick-products.screen';
-import { ProfileSettingScreen } from 'src/screens/Me/ProfileSettingScreen';
 import { OrderScreen } from 'src/screens/order/order.screen';
 import { OrderConfirmScreen } from 'src/screens/order-confirm/order-confirm.screen';
 import { OrderCreateScreen } from 'src/screens/order-create/order-create.screen';
@@ -18,6 +17,7 @@ import { ProductScreen } from 'src/screens/product-detail/product.screen';
 import { ProductSettingScreen } from 'src/screens/product-setting/product-setting.screen';
 import { ProfileCreateScreen } from 'src/screens/profile-create/profile-create.screen';
 import { SaleReportsScreen } from 'src/screens/sale-reports/sale-reports.screen';
+import { SettingsScreen } from 'src/screens/settings/settings.screen';
 import { ShopsScreen } from 'src/screens/shops/shops.screen';
 import { colors } from 'src/theme';
 import { AppStore, Entity, FormParams } from 'src/types';
@@ -30,7 +30,7 @@ export type AppStackParamList = {
   CREATE_BASIC_PHOTOS: undefined;
   HOME: NavigatorScreenParams<HomeTabParamList>;
   Main: undefined;
-  PROFILE_SETTING: undefined;
+  SETTINGS: undefined;
   // Messages: {
   //   matchId: string;
   //   match: Entity.Match;
@@ -100,8 +100,8 @@ export const MainStack: React.FC = () => {
           navigationBarColor: colors.background,
           orientation: 'portrait',
         }}
-        initialRouteName={SCREENS.SALE_REPORTS}
-        // initialRouteName={SCREENS.SHOPS}
+        // initialRouteName={SCREENS.SALE_REPORTS}
+        initialRouteName={SCREENS.SHOPS}
       >
         <Stack.Group>
           <Stack.Screen name={SCREENS.SHOPS} component={ShopsScreen} />
@@ -110,7 +110,7 @@ export const MainStack: React.FC = () => {
           <Stack.Screen name={SCREENS.CREATE_BASIC_PROFILE} component={ProfileCreateScreen} />
           {/* <Stack.Screen name={SCREENS.CREATE_BASIC_PHOTOS} component={CreateBasicPhotosScreen} /> */}
           {/* <Stack.Screen name={SCREENS.ProfileEdit} component={ProfileEditScreen} /> */}
-          <Stack.Screen name={SCREENS.PROFILE_SETTING} component={ProfileSettingScreen} />
+          <Stack.Screen name={SCREENS.SETTINGS} component={SettingsScreen} />
           {/* <Stack.Screen name={SCREENS.Messages} component={MessagesScreen} /> */}
           {/* <Stack.Screen
             name={SCREENS.DATING_NEARBY_FILTER}

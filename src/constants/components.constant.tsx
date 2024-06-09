@@ -1,7 +1,7 @@
 import { FC } from 'react';
-import { HomeTabParamList } from 'src/navigators/HomeNavigator';
+import { HomeTabParamList } from 'src/navigators/home-navigator';
 import { CustomersScreen } from 'src/screens/customers/customers.screen';
-import { Management } from 'src/screens/management/management';
+import { ManagementScreen } from 'src/screens/management/management.screen';
 import { OrdersScreen } from 'src/screens/orders/orders.screen';
 import { ProductsScreen } from 'src/screens/products/products.screen';
 import { ReportsScreen } from 'src/screens/reports/reports.screen';
@@ -22,8 +22,8 @@ export const DEFAULT_NAVIGATOR: {
     id: 'MANAGEMENT',
     name: 'MANAGEMENT',
     title: 'Quản lý',
-    screen: Management,
-    icon: NAVIGATION_ICONS.ORDER,
+    screen: ManagementScreen,
+    icon: NAVIGATION_ICONS.MANAGEMENT,
     isShow: true,
   },
 ];

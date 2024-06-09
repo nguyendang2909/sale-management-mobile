@@ -1,1 +1,1 @@
-export * from './profile-settings-scroll-view';
+export * from '../../screens/settings/views/content-settings';

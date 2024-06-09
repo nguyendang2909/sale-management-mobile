@@ -15,7 +15,7 @@ export const SCREENS = {
   Messages: 'Messages',
   ProfileEdit: 'ProfileEdit',
   ProfileNearby: 'ProfileNearby',
-  PROFILE_SETTING: 'PROFILE_SETTING',
+  SETTINGS: 'SETTINGS',
   SelectRelationshipGoal: 'SelectRelationshipGoal',
   SIGN_IN: 'SIGN_IN',
   SIGN_IN_WITH_OTP_PHONE_NUMBER: 'SIGN_IN_WITH_OTP_PHONE_NUMBER',

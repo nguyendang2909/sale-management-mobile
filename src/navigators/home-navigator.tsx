@@ -1,12 +1,10 @@
 import { Icon } from '@gluestack-ui/themed';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { User } from 'lucide-react-native';
 import React, { FC } from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { NAVIGATOR_DATA } from 'src/constants';
+import { DEFAULT_NAVIGATOR, NAVIGATOR_DATA } from 'src/constants';
 import { BOTTOM_NAVIGATOR_NAMES } from 'src/constants/constants';
 import { useMessages } from 'src/hooks';
-import { ProfileScreen } from 'src/screens/profile/profile.screen';
 import { colors } from 'src/theme';
 
 import { AppStackScreenProps } from './main.stack';
@@ -44,7 +42,7 @@ export const HomeNavigator: FC<FCProps> = () => {
   ];
 
   const navigators = [
-    // ...DEFAULT_NAVIGATOR,
+    ...DEFAULT_NAVIGATOR,
     ...screens.map(e => {
       return { ...NAVIGATOR_DATA[e], isShow: true };
     }),
@@ -105,20 +103,6 @@ export const HomeNavigator: FC<FCProps> = () => {
             ></Tab.Screen>
           );
         })}
-
-        <Tab.Screen
-          name="PROFILE"
-          component={ProfileScreen}
-          options={{
-            // tabBarShowLabel: false,
-            tabBarLabel: formatMessage('Profile'),
-            tabBarIcon: ({ focused }) => (
-              <>
-                <Icon as={User} width={40} height={40} fill={focused ? '$blue600' : '$white'} />
-              </>
-            ),
-          }}
-        />
 
         {/* <Tab.Screen
           name="DatingNearby"

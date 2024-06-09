@@ -21,7 +21,7 @@ export const ShopsScreen: React.FC = () => {
         if (shopData.length === 1) {
           dispatch(appActions.setShop(shopData[0]));
           navigation.dispatch(
-            StackActions.replace(SCREENS.HOME, { screen: HOME_SCREENS.PRODUCTS }),
+            StackActions.replace(SCREENS.HOME, { screen: HOME_SCREENS.MANAGEMENT }),
           );
         }
       }, 100);
