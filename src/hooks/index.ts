@@ -1,5 +1,6 @@
 export * from './usAppDispatch';
 export * from './use-category';
+export * from './use-count-orders';
 export * from './use-customers';
 export * from './use-geo-location';
 export * from './use-init';

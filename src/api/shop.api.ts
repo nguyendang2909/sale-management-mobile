@@ -32,6 +32,16 @@ const shopApi = api.injectEndpoints({
         params,
       }),
     }),
+    fetchCountOrdersByShop: builder.query<
+      ApiResponse.Count,
+      { shopId: string; params: ApiRequest.FindAllOrders }
+    >({
+      query: ({ shopId, params }) => ({
+        url: API_ENDPOINTS.SHOPS.SHOP_ID.ORDERS.COUNT(shopId),
+        method: API_METHODS.GET,
+        params,
+      }),
+    }),
   }),
 });
 
@@ -42,5 +52,7 @@ export const {
   useLazyFetchSaleOverallByShopQuery,
   useFetchSaleStatisticsByShopQuery,
   useLazyFetchSaleStatisticsByShopQuery,
+  useFetchCountOrdersByShopQuery,
+  useLazyFetchCountOrdersByShopQuery,
   endpoints: shopEndpoints,
 } = shopApi;

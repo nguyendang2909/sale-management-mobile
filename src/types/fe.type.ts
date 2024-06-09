@@ -194,7 +194,7 @@ export declare namespace ApiRequest {
   type FindAllOrders = {
     _next?: string;
     searchText?: string;
-    status?: OrderStatus;
+    status?: OrderStatus | OrderStatus[];
     startDate?: string;
     endDate?: string;
     paymentMethod?: OrderPaymentMethod;
@@ -324,6 +324,10 @@ export declare namespace ApiResponse {
       interval?: string;
     }[]
   >;
+
+  type Count = FetchData<{
+    total?: number;
+  }>;
 }
 
 export type ProductSettingKey = keyof Pick<

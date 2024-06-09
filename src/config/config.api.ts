@@ -16,6 +16,11 @@ export const API_ENDPOINTS = {
       return API_TAGS.SHOPS + '/' + shopId + API_TAGS.ORDERS;
     },
     SHOP_ID: {
+      ORDERS: {
+        COUNT: (shopId: string) => {
+          return API_TAGS.SHOPS + '/' + shopId + API_TAGS.ORDERS + API_TAGS.COUNT;
+        },
+      },
       SALE: {
         OVERALL: (shopId: string) => {
           return API_TAGS.SHOPS + '/' + shopId + API_TAGS.SALE + API_TAGS.OVERALL;
