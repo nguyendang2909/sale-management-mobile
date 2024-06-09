@@ -2,7 +2,7 @@ import { HStack, Icon, Text, View } from '@gluestack-ui/themed';
 import { ChevronRight, Eye, EyeOff } from 'lucide-react-native';
 import { FC } from 'react';
 import { TouchableOpacity } from 'react-native';
-import { SCREENS } from 'src/constants';
+import { HOME_SCREENS, SCREENS } from 'src/constants';
 import { useDisclose } from 'src/hooks';
 import { navigate } from 'src/navigations';
 import { ViewProps } from 'src/types';
@@ -20,7 +20,7 @@ export const SaleOverall: FC<
   const { isOpen: isShowOverall, onToggle } = useDisclose();
 
   const handlePressDetail = () => {
-    navigate(SCREENS.SALE_REPORTS);
+    navigate(SCREENS.HOME, { screen: HOME_SCREENS.REPORTS });
   };
 
   return (

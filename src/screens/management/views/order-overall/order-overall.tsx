@@ -3,10 +3,8 @@ import { ChevronRight } from 'lucide-react-native';
 import { FC } from 'react';
 import { TouchableOpacity } from 'react-native';
 import { HOME_SCREENS, SCREENS } from 'src/constants';
-import { useSaleOverall } from 'src/hooks';
 import { navigate } from 'src/navigations';
 import { ViewProps } from 'src/types';
-import { timeUtil } from 'src/utils';
 
 import { CardsOrderOverall } from './cards-order-overall';
 
@@ -18,11 +16,6 @@ export const OrderOverall: FC<
     };
   }
 > = ({ overall, ...viewProps }) => {
-  const { data: saleOverall } = useSaleOverall({
-    startDate: timeUtil.getDate(),
-    endDate: timeUtil.getDate(),
-  });
-
   const handlePressAll = () => {
     navigate(SCREENS.HOME, {
       screen: HOME_SCREENS.ORDERS,
