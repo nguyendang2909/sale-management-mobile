@@ -1,4 +1,4 @@
-import moment from 'moment';
+import moment, { Moment } from 'moment';
 import { AGES, TIME_FORMATS } from 'src/constants';
 
 export const getMinBirthDateTime = (): Date => {
@@ -14,6 +14,10 @@ export const getAgeFromTime = (time: string): number => {
 };
 
 class TimeUtil {
+  getDate(currentMoment?: Moment) {
+    return moment(currentMoment).format(TIME_FORMATS.DATE);
+  }
+
   getTimeFromDate(date: string) {
     return moment(date, TIME_FORMATS.DATE).toDate();
   }
