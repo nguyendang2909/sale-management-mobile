@@ -16,13 +16,12 @@ export const API_ENDPOINTS = {
       return API_TAGS.SHOPS + '/' + shopId + API_TAGS.ORDERS;
     },
     SHOP_ID: {
-      STATISTICS: {
-        SALE: {
-          OVERALL: (shopId: string) => {
-            return (
-              API_TAGS.SHOPS + '/' + shopId + API_TAGS.STATISTICS + API_TAGS.SALE + API_TAGS.OVERALL
-            );
-          },
+      SALE: {
+        OVERALL: (shopId: string) => {
+          return API_TAGS.SHOPS + '/' + shopId + API_TAGS.SALE + API_TAGS.OVERALL;
+        },
+        STATISTICS: (shopId: string) => {
+          return API_TAGS.SHOPS + '/' + shopId + API_TAGS.SALE + API_TAGS.STATISTICS;
         },
       },
     },

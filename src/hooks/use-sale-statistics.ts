@@ -1,15 +1,21 @@
 import moment from 'moment';
-import { useFetchSaleOverallByShopQuery } from 'src/api';
+import { useFetchSaleStatisticsByShopQuery } from 'src/api';
 import { TIME_FORMATS } from 'src/constants';
 
 import { useRefreshQuery } from './use-refreshing-query';
 import { useAppSelector } from './useAppSelector';
 
-export const useSaleOverall = ({ startDate, endDate }: { startDate: string; endDate: string }) => {
+export const useSaleStatistics = ({
+  startDate,
+  endDate,
+}: {
+  startDate: string;
+  endDate: string;
+}) => {
   const shopId = useAppSelector(s => s.app.shop.id);
   const todayDate = moment().format(TIME_FORMATS.DATE);
 
-  const query = useFetchSaleOverallByShopQuery({
+  const query = useFetchSaleStatisticsByShopQuery({
     shopId,
     params: {
       startDate: startDate !== todayDate ? startDate : undefined,

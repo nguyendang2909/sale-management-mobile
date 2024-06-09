@@ -317,6 +317,13 @@ export declare namespace ApiResponse {
     totalOrders?: number;
     revenue?: number;
   }>;
+
+  type SaleStatisticsByShopId = FetchData<
+    {
+      revenue?: number;
+      interval?: string;
+    }[]
+  >;
 }
 
 export type ProductSettingKey = keyof Pick<

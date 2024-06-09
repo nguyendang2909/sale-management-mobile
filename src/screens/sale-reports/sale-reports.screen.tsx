@@ -1,14 +1,13 @@
 import { RefreshControl, ScrollView, View } from '@gluestack-ui/themed';
 import moment from 'moment';
 import { useState } from 'react';
-import { Dimensions } from 'react-native';
-import { LineChart } from 'react-native-chart-kit';
 import { TIME_FORMATS } from 'src/constants';
-import { useDisclose, useInit, useSaleOverall } from 'src/hooks';
+import { useDisclose, useInit, useSaleOverall, useSaleStatistics } from 'src/hooks';
 import { FormParams } from 'src/types';
 
 import { SaleReportActionSheet } from './views/actionsheet/sale-report-actionsheet';
 import { CardsSaleReports } from './views/cards/cards-sale-reports';
+import { ChartSaleStatistics } from './views/chart/chart-sale-statistics';
 import { ButtonCalendar } from './views/form/button-calendar';
 import { HeaderSaleReports } from './views/header/header-sale-reports';
 
@@ -26,7 +25,26 @@ export const SaleReportsScreen = () => {
     onClose: onCloseActionsheet,
   } = useDisclose();
 
-  const { data: saleOverall, isRefreshing, refresh } = useSaleOverall(dateRange);
+  const {
+    data: saleOverall,
+    isRefreshing: isRefreshingSaleOverall,
+    refresh: refreshSaleOverall,
+  } = useSaleOverall(dateRange);
+
+  const {
+    data: saleStatistics,
+    isRefreshing: isRefreshingSaleStatistics,
+    refresh: refreshSaleStatistics,
+  } = useSaleStatistics(dateRange);
+
+  const isRefreshing = isRefreshingSaleOverall || isRefreshingSaleStatistics;
+
+  const refresh = () => {
+    refreshSaleOverall();
+    refreshSaleStatistics();
+  };
+
+  console.log(111, saleStatistics);
 
   return (
     <>
@@ -42,46 +60,13 @@ export const SaleReportsScreen = () => {
           />
         </View>
         <View mt={16}>
-          <LineChart
-            data={{
-              labels: ['January', 'February', 'March', 'April', 'May', 'June'],
-              datasets: [
-                {
-                  data: [
-                    Math.random() * 100,
-                    Math.random() * 100,
-                    Math.random() * 100,
-                    Math.random() * 100,
-                    Math.random() * 100,
-                    Math.random() * 100,
-                  ],
-                },
-              ],
-            }}
-            width={Dimensions.get('window').width} // from react-native
-            height={220}
-            yAxisLabel="$"
-            yAxisSuffix="k"
-            yAxisInterval={1} // optional, defaults to 1
-            chartConfig={{
-              backgroundGradientFromOpacity: 0,
-              backgroundGradientToOpacity: 0,
-              backgroundColor: '#000',
-              backgroundGradientFrom: '#000',
-              backgroundGradientTo: '#000',
-              decimalPlaces: 2, // optional, defaults to 2dp
-              color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-              labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-              style: {
-                borderRadius: 16,
-              },
-              propsForDots: {
-                r: '6',
-                strokeWidth: '2',
-                stroke: '#ffa726',
-              },
-            }}
-            bezier
+          <ChartSaleStatistics
+            labels={
+              saleStatistics?.data.map(e => {
+                return moment(e.interval, TIME_FORMATS.DATE).format('DD/MM');
+              }) || []
+            }
+            data={saleStatistics?.data.map(e => e.revenue!) || []}
           />
         </View>
       </ScrollView>

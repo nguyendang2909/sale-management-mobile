@@ -17,6 +17,10 @@ class TimeUtil {
   getTimeFromDate(date: string) {
     return moment(date, TIME_FORMATS.DATE).toDate();
   }
+
+  getDateNthFromDate(date: string) {
+    return moment(date).format(TIME_FORMATS.DATE_ONLY);
+  }
 }
 
 export const timeUtil = new TimeUtil();

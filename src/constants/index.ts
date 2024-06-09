@@ -12,6 +12,7 @@ export const TIME_FORMATS = {
   DATE: 'YYYY-MM-DD',
   MONTH: 'YYYY-MM',
   YEAR: 'YYYY',
+  DATE_ONLY: 'DD',
 } as const;
 
 export const NAVIGATION_PERSISTENCE_KEY = 'NAVIGATION_STATE';

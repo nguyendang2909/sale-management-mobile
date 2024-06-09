@@ -12,12 +12,22 @@ const shopApi = api.injectEndpoints({
         method: API_METHODS.GET,
       }),
     }),
-    fetchSaleOverall: builder.query<
+    fetchSaleOverallByShop: builder.query<
       ApiResponse.SaleOverallByShopId,
       { shopId: string; params: ApiRequest.FindSaleOverallByShopId }
     >({
       query: ({ shopId, params }) => ({
-        url: API_ENDPOINTS.SHOPS.SHOP_ID.STATISTICS.SALE.OVERALL(shopId),
+        url: API_ENDPOINTS.SHOPS.SHOP_ID.SALE.OVERALL(shopId),
+        method: API_METHODS.GET,
+        params,
+      }),
+    }),
+    fetchSaleStatisticsByShop: builder.query<
+      ApiResponse.SaleStatisticsByShopId,
+      { shopId: string; params: ApiRequest.FindSaleOverallByShopId }
+    >({
+      query: ({ shopId, params }) => ({
+        url: API_ENDPOINTS.SHOPS.SHOP_ID.SALE.STATISTICS(shopId),
         method: API_METHODS.GET,
         params,
       }),
@@ -28,7 +38,9 @@ const shopApi = api.injectEndpoints({
 export const {
   useFetchAllShopsQuery,
   useLazyFetchAllShopsQuery,
-  useFetchSaleOverallQuery,
-  useLazyFetchSaleOverallQuery,
+  useFetchSaleOverallByShopQuery,
+  useLazyFetchSaleOverallByShopQuery,
+  useFetchSaleStatisticsByShopQuery,
+  useLazyFetchSaleStatisticsByShopQuery,
   endpoints: shopEndpoints,
 } = shopApi;

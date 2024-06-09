@@ -1,6 +1,6 @@
 import { ChevronLeft } from 'lucide-react-native';
 import { Header } from 'src/components';
-import { SCREENS } from 'src/constants';
+import { HOME_SCREENS, SCREENS } from 'src/constants';
 import { goBack } from 'src/navigations';
 
 export const HeaderSaleReports = () => {

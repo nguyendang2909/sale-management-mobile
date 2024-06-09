@@ -11,6 +11,7 @@ export * from './use-product-settings';
 export * from './use-products';
 export * from './use-refreshing-query';
 export * from './use-sale-overall';
+export * from './use-sale-statistics';
 export * from './use-search-categories';
 export * from './use-search-customers';
 export * from './use-search-products';
