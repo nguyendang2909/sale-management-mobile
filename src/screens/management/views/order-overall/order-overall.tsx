@@ -35,10 +35,10 @@ export const OrderOverall: FC<
             <TouchableOpacity onPress={handlePressAll}>
               <HStack alignItems="center">
                 <View>
-                  <Text>Tất cả</Text>
+                  <Text color="$success400">Tất cả</Text>
                 </View>
                 <View>
-                  <Icon as={ChevronRight} />
+                  <Icon color="$success400" as={ChevronRight} />
                 </View>
               </HStack>
             </TouchableOpacity>

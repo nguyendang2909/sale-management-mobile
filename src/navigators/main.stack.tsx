@@ -7,6 +7,7 @@ import { CategoryScreen } from 'src/screens/category/category.screen';
 import { CategoryAddProductsScreen } from 'src/screens/category-add-products/category-add-products';
 import { CategoryDeleteProductsScreen } from 'src/screens/category-delete-products/category-delete-products';
 import { CategoryPickProductsScreen } from 'src/screens/category-pick-product/category-pick-products.screen';
+import { ReportsChildScreen } from 'src/screens/child-screens/reports.child.screen';
 import { OrderScreen } from 'src/screens/order/order.screen';
 import { OrderConfirmScreen } from 'src/screens/order-confirm/order-confirm.screen';
 import { OrderCreateScreen } from 'src/screens/order-create/order-create.screen';
@@ -83,6 +84,7 @@ export type AppStackParamList = {
     detail: AppStore.Customer;
   };
   // Reports
+  REPORTS_CHILD: undefined;
   SALE_REPORTS: undefined;
 };
 
@@ -152,6 +154,7 @@ export const MainStack: React.FC = () => {
 
           {/* Report */}
           <Stack.Screen name={SCREENS.SALE_REPORTS} component={SaleReportsScreen} />
+          <Stack.Screen name={SCREENS.REPORTS_CHILD} component={ReportsChildScreen} />
         </Stack.Group>
 
         {/* <Stack.Group

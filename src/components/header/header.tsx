@@ -174,17 +174,15 @@ function HeaderAction(props: HeaderActionProps) {
 
   if (ActionComponent) return <View pr={8}>{ActionComponent}</View>;
 
-  if (content || icon) {
-    const Wrapper = onPress ? TouchableOpacity : View;
-
+  if (content || onPress) {
     return (
       <HStack
         height="$full"
         justifyContent="center"
         alignItems="center"
-        as={Wrapper}
+        as={onPress ? TouchableOpacity : View}
         {...(onPress ? { onPress } : {})}
-        pl={8}
+        p={8}
       >
         <Icon as={icon || ChevronLeft} size="xl" color={onPress ? '$primary600' : '$coolGray500'} />
         {!!content && (

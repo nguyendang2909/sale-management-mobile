@@ -43,6 +43,7 @@ export const SCREENS = {
   CATEGORY_ADD_PRODUCTS: 'CATEGORY_ADD_PRODUCTS',
   // Reports
   SALE_REPORTS: 'SALE_REPORTS',
+  REPORTS_CHILD: 'REPORTS_CHILD',
 } as const;
 
 export const HOME_SCREENS = {

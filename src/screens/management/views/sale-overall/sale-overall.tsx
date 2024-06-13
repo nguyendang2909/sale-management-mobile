@@ -1,8 +1,8 @@
 import { HStack, Icon, Text, View } from '@gluestack-ui/themed';
 import { ChevronRight, Eye, EyeOff } from 'lucide-react-native';
-import { FC } from 'react';
+import { FC, useCallback } from 'react';
 import { TouchableOpacity } from 'react-native';
-import { HOME_SCREENS, SCREENS } from 'src/constants';
+import { SCREENS } from 'src/constants';
 import { useDisclose } from 'src/hooks';
 import { navigate } from 'src/navigations';
 import { ViewProps } from 'src/types';
@@ -19,9 +19,9 @@ export const SaleOverall: FC<
 > = ({ overall, ...viewProps }) => {
   const { isOpen: isShowOverall, onToggle } = useDisclose();
 
-  const handlePressDetail = () => {
-    navigate(SCREENS.HOME, { screen: HOME_SCREENS.REPORTS });
-  };
+  const handlePressDetail = useCallback(() => {
+    navigate(SCREENS.REPORTS_CHILD);
+  }, []);
 
   return (
     <View {...viewProps}>
@@ -30,21 +30,22 @@ export const SaleOverall: FC<
           <View>
             <HStack alignItems="center">
               <Text>Hôm nay</Text>
-              <View ml={8}>
-                <TouchableOpacity onPress={onToggle}>
+              <TouchableOpacity onPress={onToggle}>
+                <View px={8}>
                   <Icon as={isShowOverall ? Eye : EyeOff} size="lg" />
-                </TouchableOpacity>
-              </View>
+                </View>
+              </TouchableOpacity>
             </HStack>
           </View>
+
           <View>
             <TouchableOpacity onPress={handlePressDetail}>
               <HStack alignItems="center">
                 <View>
-                  <Text>Báo cáo</Text>
+                  <Text color="$success400">Báo cáo</Text>
                 </View>
                 <View>
-                  <Icon as={ChevronRight} />
+                  <Icon color="$success400" as={ChevronRight} />
                 </View>
               </HStack>
             </TouchableOpacity>
