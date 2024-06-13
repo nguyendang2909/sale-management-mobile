@@ -4,7 +4,6 @@ import _ from 'lodash';
 import React, { FC, useEffect, useMemo, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { Platform } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import Toast from 'react-native-toast-message';
 import { useUpdateProductMutation } from 'src/api';
 import { LoadingOverlay } from 'src/components';
@@ -128,55 +127,52 @@ export const ProductContent: FC<FCProps> = ({ detail }) => {
           <View flex={1}>
             <View flex={1}>
               <View flex={1}>
-                <ScrollView flex={1} showsVerticalScrollIndicator={false}>
-                  <View px={16} py={8} bgColor="$white" mb={16}>
-                    <ProductTitleControl control={control} />
-                    <ProductImagesControl mt={16} control={control} />
-                    {hasOnlyOneSku && (
-                      <>
-                        <View mt={16}>
-                          <View flexDirection="row" columnGap={16}>
-                            <ProductPriceControl flex={1} control={control} />
-                            <ProductCapitalPriceControl flex={1} control={control} />
+                <KeyboardAvoidingView
+                  style={{ flex: 1, flexDirection: 'column', justifyContent: 'center' }}
+                  behavior="padding"
+                  enabled
+                  keyboardVerticalOffset={100}
+                >
+                  <ScrollView flex={1} showsVerticalScrollIndicator={false}>
+                    <View px={16} py={8} bgColor="$white" mb={16}>
+                      <ProductTitleControl control={control} />
+                      <ProductImagesControl mt={16} control={control} />
+                      {hasOnlyOneSku && (
+                        <>
+                          <View mt={16}>
+                            <View flexDirection="row" columnGap={16}>
+                              <ProductPriceControl flex={1} control={control} />
+                              <ProductCapitalPriceControl flex={1} control={control} />
+                            </View>
                           </View>
-                        </View>
-                        <ProductPromotionalPriceControl mt={16} control={control} />
-                      </>
-                    )}
-                    <ProductUnitControl mt={16} control={control} />
-                    <ProductCategoriesControl mt={16} control={control} />
-                  </View>
-                  <View px={16} py={16} bgColor="$white">
-                    <View>
-                      <Text fontWeight="$bold">Quản lý tồn kho</Text>
+                          <ProductPromotionalPriceControl mt={16} control={control} />
+                        </>
+                      )}
+                      <ProductUnitControl mt={16} control={control} />
+                      <ProductCategoriesControl mt={16} control={control} />
                     </View>
-                    <ProductSkuControl mt={16} control={control} />
-                    {!isTrackingStock && <ProductInStockControl mt={16} control={control} />}
-                    <ProductTrackingStockControl mt={16} control={control} />
-                    {isTrackingStock && hasOnlyOneSku && (
-                      <ProductStockControl mt={16} control={control} />
-                    )}
-                  </View>
-                </ScrollView>
+                    <View px={16} py={16} bgColor="$white">
+                      <View>
+                        <Text fontWeight="$bold">Quản lý tồn kho</Text>
+                      </View>
+                      <ProductSkuControl mt={16} control={control} />
+                      {!isTrackingStock && <ProductInStockControl mt={16} control={control} />}
+                      <ProductTrackingStockControl mt={16} control={control} />
+                      {isTrackingStock && hasOnlyOneSku && (
+                        <ProductStockControl mt={16} control={control} />
+                      )}
+                    </View>
+                  </ScrollView>
+                </KeyboardAvoidingView>
 
                 <ProductDetailFooter
-                  as={SafeAreaView}
-                  // @ts-ignore
-                  edges={['bottom']}
                   bgColor="$white"
                   onUpdate={handleSubmit(onSubmit)}
                   product={product}
                   setLoading={setLoading}
                   isLoading={isSubmitting}
                   px={16}
-                  pt={16}
-                  shadowOffset={{
-                    width: 0,
-                    height: 1,
-                  }}
-                  shadowOpacity={0.25}
-                  shadowRadius={3}
-                  elevation={0}
+                  py={16}
                 />
               </View>
             </View>

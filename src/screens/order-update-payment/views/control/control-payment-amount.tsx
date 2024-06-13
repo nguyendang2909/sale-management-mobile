@@ -1,5 +1,5 @@
 import { View } from '@gluestack-ui/themed';
-import { ComponentProps, createRef, FC, useEffect } from 'react';
+import { ComponentProps, createRef, FC } from 'react';
 import { Control, Controller } from 'react-hook-form';
 import { TextInput } from 'react-native';
 import { Entity, FormParams } from 'src/types';
@@ -20,10 +20,6 @@ export const ControlPaymentAmount: FC<
     }, 0) || 0;
 
   const amount = (order.amount || 0) - payout;
-
-  useEffect(() => {
-    ref.current?.focus();
-  }, [ref]);
 
   return (
     <>

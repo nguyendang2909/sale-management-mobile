@@ -14,6 +14,7 @@ export const ViewFooter: FC<ViewProps & { isShadow?: boolean }> = ({
 
   return (
     <View
+      bgColor="$white"
       {...(inset.bottom ? { pt: pt || py, pb: inset.bottom } : { py, pb })}
       {...(isShadow
         ? {

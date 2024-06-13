@@ -9,9 +9,9 @@ import {
 import { StackActions, useNavigation } from '@react-navigation/native';
 import React, { FC, useMemo } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { Platform } from 'react-native';
 import Toast from 'react-native-toast-message';
 import { useCreateProductMutation, useLazyFetchProductQuery } from 'src/api';
+import { ViewFooter } from 'src/components';
 import { HOME_SCREENS, SCREENS } from 'src/constants';
 import { useMessages } from 'src/hooks';
 import { useCategories } from 'src/hooks/useCategories';
@@ -116,48 +116,55 @@ export const CreateProductForm: FC = () => {
         <View flex={1}>
           <View flex={1}>
             <View flex={1}>
-              <ScrollView flex={1} showsVerticalScrollIndicator={false}>
-                <View px={16} py={8} bgColor="$white" mb={16}>
-                  <ProductTitleControl control={control} />
-                  <ProductImagesControl mt={16} control={control} />
-                  {hasOnlyOneSku && (
-                    <>
-                      <View mt={16}>
-                        <View flexDirection="row" columnGap={16}>
-                          <ProductPriceControl flex={1} control={control} />
-                          <ProductCapitalPriceControl flex={1} control={control} />
+              <KeyboardAvoidingView
+                flex={1}
+                behavior="padding"
+                enabled
+                keyboardVerticalOffset={100}
+              >
+                <ScrollView flex={1} showsVerticalScrollIndicator={false}>
+                  <View px={16} py={8} bgColor="$white" mb={16}>
+                    <ProductTitleControl control={control} />
+                    <ProductImagesControl mt={16} control={control} />
+                    {hasOnlyOneSku && (
+                      <>
+                        <View mt={16}>
+                          <View flexDirection="row" columnGap={16}>
+                            <ProductPriceControl flex={1} control={control} />
+                            <ProductCapitalPriceControl flex={1} control={control} />
+                          </View>
                         </View>
-                      </View>
-                      <ProductPromotionalPriceControl mt={16} control={control} />
-                    </>
-                  )}
-                  <ProductUnitControl mt={16} control={control} />
-                  <ProductCategoriesControl mt={16} control={control} />
-                </View>
-                <View px={16} py={16} bgColor="$white">
-                  <View>
-                    <Text fontWeight="$bold">Quản lý tồn kho</Text>
+                        <ProductPromotionalPriceControl mt={16} control={control} />
+                      </>
+                    )}
+                    <ProductUnitControl mt={16} control={control} />
+                    <ProductCategoriesControl mt={16} control={control} />
                   </View>
-                  <ProductSkuControl mt={16} control={control} />
-                  {!isTrackingStock && <ProductInStockControl mt={16} control={control} />}
-                  <ProductTrackingStockControl mt={16} control={control} />
-                  {isTrackingStock && hasOnlyOneSku && (
-                    <ProductStockControl mt={16} control={control} />
-                  )}
-                </View>
-                <View mt={16}>
-                  <View px={16}>
+                  <View px={16} py={16} bgColor="$white">
                     <View>
-                      <Text>Thêm</Text>
+                      <Text fontWeight="$bold">Quản lý tồn kho</Text>
                     </View>
-                    <View flexDirection="row">
-                      <FormControlProductAdditional />
+                    <ProductSkuControl mt={16} control={control} />
+                    {!isTrackingStock && <ProductInStockControl mt={16} control={control} />}
+                    <ProductTrackingStockControl mt={16} control={control} />
+                    {isTrackingStock && hasOnlyOneSku && (
+                      <ProductStockControl mt={16} control={control} />
+                    )}
+                  </View>
+                  <View mt={16}>
+                    <View px={16}>
+                      <View>
+                        <Text>Thêm</Text>
+                      </View>
+                      <View flexDirection="row">
+                        <FormControlProductAdditional />
+                      </View>
                     </View>
                   </View>
-                </View>
-              </ScrollView>
+                </ScrollView>
+              </KeyboardAvoidingView>
 
-              <View px={16} py={16}>
+              <ViewFooter px={16} py={16}>
                 <View flexDirection="row" columnGap={16}>
                   <View flex={1}>
                     <Button variant="outline" onPress={handleCreateMoreProduct}>
@@ -170,11 +177,11 @@ export const CreateProductForm: FC = () => {
                     </Button>
                   </View>
                 </View>
-              </View>
+              </ViewFooter>
             </View>
           </View>
         </View>
-        {Platform.OS === 'android' && <KeyboardAvoidingView behavior={'padding'} />}
+        {/* {Platform.OS === 'android' && <KeyboardAvoidingView behavior={'padding'} />} */}
       </View>
     </>
   );

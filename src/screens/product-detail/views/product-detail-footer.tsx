@@ -1,5 +1,6 @@
 import { Button, ButtonText, View } from '@gluestack-ui/themed';
 import { FC } from 'react';
+import { ViewFooter } from 'src/components';
 import { AppStore, ViewProps } from 'src/types';
 
 import { DeleteProductButton } from './delete-product-button';
@@ -19,7 +20,7 @@ export const ProductDetailFooter: FC<FCProps> = ({
   ...viewProps
 }) => {
   return (
-    <View {...viewProps}>
+    <ViewFooter {...viewProps}>
       <View flexDirection="row" columnGap={16}>
         <View flex={1}>
           <DeleteProductButton product={product} setLoading={setLoading} isLoading={isLoading} />
@@ -30,6 +31,6 @@ export const ProductDetailFooter: FC<FCProps> = ({
           </Button>
         </View>
       </View>
-    </View>
+    </ViewFooter>
   );
 };
