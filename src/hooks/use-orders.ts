@@ -35,12 +35,6 @@ export const useOrders = ({
   const [isRefreshing, setRefreshing] = useState<boolean>(false);
   const [fetchOrders, { isLoading, isFetching }] = lazyQuery();
   const loading = isLoading || isFetching;
-  const deleteById = useCallback(
-    (id: string) => {
-      dispatch(orderActions.deleteOrder(id));
-    },
-    [dispatch],
-  );
 
   const fetchFirstData = useCallback(async () => {
     try {
@@ -111,7 +105,6 @@ export const useOrders = ({
     fetchNext,
     refresh,
     isRefreshing,
-    deleteById,
   };
 };
 

@@ -92,6 +92,21 @@ export const orderSlice = createSlice({
           state[data.status].data = orderUtil.formatManyAndSort([data], state[data.status].data);
         }
         state.all.data = orderUtil.formatManyAndSort([data], state.all.data);
+        ORDER_STORE_STATUS_ARR.forEach(orderStoreStatus => {
+          const oldOrder = state[orderStoreStatus].data.find(item => item.id === data.id);
+          if (oldOrder) {
+            if (oldOrder.status === data.status) {
+              state[orderStoreStatus].data = orderUtil.formatManyAndSort(
+                [data],
+                state[orderStoreStatus].data,
+              );
+            } else {
+              state[orderStoreStatus].data = state[orderStoreStatus].data.filter(
+                item => item.id !== data.id,
+              );
+            }
+          }
+        });
       });
   },
 });

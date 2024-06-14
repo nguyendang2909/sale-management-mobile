@@ -15,40 +15,46 @@ import {
 } from '@gluestack-ui/themed';
 import { FC, useCallback } from 'react';
 import Toast from 'react-native-toast-message';
-import { useDeleteOrderMutation } from 'src/api';
+import { useLazyFetchOrderQuery, useUpdateOrderMutation } from 'src/api';
 import { LoadingOverlay } from 'src/components';
+import { ORDER_STATUSES } from 'src/constants';
 import { useMessages } from 'src/hooks';
 
-export const DeleteOrderListItemDialog: FC<{
-  deleteOrderId: string | null;
-  setDeleteOrderId: (id: string | null) => void;
-  onDelete: (id: string) => void;
-}> = ({ deleteOrderId, setDeleteOrderId, onDelete }) => {
+export const CancelOrderDialog: FC<{
+  cancelOrderId: string | null;
+  setCancelOrderId: (id: string | null) => void;
+}> = ({ cancelOrderId, setCancelOrderId }) => {
   const { formatErrorMessage } = useMessages();
-  const [deleteOrder, { isLoading }] = useDeleteOrderMutation();
+  const [updateOrder, { isLoading: isLoadingUpdateOrder }] = useUpdateOrderMutation();
+  const [fetchOrder, { isLoading: isLoadingFetchOrder }] = useLazyFetchOrderQuery();
 
   const handleClose = useCallback(() => {
-    setDeleteOrderId(null);
-  }, [setDeleteOrderId]);
+    setCancelOrderId(null);
+  }, [setCancelOrderId]);
 
   const handleSubmit = useCallback(async () => {
     try {
-      if (deleteOrderId) {
-        await deleteOrder(deleteOrderId).unwrap();
-        onDelete(deleteOrderId);
+      if (cancelOrderId) {
+        await updateOrder({
+          id: cancelOrderId,
+          body: {
+            status: ORDER_STATUSES.CANCELLED,
+          },
+        }).unwrap();
+        fetchOrder(cancelOrderId);
       }
     } catch (err) {
       Toast.show({
         text1: formatErrorMessage(err),
       });
     } finally {
-      setDeleteOrderId(null);
+      setCancelOrderId(null);
     }
-  }, [deleteOrder, deleteOrderId, formatErrorMessage, onDelete, setDeleteOrderId]);
+  }, [cancelOrderId, fetchOrder, formatErrorMessage, setCancelOrderId, updateOrder]);
 
   return (
-    <Modal isOpen={!!deleteOrderId} onClose={handleClose}>
-      <LoadingOverlay isLoading={isLoading} />
+    <Modal isOpen={!!cancelOrderId} onClose={handleClose}>
+      <LoadingOverlay isLoading={isLoadingUpdateOrder || isLoadingFetchOrder} />
       <ModalBackdrop />
       <ModalContent>
         <ModalHeader>

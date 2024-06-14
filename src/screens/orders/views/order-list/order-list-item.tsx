@@ -13,10 +13,10 @@ import { TextPaymentStatus } from './payment-status-text/text-payment-status';
 
 type FCProps = {
   order: Entity.Order;
-  onDelete: (id: string) => void;
+  onCancel: (id: string) => void;
 };
 
-export const OrderListItem: FC<FCProps> = ({ order, onDelete }) => {
+export const OrderListItem: FC<FCProps> = ({ order, onCancel }) => {
   const navigation = useNavigation();
 
   const handlePress = () => {
@@ -25,9 +25,9 @@ export const OrderListItem: FC<FCProps> = ({ order, onDelete }) => {
 
   const amount = useMemo(() => orderUtil.getAmount(order), [order]);
 
-  const handleDelete = useCallback(() => {
-    onDelete(order.id);
-  }, [onDelete, order.id]);
+  const handleCancel = useCallback(() => {
+    onCancel(order.id);
+  }, [onCancel, order.id]);
 
   const handleDelivery = useCallback(() => {
     navigation.navigate(SCREENS.ORDER_PAYMENT, { order });
@@ -93,7 +93,7 @@ export const OrderListItem: FC<FCProps> = ({ order, onDelete }) => {
               <View mt={8}>
                 <HStack columnGap={16} rowGap={16}>
                   <View flex={1}>
-                    <Button variant="outline" onPress={handleDelete} size="sm">
+                    <Button variant="outline" onPress={handleCancel} size="sm">
                       <ButtonText>Huỷ</ButtonText>
                     </Button>
                   </View>
