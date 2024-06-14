@@ -8,7 +8,7 @@ import { Price } from './formatted-price';
 export const TextPrice: FC<
   TextProps & {
     value?: number | null;
-    variant?: 'primary' | 'secondary' | 'hightlight' | 'underline';
+    variant?: 'primary' | 'secondary' | 'highlight' | 'underline' | 'default';
   }
 > = ({ value, variant, ...currentTextProps }) => {
   if (_.isNil(value)) {
@@ -24,14 +24,14 @@ export const TextPrice: FC<
 };
 
 const getTextProps = (
-  variant?: 'primary' | 'secondary' | 'hightlight' | 'underline',
+  variant?: 'primary' | 'secondary' | 'highlight' | 'underline' | 'default',
 ): TextProps => {
   switch (variant) {
     case 'secondary':
       return {
         color: '$textLight900',
       };
-    case 'hightlight':
+    case 'highlight':
       return {
         color: '$blue600',
         bold: true,
@@ -41,10 +41,14 @@ const getTextProps = (
         color: '$textLight600',
         textDecorationLine: 'line-through',
       };
-    default:
+    case 'primary':
       return {
         color: '$textLight900',
         bold: true,
+      };
+    default:
+      return {
+        color: '$textLight900',
       };
   }
 };

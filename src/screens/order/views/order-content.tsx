@@ -38,7 +38,7 @@ export const OrderContent: FC<ViewProps & { order: Entity.Order; isFetchingOrder
         <OrderCustomerSection bg={'$white'} p={16} mt={16} customer={order.customer} />
 
         {order.status === ORDER_STATUSES.DELIVERED && (
-          <Payments payments={order.payments} orderAmount={orderAmount} />
+          <Payments payments={order.payments || []} orderAmount={orderAmount} />
         )}
       </ScrollView>
 

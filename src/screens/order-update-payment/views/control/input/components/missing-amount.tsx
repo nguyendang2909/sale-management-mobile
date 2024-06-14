@@ -12,7 +12,7 @@ export const MissingAmount: FC<ViewProps & { missingAmount: number }> = ({
       <View {...viewProps}>
         <HStack>
           <Text>Còn thiếu: </Text>
-          <TextPrice variant="hightlight" value={missingAmount}></TextPrice>
+          <TextPrice variant="highlight" value={missingAmount}></TextPrice>
         </HStack>
       </View>
     );
@@ -22,7 +22,7 @@ export const MissingAmount: FC<ViewProps & { missingAmount: number }> = ({
       <View {...viewProps}>
         <HStack>
           <Text>Tiền thừa: </Text>
-          <TextPrice variant="hightlight" value={Math.abs(missingAmount)}></TextPrice>
+          <TextPrice variant="highlight" value={Math.abs(missingAmount)}></TextPrice>
         </HStack>
       </View>
     );

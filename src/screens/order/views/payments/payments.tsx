@@ -40,7 +40,9 @@ export const Payments: FC<ViewProps & { orderAmount: number; payments: Entity.Or
           <View>
             <PaymentStatusTag debt={debt}></PaymentStatusTag>
           </View>
-          <View>{debt > 0 && <TextPrice color="$warning700" value={debt}></TextPrice>}</View>
+          <View>
+            {debt > 0 && <TextPrice fontSize="$sm" color="$warning700" value={debt}></TextPrice>}
+          </View>
         </View>
         {payments.map(payment => {
           return (
@@ -68,7 +70,7 @@ export const Payments: FC<ViewProps & { orderAmount: number; payments: Entity.Or
                         </TextCapitalize>
                       )}
                     </View>
-                    <TextPrice value={payment.amount} bold={false}></TextPrice>
+                    <TextPrice value={payment.amount}></TextPrice>
                   </View>
                 </View>
               </View>
