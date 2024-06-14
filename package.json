@@ -13,8 +13,8 @@
   },
   "dependencies": {
     "@formatjs/cli": "^6.2.4",
-    "@gluestack-style/react": "^1.0.52",
-    "@gluestack-ui/themed": "^1.1.22",
+    "@gluestack-style/react": "^1.0.56",
+    "@gluestack-ui/themed": "^1.1.30",
     "@hookform/resolvers": "^3.3.4",
     "@invertase/react-native-apple-authentication": "^2.3.0",
     "@ptomasroos/react-native-multi-slider": "^2.2.2",

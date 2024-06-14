@@ -6,7 +6,7 @@ export const AvatarShop = () => {
   return (
     <Avatar size="sm" bgColor="$white">
       <AvatarFallbackText>S</AvatarFallbackText>
-      <AvatarImage bgColor="$white" source={iconRegistry.shop2}></AvatarImage>
+      <AvatarImage alt="shop_avatar" bgColor="$white" source={iconRegistry.shop2}></AvatarImage>
     </Avatar>
   );
 };

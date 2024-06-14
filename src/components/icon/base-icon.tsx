@@ -81,6 +81,7 @@ export function BaseIcon(props: IconProps) {
 
   return (
     <ImageBackground
+      alt={icon}
       resizeMode="contain"
       height={size || 24}
       width={size || 24}
