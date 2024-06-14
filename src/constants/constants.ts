@@ -85,7 +85,7 @@ export const BOTTOM_NAVIGATOR_NAMES = {
 export const NAVIGATION_CARD_IDS_MAP = {
   ORDERS: 'ORDERS',
   REPORTS: 'REPORTS',
-  TABLES: 'TABLES',
+  // TABLES: 'TABLES',
   PRODUCTS: 'PRODUCTS',
 } as const;
 

@@ -189,12 +189,6 @@ export const NAVIGATION_CARDS_MAP: Record<NavigationCardId, NavigationCard> = {
     icon: 'barChart',
     screen: SCREENS.REPORTS_CHILD,
   },
-  [NAVIGATION_CARD_IDS_MAP.TABLES]: {
-    id: NAVIGATION_CARD_IDS_MAP.TABLES,
-    title: 'Thu tiền nhanh',
-    icon: 'fastDelivery',
-    screen: SCREENS.ORDERS_CHILD,
-  },
 };
 
 export const NAVIGATION_CARDS = Object.values(NAVIGATION_CARDS_MAP);
