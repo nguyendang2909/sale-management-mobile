@@ -1,4 +1,4 @@
-import { Icon } from '@gluestack-ui/themed';
+import { Icon, Text } from '@gluestack-ui/themed';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import React, { FC } from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -56,6 +56,9 @@ export const HomeNavigator: FC<FCProps> = () => {
           headerShown: false,
           tabBarHideOnKeyboard: true,
           tabBarStyle: [
+            {
+              paddingTop: 8,
+            },
             // backgroundColor(colors.background),
             // borderTopColor(colors.transparent),
             // { height: bottom + APP_CONFIG.SIZE.BOTTOM_BAR.HEIGHT },
@@ -72,10 +75,6 @@ export const HomeNavigator: FC<FCProps> = () => {
           ],
           tabBarActiveTintColor: colors.text,
           tabBarInactiveTintColor: colors.text,
-          tabBarLabelStyle: {
-            fontSize: 12,
-            lineHeight: 12,
-          },
           tabBarShowLabel: true,
         }}
       >
@@ -89,14 +88,24 @@ export const HomeNavigator: FC<FCProps> = () => {
               options={{
                 // headerShown: false,
                 // tabBarShowLabel: true,
-                tabBarLabel: e.title,
+                tabBarLabel: ({ focused }) => {
+                  return (
+                    <Text
+                      fontSize="$xs"
+                      numberOfLines={1}
+                      color={focused ? '$blue700' : '$coolGray500'}
+                    >
+                      {e.title}
+                    </Text>
+                  );
+                },
                 tabBarIcon: ({ focused }) => (
                   <Icon
                     as={ItemIcon}
-                    width={20}
-                    height={20}
-                    // color="$blue700"
-                    fill={focused ? '$blue600' : '$white'}
+                    width={24}
+                    height={24}
+                    color={focused ? '$blue700' : '$coolGray500'}
+                    // fill={focused ? '$blue600' : '$white'}
                   />
                 ),
               }}
