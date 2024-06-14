@@ -4,16 +4,16 @@ import { FC } from 'react';
 import { MenuItem } from 'src/components';
 import { ViewProps } from 'src/types';
 
-export const ShopManagement: FC<ViewProps> = () => {
+export const ShopManagement: FC<ViewProps> = ({ ...viewProps }) => {
   return (
-    <View mb={8}>
+    <View {...viewProps}>
       <View px={16}>
         <Text bold={true} textTransform="uppercase" numberOfLines={1}>
           Cửa hàng
         </Text>
       </View>
 
-      <View mt={16} bgColor="$white">
+      <View mt={8} bgColor="$white">
         <MenuItem
           leftIcon={Info}
           title="Thông tin cửa hàng"

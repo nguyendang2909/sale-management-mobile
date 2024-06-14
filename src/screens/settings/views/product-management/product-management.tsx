@@ -6,16 +6,16 @@ import { SCREENS } from 'src/constants';
 import { navigate } from 'src/navigations';
 import { ViewProps } from 'src/types';
 
-export const ProductManagement: FC<ViewProps> = () => {
+export const ProductManagement: FC<ViewProps> = ({ ...viewProps }) => {
   return (
-    <View mb={8}>
+    <View {...viewProps}>
       <View px={16}>
         <Text bold={true} textTransform="uppercase" numberOfLines={1}>
           Sản phẩm
         </Text>
       </View>
 
-      <View mt={16} bgColor="$white">
+      <View mt={8} bgColor="$white">
         <MenuItem
           leftIcon={Info}
           title="Cài đặt sản phẩm"

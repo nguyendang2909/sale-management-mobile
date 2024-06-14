@@ -12,11 +12,9 @@ export const ContentSettings = () => {
   return (
     <>
       <ScrollView>
-        <View mt={16} mb={16}>
-          <ShopManagement />
-          <ProductManagement />
-          <DataManagement mt={16} />
-        </View>
+        <ShopManagement mt={16} />
+        <ProductManagement mt={16} />
+        <DataManagement mt={16} />
 
         <View mt={16}>
           <View px={12}>
