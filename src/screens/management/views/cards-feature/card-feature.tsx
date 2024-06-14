@@ -19,13 +19,13 @@ export const CardFeature: FC<{ data: NavigationCard }> = ({ data }) => {
       py={8}
       onPress={handlePress}
     >
-      <Card flex={1}>
+      <Card flex={1} p={16}>
         <View justifyContent="center" alignItems="center">
-          <BaseIcon icon="fastDelivery" />
+          <BaseIcon size={32} icon={data.icon} />
         </View>
-        <View>
+        <View mt={4}>
           <Text textAlign="center" size="xs" numberOfLines={1}>
-            Đơn hàng
+            {data.title}
           </Text>
         </View>
       </Card>

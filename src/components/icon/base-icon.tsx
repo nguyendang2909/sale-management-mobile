@@ -64,6 +64,7 @@ export const iconRegistry = {
   securityPayment: require('../../../assets/icons/ecommerce/security-payment.png'),
   settings2: require('../../../assets/icons/ecommerce/settings.png'),
   waranty: require('../../../assets/icons/ecommerce/waranty.png'),
+  barChart: require('../../../assets/icons/ecommerce/bar-chart.png'),
 };
 
 export type IconTypes = keyof typeof iconRegistry;
