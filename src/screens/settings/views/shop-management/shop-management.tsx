@@ -14,7 +14,6 @@ export const ShopManagement: FC<ViewProps> = () => {
       </View>
 
       <View mt={16} bgColor="$white">
-        <Divider />
         <MenuItem
           leftIcon={Info}
           title="Thông tin cửa hàng"

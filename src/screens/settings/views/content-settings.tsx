@@ -3,6 +3,7 @@ import { LogoutButton } from 'src/containers/button/logout-button';
 import { useMessages } from 'src/hooks';
 
 import { DataManagement } from './data-management/data-management';
+import { ProductManagement } from './product-management/product-management';
 import { ShopManagement } from './shop-management/shop-management';
 
 export const ContentSettings = () => {
@@ -13,6 +14,7 @@ export const ContentSettings = () => {
       <ScrollView>
         <View mt={16} mb={16}>
           <ShopManagement />
+          <ProductManagement />
           <DataManagement mt={16} />
         </View>
 

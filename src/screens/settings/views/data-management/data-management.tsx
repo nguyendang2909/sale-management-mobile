@@ -14,7 +14,6 @@ export const DataManagement: FC<ViewProps> = ({ ...viewProps }) => {
       </View>
 
       <View mt={8} bgColor="$white">
-        <Divider />
         <MenuItem
           leftIcon={Trash}
           title="Xoá cửa hàng"

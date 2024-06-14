@@ -28,7 +28,7 @@ export const MenuItem: React.FC<FCProps> = ({
     <Pressable onPress={onPress}>
       {({ pressed }) => {
         return (
-          <View px={16} py={16} bg={pressed ? '$backgroundLight200' : '$white'}>
+          <View px={16} py={12} bg={pressed ? '$backgroundLight200' : '$white'}>
             <HStack alignItems="center">
               {!!leftIcon && (
                 <View mr={8}>
