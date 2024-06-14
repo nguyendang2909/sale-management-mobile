@@ -187,7 +187,7 @@ export const NAVIGATION_CARDS_MAP: Record<NavigationCardId, NavigationCard> = {
     id: NAVIGATION_CARD_IDS_MAP.REPORTS,
     title: 'Báo cáo',
     icon: 'barChart',
-    screen: SCREENS.ORDERS_CHILD,
+    screen: SCREENS.REPORTS_CHILD,
   },
   [NAVIGATION_CARD_IDS_MAP.TABLES]: {
     id: NAVIGATION_CARD_IDS_MAP.TABLES,

@@ -87,6 +87,8 @@ export type AppStackParamList = {
   // Reports
   REPORTS_CHILD: undefined;
   SALE_REPORTS: undefined;
+  PRODUCTS_CHILD: undefined;
+  TABLES_CHILD: undefined;
 };
 
 export type AppStackScreenProps<T extends keyof AppStackParamList> = NativeStackScreenProps<

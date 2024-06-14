@@ -1,9 +1,8 @@
 import _ from 'lodash';
-import { AppStackParamList } from 'src/navigators/main.stack';
 
 import { ORDER_PAYMENT_METHODS, ORDER_STATUSES } from './data.constant';
 
-export const SCREENS: Record<keyof AppStackParamList, keyof AppStackParamList> = {
+export const SCREENS = {
   CREATE_BASIC_PROFILE: 'CREATE_BASIC_PROFILE',
   CREATE_BASIC_PHOTOS: 'CREATE_BASIC_PHOTOS',
   HOME: 'HOME',
@@ -31,6 +30,8 @@ export const SCREENS: Record<keyof AppStackParamList, keyof AppStackParamList> =
   REPORTS_CHILD: 'REPORTS_CHILD',
   ORDERS_CHILD: 'ORDERS_CHILD',
   CUSTOMER: 'CUSTOMER',
+  PRODUCTS_CHILD: 'PRODUCTS_CHILD',
+  TABLES_CHILD: 'TABLES_CHILD',
 } as const;
 
 export const HOME_SCREENS = {
