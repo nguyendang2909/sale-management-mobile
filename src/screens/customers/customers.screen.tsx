@@ -1,4 +1,4 @@
-import { Box, StatusBar, View } from '@gluestack-ui/themed';
+import { Box, View } from '@gluestack-ui/themed';
 import { FlashList } from '@shopify/flash-list';
 import React from 'react';
 import { Header } from 'src/components';
@@ -16,7 +16,6 @@ export const CustomersScreen = () => {
 
   return (
     <>
-      <StatusBar barStyle="default" />
       <Header
         title="Khách hàng"
         RightActionComponent={
@@ -47,7 +46,8 @@ export const CustomersScreen = () => {
             <FlashList
               showsVerticalScrollIndicator={false}
               refreshing={isRefreshing}
-              onRefresh={refresh}scree
+              onRefresh={refresh}
+              scree
               numColumns={1}
               data={data}
               keyExtractor={(item, index) => item.id || index.toString()}

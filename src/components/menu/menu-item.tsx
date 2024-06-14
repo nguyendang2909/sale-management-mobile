@@ -10,6 +10,7 @@ type FCProps = {
   value?: string;
   valueTx?: TxKey;
   onPress?: () => void;
+  isNavigation?: boolean;
 };
 
 export const MenuItem: React.FC<FCProps> = ({
@@ -19,25 +20,18 @@ export const MenuItem: React.FC<FCProps> = ({
   value,
   valueTx,
   onPress,
+  isNavigation = false,
 }) => {
   const { formatMessage } = useMessages();
 
   return (
-    <Pressable
-      {...(onPress
-        ? {
-            onPress: () => {
-              onPress();
-            },
-          }
-        : {})}
-    >
-      {({ isPressed }) => {
+    <Pressable onPress={onPress}>
+      {({ pressed }) => {
         return (
-          <View px={16} py={16} bg={isPressed ? 'coolGray.200' : undefined}>
+          <View px={16} py={16} bg={pressed ? '$backgroundLight200' : '$white'}>
             <HStack alignItems="center">
               {!!leftIcon && (
-                <View mr={2}>
+                <View mr={8}>
                   <Icon as={leftIcon} />
                 </View>
               )}
@@ -51,16 +45,18 @@ export const MenuItem: React.FC<FCProps> = ({
               <View flex={1}></View>
 
               {(!!value || !!valueTx) && (
-                <View mr={2}>
+                <View mr={8}>
                   <Text numberOfLines={1} ellipsizeMode="tail" maxWidth={48}>
                     {valueTx ? formatMessage(valueTx) : value}
                   </Text>
                 </View>
               )}
 
-              <View>
-                <ChevronRightIcon />
-              </View>
+              {isNavigation && (
+                <View>
+                  <ChevronRightIcon />
+                </View>
+              )}
             </HStack>
           </View>
         );

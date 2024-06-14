@@ -1,4 +1,3 @@
-import { StatusBar } from '@gluestack-ui/themed';
 import { useNavigation } from '@react-navigation/native';
 import React, { FC } from 'react';
 import { Header } from 'src/components';
@@ -8,7 +7,6 @@ export const DatingNearbyScreen: FC = () => {
   const navigate = useNavigation();
   return (
     <>
-      <StatusBar barStyle="default" />
       <Header
         titleTx="Search"
         // rightIcon="settings"

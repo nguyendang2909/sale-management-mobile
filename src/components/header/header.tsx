@@ -87,73 +87,75 @@ export const Header: FC<HeaderProps> = (props: HeaderProps) => {
   const titleContent = titleTx ? formatMessage(titleTx) : title;
 
   return (
-    <View
-      zIndex={5}
-      w="$full"
-      style={[$containerInsets, $containerStyleOverride]}
-      backgroundColor={finalBackgroundColor}
-      // shadowOffset={{
-      //   width: 0,
-      //   height: 1,
-      // }}
-      // shadowOpacity={0.25}
-      // shadowRadius={3}
-      borderBottomColor="$coolGray100"
-      borderBottomWidth={1}
-      {...viewProps}
-    >
+    <>
       <View
-        minHeight={APP_CONFIG.SIZE.TOP_BAR.HEIGHT}
-        // height={APP_CONFIG.SIZE.TOP_BAR.HEIGHT}
-        flexDirection="row"
-        alignItems="center"
-        justifyContent="space-between"
-        style={$styleOverride}
+        zIndex={5}
+        w="$full"
+        style={[$containerInsets, $containerStyleOverride]}
+        backgroundColor={finalBackgroundColor}
+        // shadowOffset={{
+        //   width: 0,
+        //   height: 1,
+        // }}
+        // shadowOpacity={0.25}
+        // shadowRadius={3}
+        borderBottomColor="$coolGray100"
+        borderBottomWidth={1}
+        {...viewProps}
       >
-        <HeaderAction
-          tx={leftTx}
-          text={leftText}
-          icon={leftIcon}
-          iconColor={leftIconColor}
-          onPress={onLeftPress}
-          // txOptions={leftTxOptions}
-          backgroundColor={finalBackgroundColor}
-          ActionComponent={LeftActionComponent}
-        />
+        <View
+          minHeight={APP_CONFIG.SIZE.TOP_BAR.HEIGHT}
+          // height={APP_CONFIG.SIZE.TOP_BAR.HEIGHT}
+          flexDirection="row"
+          alignItems="center"
+          justifyContent="space-between"
+          style={$styleOverride}
+        >
+          <HeaderAction
+            tx={leftTx}
+            text={leftText}
+            icon={leftIcon}
+            iconColor={leftIconColor}
+            onPress={onLeftPress}
+            // txOptions={leftTxOptions}
+            backgroundColor={finalBackgroundColor}
+            ActionComponent={LeftActionComponent}
+          />
 
-        {!!titleContent && (
-          <View
-            style={[
-              titleMode === 'center' && $titleWrapperCenter,
-              titleMode === 'flex' && $titleWrapperFlex,
-              $titleContainerStyleOverride,
-            ]}
-            pointerEvents="none"
-          >
-            <Text
-              numberOfLines={1}
-              fontWeight="$medium"
-              size="md"
-              style={[$title, $titleStyleOverride]}
+          {!!titleContent && (
+            <View
+              style={[
+                titleMode === 'center' && $titleWrapperCenter,
+                titleMode === 'flex' && $titleWrapperFlex,
+                $titleContainerStyleOverride,
+              ]}
+              pointerEvents="none"
             >
-              {titleContent}
-            </Text>
-          </View>
-        )}
+              <Text
+                numberOfLines={1}
+                fontWeight="$medium"
+                size="md"
+                style={[$title, $titleStyleOverride]}
+              >
+                {titleContent}
+              </Text>
+            </View>
+          )}
 
-        <HeaderAction
-          tx={rightTx}
-          text={rightText}
-          icon={rightIcon}
-          iconColor={rightIconColor}
-          onPress={onRightPress}
-          // txOptions={rightTxOptions}
-          // backgroundColor={backgroundColor}
-          ActionComponent={RightActionComponent}
-        />
+          <HeaderAction
+            tx={rightTx}
+            text={rightText}
+            icon={rightIcon}
+            iconColor={rightIconColor}
+            onPress={onRightPress}
+            // txOptions={rightTxOptions}
+            // backgroundColor={backgroundColor}
+            ActionComponent={RightActionComponent}
+          />
+        </View>
+        {children}
       </View>
-      {children}
-    </View>
+    </>
   );
 };
 

@@ -1,5 +1,5 @@
 import { HStack, Icon, Text, View } from '@gluestack-ui/themed';
-import { ChevronRight } from 'lucide-react-native';
+import { Bell, ChevronRight } from 'lucide-react-native';
 import { TouchableOpacity } from 'react-native';
 import { Header } from 'src/components';
 import { AvatarShop } from 'src/components/avatar/avatar-shop';
@@ -14,11 +14,15 @@ export const HeaderManagement = () => {
     navigate(SCREENS.SETTINGS);
   };
 
+  const handlePressBell = () => {
+    navigate(SCREENS.NOTIFICATIONS);
+  };
+
   return (
     <Header
       bgColor="$success900"
       LeftActionComponent={
-        <View ml={16} pb={16}>
+        <View ml={16} pb={16} flex={1} justifyContent="center" alignItems="center">
           <TouchableOpacity onPress={handlePressShop}>
             <HStack gap={8} alignItems="center">
               <View>
@@ -43,7 +47,13 @@ export const HeaderManagement = () => {
           </TouchableOpacity>
         </View>
       }
-      RightActionComponent={<View mr={16}>{/* <ProfileSettingIconButton /> */}</View>}
+      RightActionComponent={
+        <View mr={16} flex={1} justifyContent="center" alignItems="center">
+          <TouchableOpacity onPress={handlePressBell}>
+            <Icon size="xl" as={Bell} color="$white"></Icon>
+          </TouchableOpacity>
+        </View>
+      }
     />
   );
 };

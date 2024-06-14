@@ -1,4 +1,3 @@
-import { StatusBar } from '@gluestack-ui/themed';
 import { useNavigation } from '@react-navigation/native';
 import { Header } from 'src/components';
 
@@ -9,7 +8,6 @@ export const SubjectsScreen = () => {
 
   return (
     <>
-      <StatusBar barStyle="default" />
       <Header
         title="Subjects"
         // rightIcon="settings"

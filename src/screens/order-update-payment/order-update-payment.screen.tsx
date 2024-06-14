@@ -1,4 +1,4 @@
-import { StatusBar, View } from '@gluestack-ui/themed';
+import { View } from '@gluestack-ui/themed';
 import { FC } from 'react';
 import { useOrder } from 'src/hooks';
 import { AppStackScreenProps } from 'src/navigators/main.stack';
@@ -13,7 +13,6 @@ export const OrderUpdatePaymentScreen: FC<FCProps> = props => {
 
   return (
     <>
-      <StatusBar barStyle="default" />
       <OrderUpdatePaymentHeader />
       <View mt={8} />
       <OrderUpdatePaymentContent

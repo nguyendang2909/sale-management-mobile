@@ -1,4 +1,3 @@
-import { StatusBar } from '@gluestack-ui/themed';
 import { FC } from 'react';
 import { AppStackScreenProps } from 'src/types';
 
@@ -13,8 +12,6 @@ export const OrderConfirmScreen: FC<FCProps> = ({
 }) => {
   return (
     <>
-      <StatusBar barStyle="default" />
-
       <OrderConfirmForm values={values} />
     </>
   );

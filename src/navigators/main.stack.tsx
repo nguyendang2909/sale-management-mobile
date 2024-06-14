@@ -9,6 +9,7 @@ import { CategoryDeleteProductsScreen } from 'src/screens/category-delete-produc
 import { CategoryPickProductsScreen } from 'src/screens/category-pick-product/category-pick-products.screen';
 import { OrdersChildScreen } from 'src/screens/child/orders.child.screen';
 import { ReportsChildScreen } from 'src/screens/child/reports.child.screen';
+import { NotificationsScreen } from 'src/screens/notifications/notifications.screen';
 import { OrderScreen } from 'src/screens/order/order.screen';
 import { OrderConfirmScreen } from 'src/screens/order-confirm/order-confirm.screen';
 import { OrderCreateScreen } from 'src/screens/order-create/order-create.screen';
@@ -90,6 +91,7 @@ export type AppStackParamList = {
   SALE_REPORTS: undefined;
   PRODUCTS_CHILD: undefined;
   TABLES_CHILD: undefined;
+  NOTIFICATIONS: undefined;
 };
 
 export type AppStackScreenProps<T extends keyof AppStackParamList> = NativeStackScreenProps<
@@ -160,6 +162,7 @@ export const MainStack: React.FC = () => {
           {/* Report */}
           <Stack.Screen name={SCREENS.SALE_REPORTS} component={SaleReportsScreen} />
           <Stack.Screen name={SCREENS.REPORTS_CHILD} component={ReportsChildScreen} />
+          <Stack.Screen name={SCREENS.NOTIFICATIONS} component={NotificationsScreen} />
         </Stack.Group>
 
         {/* <Stack.Group
