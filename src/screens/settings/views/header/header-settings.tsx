@@ -14,7 +14,7 @@ export const HeaderSettings: React.FC = () => {
       <Header
         leftIcon={ChevronLeft}
         onLeftPress={handleLeftPress}
-        titleTx="Settings"
+        title="Cài đặt"
         backgroundColor="$backgroundLight100"
       />
     </>
