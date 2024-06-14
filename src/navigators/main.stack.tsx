@@ -15,7 +15,7 @@ import { OrderConfirmScreen } from 'src/screens/order-confirm/order-confirm.scre
 import { OrderCreateScreen } from 'src/screens/order-create/order-create.screen';
 import { OrderSettingScreen } from 'src/screens/order-setting/order-setting.screen';
 import { OrderUpdatePaymentScreen } from 'src/screens/order-update-payment/order-update-payment.screen';
-import { ProductCreateScreen } from 'src/screens/product-create/create-product.screen';
+import { ProductCreateScreen } from 'src/screens/product-create/product-create.screen';
 import { ProductScreen } from 'src/screens/product-detail/product.screen';
 import { ProductSettingScreen } from 'src/screens/product-setting/product-setting.screen';
 import { ProfileCreateScreen } from 'src/screens/profile-create/profile-create.screen';
