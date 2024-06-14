@@ -34,7 +34,7 @@ export const ControlPaymentAmount: FC<
                 isRequired={true}
                 label="Khách trả"
                 inputMode="numeric"
-                value={field.value}
+                value={field.value || 0}
                 onChange={field.onChange}
                 onBlur={field.onBlur}
                 placeholder="0.000"

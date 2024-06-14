@@ -1,10 +1,9 @@
 import { ScrollView, View } from '@gluestack-ui/themed';
-import { useNavigation } from '@react-navigation/native';
 import _ from 'lodash';
 import { FC, useMemo } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { LoadingOverlay } from 'src/components';
-import { ORDER_STATUSES, ORDER_UNDELIVERED_STATUS_ARR, SCREENS } from 'src/constants';
+import { ORDER_STATUSES, ORDER_UNDELIVERED_STATUS_ARR } from 'src/constants';
 import { Entity, ViewProps } from 'src/types';
 import { orderUtil } from 'src/utils';
 
@@ -20,12 +19,6 @@ export const OrderContent: FC<ViewProps & { order: Entity.Order; isFetchingOrder
   isFetchingOrder,
   ...viewProps
 }) => {
-  const navigation = useNavigation();
-
-  const handleConfirmDelivery = () => {
-    navigation.navigate(SCREENS.ORDER_PAYMENT, { order });
-  };
-
   const orderAmount = useMemo(() => orderUtil.getAmount(order), [order]);
 
   return (
@@ -55,9 +48,9 @@ export const OrderContent: FC<ViewProps & { order: Entity.Order; isFetchingOrder
           pt={16}
           bgColor="white"
           as={SafeAreaView}
-          orderId={order.id}
           // @ts-ignore
           edges={['bottom']}
+          order={order}
         />
       )}
     </View>

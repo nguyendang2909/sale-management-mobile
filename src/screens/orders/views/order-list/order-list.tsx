@@ -1,15 +1,19 @@
 import { View } from '@gluestack-ui/themed';
 import { FlashList } from '@shopify/flash-list';
-import { FC, useState } from 'react';
+import { FC, useCallback, useState } from 'react';
 import { UserOrder } from 'src/hooks';
 
-import { CancelOrderDialog } from '../delete-order-list-item-dialog';
+import { DialogCancelOrder } from './dialog/dialog-cancel-order';
 import { OrderListItem } from './order-list-item';
 
 export const OrderList: FC<{ query: UserOrder }> = ({ query }) => {
   const { data: orders, isRefreshing, refresh } = query;
 
   const [cancelOrderId, setCancelOrderId] = useState<string | null>(null);
+
+  const handleCloseOrder = useCallback(() => {
+    setCancelOrderId(null);
+  }, []);
 
   return (
     <>
@@ -27,7 +31,7 @@ export const OrderList: FC<{ query: UserOrder }> = ({ query }) => {
         ></FlashList>
       </View>
 
-      <CancelOrderDialog cancelOrderId={cancelOrderId} setCancelOrderId={setCancelOrderId} />
+      <DialogCancelOrder cancelOrderId={cancelOrderId} onClose={handleCloseOrder} />
     </>
   );
 };

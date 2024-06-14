@@ -15,20 +15,18 @@ import {
 } from '@gluestack-ui/themed';
 import { FC } from 'react';
 import { LoadingOverlay } from 'src/components';
-import { useMessages } from 'src/hooks';
 
-export const DialogDeleteOrder: FC<{
+export const DialogCancelOrder: FC<{
   isOpen: boolean;
   onClose: () => void;
   onSubmit: () => void;
-  isSubmitting: () => void;
+  isSubmitting: boolean;
 }> = ({ onClose, isOpen, onSubmit, isSubmitting }) => {
-  const { formatErrorMessage } = useMessages();
-
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <LoadingOverlay isLoading={isSubmitting} />
       <ModalBackdrop />
+
       <ModalContent>
         <ModalHeader>
           <Heading size="lg">Huỷ đơn hàng</Heading>
@@ -36,9 +34,11 @@ export const DialogDeleteOrder: FC<{
             <Icon as={CloseIcon} />
           </ModalCloseButton>
         </ModalHeader>
+
         <ModalBody>
           <Text>Bạn có chắc chắn rằng muốn huỷ đơn hàng này?</Text>
         </ModalBody>
+
         <ModalFooter>
           <Button
             variant="outline"
@@ -48,6 +48,7 @@ export const DialogDeleteOrder: FC<{
           >
             <ButtonText>Quay lại</ButtonText>
           </Button>
+
           <Button borderWidth="$0" onPress={onSubmit} isDisabled={isSubmitting}>
             <ButtonText>Xác nhận</ButtonText>
           </Button>

@@ -20,17 +20,13 @@ import { LoadingOverlay } from 'src/components';
 import { ORDER_STATUSES } from 'src/constants';
 import { useMessages } from 'src/hooks';
 
-export const CancelOrderDialog: FC<{
+export const DialogCancelOrder: FC<{
   cancelOrderId: string | null;
-  setCancelOrderId: (id: string | null) => void;
-}> = ({ cancelOrderId, setCancelOrderId }) => {
+  onClose: () => void;
+}> = ({ cancelOrderId, onClose }) => {
   const { formatErrorMessage } = useMessages();
   const [updateOrder, { isLoading: isLoadingUpdateOrder }] = useUpdateOrderMutation();
   const [fetchOrder, { isLoading: isLoadingFetchOrder }] = useLazyFetchOrderQuery();
-
-  const handleClose = useCallback(() => {
-    setCancelOrderId(null);
-  }, [setCancelOrderId]);
 
   const handleSubmit = useCallback(async () => {
     try {
@@ -48,14 +44,17 @@ export const CancelOrderDialog: FC<{
         text1: formatErrorMessage(err),
       });
     } finally {
-      setCancelOrderId(null);
+      onClose();
     }
-  }, [cancelOrderId, fetchOrder, formatErrorMessage, setCancelOrderId, updateOrder]);
+  }, [cancelOrderId, fetchOrder, formatErrorMessage, onClose, updateOrder]);
+
+  const isLoading = isLoadingUpdateOrder || isLoadingFetchOrder;
 
   return (
-    <Modal isOpen={!!cancelOrderId} onClose={handleClose}>
-      <LoadingOverlay isLoading={isLoadingUpdateOrder || isLoadingFetchOrder} />
+    <Modal isOpen={!!cancelOrderId} onClose={onClose}>
+      <LoadingOverlay isLoading={isLoading} />
       <ModalBackdrop />
+
       <ModalContent>
         <ModalHeader>
           <Heading size="lg">Huỷ đơn hàng</Heading>
@@ -63,19 +62,22 @@ export const CancelOrderDialog: FC<{
             <Icon as={CloseIcon} />
           </ModalCloseButton>
         </ModalHeader>
+
         <ModalBody>
           <Text>Bạn có chắc chắn rằng muốn huỷ đơn hàng này?</Text>
         </ModalBody>
+
         <ModalFooter>
           <Button
             variant="outline"
             // action="secondary"
             mr="$3"
-            onPress={handleClose}
+            onPress={onClose}
           >
             <ButtonText>Quay lại</ButtonText>
           </Button>
-          <Button borderWidth="$0" onPress={handleSubmit}>
+
+          <Button borderWidth="$0" onPress={handleSubmit} disabled={isLoading}>
             <ButtonText>Xác nhận</ButtonText>
           </Button>
         </ModalFooter>

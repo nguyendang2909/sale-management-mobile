@@ -1,25 +1,31 @@
-import { View } from '@gluestack-ui/themed';
-import { FC } from 'react';
-import { ViewProps } from 'src/types';
+import { Button, ButtonText, View } from '@gluestack-ui/themed';
+import { FC, useCallback } from 'react';
+import { SCREENS } from 'src/constants';
+import { navigate } from 'src/navigations';
+import { AppStore, ViewProps } from 'src/types';
 
-import { ButtonDeleteOrder } from './delete-order-button';
+import { ButtonCancelOrder } from './button-cancel-order';
 
 export const UndeliveredOrderNav: FC<
   ViewProps & {
-    orderId: string;
+    order: AppStore.Order;
   }
-> = ({ orderId, ...viewProps }) => {
+> = ({ order, ...viewProps }) => {
+  const handleDelivery = useCallback(() => {
+    navigate(SCREENS.ORDER_PAYMENT, { order });
+  }, [order]);
+
   return (
     <>
       <View {...viewProps}>
         <View flexDirection="row" columnGap={16}>
           <View flex={1}>
-            <ButtonDeleteOrder orderId={orderId} />
+            <ButtonCancelOrder orderId={order.id} />
           </View>
           <View flex={1}>
-            {/* <Button onPress={handleConfirmDelivery}>
+            <Button onPress={handleDelivery} size="sm">
               <ButtonText>Đã giao</ButtonText>
-            </Button> */}
+            </Button>
           </View>
         </View>
       </View>
