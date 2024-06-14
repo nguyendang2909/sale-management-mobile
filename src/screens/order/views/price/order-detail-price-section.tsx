@@ -6,11 +6,11 @@ import { Entity, ViewProps } from 'src/types';
 import { orderUtil } from 'src/utils';
 import { orderItemUtil } from 'src/utils/order-item.util';
 
-export const OrderPaymentSection: FC<ViewProps & { order: Entity.Order }> = ({
+export const OrderPaymentSection: FC<ViewProps & { order: Entity.Order; amount: number }> = ({
   order,
+  amount,
   ...viewProps
 }) => {
-  const amount = useMemo(() => orderUtil.getAmount(order), [order]);
   const totalPromotional = useMemo(() => orderUtil.getTotalPromotional(order), [order]);
   const quantity = useMemo(() => orderItemUtil.getQuantities(order.items), [order.items]);
 
