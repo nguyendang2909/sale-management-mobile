@@ -353,8 +353,8 @@ export const messages = defineMessages({
     id: '6b99acba1e',
   },
   'Oops, something went wrong. Please try again.': {
-    defaultMessage: 'Oops, something went wrong. Please try again.',
-    id: '311ca8f3d4',
+    defaultMessage: 'Có lỗi xảy ra, vui lòng thử lại.',
+    id: '0a362b71f6',
   },
   'Uploaded photos successfully': {
     defaultMessage: 'Uploaded photos successfully',

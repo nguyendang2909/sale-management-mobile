@@ -19,6 +19,7 @@ export const InputProfileEmail: FC<
       placeholder="Ví dụ: abc@gmail.com"
       onBlur={onBlur}
       error={errorMessage}
+      inputMode="email"
       {...viewProps}
     />
   );

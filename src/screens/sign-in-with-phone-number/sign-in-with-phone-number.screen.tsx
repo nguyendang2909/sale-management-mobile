@@ -5,7 +5,7 @@ import { SCREENS } from 'src/constants';
 import { APP_NAME } from 'src/constants/constants';
 import { SignInWithPhoneNumberForm } from 'src/containers/Form/sign-in-with-phone-number-form';
 import { BackIconButton } from 'src/containers/IconButton/BackIconButton';
-import { AppStackScreenProps } from 'src/navigators/main-stack';
+import { AppStackScreenProps } from 'src/navigators/main.stack';
 
 type FCProps = AppStackScreenProps<'SIGN_IN_WITH_PHONE_NUMBER'>;
 

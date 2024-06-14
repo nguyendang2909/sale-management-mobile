@@ -21,7 +21,7 @@ import { LoadingButton } from 'src/components/button';
 import { AnimatedOtpInput } from 'src/components/input/animated-otp-input';
 import { AUTH_GRANT_TYPES, SCREENS } from 'src/constants';
 import { BackIconButton } from 'src/containers/IconButton/BackIconButton';
-import { useAppDispatch, useMessages, useUserData } from 'src/hooks';
+import { useAfterLogin, useAppDispatch, useMessages, useUserData } from 'src/hooks';
 import { goBack } from 'src/navigations/navigation-ref';
 import { AppStackScreenProps } from 'src/navigators/main-stack';
 import { appActions } from 'src/store/app/app.store';
@@ -56,6 +56,8 @@ export const SignInWithOtpPhoneNumberScreen: FC<FCProps> = props => {
 
   const { isFetching: isFetchingUserData } = useUserData();
 
+  const { handleAfterLogin } = useAfterLogin();
+
   const signUp = async (e: string) => {
     setIsSubmitting(true);
     if (!otpConfirmation) {
@@ -73,6 +75,7 @@ export const SignInWithOtpPhoneNumberScreen: FC<FCProps> = props => {
         grantType: AUTH_GRANT_TYPES.PHONE_TOKEN,
       }).unwrap();
       dispatch(appActions.updateAccessToken(signInResponse.data));
+      handleAfterLogin();
     } catch (err) {
       setError(true);
       setResendStatus(ResendStatusObj.nonResent);

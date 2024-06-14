@@ -1,20 +1,23 @@
-import { View } from '@gluestack-ui/themed';
-import React, { FC } from 'react';
-import { ImageBackground } from 'react-native';
-import { AppStackScreenProps } from 'src/navigators/main-stack';
+import { Heading, ScrollView, View } from '@gluestack-ui/themed';
+import React, { FC, useState } from 'react';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { LoadingOverlay } from 'src/components';
+import { AppStackScreenProps } from 'src/navigators/main.stack';
 import { SignInButtons } from 'src/pages/sign-in/sign-in-buttons';
-import { backgroundColor, heightFull, posititionAbsolute, widthFull, zIndex } from 'src/styles';
 
 type FCProps = AppStackScreenProps<'SIGN_IN'>;
 
 export const SignInScreen: FC<FCProps> = () => {
+  const [isLoading, setLoading] = useState<boolean>(false);
+
   return (
     <>
-      <ImageBackground
+      <LoadingOverlay isLoading={isLoading} />
+      {/* <ImageBackground
         source={require('../../../assets/images/girl-smile.jpg')}
         style={[widthFull, heightFull, posititionAbsolute, zIndex(1)]}
-      ></ImageBackground>
-      <View
+      ></ImageBackground> */}
+      {/* <View
         style={[
           widthFull,
           heightFull,
@@ -22,11 +25,18 @@ export const SignInScreen: FC<FCProps> = () => {
           backgroundColor('rgba(0,0,0, 0.60)'),
           zIndex(2),
         ]}
-      ></View>
-
-      <View flex={1} justifyContent="center" zIndex={10}>
-        <SignInButtons />
-      </View>
+      ></View> */}
+      <SafeAreaView edges={['top']}></SafeAreaView>
+      <ScrollView flex={1}>
+        <View mt={96}>
+          <View>
+            <Heading textAlign="center">Quản lý kinh doanh</Heading>
+          </View>
+          <View mt={48}>
+            <SignInButtons isLoading={isLoading} setLoading={setLoading} />
+          </View>
+        </View>
+      </ScrollView>
     </>
   );
 };

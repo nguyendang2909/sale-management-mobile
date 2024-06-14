@@ -137,6 +137,8 @@ export const ORDER_STATUSES = {
 export const AUTH_GRANT_TYPES = {
   PHONE_PASSWORD: 'phone_password',
   PHONE_TOKEN: 'phone_token',
+  GOOGLE: 'google',
+  APPLE: 'apple',
 } as const;
 
 export const ORDER_PAYMENT_METHODS = {

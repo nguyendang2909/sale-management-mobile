@@ -64,7 +64,9 @@ export const FormCreateProfile: FC = () => {
   return (
     <>
       <LoadingOverlay isLoading={isSubmitting} />
-      <View as={SafeAreaView} flex={1}>
+      <SafeAreaView edges={['top']}></SafeAreaView>
+
+      <View flex={1}>
         <View flex={1}>
           <View flex={1}>
             <ScrollView style={flexGrow}>
@@ -78,19 +80,7 @@ export const FormCreateProfile: FC = () => {
               </View>
             </ScrollView>
 
-            <ViewFooter
-              px={16}
-              py={16}
-              shadowOffset={{
-                width: 0,
-                height: 1,
-              }}
-              shadowOpacity={0.25}
-              shadowRadius={3}
-              elevation={3}
-              borderTopColor="black"
-              borderTopWidth={1}
-            >
+            <ViewFooter px={16} py={16}>
               <Button onPress={handleSubmit(onSubmit)}>
                 <ButtonText>Tiếp tục</ButtonText>
               </Button>

@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux';
 import { useSignInMutation } from 'src/api';
 import { FontAwesome } from 'src/components';
 import { AUTH_GRANT_TYPES } from 'src/constants';
-import { useMessages } from 'src/hooks';
+import { useAfterLogin, useMessages } from 'src/hooks';
 import { appActions } from 'src/store/app/app.store';
 
 type FCProps = {
@@ -17,6 +17,7 @@ export const SignInWithAppleButton: FC<FCProps> = ({ setLoading }) => {
   const { formatMessage, formatErrorMessage } = useMessages();
   const [signIn] = useSignInMutation();
   const dispatch = useDispatch();
+  const { handleAfterLogin } = useAfterLogin();
 
   useEffect(() => {
     // onCredentialRevoked returns a function that will remove the event listener. useEffect will call this function when the component unmounts
@@ -49,6 +50,7 @@ export const SignInWithAppleButton: FC<FCProps> = ({ setLoading }) => {
           grantType: AUTH_GRANT_TYPES.APPLE,
         }).unwrap();
         dispatch(appActions.updateAccessToken(signInResponse.data));
+        handleAfterLogin();
         return;
       }
       Toast.show({ text1: formatMessage('Oops, something went wrong. Please try again.') });
