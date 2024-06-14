@@ -78,6 +78,7 @@ export type AppStackParamList = {
   };
   ORDER_PAYMENT: {
     order: Entity.Order;
+    updateStatusDelivered?: boolean;
   };
   AUTH_PROFILE: undefined;
   SHOPS: undefined;

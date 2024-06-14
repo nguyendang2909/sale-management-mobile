@@ -30,7 +30,7 @@ export const OrderListItem: FC<FCProps> = ({ order, onCancel }) => {
   }, [onCancel, order.id]);
 
   const handleDelivery = useCallback(() => {
-    navigation.navigate(SCREENS.ORDER_PAYMENT, { order });
+    navigation.navigate(SCREENS.ORDER_PAYMENT, { order, updateStatusDelivered: true });
   }, [navigation, order]);
 
   const paymentAmount = orderPaymentUtil.getAllAmount(order.payments || []);

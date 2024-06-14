@@ -16,7 +16,10 @@ export const OrderUpdatePaymentScreen: FC<FCProps> = props => {
       <StatusBar barStyle="default" />
       <OrderUpdatePaymentHeader />
       <View mt={8} />
-      <OrderUpdatePaymentContent detail={order} />
+      <OrderUpdatePaymentContent
+        detail={order}
+        updateStatusDelivered={!!props.route.params.updateStatusDelivered}
+      />
     </>
   );
 };

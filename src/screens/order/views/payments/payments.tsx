@@ -5,19 +5,15 @@ import { TextCapitalize } from 'src/components';
 import { TextPrice } from 'src/components/text/text-price';
 import { useMessages } from 'src/hooks';
 import { Entity, ViewProps } from 'src/types';
-import { orderPaymentUtil } from 'src/utils';
 
 import { PaymentStatusTag } from './tag/tag-order-status';
 
-export const Payments: FC<ViewProps & { orderAmount: number; payments: Entity.OrderPayment[] }> = ({
+export const Payments: FC<ViewProps & { payments: Entity.OrderPayment[]; debt: number }> = ({
   payments,
-  orderAmount,
+  debt,
   ...viewProps
 }) => {
-  const paymentsAmount = orderPaymentUtil.getAllAmount(payments);
   const { formatMessage } = useMessages();
-
-  const debt = orderAmount - paymentsAmount;
 
   return (
     <View {...viewProps}>

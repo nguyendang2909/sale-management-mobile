@@ -1,12 +1,13 @@
 import { Button, ButtonText, KeyboardAvoidingView, ScrollView, View } from '@gluestack-ui/themed';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { FC, useEffect, useMemo } from 'react';
+import { FC, useCallback, useEffect, useMemo } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import Toast from 'react-native-toast-message';
 import { useUpdateOrderMutation } from 'src/api';
 import { LoadingOverlay, ViewFooter } from 'src/components';
-import { ORDER_PAYMENT_METHODS, ORDER_STATUSES } from 'src/constants';
+import { HOME_SCREENS, ORDER_PAYMENT_METHODS, ORDER_STATUSES, SCREENS } from 'src/constants';
 import { useMessages, useOrder } from 'src/hooks';
+import { goBack } from 'src/navigations';
 import { ControlPaymentAmount } from 'src/screens/order-update-payment/views/control/control-payment-amount';
 import { ApiRequest, Entity, FormParams } from 'src/types';
 import * as Yup from 'yup';
@@ -14,7 +15,10 @@ import * as Yup from 'yup';
 import { PriceSection } from './price-section/order-update-payment-price-section';
 import { ControlPickPaymentMethod } from './price-section/pick-payment-method/control-pick-payment-methods';
 
-export const OrderUpdatePaymentContent: FC<{ detail: Entity.Order }> = ({ detail }) => {
+export const OrderUpdatePaymentContent: FC<{
+  detail: Entity.Order;
+  updateStatusDelivered: boolean;
+}> = ({ detail, updateStatusDelivered }) => {
   const { data: order, isFetching: isFetchingOrder, refetch } = useOrder(detail);
   const { formatErrorMessage } = useMessages();
 
@@ -47,30 +51,37 @@ export const OrderUpdatePaymentContent: FC<{ detail: Entity.Order }> = ({ detail
     reset(defaultValues);
   }, [defaultValues, reset]);
 
-  const onSubmit: SubmitHandler<FormParams.UpdateOrderPayment> = async values => {
-    try {
-      const { amount, paymentMethod } = values;
-      const body: ApiRequest.UpdateOrder = {
-        status: ORDER_STATUSES.DELIVERED,
-      };
-      if (amount) {
-        body.addPayment = {
-          amount,
-          method: paymentMethod,
-        };
+  const onSubmit: SubmitHandler<FormParams.UpdateOrderPayment> = useCallback(
+    async values => {
+      try {
+        const { amount, paymentMethod } = values;
+        const body: ApiRequest.UpdateOrder = {};
+        if (amount) {
+          body.addPayment = {
+            amount,
+            method: paymentMethod,
+          };
+        }
+        if (updateStatusDelivered) {
+          body.status = ORDER_STATUSES.DELIVERED;
+        }
+        await updateOrder({
+          id: order.id,
+          body,
+        }).unwrap();
+        refetch();
+        if (!updateStatusDelivered) {
+          goBack(SCREENS.HOME, { screen: HOME_SCREENS.ORDERS });
+        }
+      } catch (error) {
+        Toast.show({
+          text1: formatErrorMessage(error),
+          type: 'error',
+        });
       }
-      await updateOrder({
-        id: order.id,
-        body,
-      }).unwrap();
-      refetch();
-    } catch (error) {
-      Toast.show({
-        text1: formatErrorMessage(error),
-        type: 'error',
-      });
-    }
-  };
+    },
+    [formatErrorMessage, order.id, refetch, updateOrder, updateStatusDelivered],
+  );
 
   return (
     <>

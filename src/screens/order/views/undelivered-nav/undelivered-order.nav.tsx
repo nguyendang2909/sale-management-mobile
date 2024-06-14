@@ -12,7 +12,7 @@ export const UndeliveredOrderNav: FC<
   }
 > = ({ order, ...viewProps }) => {
   const handleDelivery = useCallback(() => {
-    navigate(SCREENS.ORDER_PAYMENT, { order });
+    navigate(SCREENS.ORDER_PAYMENT, { order, updateStatusDelivered: true });
   }, [order]);
 
   return (
