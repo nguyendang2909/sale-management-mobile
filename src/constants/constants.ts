@@ -82,6 +82,15 @@ export const BOTTOM_NAVIGATOR_NAMES = {
   PRODUCTS: 'PRODUCTS',
 } as const;
 
+export const NAVIGATION_CARD_IDS_MAP = {
+  ORDERS: 'ORDERS',
+  REPORTS: 'REPORTS',
+  TABLES: 'TABLES',
+  PRODUCTS: 'PRODUCTS',
+} as const;
+
+export const NAVIGATION_CARD_IDS = Object.values(NAVIGATION_CARD_IDS_MAP);
+
 export const PRODUCT_SORT_TYPES = {
   IN_STOCK_ASC: 'in_stock_asc',
   IN_STOCK_DESC: 'in_stock_desc',

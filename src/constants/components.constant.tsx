@@ -5,9 +5,10 @@ import { ManagementScreen } from 'src/screens/management/management.screen';
 import { OrdersScreen } from 'src/screens/orders/orders.screen';
 import { ProductsScreen } from 'src/screens/products/products.screen';
 import { ReportsScreen } from 'src/screens/reports/reports.screen';
-import { BottomNavigatorName } from 'src/types';
+import { BottomNavigatorName, NavigationCard, NavigationCardId } from 'src/types';
 
-import { BOTTOM_NAVIGATOR_NAMES, PRODUCT_SORT_TYPES } from './constants';
+import { SCREENS } from './commons.constant';
+import { BOTTOM_NAVIGATOR_NAMES, NAVIGATION_CARD_IDS_MAP, PRODUCT_SORT_TYPES } from './constants';
 import { NAVIGATION_ICONS } from './icons.constant';
 
 export const DEFAULT_NAVIGATOR: {
@@ -168,3 +169,32 @@ export const PRODUCT_SORT_TYPE_DATA = [
     title: 'Cũ nhất',
   },
 ];
+
+export const NAVIGATION_CARDS_MAP: Record<NavigationCardId, NavigationCard> = {
+  [NAVIGATION_CARD_IDS_MAP.ORDERS]: {
+    id: NAVIGATION_CARD_IDS_MAP.ORDERS,
+    title: 'Đơn hàng',
+    icon: 'fastDelivery',
+    screen: SCREENS.ORDERS_CHILD,
+  },
+  [NAVIGATION_CARD_IDS_MAP.PRODUCTS]: {
+    id: NAVIGATION_CARD_IDS_MAP.PRODUCTS,
+    title: 'Đơn hàng',
+    icon: 'fastDelivery',
+    screen: SCREENS.ORDERS_CHILD,
+  },
+  [NAVIGATION_CARD_IDS_MAP.REPORTS]: {
+    id: NAVIGATION_CARD_IDS_MAP.REPORTS,
+    title: 'Đơn hàng',
+    icon: 'fastDelivery',
+    screen: SCREENS.ORDERS_CHILD,
+  },
+  [NAVIGATION_CARD_IDS_MAP.TABLES]: {
+    id: NAVIGATION_CARD_IDS_MAP.TABLES,
+    title: 'Đơn hàng',
+    icon: 'fastDelivery',
+    screen: SCREENS.ORDERS_CHILD,
+  },
+};
+
+export const NAVIGATION_CARDS = Object.values(NAVIGATION_CARDS_MAP);

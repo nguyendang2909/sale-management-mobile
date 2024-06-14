@@ -1,4 +1,4 @@
-import { ImageBackground, View } from '@gluestack-ui/themed';
+import { ImageBackground } from '@gluestack-ui/themed';
 import * as React from 'react';
 import { ImageStyle, StyleProp, TouchableOpacityProps, ViewStyle } from 'react-native';
 
@@ -27,6 +27,43 @@ export const iconRegistry = {
   x: require('../../../assets/icons/x.png'),
   shop: require('../../../assets/icons/shop.png'),
   shop2: require('../../../assets/icons/shop2.png'),
+  gift: require('../../../assets/icons/ecommerce/gift.png'),
+  calculator: require('../../../assets/icons/ecommerce/calculator.png'),
+  cashBack: require('../../../assets/icons/ecommerce/cash-back.png'),
+  money: require('../../../assets/icons/ecommerce/money.png'),
+  onlineShop: require('../../../assets/icons/ecommerce/online-shop.png'),
+  priority: require('../../../assets/icons/ecommerce/priority.png'),
+  protection: require('../../../assets/icons/ecommerce/protection.png'),
+  purse: require('../../../assets/icons/ecommerce/purse.png'),
+  quality: require('../../../assets/icons/ecommerce/quality.png'),
+  return: require('../../../assets/icons/ecommerce/return.png'),
+  review: require('../../../assets/icons/ecommerce/review.png'),
+  sale: require('../../../assets/icons/ecommerce/sale.png'),
+  savings: require('../../../assets/icons/ecommerce/savings.png'),
+  shipping: require('../../../assets/icons/ecommerce/shipping.png'),
+  store: require('../../../assets/icons/ecommerce/store.png'),
+  transaction: require('../../../assets/icons/ecommerce/transaction.png'),
+  wishlist: require('../../../assets/icons/ecommerce/wishlist.png'),
+  '24Hours': require('../../../assets/icons/ecommerce/24-hours.png'),
+  advertising: require('../../../assets/icons/ecommerce/advertising.png'),
+  barcode: require('../../../assets/icons/ecommerce/barcode.png'),
+  callCenter: require('../../../assets/icons/ecommerce/call-center.png'),
+  chat: require('../../../assets/icons/ecommerce/chat.png'),
+  complain: require('../../../assets/icons/ecommerce/complain.png'),
+  delete: require('../../../assets/icons/ecommerce/delete.png'),
+  discount: require('../../../assets/icons/ecommerce/discount.png'),
+  fastDelivery: require('../../../assets/icons/ecommerce/fast-delivery.png'),
+  favourites: require('../../../assets/icons/ecommerce/favourites.png'),
+  feedback: require('../../../assets/icons/ecommerce/feedback.png'),
+  info: require('../../../assets/icons/ecommerce/info.png'),
+  location: require('../../../assets/icons/ecommerce/location.png'),
+  notification: require('../../../assets/icons/ecommerce/notification.png'),
+  paymentMethod: require('../../../assets/icons/ecommerce/payment-method.png'),
+  qrCode: require('../../../assets/icons/ecommerce/qr-code.png'),
+  search: require('../../../assets/icons/ecommerce/search.png'),
+  securityPayment: require('../../../assets/icons/ecommerce/security-payment.png'),
+  settings2: require('../../../assets/icons/ecommerce/settings.png'),
+  waranty: require('../../../assets/icons/ecommerce/waranty.png'),
 };
 
 export type IconTypes = keyof typeof iconRegistry;
@@ -40,31 +77,14 @@ interface IconProps extends TouchableOpacityProps {
 }
 
 export function BaseIcon(props: IconProps) {
-  const {
-    icon,
-    color,
-    size,
-    style: $imageStyleOverride,
-    containerStyle: $containerStyleOverride,
-  } = props;
+  const { icon, color, size } = props;
 
   return (
-    <View style={$containerStyleOverride}>
-      {/* 
-// @ts-ignore */}
-      <ImageBackground
-        style={[
-          $imageStyle,
-          // color && { tintColor: color },
-          // size && { width: size, height: size },
-          $imageStyleOverride,
-        ]}
-        source={iconRegistry[icon]}
-      />
-    </View>
+    <ImageBackground
+      resizeMode="contain"
+      height={size || 24}
+      width={size || 24}
+      source={iconRegistry[icon]}
+    />
   );
 }
-
-const $imageStyle: ImageStyle = {
-  resizeMode: 'contain',
-};

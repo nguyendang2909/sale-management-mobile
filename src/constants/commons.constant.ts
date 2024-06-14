@@ -1,32 +1,18 @@
 import _ from 'lodash';
+import { AppStackParamList } from 'src/navigators/main.stack';
 
 import { ORDER_PAYMENT_METHODS, ORDER_STATUSES } from './data.constant';
 
-export const SCREENS = {
-  EditInfoHeight: 'EditInfoHeight',
-  EditInfoNickname: 'EditInfoNickname',
-  EditInfoWeight: 'EditInfoWeight',
-  DATING_NEARBY_FILTER: 'DATING_NEARBY_FILTER',
+export const SCREENS: Record<keyof AppStackParamList, keyof AppStackParamList> = {
   CREATE_BASIC_PROFILE: 'CREATE_BASIC_PROFILE',
   CREATE_BASIC_PHOTOS: 'CREATE_BASIC_PHOTOS',
   HOME: 'HOME',
-  LikedMe: 'LikedMe',
   SHOPS: 'SHOPS',
-  Messages: 'Messages',
-  ProfileEdit: 'ProfileEdit',
-  ProfileNearby: 'ProfileNearby',
   SETTINGS: 'SETTINGS',
-  SelectRelationshipGoal: 'SelectRelationshipGoal',
   SIGN_IN: 'SIGN_IN',
   SIGN_IN_WITH_OTP_PHONE_NUMBER: 'SIGN_IN_WITH_OTP_PHONE_NUMBER',
   SIGN_IN_WITH_PHONE_NUMBER: 'SIGN_IN_WITH_PHONE_NUMBER',
   Welcome: 'Welcome',
-  ChatProfile: 'ChatProfile',
-  LikedMeProfile: 'LikedMeProfile',
-  DATING_SWIPE_PROFILE: 'DATING_SWIPE_PROFILE',
-  EDIT_INFO_LOCATION: 'EDIT_INFO_LOCATION',
-  SUBJECTS: 'SUBJECTS',
-  SUBJECT: 'SUBJECT',
   PRODUCT_CREATE: 'PRODUCT_CREATE',
   PRODUCT: 'PRODUCT',
   ORDER_CREATE: 'ORDER_CREATE',
@@ -35,7 +21,6 @@ export const SCREENS = {
   ORDER_CONFIRM: 'ORDER_CONFIRM',
   ORDER: 'ORDER',
   ORDER_PAYMENT: 'ORDER_PAYMENT',
-  PROFILE: 'PROFILE',
   AUTH_PROFILE: 'AUTH_PROFILE',
   CATEGORY: 'CATEGORY',
   CATEGORY_PICK_PRODUCTS: 'CATEGORY_PICK_PRODUCTS',
@@ -44,6 +29,8 @@ export const SCREENS = {
   // Reports
   SALE_REPORTS: 'SALE_REPORTS',
   REPORTS_CHILD: 'REPORTS_CHILD',
+  ORDERS_CHILD: 'ORDERS_CHILD',
+  CUSTOMER: 'CUSTOMER',
 } as const;
 
 export const HOME_SCREENS = {

@@ -1,50 +1,13 @@
-import { UseLazyQuery } from '@reduxjs/toolkit/dist/query/react/buildHooks';
-import { QueryDefinition } from '@reduxjs/toolkit/query';
-import { ReactElement } from 'react';
-import { ContentData } from 'src/components/content/content-data';
-import { useOrders } from 'src/hooks';
-import { ApiRequest, ApiResponse, OrderStoreStatus } from 'src/types';
+import { View } from '@gluestack-ui/themed';
+import { CreateOrderFab } from 'src/screens/products/views/buttons/create-order-fab';
 
-import { OrderList } from './order-list/order-list';
+import { OrderTabs } from './tabs/order-tabs';
 
-export const ContentOrders = ({
-  status,
-  lazyQuery,
-  description,
-  ActionComponent,
-}: {
-  ActionComponent?: ReactElement;
-  description?: string;
-  status?: OrderStoreStatus;
-  lazyQuery: UseLazyQuery<
-    QueryDefinition<
-      { shopId: string; params: ApiRequest.FindManyOrders },
-      any,
-      any,
-      ApiResponse.Orders,
-      'api'
-    >
-  >;
-}) => {
-  const query = useOrders({
-    status,
-    lazyQuery,
-  });
-
-  const { data: orders, isRefreshing, refresh, isLoading } = query;
-
+export const ContentOrders = () => {
   return (
-    <>
-      <ContentData
-        isRefreshing={isRefreshing}
-        refresh={refresh}
-        isLoading={isLoading}
-        description={description}
-        hasData={!!orders.length}
-        ActionComponent={ActionComponent}
-      >
-        <OrderList query={query} />
-      </ContentData>
-    </>
+    <View flex={1}>
+      <OrderTabs />
+      <CreateOrderFab />
+    </View>
   );
 };

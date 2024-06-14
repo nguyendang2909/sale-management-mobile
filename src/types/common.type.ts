@@ -1,11 +1,14 @@
 import { Alert, Text, View } from '@gluestack-ui/themed';
 import { ComponentProps } from 'react';
+import { IconTypes } from 'src/components';
 import {
   AUTH_GRANT_TYPES,
+  NAVIGATION_CARD_IDS_MAP,
   ORDER_STORE_STATUSES,
   SALE_STATISTIC_TIME_RANGE_IDS_MAP,
 } from 'src/constants';
 import { BOTTOM_NAVIGATOR_NAMES, PRODUCT_SORT_TYPES, SIZES } from 'src/constants/constants';
+import { AppStackParamList } from 'src/navigators/main.stack';
 
 import { Entity } from './entities.type';
 
@@ -59,4 +62,14 @@ export type SaleStatisticRange = {
     startDate: string;
     endDate: string;
   };
+};
+
+export type NavigationCardId =
+  (typeof NAVIGATION_CARD_IDS_MAP)[keyof typeof NAVIGATION_CARD_IDS_MAP];
+
+export type NavigationCard = {
+  id: NavigationCardId;
+  title: string;
+  icon: IconTypes;
+  screen: keyof AppStackParamList;
 };

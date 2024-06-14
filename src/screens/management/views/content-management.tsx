@@ -3,6 +3,7 @@ import { ORDER_STATUSES } from 'src/constants';
 import { useCountOrders, useSaleOverall } from 'src/hooks';
 import { timeUtil } from 'src/utils';
 
+import { CardsFeature } from './cards-feature/cards-feature';
 import { OrderOverall } from './order-overall/order-overall';
 import { SaleOverall } from './sale-overall/sale-overall';
 
@@ -60,6 +61,7 @@ export const ContentManagement = () => {
             totalProcessingOrders: countProcessingOrders?.data.total,
           }}
         />
+        <CardsFeature mt={16} />
       </ScrollView>
     </>
   );
