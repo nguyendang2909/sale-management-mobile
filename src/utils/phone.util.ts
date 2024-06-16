@@ -5,7 +5,13 @@ class PhoneUtil extends BaseUtil {
     return value.replaceAll(' ', '').startsWith('0') ? value.slice(1) : value;
   }
 
-  getFullPhoneNumber({ phoneNumber, phoneCode }: { phoneNumber: string; phoneCode: string }) {
+  getFullPhoneNumber({
+    phoneNumber,
+    phoneCode = '+84',
+  }: {
+    phoneNumber: string;
+    phoneCode?: string;
+  }) {
     return `${phoneCode}${this.getPhoneNumber(phoneNumber)}`.replaceAll(' ', '');
   }
 }

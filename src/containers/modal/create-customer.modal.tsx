@@ -82,6 +82,7 @@ export const CreateCustomerModal: FC<FCProps> = ({ onClose }) => {
         </View>
         <View>
           <FormControlInput
+            inputMode="tel"
             label="Số điện thoại"
             value={formik.values.phoneNumber}
             onChange={formik.handleChange('phoneNumber')}

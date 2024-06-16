@@ -1,9 +1,9 @@
-import { Linking, Platform } from 'react-native';
+import { Linking } from 'react-native';
 import Toast from 'react-native-toast-message';
 
 class PhoneService {
   async makeCall(phone: string) {
-    const callingNumber = Platform.OS !== 'android' ? `telprompt:${phone}` : `tel:${phone}`;
+    const callingNumber = `tel:${phone}`;
     try {
       const supported = Linking.canOpenURL(callingNumber);
       if (!supported) {
@@ -12,6 +12,7 @@ class PhoneService {
       }
       await Linking.openURL(callingNumber);
     } catch (err) {
+      console.log(111, err);
       Toast.show({ type: 'error', text1: 'Lỗi, vui lòng thử lại' });
     }
   }

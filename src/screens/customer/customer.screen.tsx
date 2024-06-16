@@ -9,7 +9,7 @@ export const CustomerScreen: FC<FCProps> = props => {
   const customer = props.route.params.detail;
   return (
     <>
-      <HeaderCustomer />
+      <HeaderCustomer customer={customer} />
     </>
   );
 };
