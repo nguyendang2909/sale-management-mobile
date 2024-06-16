@@ -16,7 +16,7 @@ export const IconButtonEdit: FC<
       // @ts-ignore
       onPress={onPress}
     >
-      <Icon color="$coolGray500" as={PenLine} size="xl" />
+      <Icon color="$coolGray500" as={PenLine} size="lg" />
     </View>
   );
 };

@@ -9,6 +9,7 @@ import { CategoryDeleteProductsScreen } from 'src/screens/category-delete-produc
 import { CategoryPickProductsScreen } from 'src/screens/category-pick-product/category-pick-products.screen';
 import { OrdersChildScreen } from 'src/screens/child/orders.child.screen';
 import { ReportsChildScreen } from 'src/screens/child/reports.child.screen';
+import { CustomerScreen } from 'src/screens/customer/customer.screen';
 import { NotificationsScreen } from 'src/screens/notifications/notifications.screen';
 import { OrderScreen } from 'src/screens/order/order.screen';
 import { OrderConfirmScreen } from 'src/screens/order-confirm/order-confirm.screen';
@@ -163,6 +164,7 @@ export const MainStack: React.FC = () => {
           <Stack.Screen name={SCREENS.SALE_REPORTS} component={SaleReportsScreen} />
           <Stack.Screen name={SCREENS.REPORTS_CHILD} component={ReportsChildScreen} />
           <Stack.Screen name={SCREENS.NOTIFICATIONS} component={NotificationsScreen} />
+          <Stack.Screen name={SCREENS.CUSTOMER} component={CustomerScreen} />
         </Stack.Group>
 
         {/* <Stack.Group

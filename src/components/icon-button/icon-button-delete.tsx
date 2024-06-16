@@ -16,7 +16,7 @@ export const IconButtonDelete: FC<
       // @ts-ignore
       onPress={onPress}
     >
-      <Icon color="$coolGray500" as={Trash2} size="xl" />
+      <Icon color="$coolGray500" as={Trash2} size="lg" />
     </View>
   );
 };

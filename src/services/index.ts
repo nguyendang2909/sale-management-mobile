@@ -4,6 +4,7 @@ export * from './location-permissions.service';
 export * from './matches.service';
 export * from './messages.service';
 export * from './nearby-profiles.service';
+export * from './phone.service';
 export * from './profiles.service';
 export * from './signed-devices.service';
 export * from './users.service';

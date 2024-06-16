@@ -1,18 +1,25 @@
-import { Box, View } from '@gluestack-ui/themed';
+import { Box, Button, ButtonText, View } from '@gluestack-ui/themed';
 import { FlashList } from '@shopify/flash-list';
 import React from 'react';
 import { Header } from 'src/components';
 import { ContentData } from 'src/components/content/content-data';
 import { ContentNoData } from 'src/components/content/content-no-data';
 import { SearchInput } from 'src/components/input/search-input';
-import { useSearchCustomers } from 'src/hooks';
+import { useDisclose, useSearchCustomers } from 'src/hooks';
 
 import { CreateCustomerFab } from './views/create/create-customer-fab';
+import { ModalCreateCustomer } from './views/create/modal/modal-create-customer';
 import { CustomerListItem } from './views/list/customer-list-item';
 
 export const CustomersScreen = () => {
   const { searchText, setSearchText, isRefreshing, refresh, data, isLoading, originalData } =
     useSearchCustomers();
+
+  const {
+    isOpen: isOpenCreateModal,
+    onOpen: onOpenCreateModal,
+    onClose: onCloseCreateModal,
+  } = useDisclose();
 
   return (
     <>
@@ -39,7 +46,14 @@ export const CustomersScreen = () => {
           isLoading={isLoading}
           refresh={refresh}
           isRefreshing={isRefreshing}
-          title="Không tìm thấy khách hàng"
+          title="Chưa có thông tin khách hàng"
+          ActionComponent={
+            <>
+              <Button onPress={onOpenCreateModal}>
+                <ButtonText>Thêm khách hàng</ButtonText>
+              </Button>
+            </>
+          }
           hasData={!!originalData.length}
         >
           {data.length ? (
@@ -47,7 +61,6 @@ export const CustomersScreen = () => {
               showsVerticalScrollIndicator={false}
               refreshing={isRefreshing}
               onRefresh={refresh}
-              scree
               numColumns={1}
               data={data}
               keyExtractor={(item, index) => item.id || index.toString()}
@@ -57,10 +70,11 @@ export const CustomersScreen = () => {
           ) : (
             <ContentNoData description="Tên hoặc số điện thoại không có trong danh bạ" />
           )}
+          <CreateCustomerFab onOpen={onOpenCreateModal} />
         </ContentData>
       </Box>
 
-      <CreateCustomerFab />
+      <ModalCreateCustomer onClose={onCloseCreateModal} isOpen={isOpenCreateModal} />
     </>
   );
 };

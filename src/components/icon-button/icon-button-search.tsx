@@ -13,11 +13,11 @@ export const IconButtonSearch: FC<
     <View {...(isSearching ? viewProps : {})}>
       {isSearching ? (
         <Pressable onPress={onOpen}>
-          <Icon color="$coolGray500" as={CloseIcon} size="xl" />
+          <Icon color="$coolGray500" as={CloseIcon} size="lg" />
         </Pressable>
       ) : (
         <Pressable onPress={onClose}>
-          <Icon color="$coolGray500" as={SearchIcon} size="xl" />
+          <Icon color="$coolGray500" as={SearchIcon} size="lg" />
         </Pressable>
       )}
     </View>

@@ -9,6 +9,8 @@ import {
   VStack,
 } from '@gluestack-ui/themed';
 import { FC } from 'react';
+import { SCREENS } from 'src/constants';
+import { navigate } from 'src/navigations';
 import { AppStore } from 'src/types';
 
 type FCProps = {
@@ -16,14 +18,20 @@ type FCProps = {
 };
 
 export const CustomerListItem: FC<FCProps> = ({ customer }) => {
-  const handlePress = () => {};
+  const handlePress = () => {
+    navigate(SCREENS.CUSTOMER, {
+      detail: customer,
+    });
+  };
 
   return (
     <>
       <Pressable onPress={handlePress}>
+        {/* 
+        @ts-ignore */}
         {({ pressed }) => {
           return (
-            <View bgColor="$white" py={16}>
+            <View bgColor={pressed ? '$backgroundLight200' : '$white'} py={16}>
               <HStack columnGap={8}>
                 <View pl={16}>
                   <Avatar

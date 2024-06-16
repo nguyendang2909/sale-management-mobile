@@ -22,10 +22,12 @@ export const SearchInput: FC<FCProps> = ({
   const textInputRef = useRef<TextInput>();
 
   useEffect(() => {
-    if (textInputRef.current && textInputRef.current.focus) {
-      textInputRef.current.focus();
+    if (focusable) {
+      if (textInputRef.current && textInputRef.current.focus) {
+        textInputRef.current.focus();
+      }
     }
-  }, []);
+  }, [focusable]);
 
   return (
     <View {...viewProps}>

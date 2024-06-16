@@ -1,35 +1,13 @@
-import { Fab, FabIcon, View } from '@gluestack-ui/themed';
-import { useNavigation } from '@react-navigation/native';
+import { Fab, FabIcon } from '@gluestack-ui/themed';
 import { Plus } from 'lucide-react-native';
-import { Modal } from 'react-native';
-import { CreateCustomerModal } from 'src/containers/modal/create-customer.modal';
-import { useDisclose } from 'src/hooks';
+import { FC } from 'react';
 
-export const CreateCustomerFab = () => {
-  const navigation = useNavigation();
-
-  const {
-    isOpen: isOpenCreateModal,
-    onOpen: onOpenCreateModal,
-    onClose: onCloseCreateModal,
-  } = useDisclose();
-
-  const handlePress = () => {
-    onOpenCreateModal();
-    // navigation.navigate(SCREENS.PRODUCT_CREATE);
-  };
-
+export const CreateCustomerFab: FC<{ onOpen: () => void }> = ({ onOpen }) => {
   return (
     <>
-      <Fab onPress={handlePress} bg="$blue500" size="lg" right={16} bottom={24}>
+      <Fab onPress={onOpen} bg="$blue500" size="lg" right={16} bottom={24}>
         <FabIcon as={Plus} h="$4" w="$4" />
       </Fab>
-
-      <Modal animationType="slide" visible={isOpenCreateModal}>
-        <View flex={1}>
-          <CreateCustomerModal onClose={onCloseCreateModal} />
-        </View>
-      </Modal>
     </>
   );
 };

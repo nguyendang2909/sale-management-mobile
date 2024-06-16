@@ -1,6 +1,6 @@
-import { ApiResponse } from 'src/types';
 import { Buffer } from 'buffer';
 import _ from 'lodash';
+import { ApiResponse } from 'src/types';
 
 export class CommonApi {
   protected encodeFromString(value: string): string {
