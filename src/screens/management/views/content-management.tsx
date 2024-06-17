@@ -54,6 +54,7 @@ export const ContentManagement = () => {
             totalOrders: saleOverall?.data.totalOrders,
           }}
         />
+
         <OrderOverall
           mt={16}
           overall={{
@@ -61,6 +62,7 @@ export const ContentManagement = () => {
             totalProcessingOrders: countProcessingOrders?.data.total,
           }}
         />
+
         <CardsFeature mt={16} />
       </ScrollView>
     </>

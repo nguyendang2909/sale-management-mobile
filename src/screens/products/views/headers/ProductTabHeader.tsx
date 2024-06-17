@@ -1,22 +1,30 @@
 import { View } from '@gluestack-ui/themed';
+import { FC } from 'react';
 import { Header } from 'src/components';
+import { HOME_SCREENS, SCREENS } from 'src/constants';
 import { IconButtonSearchProducts } from 'src/containers/icon-button/icon-button-search-products';
 import { SearchInputProducts } from 'src/containers/Input/search-input-products';
 import { useAppDispatch } from 'src/hooks';
+import { goBack } from 'src/navigations';
 import { setProductSortType } from 'src/store/cache';
 import { ProductSortType } from 'src/types';
 
-export const ProductTabHeader = () => {
+export const ProductTabHeader: FC<{ allowBack?: boolean }> = ({ allowBack }) => {
   const dispatch = useAppDispatch();
 
   const handleChangeSortType = (e: ProductSortType) => {
     dispatch(setProductSortType(e));
   };
 
+  const handleBack = () => {
+    goBack(SCREENS.HOME, { screen: HOME_SCREENS.MANAGEMENT });
+  };
+
   return (
     <>
       <Header
         title="Sản phẩm"
+        {...(allowBack ? { onLeftPress: handleBack } : undefined)}
         RightActionComponent={
           <>
             <View pr={8}>

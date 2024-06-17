@@ -5,6 +5,7 @@ import {
   AUTH_GRANT_TYPES,
   NAVIGATION_CARD_IDS_MAP,
   ORDER_STORE_STATUSES,
+  PRODUCTS_SCREEN_TAB_IDS_MAP,
   SALE_STATISTIC_TIME_RANGE_IDS_MAP,
 } from 'src/constants';
 import { BOTTOM_NAVIGATOR_NAMES, PRODUCT_SORT_TYPES, SIZES } from 'src/constants/constants';
@@ -73,3 +74,5 @@ export type NavigationCard = {
   icon: IconTypes;
   screen: keyof AppStackParamList;
 };
+
+export type ProductsScreenTabId = ValueOf<typeof PRODUCTS_SCREEN_TAB_IDS_MAP>;

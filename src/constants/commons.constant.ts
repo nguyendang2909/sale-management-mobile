@@ -67,3 +67,10 @@ export const ORDER_TABS = {
 } as const;
 
 export const ORDER_PAYMENT_METHOD_ARR = Object.values(ORDER_PAYMENT_METHODS);
+
+export const PRODUCTS_SCREEN_TAB_IDS_MAP = {
+  PRODUCT: 'product',
+  CATEGORY: 'category',
+} as const;
+
+export const PRODUCTS_SCREEN_TAB_IDS = Object.values(PRODUCTS_SCREEN_TAB_IDS_MAP);

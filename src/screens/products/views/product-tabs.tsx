@@ -1,6 +1,6 @@
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import { useEffect } from 'react';
+import { FC, useEffect } from 'react';
 import { useWindowDimensions } from 'react-native';
+import { Tab, TabBarExtra } from 'src/components/tab';
 import { useAppDispatch } from 'src/hooks';
 import { setSearchProducts } from 'src/store/cache';
 
@@ -8,11 +8,8 @@ import { CategoryTab } from './category-tab/category-tab';
 import { CategoryTabHeader } from './headers/CategoryTabHeader';
 import { ProductTabHeader } from './headers/ProductTabHeader';
 import { ProductTab } from './product-tab/product-tab';
-import { TabBarProductScreen } from './product-tab-bar';
 
-const Tab = createMaterialTopTabNavigator();
-
-export const ProductTabs = () => {
+export const ProductTabs: FC<{ allowBack?: boolean }> = ({ allowBack }) => {
   const layout = useWindowDimensions();
   const dispatch = useAppDispatch();
 
@@ -25,7 +22,15 @@ export const ProductTabs = () => {
       <Tab.Navigator
         initialLayout={{ width: layout.width }}
         tabBar={props => {
-          return <TabBarProductScreen {...props} headers={[ProductTabHeader, CategoryTabHeader]} />;
+          return (
+            <TabBarExtra
+              {...props}
+              headers={[
+                <ProductTabHeader key="product" allowBack={allowBack} />,
+                <CategoryTabHeader key="category" allowBack={allowBack} />,
+              ]}
+            />
+          );
         }}
       >
         <Tab.Screen name="product" component={ProductTab} options={{ tabBarLabel: 'Sản phẩm' }} />

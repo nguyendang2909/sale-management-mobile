@@ -8,6 +8,7 @@ import { CategoryAddProductsScreen } from 'src/screens/category-add-products/cat
 import { CategoryDeleteProductsScreen } from 'src/screens/category-delete-products/category-delete-products';
 import { CategoryPickProductsScreen } from 'src/screens/category-pick-product/category-pick-products.screen';
 import { OrdersChildScreen } from 'src/screens/child/orders.child.screen';
+import { ProductsChildScreen } from 'src/screens/child/products.child.screen';
 import { ReportsChildScreen } from 'src/screens/child/reports.child.screen';
 import { CustomerScreen } from 'src/screens/customer/customer.screen';
 import { NotificationsScreen } from 'src/screens/notifications/notifications.screen';
@@ -165,6 +166,7 @@ export const MainStack: React.FC = () => {
           <Stack.Screen name={SCREENS.REPORTS_CHILD} component={ReportsChildScreen} />
           <Stack.Screen name={SCREENS.NOTIFICATIONS} component={NotificationsScreen} />
           <Stack.Screen name={SCREENS.CUSTOMER} component={CustomerScreen} />
+          <Stack.Screen name={SCREENS.PRODUCTS_CHILD} component={ProductsChildScreen} />
         </Stack.Group>
 
         {/* <Stack.Group

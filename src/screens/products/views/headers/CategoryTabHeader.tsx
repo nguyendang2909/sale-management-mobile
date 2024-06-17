@@ -1,13 +1,21 @@
 import { View } from '@gluestack-ui/themed';
+import { FC } from 'react';
 import { Header } from 'src/components';
+import { HOME_SCREENS, SCREENS } from 'src/constants';
 import { IconButtonSearchCategories } from 'src/containers/icon-button/icon-button-search-categories';
 import { SearchInputCategories } from 'src/containers/Input/search-input-categories';
+import { goBack } from 'src/navigations';
 
-export const CategoryTabHeader = () => {
+export const CategoryTabHeader: FC<{ allowBack?: boolean }> = ({ allowBack }) => {
+  const handleBack = () => {
+    goBack(SCREENS.HOME, { screen: HOME_SCREENS.MANAGEMENT });
+  };
+
   return (
     <>
       <Header
         title="Danh mục"
+        {...(allowBack ? { onLeftPress: handleBack } : undefined)}
         RightActionComponent={
           <>
             <View pr={8}>

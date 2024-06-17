@@ -2,15 +2,15 @@ import { Text, View } from '@gluestack-ui/themed';
 import { MaterialTopTabBarProps } from '@react-navigation/material-top-tabs';
 import { ParamListBase, Route, TabNavigationState, useTheme } from '@react-navigation/native';
 import Color from 'color';
-import { FC } from 'react';
+import React, { FC } from 'react';
 import { StyleSheet } from 'react-native';
 import { TabBar, TabBarIndicator } from 'react-native-tab-view';
 
-export const TabBarProductScreen: FC<MaterialTopTabBarProps & { headers?: FC[] }> = ({
+export const TabBarExtra: FC<MaterialTopTabBarProps & { headers?: React.ReactElement[] }> = ({
   state,
   navigation,
   descriptors,
-  headers,
+  headers = [],
   ...rest
 }) => {
   const { colors } = useTheme();
@@ -19,15 +19,12 @@ export const TabBarProductScreen: FC<MaterialTopTabBarProps & { headers?: FC[] }
   const activeColor = focusedOptions.tabBarActiveTintColor ?? colors.text;
   const inactiveColor =
     focusedOptions.tabBarInactiveTintColor ?? Color(activeColor).alpha(0.5).rgb().string();
+  const HeaderElement = headers[state.index];
 
   return (
     <>
-      {!!headers && !!headers[state.index]
-        ? (() => {
-            const HeaderComponent = headers[state.index];
-            return <HeaderComponent />;
-          })()
-        : null}
+      {HeaderElement}
+
       <TabBar
         {...rest}
         navigationState={state}
@@ -129,6 +126,7 @@ const styles = StyleSheet.create({
     height: 24,
     width: 24,
   },
+  // eslint-disable-next-line react-native/no-color-literals
   label: {
     backgroundColor: 'transparent',
     fontSize: 13,

@@ -181,7 +181,7 @@ export const NAVIGATION_CARDS_MAP: Record<NavigationCardId, NavigationCard> = {
     id: NAVIGATION_CARD_IDS_MAP.PRODUCTS,
     title: 'Sản phẩm',
     icon: 'store',
-    screen: SCREENS.ORDERS_CHILD,
+    screen: SCREENS.PRODUCTS_CHILD,
   },
   [NAVIGATION_CARD_IDS_MAP.REPORTS]: {
     id: NAVIGATION_CARD_IDS_MAP.REPORTS,

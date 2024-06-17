@@ -1,5 +1,6 @@
-import { CloseIcon, Icon, Pressable, SearchIcon } from '@gluestack-ui/themed';
+import { CloseIcon, Icon, SearchIcon } from '@gluestack-ui/themed';
 import { useCallback } from 'react';
+import { TouchableOpacity } from 'react-native';
 import { useAppDispatch, useAppSelector } from 'src/hooks';
 import { setSearchCategories } from 'src/store/cache';
 
@@ -18,13 +19,13 @@ export const IconButtonSearchCategories = () => {
   return (
     <>
       {isSearching ? (
-        <Pressable onPress={handleCloseSearch}>
-          <Icon color="$coolGray500" as={CloseIcon} size="xl" />
-        </Pressable>
+        <TouchableOpacity onPress={handleCloseSearch}>
+          <Icon color="$coolGray500" as={CloseIcon} size="lg" m={8} />
+        </TouchableOpacity>
       ) : (
-        <Pressable onPress={handleOpenSearch}>
-          <Icon color="$coolGray500" as={SearchIcon} size="xl" />
-        </Pressable>
+        <TouchableOpacity onPress={handleOpenSearch}>
+          <Icon color="$coolGray500" as={SearchIcon} size="lg" m={8} />
+        </TouchableOpacity>
       )}
     </>
   );
