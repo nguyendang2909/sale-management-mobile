@@ -12,7 +12,7 @@ export const ProductPrices: FC<{ product: AppStore.Product }> = ({ product }) =>
   if (product.skus?.length === 1) {
     const { promotionalPrice, price } = product.skus[0];
     return (
-      <Text color="$textLight900">
+      <Text color="$red500">
         <Price value={promotionalPrice || price}></Price>
       </Text>
     );

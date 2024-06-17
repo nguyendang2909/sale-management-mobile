@@ -68,7 +68,7 @@ export const CreateProductForm: FC = () => {
       }
       const data = await createProduct(payload).unwrap();
       if (createMore) {
-        reset();
+        reset(createProductFormUtil.getDefaultValues());
         return;
       }
       fetchProduct(data.data.id);

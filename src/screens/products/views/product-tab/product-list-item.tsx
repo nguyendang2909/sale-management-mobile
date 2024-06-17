@@ -31,12 +31,14 @@ export const ProductListItem: FC<FCProps> = ({ product }) => {
               </View>
               <VStack>
                 <View height={22}>
-                  <Text lineHeight={22} numberOfLines={1}>
+                  <Text lineHeight={22} numberOfLines={1} color="$secondary700">
                     {product.title}
                   </Text>
                 </View>
                 <View height={21}>
-                  <Text lineHeight={21}>{''}</Text>
+                  <Text lineHeight={21} fontSize="$sm" color="$secondary400" fontWeight="$light">
+                    {product.unit || ''}
+                  </Text>
                 </View>
                 <View height={21}>
                   <Text lineHeight={21}>

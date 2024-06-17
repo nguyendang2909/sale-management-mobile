@@ -52,7 +52,7 @@ export const OrderConfirmForm: FC<{ values: FormParams.CreateOrder }> = ({ value
 
   useEffect(() => {
     if (defaultValues) {
-      reset();
+      reset(defaultValues);
     }
   }, [defaultValues, reset]);
 

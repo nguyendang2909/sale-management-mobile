@@ -22,10 +22,11 @@ export const ModalCreateCategory: FC<FCProps> = ({ onClose, isVisible }) => {
   const { formatErrorMessage } = useMessages();
   const [createCategory] = useCreateCategoryMutation();
   const [errorResponse, setErrorResponse] = useState<any>();
+  const defaultValues = {
+    title: '',
+  };
   const { reset, handleSubmit, control } = useForm<FormParams.CreateCategory>({
-    defaultValues: {
-      title: '',
-    },
+    defaultValues,
     resolver: yupResolver(
       Yup.object({
         title: Yup.string().required('Thông tin bắt buộc'),
@@ -37,7 +38,7 @@ export const ModalCreateCategory: FC<FCProps> = ({ onClose, isVisible }) => {
     try {
       setErrorResponse(null);
       const category = await createCategory(values).unwrap();
-      reset();
+      reset(defaultValues);
       onClose();
       navigation.navigate(SCREENS.CATEGORY_PICK_PRODUCTS, {
         detail: category.data,

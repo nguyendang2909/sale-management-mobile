@@ -21,7 +21,7 @@ export const ProductList: FC<
         numColumns={1}
         data={products}
         keyExtractor={(item: AppStore.Product, index) => item.id || index.toString()}
-        renderItem={({ item }: { item: AppStore.Product }) => <ProductListItem product={item} />}
+        renderItem={({ item }) => <ProductListItem product={item} />}
         estimatedItemSize={1}
         ListFooterComponent={<View mb={100}></View>}
       ></FlashList>
