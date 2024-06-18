@@ -44,7 +44,7 @@ const getTextProps = (
     case 'primary':
       return {
         color: '$textLight900',
-        bold: true,
+        fontWeight: '$semibold',
       };
     default:
       return {

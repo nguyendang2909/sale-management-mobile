@@ -114,7 +114,7 @@ export const MainStack: React.FC = () => {
           navigationBarColor: colors.background,
           orientation: 'portrait',
         }}
-        // initialRouteName={SCREENS.SALE_REPORTS}
+        // initialRouteName={SCREENS.INVOICE}
         initialRouteName={SCREENS.SHOPS}
       >
         <Stack.Group>

@@ -11,7 +11,7 @@ export const HeaderInvoice = () => {
 
   return (
     <>
-      <Header onLeftPress={onLeftPress} title="Chi tiết hoá đơnđơn" />
+      <Header onLeftPress={onLeftPress} title="Chi tiết hoá đơn" />
     </>
   );
 };

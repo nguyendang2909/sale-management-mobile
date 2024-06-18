@@ -53,7 +53,7 @@ export const ConfirmOrderItem: FC<FCProps> = ({ sku }) => {
     //   return;
     // }
     dispatch(cartActions.addCartItem(skuId));
-  }, [cartItem.quantity, dispatch, sku.product?.isInStock, sku.stock, skuId]);
+  }, [dispatch, skuId]);
 
   const handleSubtract = useCallback(() => {
     dispatch(cartActions.subtractCartItem(skuId));

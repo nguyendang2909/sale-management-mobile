@@ -107,7 +107,6 @@ export const OrderConfirmForm: FC<{ values: FormParams.CreateOrder }> = ({ value
             //   a: 1,
             // }}
             renderItem={({ item }) => {
-              console.log(4444);
               return (
                 <ConfirmOrderItem
                   sku={item}
