@@ -13,6 +13,7 @@ import { HOME_SCREENS, ORDER_STATUSES, SCREENS } from 'src/constants';
 import { FormControlOrderAdditional } from 'src/containers/form-control/order/form-control-order-additional';
 import { FormControlOrderNote } from 'src/containers/form-control/order/form-control-order-note';
 import { useAppDispatch, useAppSelector, useMessages, useProducts } from 'src/hooks';
+import { navigate } from 'src/navigations';
 import { getState } from 'src/store';
 import { cartActions } from 'src/store/cart';
 import { FormParams } from 'src/types';
@@ -65,7 +66,7 @@ export const OrderConfirmForm: FC<{ values: FormParams.CreateOrder }> = ({ value
   const saveOrder = useCallback(async () => {
     try {
       const cartItems = getState().cart.items;
-      const { data: order } = await createOrder({
+      const { data: createdOrder } = await createOrder({
         shopId,
         body: {
           status: ORDER_STATUSES.PROCESSING,
@@ -73,8 +74,13 @@ export const OrderConfirmForm: FC<{ values: FormParams.CreateOrder }> = ({ value
         },
       }).unwrap();
       navigation.navigate(SCREENS.HOME, { screen: HOME_SCREENS.ORDERS });
-      fetchOrder(order.id);
+      const { data: fetchedOrder } = await fetchOrder(createdOrder.id);
       dispatch(cartActions.setCartItems({}));
+      if (fetchedOrder?.data) {
+        navigate(SCREENS.INVOICE, {
+          order: fetchedOrder.data,
+        });
+      }
     } catch (err) {
       Toast.show({ text1: formatErrorMessage(err), type: 'error' });
     }

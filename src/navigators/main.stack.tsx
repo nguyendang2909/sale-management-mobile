@@ -11,6 +11,7 @@ import { OrdersChildScreen } from 'src/screens/child/orders.child.screen';
 import { ProductsChildScreen } from 'src/screens/child/products.child.screen';
 import { ReportsChildScreen } from 'src/screens/child/reports.child.screen';
 import { CustomerScreen } from 'src/screens/customer/customer.screen';
+import { InvoiceScreen } from 'src/screens/invoice/invoice.screen';
 import { NotificationsScreen } from 'src/screens/notifications/notifications.screen';
 import { OrderScreen } from 'src/screens/order/order.screen';
 import { OrderConfirmScreen } from 'src/screens/order-confirm/order-confirm.screen';
@@ -94,6 +95,9 @@ export type AppStackParamList = {
   PRODUCTS_CHILD: undefined;
   TABLES_CHILD: undefined;
   NOTIFICATIONS: undefined;
+  INVOICE: {
+    order: AppStore.Order;
+  };
 };
 
 export type AppStackScreenProps<T extends keyof AppStackParamList> = NativeStackScreenProps<
@@ -160,6 +164,7 @@ export const MainStack: React.FC = () => {
           <Stack.Screen name={SCREENS.ORDER} component={OrderScreen} />
           <Stack.Screen name={SCREENS.ORDER_PAYMENT} component={OrderUpdatePaymentScreen} />
           <Stack.Screen name={SCREENS.ORDERS_CHILD} component={OrdersChildScreen} />
+          <Stack.Screen name={SCREENS.INVOICE} component={InvoiceScreen} />
 
           {/* Report */}
           <Stack.Screen name={SCREENS.SALE_REPORTS} component={SaleReportsScreen} />
