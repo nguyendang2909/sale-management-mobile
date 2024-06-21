@@ -24,7 +24,7 @@ import { ProductSettingScreen } from 'src/screens/product-setting/product-settin
 import { ProfileCreateScreen } from 'src/screens/profile-create/profile-create.screen';
 import { SaleReportsScreen } from 'src/screens/sale-reports/sale-reports.screen';
 import { SettingsScreen } from 'src/screens/settings/settings.screen';
-import { ShopScreen } from 'src/screens/shop/shops.screen';
+import { ShopScreen } from 'src/screens/shop/shop.screen';
 import { ShopsScreen } from 'src/screens/shops/shops.screen';
 import { colors } from 'src/theme';
 import { AppStore, Entity, FormParams } from 'src/types';

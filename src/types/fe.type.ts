@@ -3,7 +3,13 @@ import { ORDER_SETTINGS, PRODUCT_SETTINGS } from 'src/constants/constants';
 
 import { AppStore } from './app-store.type';
 import { ValueOf } from './common.type';
-import { AuthGrantType, DevicePlatform, OrderPaymentMethod, OrderStatus } from './data.type';
+import {
+  AuthGrantType,
+  DevicePlatform,
+  OrderPaymentMethod,
+  OrderStatus,
+  WorkingTimeType,
+} from './data.type';
 import { Entity } from './entities.type';
 
 export declare namespace ApiRequest {
@@ -234,6 +240,18 @@ export declare namespace ApiRequest {
   };
 
   type FindSaleOverallByShopId = DateRange;
+
+  type UpdateShop = {
+    title?: string;
+    phoneNumber?: string;
+    phoneCode?: string;
+    address?: string;
+    description?: string;
+    workingTimeType?: WorkingTimeType;
+    openTime?: string;
+    closeTime?: string;
+    businessTypes?: string[];
+  };
 }
 
 export declare namespace ApiResponse {
