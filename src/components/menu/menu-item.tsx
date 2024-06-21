@@ -25,42 +25,43 @@ export const MenuItem: React.FC<FCProps> = ({
   const { formatMessage } = useMessages();
 
   return (
-    <Pressable onPress={onPress}>
-      {({ pressed }) => {
-        return (
-          <View px={16} py={12} bg={pressed ? '$backgroundLight200' : '$white'}>
-            <HStack alignItems="center">
-              {!!leftIcon && (
-                <View mr={8}>
-                  <Icon as={leftIcon} />
-                </View>
-              )}
-
-              {(!!title || !!titleTx) && (
-                <View>
-                  <Text>{title || (!!titleTx && formatMessage(titleTx))}</Text>
-                </View>
-              )}
-
-              <View flex={1}></View>
-
-              {(!!value || !!valueTx) && (
-                <View mr={8}>
-                  <Text numberOfLines={1} ellipsizeMode="tail" maxWidth={48}>
-                    {valueTx ? formatMessage(valueTx) : value}
-                  </Text>
-                </View>
-              )}
-
-              {isNavigation && (
-                <View>
-                  <ChevronRightIcon />
-                </View>
-              )}
-            </HStack>
+    <Pressable
+      onPress={onPress}
+      height={48}
+      justifyContent="center"
+      bgColor="$white"
+      px={16}
+      $active-bg="$backgroundLight200"
+    >
+      <HStack alignItems="center">
+        {!!leftIcon && (
+          <View mr={8}>
+            <Icon as={leftIcon} />
           </View>
-        );
-      }}
+        )}
+
+        {(!!title || !!titleTx) && (
+          <View>
+            <Text numberOfLines={1}>{title || (!!titleTx && formatMessage(titleTx))}</Text>
+          </View>
+        )}
+
+        <View flex={1}></View>
+
+        {(!!value || !!valueTx) && (
+          <View mr={8}>
+            <Text numberOfLines={1} ellipsizeMode="tail" maxWidth={48}>
+              {valueTx ? formatMessage(valueTx) : value}
+            </Text>
+          </View>
+        )}
+
+        {isNavigation && (
+          <View>
+            <ChevronRightIcon />
+          </View>
+        )}
+      </HStack>
     </Pressable>
   );
 };

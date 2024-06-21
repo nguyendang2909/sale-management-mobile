@@ -2,6 +2,8 @@ import { Divider, Text, View } from '@gluestack-ui/themed';
 import { CreditCard, Info, List } from 'lucide-react-native';
 import { FC } from 'react';
 import { MenuItem } from 'src/components';
+import { SCREENS } from 'src/constants';
+import { navigate } from 'src/navigations';
 import { ViewProps } from 'src/types';
 
 export const ShopManagement: FC<ViewProps> = ({ ...viewProps }) => {
@@ -19,7 +21,7 @@ export const ShopManagement: FC<ViewProps> = ({ ...viewProps }) => {
           title="Thông tin cửa hàng"
           // leftIcon={<MaterialCommunityIcons name="gender-male-female" />}
           onPress={() => {
-            console.log(111);
+            navigate(SCREENS.SHOP);
           }}
           isNavigation
         />

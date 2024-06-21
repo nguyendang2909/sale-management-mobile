@@ -35,7 +35,7 @@ export const MenuItemSwitchWithHandler: React.FC<FCProps> = ({
   };
 
   return (
-    <View py={8}>
+    <View height={48} justifyContent="center">
       <HStack alignItems="center">
         {!!leftIcon && (
           <View mr={2}>

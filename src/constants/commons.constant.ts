@@ -34,6 +34,7 @@ export const SCREENS = {
   TABLES_CHILD: 'TABLES_CHILD',
   NOTIFICATIONS: 'NOTIFICATIONS',
   INVOICE: 'INVOICE',
+  SHOP: 'SHOP',
 } as const;
 
 export const HOME_SCREENS = {
