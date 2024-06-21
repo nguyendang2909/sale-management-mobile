@@ -28,7 +28,7 @@ export const LogoutButton: React.FC<FC> = () => {
   return (
     <>
       <LoadingButton isLoading={isLoading} onPress={handleLogout}>
-        <ButtonText>{t.formatMessage(messages.Logout)}</ButtonText>
+        <ButtonText>Đăng xuất</ButtonText>
       </LoadingButton>
     </>
   );

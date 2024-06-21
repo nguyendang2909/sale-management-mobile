@@ -16,7 +16,7 @@ export const ContentSettings = () => {
         <ProductManagement mt={16} />
         <DataManagement mt={16} />
 
-        <View mt={16}>
+        <View mt={24}>
           <View px={12}>
             <LogoutButton />
           </View>
