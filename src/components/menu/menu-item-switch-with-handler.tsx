@@ -56,7 +56,7 @@ export const MenuItemSwitchWithHandler: React.FC<FCProps> = ({
         <View flex={1}></View>
 
         <View>
-          <Switch size="sm" value={value} onToggle={handleToggle} />
+          <Switch value={value} onToggle={handleToggle} />
         </View>
       </HStack>
     </View>

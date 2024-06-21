@@ -133,7 +133,11 @@ export const ProductContent: FC<FCProps> = ({ detail }) => {
                   enabled
                   keyboardVerticalOffset={100}
                 >
-                  <ScrollView flex={1} showsVerticalScrollIndicator={false}>
+                  <ScrollView
+                    flex={1}
+                    showsVerticalScrollIndicator={false}
+                    keyboardShouldPersistTaps="handled"
+                  >
                     <View px={16} py={8} bgColor="$white" mb={16}>
                       <ProductTitleControl control={control} />
                       <ProductImagesControl mt={16} control={control} />

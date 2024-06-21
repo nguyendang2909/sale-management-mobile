@@ -1,4 +1,4 @@
-import { View } from '@gluestack-ui/themed';
+import { Divider, View } from '@gluestack-ui/themed';
 import _ from 'lodash';
 import { FC, useRef } from 'react';
 import Toast from 'react-native-toast-message';
@@ -11,7 +11,8 @@ import { ProductSetting } from 'src/types';
 
 export const ProductSettingMenuItem: FC<{
   menuItem: ProductSetting;
-}> = ({ menuItem }) => {
+  showBottomDivider?: boolean;
+}> = ({ menuItem, showBottomDivider }) => {
   const dispatch = useDispatch();
   const { formatErrorMessage } = useMessages();
   const [updateSetting] = useUpdateProductSettingsMutation();
@@ -37,6 +38,7 @@ export const ProductSettingMenuItem: FC<{
           defaultValue={setting}
           onToggle={handleToggle}
         ></MenuItemSwitchWithHandler>
+        {!!showBottomDivider && <Divider />}
       </View>
     </>
   );

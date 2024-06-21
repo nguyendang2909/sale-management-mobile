@@ -16,8 +16,14 @@ export const ProductSettingContent = () => {
               <Text>{e.title}</Text>
             </View>
             <View px={16} bgColor="$white">
-              {e.menu.map(menuItem => {
-                return <ProductSettingMenuItem key={menuItem.id} menuItem={menuItem} />;
+              {e.menu.map((menuItem, index) => {
+                return (
+                  <ProductSettingMenuItem
+                    key={menuItem.id}
+                    menuItem={menuItem}
+                    showBottomDivider={index < e.menu.length - 1}
+                  />
+                );
               })}
             </View>
           </View>
