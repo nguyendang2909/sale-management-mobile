@@ -1,10 +1,15 @@
-import { Divider, Text, View } from '@gluestack-ui/themed';
-import { Trash } from 'lucide-react-native';
+import { Text, View } from '@gluestack-ui/themed';
 import { FC } from 'react';
-import { MenuItem } from 'src/components';
 import { ViewProps } from 'src/types';
 
-export const DataManagement: FC<ViewProps> = ({ ...viewProps }) => {
+import { MenuItemDeleteAccount } from './menu-item/menu-item-delete-data';
+
+export const DataManagement: FC<
+  ViewProps & {
+    isLoading: boolean;
+    onDeleteAccount: () => Promise<void>;
+  }
+> = ({ onDeleteAccount, ...viewProps }) => {
   return (
     <View {...viewProps}>
       <View px={16}>
@@ -14,23 +19,9 @@ export const DataManagement: FC<ViewProps> = ({ ...viewProps }) => {
       </View>
 
       <View mt={8} bgColor="$white">
-        <MenuItem
-          leftIcon={Trash}
-          title="Xoá cửa hàng"
-          // leftIcon={<MaterialCommunityIcons name="gender-male-female" />}
-          onPress={() => {
-            console.log(111);
-          }}
-        />
-        <Divider />
-        <MenuItem
-          leftIcon={Trash}
-          title="Xoá tài khoản"
-          // leftIcon={<MaterialCommunityIcons name="gender-male-female" />}
-          onPress={() => {
-            console.log(111);
-          }}
-        />
+        {/* <MenuItemDeleteShop />
+        <Divider /> */}
+        <MenuItemDeleteAccount onDelete={onDeleteAccount} />
       </View>
     </View>
   );

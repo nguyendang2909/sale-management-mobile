@@ -22,6 +22,15 @@ const meApi = api.injectEndpoints({
       }),
       invalidatesTags: [],
     }),
+
+    deleteMe: builder.mutation<void, void>({
+      query: body => ({
+        url: API_ENDPOINTS.ME.INDEX,
+        method: API_METHODS.DELETE,
+        body,
+      }),
+      invalidatesTags: [],
+    }),
   }),
 });
 
@@ -29,5 +38,6 @@ export const {
   useFetchMeQuery,
   useLazyFetchMeQuery,
   useCreateMeMutation,
+  useDeleteMeMutation,
   endpoints: meEndpoints,
 } = meApi;

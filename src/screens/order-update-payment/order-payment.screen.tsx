@@ -8,7 +8,7 @@ import { OrderUpdatePaymentContent } from './views/order-update-payment-content'
 
 type FCProps = AppStackScreenProps<'ORDER_PAYMENT'>;
 
-export const OrderUpdatePaymentScreen: FC<FCProps> = props => {
+export const OrderPaymentScreen: FC<FCProps> = props => {
   const { data: order } = useOrder(props.route.params.order);
 
   return (

@@ -1,7 +1,6 @@
 import { ScrollView, View } from '@gluestack-ui/themed';
 import _ from 'lodash';
 import { FC, useMemo } from 'react';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { LoadingOverlay } from 'src/components';
 import { ORDER_STATUSES, ORDER_UNDELIVERED_STATUS_ARR } from 'src/constants';
 import { Entity, ViewProps } from 'src/types';
@@ -46,22 +45,7 @@ export const OrderContent: FC<ViewProps & { order: Entity.Order; isFetchingOrder
       </ScrollView>
 
       {_.includes(ORDER_UNDELIVERED_STATUS_ARR, order.status) && (
-        <UndeliveredOrderNav
-          shadowOffset={{
-            width: 0,
-            height: 1,
-          }}
-          shadowOpacity={0.25}
-          shadowRadius={3}
-          elevation={3}
-          px={16}
-          pt={16}
-          bgColor="white"
-          as={SafeAreaView}
-          // @ts-ignore
-          edges={['bottom']}
-          order={order}
-        />
+        <UndeliveredOrderNav order={order} />
       )}
     </View>
   );

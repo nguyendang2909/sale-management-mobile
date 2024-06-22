@@ -1,5 +1,6 @@
 import { Button, ButtonText, View } from '@gluestack-ui/themed';
 import { FC, useCallback } from 'react';
+import { ViewFooter } from 'src/components';
 import { SCREENS } from 'src/constants';
 import { navigate } from 'src/navigations';
 import { AppStore, ViewProps } from 'src/types';
@@ -17,8 +18,8 @@ export const UndeliveredOrderNav: FC<
 
   return (
     <>
-      <View {...viewProps}>
-        <View flexDirection="row" columnGap={16}>
+      <ViewFooter {...viewProps} pt={16}>
+        <View flexDirection="row" columnGap={16} px={16}>
           <View flex={1}>
             <ButtonCancelOrder orderId={order.id} />
           </View>
@@ -28,7 +29,7 @@ export const UndeliveredOrderNav: FC<
             </Button>
           </View>
         </View>
-      </View>
+      </ViewFooter>
     </>
   );
 };

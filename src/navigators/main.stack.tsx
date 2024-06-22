@@ -17,7 +17,7 @@ import { OrderScreen } from 'src/screens/order/order.screen';
 import { OrderConfirmScreen } from 'src/screens/order-confirm/order-confirm.screen';
 import { OrderCreateScreen } from 'src/screens/order-create/order-create.screen';
 import { OrderSettingScreen } from 'src/screens/order-setting/order-setting.screen';
-import { OrderUpdatePaymentScreen } from 'src/screens/order-update-payment/order-update-payment.screen';
+import { OrderPaymentScreen } from 'src/screens/order-update-payment/order-payment.screen';
 import { ProductCreateScreen } from 'src/screens/product-create/product-create.screen';
 import { ProductScreen } from 'src/screens/product-detail/product.screen';
 import { ProductSettingScreen } from 'src/screens/product-setting/product-setting.screen';
@@ -165,7 +165,7 @@ export const MainStack: React.FC = () => {
           <Stack.Screen name={SCREENS.ORDER_CONFIRM} component={OrderConfirmScreen} />
           <Stack.Screen name={SCREENS.ORDER_SETTING} component={OrderSettingScreen} />
           <Stack.Screen name={SCREENS.ORDER} component={OrderScreen} />
-          <Stack.Screen name={SCREENS.ORDER_PAYMENT} component={OrderUpdatePaymentScreen} />
+          <Stack.Screen name={SCREENS.ORDER_PAYMENT} component={OrderPaymentScreen} />
           <Stack.Screen name={SCREENS.ORDERS_CHILD} component={OrdersChildScreen} />
           <Stack.Screen name={SCREENS.INVOICE} component={InvoiceScreen} />
 

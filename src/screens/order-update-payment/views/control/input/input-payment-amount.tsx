@@ -30,7 +30,7 @@ type FCProps = {
   inputMode?: InputModeOptions | undefined;
   onBlur?: () => void;
   focusable?: boolean;
-  amount: number;
+  currentMissingAmount: number;
 };
 
 export const InputPaymentAmount = forwardRef<TextInput, FCProps>(
@@ -46,13 +46,16 @@ export const InputPaymentAmount = forwardRef<TextInput, FCProps>(
       inputMode,
       onBlur,
       focusable,
-      amount,
+      currentMissingAmount,
     },
     ref,
   ) => {
     const { formatNumber } = useMessages();
 
-    const missingAmount = useMemo(() => amount - (value || 0), [amount, value]);
+    const missingAmount = useMemo(
+      () => currentMissingAmount - (value || 0),
+      [currentMissingAmount, value],
+    );
 
     const handleChange = useCallback(
       (e: string) => {

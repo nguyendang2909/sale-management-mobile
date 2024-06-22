@@ -1,5 +1,6 @@
 import { Button, ButtonText, KeyboardAvoidingView, ScrollView, View } from '@gluestack-ui/themed';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { StackActions, useNavigation } from '@react-navigation/native';
 import { FC, useCallback, useEffect, useMemo } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import Toast from 'react-native-toast-message';
@@ -20,16 +21,24 @@ export const OrderUpdatePaymentContent: FC<{
   updateStatusDelivered: boolean;
 }> = ({ detail, updateStatusDelivered }) => {
   const { data: order, isFetching: isFetchingOrder, refetch } = useOrder(detail);
+  const navigation = useNavigation();
   const { formatErrorMessage } = useMessages();
 
   const [updateOrder] = useUpdateOrderMutation();
 
+  const payout =
+    order.payments?.reduce((result, payment) => {
+      return (payment.amount || 0) + result;
+    }, 0) || 0;
+
+  const currentMissingAmount = (order.amount || 0) - payout;
+
   const defaultValues = useMemo(
     () => ({
-      amount: order.amount || 0,
+      amount: currentMissingAmount || 0,
       paymentMethod: ORDER_PAYMENT_METHODS.BANK,
     }),
-    [order.amount],
+    [currentMissingAmount],
   );
 
   const {
@@ -69,10 +78,12 @@ export const OrderUpdatePaymentContent: FC<{
           id: order.id,
           body,
         }).unwrap();
-        refetch();
+        await refetch();
         if (!updateStatusDelivered) {
           goBack(SCREENS.HOME, { screen: HOME_SCREENS.ORDERS });
+          return;
         }
+        navigation.dispatch(StackActions.replace(SCREENS.INVOICE, { order }));
       } catch (error) {
         Toast.show({
           text1: formatErrorMessage(error),
@@ -80,7 +91,7 @@ export const OrderUpdatePaymentContent: FC<{
         });
       }
     },
-    [formatErrorMessage, order.id, refetch, updateOrder, updateStatusDelivered],
+    [formatErrorMessage, navigation, order, refetch, updateOrder, updateStatusDelivered],
   );
 
   return (
@@ -94,7 +105,7 @@ export const OrderUpdatePaymentContent: FC<{
               <ControlPaymentAmount
                 mt={24}
                 control={control}
-                order={order}
+                currentMissingAmount={currentMissingAmount}
                 flex={1}
                 justifyContent="center"
               />

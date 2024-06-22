@@ -22,6 +22,7 @@ export const ContentInvoice: FC<{ detail: AppStore.Order }> = ({ detail }) => {
             numColumns={1}
             data={order.items}
             keyExtractor={(item, index) => item.id || index.toString()}
+            estimatedItemSize={20}
             renderItem={({ item, index }) => {
               return <InvoiceOrderItem item={item} index={index} />;
             }}
