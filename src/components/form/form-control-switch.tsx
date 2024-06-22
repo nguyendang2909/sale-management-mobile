@@ -12,7 +12,7 @@ import { TxKey } from 'src/types';
 type FCProps = {
   title?: string;
   titleTx?: TxKey;
-  value?: boolean | null;
+  value?: boolean;
   defaultValue?: boolean;
   setValue: (e: boolean) => void;
 };

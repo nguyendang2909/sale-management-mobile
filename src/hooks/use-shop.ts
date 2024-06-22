@@ -4,7 +4,7 @@ import { useAppSelector } from './useAppSelector';
 
 export const useCurrentShop = () => {
   const data = useAppSelector(s => {
-    return s.app.shop;
+    return s.shop.current;
   });
 
   const { refetch, isFetching, isLoading } = useFetchShopQuery(data.id, {

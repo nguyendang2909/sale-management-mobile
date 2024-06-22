@@ -75,6 +75,7 @@ export const CreateCustomerModal: FC<FCProps> = ({ onClose }) => {
             isRequired
             label="Tên khách hàng"
             value={formik.values.fullName}
+            // @ts-ignore
             onChange={formik.handleChange('fullName')}
             placeholder="Nguyễn Văn A"
             error={formik.touched.fullName ? formik.errors.fullName : undefined}
@@ -85,6 +86,7 @@ export const CreateCustomerModal: FC<FCProps> = ({ onClose }) => {
             inputMode="tel"
             label="Số điện thoại"
             value={formik.values.phoneNumber}
+            // @ts-ignore
             onChange={formik.handleChange('phoneNumber')}
             placeholder="0979999999"
             error={formik.touched.phoneNumber ? formik.errors.phoneNumber : undefined}

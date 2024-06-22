@@ -23,7 +23,6 @@ class CreateOrderFormUtil {
   getDefaultValues(initialValues?: FormParams.CreateOrder): FormParams.CreateOrder {
     return {
       status: ORDER_STATUSES.PROCESSING,
-      paymentMethod: null,
       deliveryMethod: null,
       customerId: null,
       address: null,
