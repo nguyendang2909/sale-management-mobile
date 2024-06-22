@@ -1,5 +1,5 @@
-export * from './Details';
-export * from './Images';
-export * from './Introduce';
-export * from './MainInfo';
-export * from './UserProfile';
+// export * from './Details';
+// export * from './Images';
+// export * from './Introduce';
+// export * from './MainInfo';
+// export * from './UserProfile';

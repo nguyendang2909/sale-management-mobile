@@ -1,12 +1,12 @@
 import { ChevronRightIcon, HStack, Icon, Pressable, Text, View } from '@gluestack-ui/themed';
-import React from 'react';
+import React, { FC } from 'react';
 import { useMessages } from 'src/hooks';
 import { TxKey } from 'src/types';
 
 type FCProps = {
   title?: string;
   titleTx?: TxKey;
-  leftIcon?: React.ReactElement;
+  leftIcon?: FC;
   value?: string;
   valueTx?: TxKey;
   onPress?: () => void;
