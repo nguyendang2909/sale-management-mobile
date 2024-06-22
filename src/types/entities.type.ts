@@ -84,8 +84,7 @@ export declare namespace Entity {
       user: User;
       userId: string;
       title: string;
-      phoneNumber?: string;
-      phoneCode?: string;
+      phone: string;
       address: string;
       description?: string;
       workingTimeType: WorkingTimeType;

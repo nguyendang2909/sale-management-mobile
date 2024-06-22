@@ -1,56 +1,56 @@
-import { Box, Pressable, Text } from '@gluestack-ui/themed';
-import _ from 'lodash';
-import React from 'react';
-import { StyleSheet } from 'react-native';
-import { CacheImage, LinearGradient } from 'src/components';
-import { Entity } from 'src/types';
+// import { Box, Pressable, Text } from '@gluestack-ui/themed';
+// import _ from 'lodash';
+// import React from 'react';
+// import { StyleSheet } from 'react-native';
+// import { CacheImage, LinearGradient } from 'src/components';
+// import { Entity } from 'src/types';
 
-type NearbyProfileItemProps = {
-  profile: Entity.Profile;
-  onOpen: (e: Entity.Profile) => void;
-};
+// type NearbyProfileItemProps = {
+//   profile: Entity.Profile;
+//   onOpen: (e: Entity.Profile) => void;
+// };
 
-export const NearbyProfileItem: React.FC<NearbyProfileItemProps> = ({ profile, onOpen }) => {
-  const handlePressCard = () => {
-    onOpen(profile);
-  };
+// export const NearbyProfileItem: React.FC<NearbyProfileItemProps> = ({ profile, onOpen }) => {
+//   const handlePressCard = () => {
+//     onOpen(profile);
+//   };
 
-  return (
-    <Box key={profile._id} px={4} py={4} w="$1/2">
-      <Pressable onPress={handlePressCard}>
-        <LinearGradient
-          zIndex={100}
-          height="$full"
-          width="$full"
-          position="absolute"
-          borderRadius={8}
-          colors={['#00000000', '#00000000', '#00000000', '#000000']}
-          justifyContent="flex-end"
-        >
-          <Box px={4} py={4}>
-            <Text fontWeight="bold" color="$white" numberOfLines={1}>
-              {profile.nickname}
-              {', '}
-              {!_.isUndefined(profile.distance) && `${_.round((profile.distance || 0) / 1000)} km`}
-            </Text>
-          </Box>
-        </LinearGradient>
+//   return (
+//     <Box key={profile._id} px={4} py={4} w="$1/2">
+//       <Pressable onPress={handlePressCard}>
+//         <LinearGradient
+//           zIndex={100}
+//           height="$full"
+//           width="$full"
+//           position="absolute"
+//           borderRadius={8}
+//           colors={['#00000000', '#00000000', '#00000000', '#000000']}
+//           justifyContent="flex-end"
+//         >
+//           <Box px={4} py={4}>
+//             <Text fontWeight="bold" color="$white" numberOfLines={1}>
+//               {profile.nickname}
+//               {', '}
+//               {!_.isUndefined(profile.distance) && `${_.round((profile.distance || 0) / 1000)} km`}
+//             </Text>
+//           </Box>
+//         </LinearGradient>
 
-        <Box>
-          <CacheImage
-            style={style.image}
-            url={profile.mediaFiles?.length ? profile.mediaFiles[0]?.key : undefined}
-          ></CacheImage>
-        </Box>
-      </Pressable>
-    </Box>
-  );
-};
+//         <Box>
+//           <CacheImage
+//             style={style.image}
+//             url={profile.mediaFiles?.length ? profile.mediaFiles[0]?.key : undefined}
+//           ></CacheImage>
+//         </Box>
+//       </Pressable>
+//     </Box>
+//   );
+// };
 
-const style = StyleSheet.create({
-  image: {
-    aspectRatio: 640 / 860,
-    borderRadius: 8,
-    width: '100%',
-  },
-});
+// const style = StyleSheet.create({
+//   image: {
+//     aspectRatio: 640 / 860,
+//     borderRadius: 8,
+//     width: '100%',
+//   },
+// });

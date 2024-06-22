@@ -1,47 +1,47 @@
-import React, { useEffect, useState } from 'react';
-import { PermissionStatus } from 'react-native-permissions';
-// import { RequireEnalbeLocationSharing } from 'src/containers/DatingSwipe/RequireEnableLocationSharing';
-import { useAppSelector } from 'src/hooks';
-import { locationPermissionsService } from 'src/services/location-permissions.service';
+// import React, { useEffect, useState } from 'react';
+// import { PermissionStatus } from 'react-native-permissions';
+// // import { RequireEnalbeLocationSharing } from 'src/containers/DatingSwipe/RequireEnableLocationSharing';
+// import { useAppSelector } from 'src/hooks';
+// import { locationPermissionsService } from 'src/services/location-permissions.service';
 
-import { DatingNearbyContent } from './dating-nearby-content';
+// import { DatingNearbyContent } from './dating-nearby-content';
 
-export const DatingNearbyWrapper: React.FC = () => {
-  const [permission, setPermission] = useState<PermissionStatus | null>(null);
-  const geolocation = useAppSelector(s => s.app.profile.geolocation);
+// export const DatingNearbyWrapper: React.FC = () => {
+//   const [permission, setPermission] = useState<PermissionStatus | null>(null);
+//   const geolocation = useAppSelector(s => s.app.profile.geolocation);
 
-  const handlePermission = async () => {
-    const currentPermission = await locationPermissionsService.check();
-    if (currentPermission === 'blocked' || currentPermission === 'unavailable') {
-      setPermission(currentPermission);
-      return;
-    }
-    const newPermission = await locationPermissionsService.request();
-    setPermission(newPermission);
-  };
+//   const handlePermission = async () => {
+//     const currentPermission = await locationPermissionsService.check();
+//     if (currentPermission === 'blocked' || currentPermission === 'unavailable') {
+//       setPermission(currentPermission);
+//       return;
+//     }
+//     const newPermission = await locationPermissionsService.request();
+//     setPermission(newPermission);
+//   };
 
-  useEffect(() => {
-    handlePermission();
-  }, []);
+//   useEffect(() => {
+//     handlePermission();
+//   }, []);
 
-  if (permission) {
-    if (permission === 'granted') {
-      return (
-        <>
-          <DatingNearbyContent />
-        </>
-      );
-    }
+//   if (permission) {
+//     if (permission === 'granted') {
+//       return (
+//         <>
+//           <DatingNearbyContent />
+//         </>
+//       );
+//     }
 
-    // if (
-    //   [RESULTS.BLOCKED, RESULTS.DENIED, RESULTS.UNAVAILABLE, RESULTS.LIMITED].includes(
-    //     permission,
-    //   ) ||
-    //   geolocation
-    // ) {
-    //   return <RequireEnalbeLocationSharing onChange={setPermission} />;
-    // }
-  }
+//     // if (
+//     //   [RESULTS.BLOCKED, RESULTS.DENIED, RESULTS.UNAVAILABLE, RESULTS.LIMITED].includes(
+//     //     permission,
+//     //   ) ||
+//     //   geolocation
+//     // ) {
+//     //   return <RequireEnalbeLocationSharing onChange={setPermission} />;
+//     // }
+//   }
 
-  return <></>;
-};
+//   return <></>;
+// };

@@ -5,7 +5,7 @@ import { useRefreshQuery } from './use-refreshing-query';
 import { useAppSelector } from './useAppSelector';
 
 export const useCountOrders = (params: ApiRequest.FindAllOrders) => {
-  const shopId = useAppSelector(s => s.app.shop.id);
+  const shopId = useAppSelector(s => s.shop.current.id);
 
   const query = useFetchCountOrdersByShopQuery({
     shopId,

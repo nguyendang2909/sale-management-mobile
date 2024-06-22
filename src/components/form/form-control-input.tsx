@@ -12,7 +12,7 @@ import {
   InputSlot,
   View,
 } from '@gluestack-ui/themed';
-import React, { forwardRef, useCallback } from 'react';
+import React, { forwardRef, useCallback, useState } from 'react';
 import { InputModeOptions } from 'react-native';
 import { ViewProps } from 'src/types';
 
@@ -30,6 +30,7 @@ type FCProps = ViewProps & {
   inputMode?: InputModeOptions | undefined;
   onBlur?: () => void;
   focusable?: boolean;
+  onFocus?: () => void;
 };
 
 export const FormControlInput = forwardRef(
@@ -46,10 +47,13 @@ export const FormControlInput = forwardRef(
       inputMode,
       onBlur,
       focusable,
+      onFocus,
       ...viewProps
     }: FCProps,
     ref,
   ) => {
+    const [isDisplayInputSlot, setDisplayInputSlot] = useState<boolean>(false);
+
     const handleClear = useCallback(() => {
       onChange(null);
     }, [onChange]);
@@ -61,6 +65,20 @@ export const FormControlInput = forwardRef(
       }
       onChange(null);
     };
+
+    const handleFocus = useCallback(() => {
+      setDisplayInputSlot(true);
+      if (onFocus) {
+        onFocus();
+      }
+    }, [onFocus]);
+
+    const handleBlur = useCallback(() => {
+      setDisplayInputSlot(false);
+      if (onBlur) {
+        onBlur();
+      }
+    }, [onBlur]);
 
     return (
       <View {...viewProps}>
@@ -76,13 +94,14 @@ export const FormControlInput = forwardRef(
               onChangeText={handleChangeText}
               placeholder={placeholder}
               maxLength={maxLength}
-              onBlur={onBlur}
+              onBlur={handleBlur}
+              onFocus={handleFocus}
               // @ts-ignore
               ref={ref}
             ></InputField>
-            {!!value && (
+            {!!value && isDisplayInputSlot && (
               <InputSlot onPress={handleClear}>
-                <InputIcon as={CloseCircleIcon}></InputIcon>
+                <InputIcon size="xl" as={CloseCircleIcon}></InputIcon>
               </InputSlot>
             )}
           </Input>

@@ -7,7 +7,6 @@ export * from './data.type';
 export * from './entities.type';
 export * from './fe.type';
 export * from './form-params.type';
-export * from './navigation.type';
 export * from './socket-request.type';
 export * from './socket-response.type';
 

@@ -1,12 +1,13 @@
 import moment from 'moment';
 import { useFetchSaleOverallByShopQuery } from 'src/api';
 import { TIME_FORMATS } from 'src/constants';
+import { selectCurrentShopId } from 'src/store/shop';
 
 import { useRefreshQuery } from './use-refreshing-query';
 import { useAppSelector } from './useAppSelector';
 
 export const useSaleOverall = ({ startDate, endDate }: { startDate: string; endDate: string }) => {
-  const shopId = useAppSelector(s => s.app.shop.id);
+  const shopId = useAppSelector(selectCurrentShopId);
   const todayDate = moment().format(TIME_FORMATS.DATE);
 
   const query = useFetchSaleOverallByShopQuery({

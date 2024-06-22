@@ -120,7 +120,7 @@ export const CreateProductForm: FC = () => {
                 flex={1}
                 behavior="padding"
                 enabled
-                keyboardVerticalOffset={100}
+                keyboardVerticalOffset={120}
               >
                 <ScrollView
                   flex={1}

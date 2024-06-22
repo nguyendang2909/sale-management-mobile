@@ -30,7 +30,7 @@ import { ProductDetailFooter } from './product-detail-footer';
 type FCProps = {
   detail: AppStore.Product;
 };
-export const ProductContent: FC<FCProps> = ({ detail }) => {
+export const ContentProduct: FC<FCProps> = ({ detail }) => {
   const navigation = useNavigation();
   useCategories();
   const {

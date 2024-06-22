@@ -1,6 +1,6 @@
 import { Image } from 'react-native-image-crop-picker';
 
-import { OrderPaymentMethod, OrderStatus } from './data.type';
+import { OrderPaymentMethod, OrderStatus, WorkingTimeType } from './data.type';
 import { Entity } from './entities.type';
 import { ApiRequest } from './fe.type';
 
@@ -124,5 +124,26 @@ export declare namespace FormParams {
   type DateRange = {
     startDate: string;
     endDate: string;
+  };
+
+  type CreateShop = {
+    title: string | null;
+    phoneNumber: string | null;
+    phoneCode: string | null;
+    address: string | null;
+    description: string | null;
+    workingTimeType: WorkingTimeType | null;
+    openHour: string | null;
+    closeHour: string | null;
+  };
+
+  type UpdateShop = {
+    title: string;
+    phone: string | null;
+    address: string | null;
+    description: string | null;
+    workingTimeType: WorkingTimeType | null;
+    openHour: string | null;
+    closeHour: string | null;
   };
 }

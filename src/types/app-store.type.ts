@@ -17,13 +17,13 @@ export declare namespace AppStore {
 
   type OrderSetting = Partial<Entity.OrderSetting>;
 
+  type Shop = Entity.Shop;
+
   type AppState = {
     accessToken?: string;
     refreshToken?: string;
     isLogged?: boolean;
     user: Partial<Entity.User>;
-    shop: Entity.Shop;
-    shops?: Entity.Shop[];
     osPermissions?: {
       locationService?: AuthorizationResult;
     };
@@ -104,6 +104,11 @@ export declare namespace AppStore {
   type Order = Entity.Order;
 
   type Pagination = Partial<ApiResponse.Pagination>;
+
+  type ShopStore = {
+    data: Shop[];
+    current: Shop;
+  };
 
   type ProductStore = {
     data: Product[];

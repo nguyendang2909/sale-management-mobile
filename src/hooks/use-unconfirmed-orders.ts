@@ -11,6 +11,7 @@ import { useMessages } from './useMessages';
 const status = ORDER_STATUSES.UNCONFIRMED;
 
 export const useUnconfirmedOrders = () => {
+  const shopId = useAppSelector(s => s.shop.current.id);
   const dispatch = useAppDispatch();
   const { formatErrorMessage } = useMessages();
 
@@ -33,7 +34,10 @@ export const useUnconfirmedOrders = () => {
   const fetchFirstData = useCallback(async () => {
     try {
       const data = await fetchOrders({
-        status,
+        shopId,
+        params: {
+          status: ORDER_STATUSES.UNCONFIRMED,
+        },
       }).unwrap();
       dispatch(orderActions.setOrders({ status, data: data.data }));
       dispatch(orderActions.setPagination({ status, pagination: data.pagination }));
@@ -42,7 +46,7 @@ export const useUnconfirmedOrders = () => {
         text1: formatErrorMessage(err),
       });
     }
-  }, [dispatch, fetchOrders, formatErrorMessage]);
+  }, [dispatch, fetchOrders, formatErrorMessage, shopId]);
 
   useEffect(() => {
     fetchFirstData();
@@ -56,12 +60,15 @@ export const useUnconfirmedOrders = () => {
       return;
     }
     const data = await fetchOrders({
-      status: ORDER_STATUSES.UNCONFIRMED,
-      _next,
+      shopId,
+      params: {
+        status: ORDER_STATUSES.UNCONFIRMED,
+        _next,
+      },
     }).unwrap();
     dispatch(orderActions.setOrders({ status, data: data.data }));
     dispatch(orderActions.setPagination({ status, pagination: data.pagination }));
-  }, [_next, dispatch, fetchOrders, loading]);
+  }, [_next, dispatch, fetchOrders, loading, shopId]);
 
   const refresh = useCallback(async () => {
     if (loading) {
@@ -70,7 +77,10 @@ export const useUnconfirmedOrders = () => {
     setRefreshing(true);
     try {
       const data = await fetchOrders({
-        status,
+        shopId,
+        params: {
+          status,
+        },
       }).unwrap();
       dispatch(orderActions.setOrders({ status, data: data.data }));
       dispatch(orderActions.setPagination({ status, pagination: data.pagination }));
@@ -81,7 +91,7 @@ export const useUnconfirmedOrders = () => {
     } finally {
       setRefreshing(false);
     }
-  }, [dispatch, fetchOrders, formatErrorMessage, loading]);
+  }, [dispatch, fetchOrders, formatErrorMessage, loading, shopId]);
 
   return {
     data: orders,

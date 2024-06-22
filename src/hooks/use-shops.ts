@@ -3,7 +3,7 @@ import { useFetchAllShopsQuery } from 'src/api/shop.api';
 import { useAppSelector } from './useAppSelector';
 
 export const useShops = () => {
-  const data = useAppSelector(s => s.app.shops) || [];
+  const data = useAppSelector(s => s.shop.data) || [];
 
   const { refetch, isFetching, isLoading } = useFetchAllShopsQuery(undefined, {
     refetchOnMountOrArgChange: true,

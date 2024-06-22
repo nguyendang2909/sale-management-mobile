@@ -23,6 +23,7 @@ import { customerReducer } from './customer';
 import { orderReducer } from './order';
 import { productReducer } from './product';
 import { appSaga } from './saga';
+import { shopReducer } from './shop';
 // import theme from './theme';
 import { userReducer } from './user.store';
 
@@ -41,6 +42,7 @@ const reducers = combineReducers({
   cache: cacheReducer,
   order: orderReducer,
   cart: cartReducer,
+  shop: shopReducer,
   // message: messageReducer,
 });
 

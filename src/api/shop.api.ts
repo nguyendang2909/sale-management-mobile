@@ -12,9 +12,15 @@ const shopApi = api.injectEndpoints({
         method: API_METHODS.GET,
       }),
     }),
+    fetchShop: builder.query<ApiResponse.Shops, string>({
+      query: shopId => ({
+        url: API_ENDPOINTS.SHOPS.SHOP_ID.get(shopId),
+        method: API_METHODS.GET,
+      }),
+    }),
     updateShop: builder.mutation<void, { shopId: string; body: ApiRequest.UpdateShop }>({
       query: ({ shopId, body }) => ({
-        url: API_ENDPOINTS.SHOPS.SHOP_ID.INDEX(shopId),
+        url: API_ENDPOINTS.SHOPS.SHOP_ID.get(shopId),
         method: API_METHODS.PATCH,
         body,
       }),
@@ -62,5 +68,7 @@ export const {
   useFetchCountOrdersByShopQuery,
   useLazyFetchCountOrdersByShopQuery,
   useUpdateShopMutation,
+  useFetchShopQuery,
+  useLazyFetchShopQuery,
   endpoints: shopEndpoints,
 } = shopApi;

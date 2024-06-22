@@ -2,7 +2,6 @@ import { Alert, Text, View } from '@gluestack-ui/themed';
 import { ComponentProps } from 'react';
 import { IconTypes } from 'src/components';
 import {
-  AUTH_GRANT_TYPES,
   NAVIGATION_CARD_IDS_MAP,
   ORDER_STORE_STATUSES,
   PRODUCTS_SCREEN_TAB_IDS_MAP,
@@ -19,8 +18,6 @@ export type NearbyUserCursor = {
   excludedUserIds?: string[];
   minDistance?: number;
 };
-
-export type AuthGrantType = (typeof AUTH_GRANT_TYPES)[keyof typeof AUTH_GRANT_TYPES];
 
 export type BottomNavigatorName = ValueOf<typeof BOTTOM_NAVIGATOR_NAMES>;
 

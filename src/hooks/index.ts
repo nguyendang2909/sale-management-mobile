@@ -17,6 +17,7 @@ export * from './use-sale-statistics';
 export * from './use-search-categories';
 export * from './use-search-customers';
 export * from './use-search-products';
+export * from './use-shop';
 export * from './use-shops';
 export * from './use-sign-in-data';
 export * from './useAppSelector';

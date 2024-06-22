@@ -24,7 +24,7 @@ export const useOrders = ({
     >
   >;
 }) => {
-  const shopId = useAppSelector(s => s.app.shop.id);
+  const shopId = useAppSelector(s => s.shop.current.id);
   const dispatch = useAppDispatch();
   const { formatErrorMessage } = useMessages();
 

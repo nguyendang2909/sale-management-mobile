@@ -16,6 +16,7 @@ import { useAppDispatch, useAppSelector, useMessages, useProducts } from 'src/ho
 import { navigate } from 'src/navigations';
 import { getState } from 'src/store';
 import { cartActions } from 'src/store/cart';
+import { selectCurrentShopId } from 'src/store/shop';
 import { FormParams } from 'src/types';
 import { createOrderFormUtil, skuUtil } from 'src/utils';
 
@@ -25,7 +26,7 @@ import { ConfirmOrderPrices } from './confirm-order-prices';
 export const OrderConfirmForm: FC<{ values: FormParams.CreateOrder }> = ({ values }) => {
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
-  const shopId = useAppSelector(s => s.app.shop.id);
+  const shopId = useAppSelector(selectCurrentShopId);
   const [createOrder] = useCreateOrderMutation();
   const [fetchOrder] = useLazyFetchOrderQuery();
   const { formatErrorMessage } = useMessages();

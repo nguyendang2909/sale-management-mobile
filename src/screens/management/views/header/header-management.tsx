@@ -8,7 +8,7 @@ import { useAppSelector } from 'src/hooks';
 import { navigate } from 'src/navigations';
 
 export const HeaderManagement = () => {
-  const shop = useAppSelector(s => s.app.shop);
+  const shop = useAppSelector(s => s.shop.current);
 
   const handlePressShop = () => {
     navigate(SCREENS.SETTINGS);

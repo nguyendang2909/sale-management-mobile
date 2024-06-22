@@ -243,14 +243,13 @@ export declare namespace ApiRequest {
 
   type UpdateShop = {
     title?: string;
-    phoneNumber?: string;
-    phoneCode?: string;
-    address?: string;
-    description?: string;
-    workingTimeType?: WorkingTimeType;
-    openTime?: string;
-    closeTime?: string;
-    businessTypes?: string[];
+    phone?: string | null;
+    address?: string | null;
+    description?: string | null;
+    workingTimeType?: WorkingTimeType | null;
+    openTime?: string | null;
+    closeTime?: string | null;
+    businessTypes?: string[] | null;
   };
 }
 
