@@ -37,6 +37,8 @@ export const OrderListItem: FC<FCProps> = ({ order, onCancel }) => {
 
   return (
     <Pressable onPress={handlePress}>
+      {/* 
+      // @ts-ignore */}
       {({ pressed }) => {
         return (
           <View

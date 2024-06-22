@@ -6,7 +6,7 @@ import { disconnectWebSocket, getSocket, socketStoreActions } from 'src/store/so
 export const ConnectSocket: React.FC = () => {
   const dispatch = useDispatch();
   const accessToken = useAppSelector(state => state.app.accessToken);
-  const userId = useAppSelector(state => state.app.profile?._id);
+  const userId = useAppSelector(state => state.app.user.id);
 
   React.useEffect(() => {
     if (accessToken && userId) {

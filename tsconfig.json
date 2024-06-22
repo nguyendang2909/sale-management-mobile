@@ -49,7 +49,8 @@
       "ios",
       "babel.config.js",
       "metro.config.js",
-      "jest.config.js"
+      "jest.config.js",
+      "temp"
     ],
-    "include": ["src", "development.d.ts"],
+    "include": ["src", "development.d.ts", "temp/subjects", "temp/Star", "temp/profile-edit", "temp/Profile"],
 }

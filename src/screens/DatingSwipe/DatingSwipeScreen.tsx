@@ -3,7 +3,7 @@ import { useNavigation } from '@react-navigation/native';
 import React, { FC } from 'react';
 import { Header } from 'src/components';
 import { SCREENS } from 'src/constants';
-import { DatingSwipeWrapper } from 'src/pages/dating-swipe/dating-swipe-wrapper';
+import { DatingSwipeWrapper } from 'src/pages/dating-swipe/temp/dating-swipe-wrapper';
 
 export const DatingSwipeScreen: FC = () => {
   const navigation = useNavigation();

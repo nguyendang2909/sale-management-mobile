@@ -3,7 +3,7 @@ import { FormControlInput } from 'src/components';
 
 export const ProductTitleInput: FC<{
   value: string;
-  onChange: (e: string) => void;
+  onChange: (e: string | null) => void;
   onBlur?: () => void;
   errorMessage?: string;
 }> = ({ value, onChange, onBlur, errorMessage }) => {
