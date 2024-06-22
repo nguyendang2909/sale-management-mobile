@@ -1,5 +1,5 @@
 import { Divider, Text, View } from '@gluestack-ui/themed';
-import { CreditCard, Info, List } from 'lucide-react-native';
+import { CreditCard, Info } from 'lucide-react-native';
 import { FC } from 'react';
 import { MenuItem } from 'src/components';
 import { SCREENS } from 'src/constants';
@@ -35,7 +35,7 @@ export const ShopManagement: FC<ViewProps> = ({ ...viewProps }) => {
           }}
           isNavigation
         />
-        <Divider />
+        {/* <Divider />
         <MenuItem
           leftIcon={List}
           title="Danh sách cửa hàng"
@@ -43,7 +43,7 @@ export const ShopManagement: FC<ViewProps> = ({ ...viewProps }) => {
           onPress={() => {
             console.log(111);
           }}
-        />
+        /> */}
       </View>
     </View>
   );
