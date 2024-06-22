@@ -82,7 +82,7 @@ export const Input = createStyle({
         },
       },
       md: {
-        h: '$10',
+        h: '$8',
         _input: {
           props: {
             size: 'md',
