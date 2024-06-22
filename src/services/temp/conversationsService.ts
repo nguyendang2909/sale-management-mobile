@@ -4,7 +4,7 @@
 // import { APP_CONFIG } from 'src/config/config.app';
 // import { AppStore, Entity } from 'src/types';
 
-// class MatchesService extends CommonService {
+// class ConversationsService extends CommonService {
 //   constructor() {
 //     super();
 //     this.staleTime = APP_CONFIG.STALE_TIME.DEFAULT;
@@ -34,8 +34,14 @@
 //   }
 
 //   public getCursor(data: Entity.Match[]): string | undefined {
-//     return this.getCursorByField(['createdAt'], data);
+//     const dataLength = data.length;
+//     if (!dataLength) {
+//       return undefined;
+//     }
+//     const lastData = data[dataLength - 1];
+//     const lastField = lastData.lastMessage?._id;
+//     return lastField ? this.encodeFromString(lastField) : undefined;
 //   }
 // }
 
-// export const matchesService = new MatchesService();
+// export const conversationsService = new ConversationsService();

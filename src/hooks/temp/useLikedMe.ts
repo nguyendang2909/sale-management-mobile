@@ -4,7 +4,7 @@ import {
   useGetNextLikedMeMutation,
   useRefreshLikedMeQuery,
 } from 'src/api';
-import { likedMeService } from 'src/services/liked-me.service';
+import { likedMeService } from 'src/services/temp/liked-me.service';
 
 import { useAppSelector } from '../useAppSelector';
 

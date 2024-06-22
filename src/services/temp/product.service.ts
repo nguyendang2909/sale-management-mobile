@@ -4,13 +4,13 @@
 // import { APP_CONFIG } from 'src/config/config.app';
 // import { AppStore, Entity } from 'src/types';
 
-// class MatchesService extends CommonService {
+// class LikedMeService extends CommonService {
 //   constructor() {
 //     super();
 //     this.staleTime = APP_CONFIG.STALE_TIME.DEFAULT;
 //   }
 
-//   formatMany(payload: Entity.Match[], options?: Partial<AppStore.Match>): AppStore.Match[] {
+//   formatMany(payload: Entity.Product[], options?: Partial<AppStore.Product>): AppStore.View[] {
 //     const lastRefreshedAt = moment().toISOString();
 //     return payload.map(e => ({
 //       ...e,
@@ -19,23 +19,24 @@
 //     }));
 //   }
 
-//   formatOne(payload: Entity.Match): AppStore.Match {
+//   formatOne(payload: Entity.Product): AppStore.Product {
+//     const { ...rest } = payload;
 //     return {
-//       ...payload,
+//       ...rest,
 //       lastRefreshedAt: moment().toISOString(),
 //     };
 //   }
 
-//   sortAndUniq(news: AppStore.Match[], olds: AppStore.Match[]) {
+//   sortAndUniq(news: AppStore.Product[], olds: AppStore.Product[]) {
 //     return _.chain([...news, ...olds])
 //       .uniqBy('_id')
-//       .orderBy(['lastMessageAt', 'createdAt'], ['desc', 'desc'])
+//       .orderBy(['createdAt'], ['desc'])
 //       .value();
 //   }
 
-//   public getCursor(data: Entity.Match[]): string | undefined {
-//     return this.getCursorByField(['createdAt'], data);
+//   public getCursor(data: Entity.View[]): string | undefined {
+//     return this.getCursorByField('createdAt', data);
 //   }
 // }
 
-// export const matchesService = new MatchesService();
+// export const likedMeService = new LikedMeService();

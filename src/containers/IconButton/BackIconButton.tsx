@@ -13,6 +13,7 @@ export const BackIconButton: React.FC<{ prevScreen: (typeof SCREENS)[keyof typeo
     if (canGoBack()) {
       goBack();
     }
+    // @ts-ignore
     navigate(prevScreen);
   };
 

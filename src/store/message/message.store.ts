@@ -1,134 +1,134 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import moment from 'moment';
-import { messageEndpoints } from 'src/api';
-import { messagesService } from 'src/services';
-import { AppStore, Entity } from 'src/types';
+// import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+// import moment from 'moment';
+// import { messageEndpoints } from 'src/api';
+// import { messagesService } from 'src/services';
+// import { AppStore, Entity } from 'src/types';
 
-import { appActions } from '../app/app.store';
+// import { appActions } from '../app/app.store';
 
-const initialState: AppStore.MessageState = {
-  data: {},
-  info: {},
-};
+// const initialState: AppStore.MessageState = {
+//   data: {},
+//   info: {},
+// };
 
-export const messageSlice = createSlice({
-  name: 'message',
-  initialState,
-  reducers: {
-    receiveMsg: (state, action: PayloadAction<Entity.Message>) => {
-      const { payload } = action;
-      const matchId = payload._matchId;
-      if (!matchId) {
-        return;
-      }
-      const message = messagesService.formatOne(payload);
-      const oldMessages = state.data[matchId];
-      if (!oldMessages?.length) {
-        state.data[matchId] = [message];
-        return;
-      }
-      state.data[matchId] = [message].concat(oldMessages);
-    },
+// export const messageSlice = createSlice({
+//   name: 'message',
+//   initialState,
+//   reducers: {
+//     receiveMsg: (state, action: PayloadAction<Entity.Message>) => {
+//       const { payload } = action;
+//       const matchId = payload._matchId;
+//       if (!matchId) {
+//         return;
+//       }
+//       const message = messagesService.formatOne(payload);
+//       const oldMessages = state.data[matchId];
+//       if (!oldMessages?.length) {
+//         state.data[matchId] = [message];
+//         return;
+//       }
+//       state.data[matchId] = [message].concat(oldMessages);
+//     },
 
-    sendMsg: (state, { payload }: PayloadAction<Entity.Message>) => {
-      const matchId = payload._matchId;
-      if (!matchId) {
-        return;
-      }
-      const message = messagesService.formatOne(payload, { sent: false });
-      const oldMessages = state.data[matchId];
-      if (!oldMessages?.length) {
-        state.data[matchId] = [message];
-        return;
-      }
-      state.data[matchId] = [message].concat(oldMessages);
-    },
+//     sendMsg: (state, { payload }: PayloadAction<Entity.Message>) => {
+//       const matchId = payload._matchId;
+//       if (!matchId) {
+//         return;
+//       }
+//       const message = messagesService.formatOne(payload, { sent: false });
+//       const oldMessages = state.data[matchId];
+//       if (!oldMessages?.length) {
+//         state.data[matchId] = [message];
+//         return;
+//       }
+//       state.data[matchId] = [message].concat(oldMessages);
+//     },
 
-    updateMsg: (state, action: PayloadAction<Entity.Message>) => {
-      const { payload } = action;
-      const { uuid, _matchId: matchId } = payload;
-      if (!matchId || !uuid) {
-        return;
-      }
-      const message = messagesService.formatOne(payload, { sent: true });
+//     updateMsg: (state, action: PayloadAction<Entity.Message>) => {
+//       const { payload } = action;
+//       const { uuid, _matchId: matchId } = payload;
+//       if (!matchId || !uuid) {
+//         return;
+//       }
+//       const message = messagesService.formatOne(payload, { sent: true });
 
-      const oldMessages = state.data[matchId];
+//       const oldMessages = state.data[matchId];
 
-      if (!oldMessages?.length) {
-        state.data[matchId] = [message];
+//       if (!oldMessages?.length) {
+//         state.data[matchId] = [message];
 
-        return;
-      }
+//         return;
+//       }
 
-      for (let i = 0; i < oldMessages.length; i += 1) {
-        if (uuid === oldMessages[i].uuid) {
-          oldMessages[i] = message;
+//       for (let i = 0; i < oldMessages.length; i += 1) {
+//         if (uuid === oldMessages[i].uuid) {
+//           oldMessages[i] = message;
 
-          return;
-        }
-      }
-    },
+//           return;
+//         }
+//       }
+//     },
 
-    updateRefreshTime: (state, { payload: { matchId } }: PayloadAction<{ matchId: string }>) => {
-      const lastRefreshedAt = moment().toISOString();
-      if (!state.info[matchId]) {
-        state.info[matchId] = {
-          lastRefreshedAt,
-        };
-        return;
-      }
-      state.info[matchId].lastRefreshedAt = lastRefreshedAt;
-    },
-  },
+//     updateRefreshTime: (state, { payload: { matchId } }: PayloadAction<{ matchId: string }>) => {
+//       const lastRefreshedAt = moment().toISOString();
+//       if (!state.info[matchId]) {
+//         state.info[matchId] = {
+//           lastRefreshedAt,
+//         };
+//         return;
+//       }
+//       state.info[matchId].lastRefreshedAt = lastRefreshedAt;
+//     },
+//   },
 
-  extraReducers: builder => {
-    builder.addCase(appActions.logout, state => {
-      state.data = {};
-      state.info = {};
-    });
-    builder
-      .addMatcher(
-        messageEndpoints.refreshMessages.matchFulfilled,
-        (state, { payload: { _matchId, data, pagination } }) => {
-          state.info[_matchId] = {
-            ...state.info[_matchId],
-            isReachedEnd: !pagination._next,
-            lastRefreshedAt: moment().toISOString(),
-          };
-          const messages = messagesService.formatMany(data);
-          const stateData = state.data[_matchId];
-          state.data[_matchId] = messagesService.sortAndUniq(messages, stateData || []);
-        },
-      )
-      .addMatcher(
-        messageEndpoints.getNewestMessages.matchFulfilled,
-        (state, { payload: { _matchId, data, pagination } }) => {
-          state.info[_matchId] = {
-            ...state.info[_matchId],
-            isReachedEnd: !pagination._next,
-            lastRefreshedAt: moment().toISOString(),
-          };
-          const messages = messagesService.formatMany(data);
-          const stateData = state.data[_matchId];
-          state.data[_matchId] = messagesService.sortAndUniq(messages, stateData || []);
-        },
-      )
-      .addMatcher(
-        messageEndpoints.getNewestMessages.matchFulfilled,
-        (state, { payload: { _matchId, data, pagination } }) => {
-          state.info[_matchId] = {
-            ...state.info[_matchId],
-            isReachedEnd: !pagination._next,
-            lastRefreshedAt: moment().toISOString(),
-          };
-          const messages = messagesService.formatMany(data);
-          const stateData = state.data[_matchId];
-          state.data[_matchId] = messagesService.sortAndUniq(messages, stateData || []);
-        },
-      );
-  },
-});
+//   extraReducers: builder => {
+//     builder.addCase(appActions.logout, state => {
+//       state.data = {};
+//       state.info = {};
+//     });
+//     builder
+//       .addMatcher(
+//         messageEndpoints.refreshMessages.matchFulfilled,
+//         (state, { payload: { _matchId, data, pagination } }) => {
+//           state.info[_matchId] = {
+//             ...state.info[_matchId],
+//             isReachedEnd: !pagination._next,
+//             lastRefreshedAt: moment().toISOString(),
+//           };
+//           const messages = messagesService.formatMany(data);
+//           const stateData = state.data[_matchId];
+//           state.data[_matchId] = messagesService.sortAndUniq(messages, stateData || []);
+//         },
+//       )
+//       .addMatcher(
+//         messageEndpoints.getNewestMessages.matchFulfilled,
+//         (state, { payload: { _matchId, data, pagination } }) => {
+//           state.info[_matchId] = {
+//             ...state.info[_matchId],
+//             isReachedEnd: !pagination._next,
+//             lastRefreshedAt: moment().toISOString(),
+//           };
+//           const messages = messagesService.formatMany(data);
+//           const stateData = state.data[_matchId];
+//           state.data[_matchId] = messagesService.sortAndUniq(messages, stateData || []);
+//         },
+//       )
+//       .addMatcher(
+//         messageEndpoints.getNewestMessages.matchFulfilled,
+//         (state, { payload: { _matchId, data, pagination } }) => {
+//           state.info[_matchId] = {
+//             ...state.info[_matchId],
+//             isReachedEnd: !pagination._next,
+//             lastRefreshedAt: moment().toISOString(),
+//           };
+//           const messages = messagesService.formatMany(data);
+//           const stateData = state.data[_matchId];
+//           state.data[_matchId] = messagesService.sortAndUniq(messages, stateData || []);
+//         },
+//       );
+//   },
+// });
 
-export const messageActions = messageSlice.actions;
+// export const messageActions = messageSlice.actions;
 
-export const messageReducer = messageSlice.reducer;
+// export const messageReducer = messageSlice.reducer;

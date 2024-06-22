@@ -5,7 +5,7 @@ import { AppStore, Entity } from 'src/types';
 import { appActions } from '../app/app.store';
 
 const initialState: AppStore.ShopStore = {
-  shop: {
+  current: {
     id: '',
   },
   data: [],

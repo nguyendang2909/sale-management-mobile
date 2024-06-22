@@ -47,18 +47,6 @@ export declare namespace AppStore {
     };
   };
 
-  type ConversationState = {
-    data: AppStore.Match[];
-  };
-
-  type Match = Entity.Match & {
-    lastRefreshedAt: string;
-  };
-
-  type View = Entity.View & {
-    lastRefreshedAt: string;
-  };
-
   type ChatMessage = IMessage & { uuid?: string };
 
   type MessageState = {
@@ -70,18 +58,6 @@ export declare namespace AppStore {
         isReachedEnd?: boolean;
       }
     >;
-  };
-
-  type MatchState = {
-    data: Match[];
-    infoMatches: {
-      lastRefreshedAt?: string;
-      isReachedEnd?: boolean;
-    };
-    infoConversations: {
-      lastRefreshedAt?: string;
-      isReachedEnd?: boolean;
-    };
   };
 
   type Messages = Partial<{

@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import { LoadingOverlay } from 'src/components';
 import { HOME_SCREENS, SCREENS } from 'src/constants';
 import { useAppDispatch, useShops } from 'src/hooks';
-import { appActions } from 'src/store';
+import { shopActions } from 'src/store/shop';
 
 export const ShopsScreen: React.FC = () => {
   const navigation = useNavigation();
@@ -19,7 +19,7 @@ export const ShopsScreen: React.FC = () => {
           return;
         }
         if (shopData.length === 1) {
-          dispatch(appActions.setShop(shopData[0]));
+          dispatch(shopActions.setShop(shopData[0]));
           navigation.dispatch(
             StackActions.replace(SCREENS.HOME, { screen: HOME_SCREENS.MANAGEMENT }),
           );
