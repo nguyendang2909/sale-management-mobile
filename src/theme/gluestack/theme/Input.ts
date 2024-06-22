@@ -95,7 +95,7 @@ export const Input = createStyle({
         },
       },
       sm: {
-        h: '$9',
+        h: '$7',
         _input: {
           props: {
             size: 'sm',
