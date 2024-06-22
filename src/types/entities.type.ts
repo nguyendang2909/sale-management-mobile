@@ -8,7 +8,6 @@ import {
   ProductSpecificationType,
   Role,
   UserStatus,
-  WorkingTimeType,
 } from './data.type';
 
 export declare namespace Entity {
@@ -87,7 +86,6 @@ export declare namespace Entity {
       phone: string;
       address: string;
       description?: string;
-      workingTimeType: WorkingTimeType;
       openTime?: string;
       closeTime?: string;
       businessTypes?: string[];

@@ -12,7 +12,7 @@ const shopApi = api.injectEndpoints({
         method: API_METHODS.GET,
       }),
     }),
-    fetchShop: builder.query<ApiResponse.Shops, string>({
+    fetchShop: builder.query<ApiResponse.Shop, string>({
       query: shopId => ({
         url: API_ENDPOINTS.SHOPS.SHOP_ID.get(shopId),
         method: API_METHODS.GET,

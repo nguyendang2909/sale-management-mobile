@@ -10,7 +10,6 @@ import {
   PRODUCT_SPECIFICATION_TYPES,
   ROLES,
   USER_STATUSES,
-  WORKING_TIME_TYPES,
 } from '../constants';
 import { ValueOf } from '.';
 
@@ -51,8 +50,6 @@ export type Client = AccessTokenSignPayload & {
 export type DevicePlatform = ValueOf<typeof DEVICE_PLATFORMS>;
 
 export type Business = ValueOf<typeof BUSINESSES>;
-
-export type WorkingTimeType = ValueOf<typeof WORKING_TIME_TYPES>;
 
 export type OrderStatus = ValueOf<typeof ORDER_STATUSES>;
 

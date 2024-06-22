@@ -105,12 +105,12 @@ export const FormControlInput = forwardRef(
               </InputSlot>
             )}
           </Input>
-          <View pb={12}>
-            <FormControlError position="absolute">
+          <View pb={16}>
+            <FormControlError position="absolute" left={0} right={0}>
               {/* 
         // @ts-ignore */}
               <FormControlErrorIcon as={MaterialIcons} name="error-outline"></FormControlErrorIcon>
-              <FormControlErrorText>{error}</FormControlErrorText>
+              <FormControlErrorText numberOfLines={1}>{error}</FormControlErrorText>
             </FormControlError>
           </View>
         </FormControl>

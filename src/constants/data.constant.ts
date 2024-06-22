@@ -121,11 +121,6 @@ export const BUSINESS_LEVELS = [
   },
 ] as const;
 
-export const WORKING_TIME_TYPES = {
-  ALWAYS_OPEN: 'always_open',
-  STANDARD_TIME: 'standard_time',
-} as const;
-
 export const ORDER_STATUSES = {
   UNCONFIRMED: 'unconfirmed',
   PROCESSING: 'processing',

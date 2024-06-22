@@ -1,5 +1,4 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { WORKING_TIME_TYPES } from 'src/constants';
 import { ApiRequest, AppStore, FormParams } from 'src/types';
 import * as Yup from 'yup';
 
@@ -7,16 +6,12 @@ class UpdateShopFormUtil {
   getResolver() {
     return yupResolver<FormParams.UpdateShop>(
       Yup.object({
-        title: Yup.string().required(),
+        title: Yup.string().required('Thông tin bắt buộc'),
         phone: Yup.string().required().nullable(),
         address: Yup.string().required().nullable(),
         description: Yup.string().required().nullable(),
-        workingTimeType: Yup.string()
-          .oneOf(Object.values(WORKING_TIME_TYPES))
-          .required()
-          .nullable(),
-        openHour: Yup.string().required().nullable(),
-        closeHour: Yup.string().required().nullable(),
+        openTime: Yup.string().required(),
+        closeTime: Yup.string().required(),
       }),
     );
   }
@@ -25,11 +20,10 @@ class UpdateShopFormUtil {
     return {
       title: shop.title || '',
       phone: shop.phone || null,
-      address: '',
-      description: '',
-      workingTimeType: null,
-      openHour: '',
-      closeHour: '',
+      address: shop.address || null,
+      description: shop.description || null,
+      openTime: shop.openTime || '00:00',
+      closeTime: shop.closeTime || '23:59',
     };
   }
 

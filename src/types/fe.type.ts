@@ -3,13 +3,7 @@ import { ORDER_SETTINGS, PRODUCT_SETTINGS } from 'src/constants/constants';
 
 import { AppStore } from './app-store.type';
 import { ValueOf } from './common.type';
-import {
-  AuthGrantType,
-  DevicePlatform,
-  OrderPaymentMethod,
-  OrderStatus,
-  WorkingTimeType,
-} from './data.type';
+import { AuthGrantType, DevicePlatform, OrderPaymentMethod, OrderStatus } from './data.type';
 import { Entity } from './entities.type';
 
 export declare namespace ApiRequest {
@@ -246,7 +240,6 @@ export declare namespace ApiRequest {
     phone?: string | null;
     address?: string | null;
     description?: string | null;
-    workingTimeType?: WorkingTimeType | null;
     openTime?: string | null;
     closeTime?: string | null;
     businessTypes?: string[] | null;

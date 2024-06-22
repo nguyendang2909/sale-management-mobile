@@ -50,7 +50,7 @@ const persistedReducer = persistReducer(
   {
     key: 'root',
     storage: AsyncStorage,
-    whitelist: ['theme', 'app', 'message', 'product', 'category', 'customer'],
+    whitelist: ['theme', 'app', 'message', 'product', 'category', 'customer', 'shop'],
   },
   reducers,
 );

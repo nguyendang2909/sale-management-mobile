@@ -27,12 +27,19 @@ export const shopSlice = createSlice({
       };
     });
 
-    builder.addMatcher(
-      shopEndpoints.fetchAllShops.matchFulfilled,
-      (state, { payload: { data } }) => {
+    builder
+      .addMatcher(shopEndpoints.fetchAllShops.matchFulfilled, (state, { payload: { data } }) => {
         state.data = data || [];
-      },
-    );
+      })
+      .addMatcher(shopEndpoints.fetchShop.matchFulfilled, (state, { payload: { data } }) => {
+        if (state.current.id === data.id) {
+          state.current = data;
+        }
+        const shopIndex = state.data.findIndex(shop => shop.id === data.id);
+        if (shopIndex >= 0) {
+          state.data[shopIndex] = data;
+        }
+      });
     //   .addMatcher(
     //     likeEndpoints.getNextLikedMe.matchFulfilled,
     //     (state, { payload: { data, pagination } }) => {
