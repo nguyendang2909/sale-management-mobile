@@ -11,7 +11,7 @@ import { ChevronDownIcon } from 'lucide-react-native';
 import { FC } from 'react';
 import { Control, Controller, UseFormSetValue, UseFormWatch } from 'react-hook-form';
 import { TouchableOpacity } from 'react-native';
-import { useDisclose } from 'src/hooks';
+import { useDisclose, useInit } from 'src/hooks';
 import { FormParams } from 'src/types';
 
 import { ActionSheetWorkingTime } from '../../actionsheet/actionsheet-working-time';
@@ -29,6 +29,8 @@ export const ControlWorkingTime: FC<{
 
   const [openTime, closeTime] = watch(['openTime', 'closeTime']);
 
+  const { isInit: isInitActionsheet } = useInit();
+
   return (
     <>
       <FormControlLabel>
@@ -36,7 +38,6 @@ export const ControlWorkingTime: FC<{
       </FormControlLabel>
       <TouchableOpacity onPress={onOpenActionsheet}>
         <Input variant="underlined">
-          {/* <ButtonIcon as={Calendar} mr={8}></ButtonIcon> */}
           <HStack flex={1} alignItems="center">
             <Controller
               control={control}
@@ -58,15 +59,17 @@ export const ControlWorkingTime: FC<{
         </Input>
       </TouchableOpacity>
 
-      <ActionSheetWorkingTime
-        isOpen={isOpenActionSheet}
-        onClose={onCloseActionsheet}
-        setValue={setValue}
-        defaultValues={{
-          openTime,
-          closeTime,
-        }}
-      />
+      {isInitActionsheet && (
+        <ActionSheetWorkingTime
+          isOpen={isOpenActionSheet}
+          onClose={onCloseActionsheet}
+          setValue={setValue}
+          defaultValues={{
+            openTime,
+            closeTime,
+          }}
+        />
+      )}
     </>
   );
 };
