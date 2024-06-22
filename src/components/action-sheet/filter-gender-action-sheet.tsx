@@ -1,81 +1,81 @@
-import {
-  Actionsheet,
-  ActionsheetBackdrop,
-  ActionsheetContent,
-  ActionsheetDragIndicator,
-  ActionsheetDragIndicatorWrapper,
-  ActionsheetItem,
-  Box,
-  Heading,
-  Text,
-} from '@gluestack-ui/themed';
-import { FC, useEffect, useState } from 'react';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { ARR_GENDERS } from 'src/constants';
-import { GENDER_MESSAGES, UserGender } from 'src/constants/constants';
-import { useMessages } from 'src/hooks';
-import { Gender } from 'src/types';
+// import {
+//   Actionsheet,
+//   ActionsheetBackdrop,
+//   ActionsheetContent,
+//   ActionsheetDragIndicator,
+//   ActionsheetDragIndicatorWrapper,
+//   ActionsheetItem,
+//   Box,
+//   Heading,
+//   Text,
+// } from '@gluestack-ui/themed';
+// import { FC, useEffect, useState } from 'react';
+// import { useSafeAreaInsets } from 'react-native-safe-area-context';
+// import { ARR_GENDERS } from 'src/constants';
+// import { GENDER_MESSAGES, UserGender } from 'src/constants/constants';
+// import { useMessages } from 'src/hooks';
+// import { Gender } from 'src/types';
 
-type FilterGenderActionSheetProps = {
-  isOpen: boolean;
-  onClose: () => void;
-  value?: UserGender;
-  onChange: (e: UserGender) => void;
-};
+// type FilterGenderActionSheetProps = {
+//   isOpen: boolean;
+//   onClose: () => void;
+//   value?: UserGender;
+//   onChange: (e: UserGender) => void;
+// };
 
-export const FilterGenderActionSheet: FC<FilterGenderActionSheetProps> = ({
-  isOpen,
-  onClose,
-  value,
-  onChange,
-}) => {
-  const { formatMessage } = useMessages();
-  const { bottom: bottomSafeHeight } = useSafeAreaInsets();
-  const [init, setInit] = useState<boolean>(false);
+// export const FilterGenderActionSheet: FC<FilterGenderActionSheetProps> = ({
+//   isOpen,
+//   onClose,
+//   value,
+//   onChange,
+// }) => {
+//   const { formatMessage } = useMessages();
+//   const { bottom: bottomSafeHeight } = useSafeAreaInsets();
+//   const [init, setInit] = useState<boolean>(false);
 
-  useEffect(() => {
-    if (isOpen) {
-      setInit(true);
-    }
-  }, [isOpen]);
+//   useEffect(() => {
+//     if (isOpen) {
+//       setInit(true);
+//     }
+//   }, [isOpen]);
 
-  const handleChange = (e: Gender) => {
-    onChange(e);
-    onClose();
-  };
+//   const handleChange = (e: Gender) => {
+//     onChange(e);
+//     onClose();
+//   };
 
-  if (!init) {
-    return <></>;
-  }
+//   if (!init) {
+//     return <></>;
+//   }
 
-  return (
-    <Actionsheet isOpen={isOpen} onClose={onClose} zIndex={999}>
-      <ActionsheetBackdrop />
-      <ActionsheetContent zIndex={999}>
-        <ActionsheetDragIndicatorWrapper>
-          <ActionsheetDragIndicator />
-        </ActionsheetDragIndicatorWrapper>
-        <Box mb={16}>
-          <Heading size="sm" textAlign="center">
-            {formatMessage('Show me')}
-          </Heading>
-        </Box>
-        {ARR_GENDERS.map(e => {
-          return (
-            <ActionsheetItem
-              key={e}
-              onPress={() => {
-                handleChange(e);
-              }}
-            >
-              <Text fontWeight={e === value ? 'bold' : undefined}>
-                {formatMessage(GENDER_MESSAGES[e])}
-              </Text>
-            </ActionsheetItem>
-          );
-        })}
-        <Box mb={bottomSafeHeight} />
-      </ActionsheetContent>
-    </Actionsheet>
-  );
-};
+//   return (
+//     <Actionsheet isOpen={isOpen} onClose={onClose} zIndex={999}>
+//       <ActionsheetBackdrop />
+//       <ActionsheetContent zIndex={999}>
+//         <ActionsheetDragIndicatorWrapper>
+//           <ActionsheetDragIndicator />
+//         </ActionsheetDragIndicatorWrapper>
+//         <Box mb={16}>
+//           <Heading size="sm" textAlign="center">
+//             {formatMessage('Show me')}
+//           </Heading>
+//         </Box>
+//         {ARR_GENDERS.map(e => {
+//           return (
+//             <ActionsheetItem
+//               key={e}
+//               onPress={() => {
+//                 handleChange(e);
+//               }}
+//             >
+//               <Text fontWeight={e === value ? 'bold' : undefined}>
+//                 {formatMessage(GENDER_MESSAGES[e])}
+//               </Text>
+//             </ActionsheetItem>
+//           );
+//         })}
+//         <Box mb={bottomSafeHeight} />
+//       </ActionsheetContent>
+//     </Actionsheet>
+//   );
+// };
