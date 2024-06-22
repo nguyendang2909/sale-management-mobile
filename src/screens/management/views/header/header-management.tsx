@@ -50,7 +50,9 @@ export const HeaderManagement = () => {
       RightActionComponent={
         <View mr={16} flex={1} justifyContent="center" alignItems="center">
           <TouchableOpacity onPress={handlePressBell}>
-            <Icon size="xl" as={Bell} color="$white"></Icon>
+            <View p={4}>
+              <Icon size="xl" as={Bell} color="$white"></Icon>
+            </View>
           </TouchableOpacity>
         </View>
       }

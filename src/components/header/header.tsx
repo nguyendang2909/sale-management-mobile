@@ -184,7 +184,8 @@ function HeaderAction(props: HeaderActionProps) {
         alignItems="center"
         as={onPress ? TouchableOpacity : View}
         {...(onPress ? { onPress } : {})}
-        p={8}
+        p={4}
+        ml={4}
       >
         <Icon as={icon || ChevronLeft} size="xl" color={onPress ? '$primary600' : '$coolGray500'} />
         {!!content && (
