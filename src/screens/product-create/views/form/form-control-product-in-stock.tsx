@@ -17,7 +17,7 @@ export const ProductInStockControl: FC<
             <FormControlSwitch
               {...viewProps}
               title="Còn hàng"
-              value={field.value}
+              value={!!field.value}
               setValue={field.onChange}
             />
           </View>

@@ -95,6 +95,7 @@ export const InputPaymentAmount = forwardRef<TextInput, FCProps>(
               placeholder={placeholder}
               maxLength={maxLength}
               onBlur={onBlur}
+              // @ts-ignore
               ref={ref}
             ></InputField>
           </Input>

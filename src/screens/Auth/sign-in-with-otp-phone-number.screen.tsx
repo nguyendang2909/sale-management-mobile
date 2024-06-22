@@ -23,7 +23,7 @@ import { AUTH_GRANT_TYPES, SCREENS } from 'src/constants';
 import { BackIconButton } from 'src/containers/IconButton/BackIconButton';
 import { useAfterLogin, useAppDispatch, useMessages, useUserData } from 'src/hooks';
 import { goBack } from 'src/navigations/navigation-ref';
-import { AppStackScreenProps } from 'src/navigators/main-stack';
+import { AppStackScreenProps } from 'src/navigators/main.stack';
 import { appActions } from 'src/store/app/app.store';
 import { flexGrow, marginTop, paddingHorizontal, paddingVertical } from 'src/styles';
 import { spacing } from 'src/theme';
