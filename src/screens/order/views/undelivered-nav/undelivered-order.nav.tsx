@@ -1,7 +1,10 @@
 import { Button, ButtonText, View } from '@gluestack-ui/themed';
 import { FC, useCallback } from 'react';
+import Toast from 'react-native-toast-message';
+import { UpdateOrderMutation } from 'src/api';
 import { ViewFooter } from 'src/components';
-import { SCREENS } from 'src/constants';
+import { ORDER_STATUSES, SCREENS } from 'src/constants';
+import { RefetchOrder, useMessages } from 'src/hooks';
 import { navigate } from 'src/navigations';
 import { AppStore, ViewProps } from 'src/types';
 
@@ -10,11 +13,31 @@ import { ButtonCancelOrder } from './button-cancel-order';
 export const UndeliveredOrderNav: FC<
   ViewProps & {
     order: AppStore.Order;
+    shouldPay: boolean;
+    updateOrderMutation: UpdateOrderMutation;
+    refetchOrder: RefetchOrder;
   }
-> = ({ order, ...viewProps }) => {
-  const handleDelivery = useCallback(() => {
-    navigate(SCREENS.ORDER_PAYMENT, { order, updateStatusDelivered: true });
-  }, [order]);
+> = ({ order, shouldPay, updateOrderMutation, refetchOrder, ...viewProps }) => {
+  const { formatErrorMessage } = useMessages();
+  const handleDelivery = useCallback(async () => {
+    if (shouldPay) {
+      navigate(SCREENS.ORDER_PAYMENT, { order, updateStatusDelivered: true });
+      return;
+    }
+    try {
+      await updateOrderMutation({
+        id: order.id,
+        body: {
+          status: ORDER_STATUSES.DELIVERED,
+        },
+      }).unwrap();
+      await refetchOrder();
+    } catch (err) {
+      Toast.show({
+        text1: formatErrorMessage(err),
+      });
+    }
+  }, [formatErrorMessage, order, refetchOrder, shouldPay, updateOrderMutation]);
 
   return (
     <>

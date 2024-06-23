@@ -9,12 +9,7 @@ export const useSearchProductsByCategoryId = ({ categoryId }: { categoryId: stri
   const [searchText, setSearchText] = useState<string>();
   const [sortBy, setSortBy] = useState<ProductSortType | undefined>();
 
-  const {
-    data: fetchData,
-    refetch,
-    isFetching,
-    isLoading,
-  } = useFetchAllProductsByCategoryIdQuery(
+  const { data: fetchData, ...restQuery } = useFetchAllProductsByCategoryIdQuery(
     {
       categoryId,
     },
@@ -22,7 +17,7 @@ export const useSearchProductsByCategoryId = ({ categoryId }: { categoryId: stri
       refetchOnMountOrArgChange: true,
     },
   );
-  const { isRefreshing, setRefreshing, refresh } = useRefreshQuery(refetch);
+  const refreshQuery = useRefreshQuery(restQuery.refetch);
 
   const data = useMemo(() => fetchData?.data || [], [fetchData?.data]);
 
@@ -32,16 +27,12 @@ export const useSearchProductsByCategoryId = ({ categoryId }: { categoryId: stri
   );
 
   return {
+    ...restQuery,
+    ...refreshQuery,
     data: products,
-    refetch,
-    isFetching,
     searchText,
     setSearchText,
     sortBy,
     setSortBy,
-    isRefreshing,
-    setRefreshing,
-    refresh,
-    isLoading,
   };
 };

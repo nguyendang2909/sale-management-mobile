@@ -133,7 +133,7 @@ export const Header: FC<HeaderProps> = (props: HeaderProps) => {
             >
               <Text
                 numberOfLines={1}
-                fontWeight="$medium"
+                fontWeight="$semibold"
                 size="md"
                 style={[$title, $titleStyleOverride]}
               >
@@ -192,7 +192,7 @@ function HeaderAction(props: HeaderActionProps) {
           <View style={[$actionTextContainer, { backgroundColor }]}>
             <Text
               numberOfLines={1}
-              fontWeight="$medium"
+              fontWeight="$light"
               size="md"
               color={onPress ? '$primary600' : ''}
             >

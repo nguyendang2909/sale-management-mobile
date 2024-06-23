@@ -10,8 +10,8 @@ import { useAppSelector } from './useAppSelector';
 
 export const useSearchProducts = () => {
   const dispatch = useAppDispatch();
-  const { isFetching, refetch, isLoading } = useFetchAllProductsQuery({});
-  const { isRefreshing, setRefreshing, refresh } = useRefreshQuery(refetch);
+  const query = useFetchAllProductsQuery({});
+  const refreshQuery = useRefreshQuery(query.refetch);
   const data = useAppSelector(s => s.product.data);
   const searchText = useAppSelector(s => s.cache.product.searchText);
   const [sortBy, setSortBy] = useState<ProductSortType | undefined>();
@@ -33,15 +33,11 @@ export const useSearchProducts = () => {
   }, [dispatch]);
 
   return {
-    data: products,
-    refetch,
-    isFetching,
-    isLoading,
-    isRefreshing,
-    setRefreshing,
-    refresh,
+    ...query,
+    ...refreshQuery,
     setSortBy,
     searchText,
     setSearchText,
+    data: products,
   };
 };

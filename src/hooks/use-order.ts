@@ -1,22 +1,20 @@
 import { useFetchOrderQuery } from 'src/api';
-import { Entity } from 'src/types';
+import { AppStore, UseQuerySubscriptionOptions } from 'src/types';
 
-export const useOrder = (detail: Entity.Order) => {
-  const {
-    refetch,
-    isFetching,
-    data: fetchedData,
-    isLoading,
-  } = useFetchOrderQuery(detail.id, {
-    refetchOnMountOrArgChange: true,
-  });
+import { useRefreshQuery } from './use-refreshing-query';
+
+export const useOrder = (detail: AppStore.Order, options?: UseQuerySubscriptionOptions) => {
+  const { data: fetchedData, ...restQuery } = useFetchOrderQuery(detail.id, options);
 
   const data = fetchedData?.data || detail;
 
+  const refreshQuery = useRefreshQuery(restQuery.refetch);
+
   return {
-    data: data || detail,
-    refetch,
-    isFetching,
-    isLoading,
+    ...restQuery,
+    ...refreshQuery,
+    data,
   };
 };
+
+export type RefetchOrder = ReturnType<typeof useOrder>['refetch'];

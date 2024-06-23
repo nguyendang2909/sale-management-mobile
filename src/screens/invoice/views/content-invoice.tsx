@@ -11,6 +11,7 @@ import { InvoiceOrderItem } from './orders/invoice-order-item';
 
 export const ContentInvoice: FC<{ detail: AppStore.Order }> = ({ detail }) => {
   const { data: order, isLoading: isLoadingOrder } = useOrder(detail);
+
   return (
     <>
       <LoadingOverlay isLoading={isLoadingOrder} />

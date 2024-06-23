@@ -6,7 +6,6 @@ import { MenuItemDeleteAccount } from './menu-item/menu-item-delete-data';
 
 export const DataManagement: FC<
   ViewProps & {
-    isLoading: boolean;
     onDeleteAccount: () => Promise<void>;
   }
 > = ({ onDeleteAccount, ...viewProps }) => {

@@ -128,3 +128,5 @@ export const {
   useUpdateOrderMutation,
   endpoints: orderEndpoints,
 } = productApi;
+
+export type UpdateOrderMutation = ReturnType<typeof useUpdateOrderMutation>[0];

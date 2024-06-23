@@ -8,12 +8,14 @@ import { OrderHeader } from './views/order-header';
 type FCProps = AppStackScreenProps<'ORDER'>;
 
 export const OrderScreen: FC<FCProps> = props => {
-  const { data: order, isFetching: isFetchingOrder } = useOrder(props.route.params.detail);
+  const { data: order, refetch: refetchOrder } = useOrder(props.route.params.detail, {
+    refetchOnMountOrArgChange: true,
+  });
 
   return (
     <>
       <OrderHeader order={order} />
-      <OrderContent order={order} isFetchingOrder={isFetchingOrder} mt={16} />
+      <OrderContent order={order} mt={16} refetchOrder={refetchOrder} />
     </>
   );
 };

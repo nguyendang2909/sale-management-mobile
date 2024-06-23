@@ -22,6 +22,7 @@ export const OrderHeader: FC<{ order: Entity.Order }> = () => {
       <Header
         leftText="Đơn hàng"
         leftIcon={ChevronLeft}
+        title="Chi tiết"
         onLeftPress={onLeftPress}
         RightActionComponent={
           <View pr={8}>

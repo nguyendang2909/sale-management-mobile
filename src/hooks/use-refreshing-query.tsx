@@ -27,5 +27,5 @@ export const useRefreshQuery = (
     }
   }, [cb, isRefreshing, options.isEnabled]);
 
-  return { isRefreshing: isRefreshingMemo, setRefreshing, refresh };
+  return { isRefreshing: isRefreshingMemo, refresh };
 };
