@@ -9,14 +9,13 @@ import { useUpdateProductMutation } from 'src/api';
 import { LoadingOverlay } from 'src/components';
 import { HOME_SCREENS, SCREENS } from 'src/constants';
 import { useMessages, useProduct } from 'src/hooks';
-import { useCategories } from 'src/hooks/useCategories';
 import { ApiRequest, AppStore, FormParams } from 'src/types';
 import { updateProductFormUtil } from 'src/utils';
 import { formParamUtil } from 'src/utils/form-params.util';
 
 import { ProductInStockControl } from './form/form-control-product-in-stock';
 import { ProductCapitalPriceControl } from './form/product-capital-price.control';
-import { ProductCategoriesControl } from './form/product-categories.control';
+import { ControlProductCategories } from './form/control-product-categories';
 import { ProductImagesControl } from './form/product-images.control';
 import { ProductPriceControl } from './form/product-price.control';
 import { ProductPromotionalPriceControl } from './form/product-promotional-price.control';
@@ -32,7 +31,6 @@ type FCProps = {
 };
 export const ContentProduct: FC<FCProps> = ({ detail }) => {
   const navigation = useNavigation();
-  useCategories();
   const {
     data: product,
     isLoading: isLoadingProduct,
@@ -67,7 +65,7 @@ export const ContentProduct: FC<FCProps> = ({ detail }) => {
 
   const onSubmit: SubmitHandler<FormParams.UpdateProduct> = async values => {
     try {
-      const { images, categories, skus, attributes, ...restValues } = values;
+      const { images, skus, attributes, ...restValues } = values;
       const body: ApiRequest.UpdateProduct = {
         ...formParamUtil.getDifferent(restValues, defaultValues),
       };
@@ -80,9 +78,6 @@ export const ContentProduct: FC<FCProps> = ({ detail }) => {
       }
       if (images?.length) {
         body.imageIds = images.map(e => e.id);
-      }
-      if (categories.length) {
-        body.categoryIds = categories.map(e => e.id);
       }
       await updateProductMutation({ id: product.id, body }).unwrap();
       await refetchProduct();
@@ -153,7 +148,7 @@ export const ContentProduct: FC<FCProps> = ({ detail }) => {
                         </>
                       )}
                       <ProductUnitControl mt={16} control={control} />
-                      <ProductCategoriesControl mt={16} control={control} />
+                      <ControlProductCategories mt={16} control={control} />
                     </View>
                     <View px={16} py={16} bgColor="$white">
                       <View>

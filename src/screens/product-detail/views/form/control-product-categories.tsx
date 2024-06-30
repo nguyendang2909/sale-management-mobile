@@ -1,22 +1,21 @@
 import { View } from '@gluestack-ui/themed';
 import { ComponentProps, FC } from 'react';
 import { Control, Controller } from 'react-hook-form';
+import { PickerProductCategories } from 'src/screens/product-create/views/form/form/picker-product-categories';
 import { FormParams } from 'src/types';
 
-import { ProductCategoryForm } from './form/product-category.form';
-
-export const ProductCategoriesControl: FC<
+export const ControlProductCategories: FC<
   ComponentProps<typeof View> & { control: Control<FormParams.UpdateProduct, any> }
 > = ({ control, ...viewProps }) => {
   return (
     <>
       <Controller
         control={control}
-        name="categories"
+        name="categoryIds"
         render={({ field }) => {
           return (
             <View {...viewProps}>
-              <ProductCategoryForm value={field.value} onChange={field.onChange} />
+              <PickerProductCategories value={field.value} onChange={field.onChange} />
             </View>
           );
         }}
