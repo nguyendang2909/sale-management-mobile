@@ -44,7 +44,7 @@ export const SaleReportsScreen = () => {
     refreshSaleStatistics();
   };
 
-  console.log(111, saleStatistics);
+  // console.log(111222, saleStatistics);
 
   return (
     <>
