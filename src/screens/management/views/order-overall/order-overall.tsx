@@ -2,7 +2,7 @@ import { HStack, Icon, Text, View } from '@gluestack-ui/themed';
 import { ChevronRight } from 'lucide-react-native';
 import { FC } from 'react';
 import { TouchableOpacity } from 'react-native';
-import { HOME_SCREENS, SCREENS } from 'src/constants';
+import { SCREENS } from 'src/constants';
 import { navigate } from 'src/navigations';
 import { ViewProps } from 'src/types';
 
@@ -17,9 +17,7 @@ export const OrderOverall: FC<
   }
 > = ({ overall, ...viewProps }) => {
   const handlePressAll = () => {
-    navigate(SCREENS.HOME, {
-      screen: HOME_SCREENS.ORDERS,
-    });
+    navigate(SCREENS.ORDERS_CHILD);
   };
 
   return (
