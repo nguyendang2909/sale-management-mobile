@@ -11,7 +11,7 @@ export const IconButtonEdit: FC<
 > = ({ onPress, ...viewProps }) => {
   return (
     <View
-      p={8}
+      p={4}
       {...viewProps}
       as={TouchableOpacity}
       // @ts-ignore

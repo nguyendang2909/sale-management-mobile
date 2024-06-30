@@ -12,9 +12,10 @@ export const IconButtonSearch: FC<
 > = ({ isSearching, onClose, onOpen, ...viewProps }) => {
   return (
     <View
-      p={8}
+      p={4}
       {...(isSearching ? viewProps : {})}
       as={TouchableOpacity}
+      // @ts-ignore
       onPress={isSearching ? onOpen : onClose}
     >
       {isSearching ? (

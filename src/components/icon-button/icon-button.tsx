@@ -10,7 +10,7 @@ export const IconButtonRounded: FC<ViewProps & PropsWithChildren & { onPress?: (
 }) => {
   return (
     <View
-      p={8}
+      p={4}
       as={TouchableOpacity}
       borderRadius={1000}
       borderWidth={1}

@@ -44,7 +44,7 @@ export const HeaderCategory: FC<{
         onLeftPress={handleBack}
         RightActionComponent={
           <>
-            <HStack gap={0}>
+            <HStack gap={4}>
               <IconButtonSearch
                 isSearching={isSearching}
                 onOpen={onOpenSearch}
