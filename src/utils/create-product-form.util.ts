@@ -15,7 +15,7 @@ class CreateProductFormUtil {
         isInStock: Yup.boolean().required().nullable(),
         sku: Yup.string().max(200).optional(),
         unit: Yup.string().max(50).required().nullable(),
-        categories: Yup.array().max(5).required(),
+        categoryIds: Yup.array().max(5).required(),
         images: Yup.array().max(6).required(),
         // minWholesalePriceQuantity: Yup.number().integer('Số lượng sản phẩm không đúng').optional(),
         barcode: Yup.string().optional(),
@@ -82,7 +82,7 @@ class CreateProductFormUtil {
       unit: null,
       label: null,
       createMore: false,
-      categories: [],
+      categoryIds: [],
       images: [],
       attributes: [
         {

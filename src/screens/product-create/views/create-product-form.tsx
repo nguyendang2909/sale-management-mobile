@@ -14,14 +14,13 @@ import { useCreateProductMutation, useLazyFetchProductQuery } from 'src/api';
 import { ViewFooter } from 'src/components';
 import { HOME_SCREENS, SCREENS } from 'src/constants';
 import { useMessages } from 'src/hooks';
-import { useCategories } from 'src/hooks/useCategories';
 import { ApiRequest, FormParams } from 'src/types';
 import { createProductFormUtil } from 'src/utils';
 
+import { ControlProductCategories } from './form/control-product-categories';
 import { FormControlProductAdditional } from './form/form-control-product-additional';
 import { ProductInStockControl } from './form/form-control-product-in-stock';
 import { ProductCapitalPriceControl } from './form/product-capital-price.control';
-import { ProductCategoriesControl } from './form/product-categories.control';
 import { ProductImagesControl } from './form/product-images.control';
 import { ProductPriceControl } from './form/product-price.control';
 import { ProductPromotionalPriceControl } from './form/product-promotional-price.control';
@@ -32,8 +31,6 @@ import { ProductTrackingStockControl } from './form/product-tracking-stock.contr
 import { ProductUnitControl } from './form/product-unit.control';
 
 export const CreateProductForm: FC = () => {
-  useCategories();
-
   const navigation = useNavigation();
   const { formatErrorMessage } = useMessages();
   const [createProduct] = useCreateProductMutation();
@@ -55,7 +52,7 @@ export const CreateProductForm: FC = () => {
 
   const onSubmit: SubmitHandler<FormParams.CreateProduct> = async values => {
     try {
-      const { createMore, images, categories, skus, ...restValues } = values;
+      const { createMore, images, skus, ...restValues } = values;
       const payload: ApiRequest.CreateProduct = {
         ...restValues,
         skus: skus.map(e => ({ ...e, price: e.price || 0 })),
@@ -63,15 +60,12 @@ export const CreateProductForm: FC = () => {
       if (images.length) {
         payload.imageIds = images.map(e => e.id);
       }
-      if (categories.length) {
-        payload.categoryIds = categories.map(e => e.id);
-      }
       const data = await createProduct(payload).unwrap();
+      fetchProduct(data.data.id);
       if (createMore) {
         reset(createProductFormUtil.getDefaultValues());
         return;
       }
-      fetchProduct(data.data.id);
       navigation.dispatch(StackActions.replace(SCREENS.HOME, { screen: HOME_SCREENS.PRODUCTS }));
     } catch (error) {
       Toast.show({
@@ -142,7 +136,7 @@ export const CreateProductForm: FC = () => {
                       </>
                     )}
                     <ProductUnitControl mt={16} control={control} />
-                    <ProductCategoriesControl mt={16} control={control} />
+                    <ControlProductCategories mt={16} control={control} />
                   </View>
                   <View px={16} py={16} bgColor="$white">
                     <View>

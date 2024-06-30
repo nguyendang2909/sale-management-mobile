@@ -6,11 +6,11 @@ import { SelectCategoryCheckbox } from './select-category-item';
 
 type FCProps = {
   categories: AppStore.Category[];
-  setCategory: (category: AppStore.Category) => void;
-  value: AppStore.Category[];
+  onPress: (categoryId: string) => void;
+  value: string[];
 };
 
-export const SelectCategoriesCheckbox: FC<FCProps> = ({ categories, value, setCategory }) => {
+export const SelectCategoriesCheckbox: FC<FCProps> = ({ categories, value, onPress }) => {
   return (
     <View
       flexDirection="row"
@@ -23,8 +23,8 @@ export const SelectCategoriesCheckbox: FC<FCProps> = ({ categories, value, setCa
           <SelectCategoryCheckbox
             key={category.id}
             category={category}
-            setCategory={setCategory}
-            value={!!value.find(e => e.id === category.id)}
+            onPress={onPress}
+            value={!!value.find(e => e === category.id)}
           />
         );
       })}

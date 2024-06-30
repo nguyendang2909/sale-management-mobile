@@ -4,9 +4,10 @@ import { useNavigation } from '@react-navigation/native';
 import { FC, useEffect, useRef, useState } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { Modal, TextInput } from 'react-native';
-import { useCreateCategoryMutation, useLazyFetchCategoryQuery } from 'src/api';
+import { useCreateCategoryMutation } from 'src/api';
 import { FormControlInput, Header } from 'src/components';
 import { AlertError } from 'src/components/alert/alert-error';
+import { SCREENS } from 'src/constants';
 import { useMessages } from 'src/hooks';
 import { FormParams } from 'src/types';
 import * as Yup from 'yup';
@@ -21,7 +22,6 @@ export const ModalCreateCategory: FC<FCProps> = ({ onClose, isVisible, onChange 
   const navigation = useNavigation();
   const { formatErrorMessage } = useMessages();
   const [createCategory] = useCreateCategoryMutation();
-  const [fetchCategory] = useLazyFetchCategoryQuery();
   const [errorResponse, setErrorResponse] = useState<any>();
   const defaultValues = {
     title: '',
@@ -41,8 +41,9 @@ export const ModalCreateCategory: FC<FCProps> = ({ onClose, isVisible, onChange 
       const category = await createCategory(values).unwrap();
       reset(defaultValues);
       onClose();
-      await fetchCategory(category.data.id);
-      onChange(category.data.id);
+      navigation.navigate(SCREENS.CATEGORY_PICK_PRODUCTS, {
+        detail: category.data,
+      });
     } catch (error) {
       setErrorResponse(error);
     }

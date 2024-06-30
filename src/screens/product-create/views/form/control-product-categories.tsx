@@ -3,20 +3,20 @@ import { ComponentProps, FC } from 'react';
 import { Control, Controller } from 'react-hook-form';
 import { FormParams } from 'src/types';
 
-import { ProductCategoryForm } from './form/product-category.form';
+import { PickerProductCategories } from './form/picker-product-categories';
 
-export const ProductCategoriesControl: FC<
+export const ControlProductCategories: FC<
   ComponentProps<typeof View> & { control: Control<FormParams.CreateProduct, any> }
 > = ({ control, ...viewProps }) => {
   return (
     <>
       <Controller
         control={control}
-        name="categories"
+        name="categoryIds"
         render={({ field }) => {
           return (
             <View {...viewProps}>
-              <ProductCategoryForm value={field.value} onChange={field.onChange} />
+              <PickerProductCategories value={field.value} onChange={field.onChange} />
             </View>
           );
         }}

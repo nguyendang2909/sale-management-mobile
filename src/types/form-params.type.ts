@@ -34,7 +34,7 @@ export declare namespace FormParams {
     description: string | null;
     label: string | null;
     unit: string | null;
-    categories: Entity.Category[];
+    categoryIds: string[];
     images: Entity.ProductImage[];
     attributes: {
       title: string;

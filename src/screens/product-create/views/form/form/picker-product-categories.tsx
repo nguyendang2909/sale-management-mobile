@@ -18,14 +18,13 @@ import { ModalCreateCategory } from 'src/containers/modal/modal-create-category'
 import { SelectCategoriesCheckbox } from 'src/containers/select/select-categories';
 import { useDisclose, useInit } from 'src/hooks';
 import { useCategories } from 'src/hooks/useCategories';
-import { AppStore } from 'src/types';
 
 type FCProps = {
-  value: AppStore.Category[];
-  onChange: (category: AppStore.Category[]) => void;
+  value: string[];
+  onChange: (categoryIds: string[]) => void;
 };
 
-export const ProductCategoryForm: FC<FCProps> = ({ value, onChange }) => {
+export const PickerProductCategories: FC<FCProps> = ({ value, onChange }) => {
   const {
     data: categories,
     isRefreshing: isRefreshingCategories,
@@ -34,12 +33,12 @@ export const ProductCategoryForm: FC<FCProps> = ({ value, onChange }) => {
   const { isInit: isInitActionsheet } = useInit();
   const { isInit: isInitModal } = useInit();
 
-  const setCategory = useCallback(
-    (category: AppStore.Category) => {
-      if (value.find(e => e.id === category.id)) {
-        onChange(value.filter(e => e.id !== category.id));
+  const handlePressCategory = useCallback(
+    (id: string) => {
+      if (value.find(e => e === id)) {
+        onChange(value.filter(e => e !== id));
       } else {
-        onChange([...value, category]);
+        onChange([...value, id]);
       }
     },
     [onChange, value],
@@ -82,7 +81,7 @@ export const ProductCategoryForm: FC<FCProps> = ({ value, onChange }) => {
               <View>
                 <SelectCategoriesCheckbox
                   categories={categories}
-                  setCategory={setCategory}
+                  onPress={handlePressCategory}
                   value={value}
                 />
               </View>
@@ -99,7 +98,11 @@ export const ProductCategoryForm: FC<FCProps> = ({ value, onChange }) => {
         </View>
       </FormControl>
       {isInitModal && (
-        <ModalCreateCategory onClose={onCloseCreateCategory} isVisible={isOpenCreateCategory} />
+        <ModalCreateCategory
+          onClose={onCloseCreateCategory}
+          isVisible={isOpenCreateCategory}
+          onChange={handlePressCategory}
+        />
       )}
       {isInitActionsheet && (
         <ActionSheetSelectCategories
@@ -108,7 +111,7 @@ export const ProductCategoryForm: FC<FCProps> = ({ value, onChange }) => {
           categories={categories}
           isRefreshingCategories={isRefreshingCategories}
           refreshCategories={refreshCategories}
-          setCategory={setCategory}
+          onPressCategory={handlePressCategory}
           value={value}
           onOpenCreateCategory={onOpenCreateCategory}
         />
