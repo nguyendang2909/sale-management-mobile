@@ -10,18 +10,16 @@ import {
   View,
 } from '@gluestack-ui/themed';
 import { yupResolver } from '@hookform/resolvers/yup';
-import moment from 'moment';
 import { FC, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { ViewFooter } from 'src/components';
-import { SALE_STATISTICS_RANGES, SALE_STATISTICS_RANGES_MAP, TIME_FORMATS } from 'src/constants';
+import { InputPickDate, ViewFooter } from 'src/components';
+import { SALE_STATISTICS_RANGES, SALE_STATISTICS_RANGES_MAP } from 'src/constants';
 import { FormParams, SaleStatisticTimeRangeId } from 'src/types';
 import * as Yup from 'yup';
 
-import { ButtonTagTimeRangeId } from './controller/form/button-tag-time-range-id';
-import { InputPickDate } from './controller/form/input-date';
+import { ButtonTagTimeRangeId } from './button-tag-time-range-id';
 
-export const SaleReportActionSheet: FC<{
+export const ActionsheetDateRange: FC<{
   isOpen: boolean;
   onClose: () => void;
   onOpen: () => void;
@@ -75,6 +73,8 @@ export const SaleReportActionSheet: FC<{
       <Actionsheet isOpen={isOpen} onClose={onClose} zIndex={999}>
         <ActionsheetBackdrop />
         <ActionsheetContent
+          px={0}
+          pb={0}
           h="$72"
           zIndex={999}
           justifyContent="flex-start"
@@ -83,7 +83,7 @@ export const SaleReportActionSheet: FC<{
           <ActionsheetDragIndicatorWrapper>
             <ActionsheetDragIndicator />
           </ActionsheetDragIndicatorWrapper>
-          <View py={16}>
+          <View py={16} px={16}>
             <View flexDirection="row" flexWrap="wrap">
               <>
                 {SALE_STATISTICS_RANGES.map(item => {
@@ -109,7 +109,6 @@ export const SaleReportActionSheet: FC<{
                 onChange={(e: string) => {
                   setValue('startDate', e);
                 }}
-                maxTime={moment(endDateValue, TIME_FORMATS.DATE).toDate()}
               />
               <InputPickDate
                 mt={16}
@@ -118,12 +117,10 @@ export const SaleReportActionSheet: FC<{
                 onChange={(e: string) => {
                   setValue('endDate', e);
                 }}
-                minTime={moment(startDateValue, TIME_FORMATS.DATE).toDate()}
-                maxTime={moment(endDateValue, TIME_FORMATS.DATE).toDate()}
               />
             </View>
           </View>
-          <ViewFooter py={16} isShadow={true}>
+          <ViewFooter px={16} py={16} isShadow={true}>
             <HStack w="$full" gap={16}>
               <View flex={1}>
                 <Button variant="outline" onPress={handleReset}>

@@ -15,15 +15,13 @@ import { TIME_FORMATS } from 'src/constants';
 import { useDisclose } from 'src/hooks';
 import { ViewProps } from 'src/types';
 
-export const InputPickDate: FC<
+export const InputPickDateHorizontal: FC<
   ViewProps & {
     label: string;
     value: string;
     onChange: (e: string) => void;
-    maxTime?: Date;
-    minTime?: Date;
   }
-> = ({ value, onChange, label, minTime, maxTime, ...viewProps }) => {
+> = ({ value, onChange, label, ...viewProps }) => {
   const { isOpen, onOpen, onClose } = useDisclose();
 
   const handlePickDate = (e: Date) => {
@@ -51,8 +49,6 @@ export const InputPickDate: FC<
         onConfirm={handlePickDate}
         onCancel={onClose}
         date={new Date()}
-        // maximumDate={maxTime}
-        // minimumDate={minTime}
       />
     </View>
   );
