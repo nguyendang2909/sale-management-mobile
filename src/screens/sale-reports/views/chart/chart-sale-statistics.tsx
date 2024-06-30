@@ -4,9 +4,9 @@ import { Dimensions } from 'react-native';
 import { LineChart } from 'react-native-chart-kit';
 
 export const ChartSaleStatistics: FC<{
-  labels: string[];
-  data: number[];
-}> = ({ labels, data }) => {
+  labels?: string[];
+  data?: number[];
+}> = ({ labels = [], data = [0, 0, 0, 0, 0, 0] }) => {
   const { width } = Dimensions.get('window');
   return (
     <View px={16}>

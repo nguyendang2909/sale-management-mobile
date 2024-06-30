@@ -66,7 +66,7 @@ export const SaleReportsScreen = () => {
                 return moment(e.interval, TIME_FORMATS.DATE).format('DD/MM');
               }) || []
             }
-            data={saleStatistics?.data.map(e => e.revenue!) || []}
+            data={saleStatistics?.data.map(e => e.revenue!)}
           />
         </View>
       </ScrollView>
