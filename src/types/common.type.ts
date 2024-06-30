@@ -1,4 +1,4 @@
-import { Alert, Text, View } from '@gluestack-ui/themed';
+import { Actionsheet, Alert, Text, View } from '@gluestack-ui/themed';
 import { SubscriptionOptions } from '@reduxjs/toolkit/query';
 import { ComponentProps } from 'react';
 import { IconTypes } from 'src/components';
@@ -41,7 +41,11 @@ export type ViewType = typeof View;
 
 export type TextType = typeof Text;
 
+export type ActionsheetType = typeof Actionsheet;
+
 export type ViewProps = ComponentProps<ViewType>;
+
+export type ActionsheetProps = ComponentProps<ActionsheetType>;
 
 export type AlertProps = ComponentProps<typeof Alert>;
 

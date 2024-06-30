@@ -1,5 +1,4 @@
 import {
-  Actionsheet,
   Button,
   ButtonIcon,
   ButtonText,
@@ -11,13 +10,14 @@ import {
   View,
 } from '@gluestack-ui/themed';
 import { Menu } from 'lucide-react-native';
-import { FC, useCallback, useEffect, useState } from 'react';
+import { FC, useCallback } from 'react';
 import { TouchableOpacity } from 'react-native';
 import { FontAwesome } from 'src/components';
-import { SelectCategoriesActionsheetContent } from 'src/containers/actionsheet/select-category-item';
+import { ActionSheetSelectCategories } from 'src/containers/actionsheet/select-category-item';
 import { ModalCreateCategory } from 'src/containers/modal/modal-create-category';
 import { SelectCategoriesCheckbox } from 'src/containers/select/select-categories';
-import { useAppSelector, useDisclose } from 'src/hooks';
+import { useDisclose, useInit } from 'src/hooks';
+import { useCategories } from 'src/hooks/useCategories';
 import { AppStore } from 'src/types';
 
 type FCProps = {
@@ -26,9 +26,13 @@ type FCProps = {
 };
 
 export const ProductCategoryForm: FC<FCProps> = ({ value, onChange }) => {
-  const categories = useAppSelector(s => s.category.data);
-  const [isInitActionsheet, setInitActionsheet] = useState<boolean>(false);
-  const [isInitModal, setInitModal] = useState<boolean>(false);
+  const {
+    data: categories,
+    isRefreshing: isRefreshingCategories,
+    refresh: refreshCategories,
+  } = useCategories();
+  const { isInit: isInitActionsheet } = useInit();
+  const { isInit: isInitModal } = useInit();
 
   const setCategory = useCallback(
     (category: AppStore.Category) => {
@@ -53,19 +57,11 @@ export const ProductCategoryForm: FC<FCProps> = ({ value, onChange }) => {
     onOpen: onOpenSelectCategories,
   } = useDisclose();
 
-  useEffect(() => {
-    if (!isInitActionsheet) {
-      setInitActionsheet(true);
-    }
-  }, [isInitActionsheet]);
-
   const handlePressCategoryNavMenu = () => {
-    // setInitActionsheet(true);
     onOpenSelectCategories();
   };
 
   const handleOpenCreateCategory = () => {
-    setInitModal(true);
     onOpenCreateCategory();
   };
 
@@ -106,14 +102,16 @@ export const ProductCategoryForm: FC<FCProps> = ({ value, onChange }) => {
         <ModalCreateCategory onClose={onCloseCreateCategory} isVisible={isOpenCreateCategory} />
       )}
       {isInitActionsheet && (
-        <Actionsheet isOpen={isOpenSelectCategories} onClose={onCloseSelectCategories}>
-          <SelectCategoriesActionsheetContent
-            categories={categories}
-            setCategory={setCategory}
-            value={value}
-            onOpenCreateCategory={onOpenCreateCategory}
-          />
-        </Actionsheet>
+        <ActionSheetSelectCategories
+          isOpen={isOpenSelectCategories}
+          onClose={onCloseSelectCategories}
+          categories={categories}
+          isRefreshingCategories={isRefreshingCategories}
+          refreshCategories={refreshCategories}
+          setCategory={setCategory}
+          value={value}
+          onOpenCreateCategory={onOpenCreateCategory}
+        />
       )}
     </>
   );
