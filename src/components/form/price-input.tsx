@@ -11,7 +11,7 @@ import {
   VStack,
 } from '@gluestack-ui/themed';
 import _ from 'lodash';
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import { InputModeOptions } from 'react-native';
 import { useMessages } from 'src/hooks';
 
@@ -30,6 +30,7 @@ type FCProps = {
   inputMode?: InputModeOptions | undefined;
   onBlur?: () => void;
   focusable?: boolean;
+  onFocus?: () => void;
 };
 
 export const PriceInput: React.FC<FCProps> = ({
@@ -44,8 +45,11 @@ export const PriceInput: React.FC<FCProps> = ({
   inputMode,
   onBlur,
   focusable,
+  onFocus,
 }) => {
   const { formatNumber, locale } = useMessages();
+
+  const [isDisplayInputSlot, setDisplayInputSlot] = useState<boolean>(false);
 
   const handleClear = useCallback(() => {
     onChange(null);
@@ -66,6 +70,20 @@ export const PriceInput: React.FC<FCProps> = ({
     },
     [onChange],
   );
+
+  const handleFocus = useCallback(() => {
+    setDisplayInputSlot(true);
+    if (onFocus) {
+      onFocus();
+    }
+  }, [onFocus]);
+
+  const handleBlur = useCallback(() => {
+    setDisplayInputSlot(false);
+    if (onBlur) {
+      onBlur();
+    }
+  }, [onBlur]);
 
   const getDisplayValue = (e?: number | null) => {
     if (e) {
@@ -88,9 +106,10 @@ export const PriceInput: React.FC<FCProps> = ({
             onChangeText={handleChange}
             placeholder={placeholder}
             maxLength={maxLength}
-            onBlur={onBlur}
+            onBlur={handleBlur}
+            onFocus={handleFocus}
           ></InputField>
-          {!!value && <InputSlotClear onPress={handleClear} />}
+          {!!value && isDisplayInputSlot && <InputSlotClear onPress={handleClear} />}
         </Input>
         <View pb={12}>
           <FormControlError position="absolute">

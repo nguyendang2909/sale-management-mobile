@@ -1,8 +1,11 @@
 import { Button, ButtonText, Fab, FabIcon, View } from '@gluestack-ui/themed';
 import { Plus } from 'lucide-react-native';
+import { useCallback } from 'react';
 import { ContentData } from 'src/components/content/content-data';
+import { SCREENS } from 'src/constants';
 import { ModalCreateCategory } from 'src/containers/modal/modal-create-category';
 import { useDisclose, useSearchCategories } from 'src/hooks';
+import { navigate } from 'src/navigations';
 
 import { CategoryList } from './category-list';
 
@@ -18,6 +21,14 @@ export const CategoryTab = () => {
   const handlePressAddCategory = () => {
     onOpenCreateCategory();
   };
+
+  const handleChange = useCallback((id: string) => {
+    navigate(SCREENS.CATEGORY_PICK_PRODUCTS, {
+      detail: {
+        id,
+      },
+    });
+  }, []);
 
   return (
     <View flex={1}>
@@ -46,7 +57,11 @@ export const CategoryTab = () => {
           <FabIcon as={Plus} h="$4" w="$4" />
         </Fab>
       </ContentData>
-      <ModalCreateCategory onClose={onCloseCreateCategory} isVisible={isOpenCreateCategory} />
+      <ModalCreateCategory
+        onClose={onCloseCreateCategory}
+        isVisible={isOpenCreateCategory}
+        onChange={handleChange}
+      />
     </View>
   );
 };

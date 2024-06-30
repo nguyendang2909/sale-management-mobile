@@ -1,6 +1,5 @@
 import { Button, ButtonText, CloseIcon, View } from '@gluestack-ui/themed';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useNavigation } from '@react-navigation/native';
 import { FC, useEffect, useRef, useState } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { Modal, TextInput } from 'react-native';
@@ -14,11 +13,10 @@ import * as Yup from 'yup';
 type FCProps = {
   onClose: () => void;
   isVisible: boolean;
-  onChange: (id: string) => void;
+  onChange?: (id: string) => void;
 };
 
 export const ModalCreateCategory: FC<FCProps> = ({ onClose, isVisible, onChange }) => {
-  const navigation = useNavigation();
   const { formatErrorMessage } = useMessages();
   const [createCategory] = useCreateCategoryMutation();
   const [fetchCategory] = useLazyFetchCategoryQuery();
@@ -42,7 +40,9 @@ export const ModalCreateCategory: FC<FCProps> = ({ onClose, isVisible, onChange 
       reset(defaultValues);
       onClose();
       await fetchCategory(category.data.id);
-      onChange(category.data.id);
+      if (onChange) {
+        onChange(category.data.id);
+      }
     } catch (error) {
       setErrorResponse(error);
     }
