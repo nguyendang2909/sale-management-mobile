@@ -1,5 +1,6 @@
 /* eslint-disable no-use-before-define */
 import {
+  CashItemSource,
   InvoiceSettingFontSize,
   OrderItemSpecification,
   OrderPaymentMethod,
@@ -278,5 +279,24 @@ export declare namespace Entity {
       showShopLogo: boolean;
       showFooterNote: boolean;
       footerNote: string;
+    }>;
+
+  type CashItem = BaseEntity &
+    Partial<{
+      user?: User;
+      userId: string;
+      amount: number;
+      title?: string | null;
+      source?: CashItemSource;
+      note?: string;
+      images?: CashItemImage[];
+      at: string;
+    }>;
+
+  type CashItemImage = BaseEntity &
+    Partial<{
+      cashItem?: CashItem;
+      cashItemId?: string;
+      path: string;
     }>;
 }

@@ -3,10 +3,13 @@ import { NavigatorScreenParams } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React from 'react';
 import { SCREENS } from 'src/constants';
+import { CashItemAddScreen } from 'src/screens/cash-item-add/cash-item-add.screen';
+import { CashItemSubtractScreen } from 'src/screens/cash-item-subtract/cash-item-subtract.screen';
 import { CategoryScreen } from 'src/screens/category/category.screen';
 import { CategoryAddProductsScreen } from 'src/screens/category-add-products/category-add-products';
 import { CategoryDeleteProductsScreen } from 'src/screens/category-delete-products/category-delete-products';
 import { CategoryPickProductsScreen } from 'src/screens/category-pick-product/category-pick-products.screen';
+import { CashItemChild } from 'src/screens/child/cash-items.child.screen';
 import { OrdersChildScreen } from 'src/screens/child/orders.child.screen';
 import { ProductsChildScreen } from 'src/screens/child/products.child.screen';
 import { ReportsChildScreen } from 'src/screens/child/reports.child.screen';
@@ -95,6 +98,11 @@ export type AppStackParamList = {
   SALE_REPORTS: undefined;
   PRODUCTS_CHILD: undefined;
   TABLES_CHILD: undefined;
+  CASH_ITEMS_CHILD: undefined;
+
+  CASH_ITEM_ADD: undefined;
+  CASH_ITEM_SUBTRACT: undefined;
+
   NOTIFICATIONS: undefined;
   INVOICE: {
     order: AppStore.Order;
@@ -175,6 +183,11 @@ export const MainStack: React.FC = () => {
           <Stack.Screen name={SCREENS.NOTIFICATIONS} component={NotificationsScreen} />
           <Stack.Screen name={SCREENS.CUSTOMER} component={CustomerScreen} />
           <Stack.Screen name={SCREENS.PRODUCTS_CHILD} component={ProductsChildScreen} />
+
+          {/* Cash items */}
+          <Stack.Screen name={SCREENS.CASH_ITEMS_CHILD} component={CashItemChild} />
+          <Stack.Screen name={SCREENS.CASH_ITEM_ADD} component={CashItemAddScreen} />
+          <Stack.Screen name={SCREENS.CASH_ITEM_SUBTRACT} component={CashItemSubtractScreen} />
         </Stack.Group>
 
         {/* <Stack.Group

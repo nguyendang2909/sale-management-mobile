@@ -3,7 +3,13 @@ import { ORDER_SETTINGS, PRODUCT_SETTINGS } from 'src/constants/constants';
 
 import { AppStore } from './app-store.type';
 import { ValueOf } from './common.type';
-import { AuthGrantType, DevicePlatform, OrderPaymentMethod, OrderStatus } from './data.type';
+import {
+  AuthGrantType,
+  CashItemSource,
+  DevicePlatform,
+  OrderPaymentMethod,
+  OrderStatus,
+} from './data.type';
 import { Entity } from './entities.type';
 
 export declare namespace ApiRequest {
@@ -243,6 +249,15 @@ export declare namespace ApiRequest {
     openTime?: string | null;
     closeTime?: string | null;
     businessTypes?: string[] | null;
+  };
+
+  type CreateCashItem = {
+    amount: number;
+    title?: string | null;
+    source?: CashItemSource | null;
+    note?: string | null;
+    imageIds?: string[];
+    at?: string | null;
   };
 }
 

@@ -1,5 +1,4 @@
 import {
-  CloseCircleIcon,
   FormControl,
   FormControlError,
   FormControlErrorIcon,
@@ -8,8 +7,6 @@ import {
   FormControlLabelText,
   Input,
   InputField,
-  InputIcon,
-  InputSlot,
   View,
   VStack,
 } from '@gluestack-ui/themed';
@@ -19,6 +16,7 @@ import { InputModeOptions } from 'react-native';
 import { useMessages } from 'src/hooks';
 
 import { MaterialIcons } from '../icon';
+import { InputSlotClear } from './input';
 
 type FCProps = {
   label: string;
@@ -92,11 +90,7 @@ export const PriceInput: React.FC<FCProps> = ({
             maxLength={maxLength}
             onBlur={onBlur}
           ></InputField>
-          {!!value && (
-            <InputSlot onPress={handleClear}>
-              <InputIcon as={CloseCircleIcon}></InputIcon>
-            </InputSlot>
-          )}
+          {!!value && <InputSlotClear onPress={handleClear} />}
         </Input>
         <View pb={12}>
           <FormControlError position="absolute">

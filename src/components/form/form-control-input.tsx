@@ -1,5 +1,4 @@
 import {
-  CloseCircleIcon,
   FormControl,
   FormControlError,
   FormControlErrorIcon,
@@ -8,8 +7,6 @@ import {
   FormControlLabelText,
   Input,
   InputField,
-  InputIcon,
-  InputSlot,
   View,
 } from '@gluestack-ui/themed';
 import React, { forwardRef, useCallback, useState } from 'react';
@@ -17,6 +14,7 @@ import { InputModeOptions } from 'react-native';
 import { ViewProps } from 'src/types';
 
 import { MaterialIcons } from '../icon';
+import { InputSlotClear } from './input';
 
 type FCProps = ViewProps & {
   label: string;
@@ -99,11 +97,7 @@ export const FormControlInput = forwardRef(
               // @ts-ignore
               ref={ref}
             ></InputField>
-            {!!value && isDisplayInputSlot && (
-              <InputSlot onPress={handleClear}>
-                <InputIcon size="xl" as={CloseCircleIcon}></InputIcon>
-              </InputSlot>
-            )}
+            {!!value && isDisplayInputSlot && <InputSlotClear onPress={handleClear} />}
           </Input>
           <View pb={16}>
             <FormControlError position="absolute" left={0} right={0}>

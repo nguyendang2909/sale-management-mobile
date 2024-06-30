@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import { HomeTabParamList } from 'src/navigators/home-navigator';
+import { CashItemScreen } from 'src/screens/cash-items/cash-items.screen';
 import { CustomersScreen } from 'src/screens/customers/customers.screen';
 import { ManagementScreen } from 'src/screens/management/management.screen';
 import { OrdersScreen } from 'src/screens/orders/orders.screen';
@@ -80,12 +81,12 @@ export const NAVIGATOR_DATA: Record<
     icon: NAVIGATION_ICONS.ORDER,
     isShow: false,
   },
-  RECEIPT_AND_EXPENSE: {
-    id: BOTTOM_NAVIGATOR_NAMES.RECEIPT_AND_EXPENSE,
-    name: BOTTOM_NAVIGATOR_NAMES.RECEIPT_AND_EXPENSE,
+  CASH_ITEMS: {
+    id: BOTTOM_NAVIGATOR_NAMES.CASH_ITEMS,
+    name: BOTTOM_NAVIGATOR_NAMES.CASH_ITEMS,
     title: 'Thu chi',
-    screen: CustomersScreen,
-    icon: NAVIGATION_ICONS.ORDER,
+    screen: CashItemScreen,
+    icon: NAVIGATION_ICONS.CASH_ITEMS,
     isShow: false,
   },
   CUSTOMERS: {

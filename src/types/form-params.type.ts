@@ -1,6 +1,6 @@
 import { Image } from 'react-native-image-crop-picker';
 
-import { OrderPaymentMethod, OrderStatus } from './data.type';
+import { CashItemSource, CashItemType, OrderPaymentMethod, OrderStatus } from './data.type';
 import { Entity } from './entities.type';
 import { ApiRequest } from './fe.type';
 
@@ -143,5 +143,15 @@ export declare namespace FormParams {
     description: string | null;
     openTime: string;
     closeTime: string;
+  };
+
+  type CreateCashItem = {
+    amount: number;
+    title: string | null;
+    source: CashItemSource;
+    note: string | null;
+    imageIds: string[];
+    at: string | null;
+    type: CashItemType;
   };
 }

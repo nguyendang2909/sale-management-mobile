@@ -70,8 +70,10 @@ export const API_TAGS = {
   CASH_ITEMS: '/cash-items',
   INVOICES: '/invoices',
   PACKAGES: '/packages',
+  PACKAGES_GROUPS: '/package-groups',
   SALE: '/sale',
   OVERALL: '/overall',
+  CANCEL: '/cancel',
 } as const;
 
 export const BUSINESS_CATEGORIES = {
@@ -132,7 +134,6 @@ export const ORDER_STATUSES = {
 export const AUTH_GRANT_TYPES = {
   PHONE_PASSWORD: 'phone_password',
   PHONE_TOKEN: 'phone_token',
-  GOOGLE: 'google',
   APPLE: 'apple',
 } as const;
 
@@ -178,4 +179,9 @@ export const PRODUCT_SIZE_TYPES = {
 export const PRODUCT_SPECIFICATION_TYPES = {
   ...PRODUCT_COLOR_TYPES,
   ...PRODUCT_SIZE_TYPES,
+} as const;
+
+export const CASH_ITEM_TYPES = {
+  INCOME: 'income',
+  EXPENSE: 'expense',
 } as const;

@@ -25,6 +25,7 @@ export type HomeTabParamList = {
   MESSAGES: undefined;
   PRODUCTS: undefined;
   PROFILE: undefined;
+  CASH_ITEMS: undefined;
 };
 
 const Tab = createBottomTabNavigator<HomeTabParamList>();
@@ -39,6 +40,7 @@ export const HomeNavigator: FC<FCProps> = () => {
     BOTTOM_NAVIGATOR_NAMES.CUSTOMERS,
     BOTTOM_NAVIGATOR_NAMES.ORDERS,
     BOTTOM_NAVIGATOR_NAMES.REPORTS,
+    BOTTOM_NAVIGATOR_NAMES.CASH_ITEMS,
   ];
 
   const navigators = [
