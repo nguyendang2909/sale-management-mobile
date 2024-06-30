@@ -2,7 +2,7 @@ import { createStyle } from '@gluestack-style/react';
 
 export const Button = createStyle({
   borderRadius: 8,
-  backgroundColor: '$red600',
+  backgroundColor: '$success500',
   flexDirection: 'row',
   justifyContent: 'center',
   alignItems: 'center',
@@ -36,51 +36,51 @@ export const Button = createStyle({
   variants: {
     action: {
       primary: {
-        bg: '$primary600',
-        borderColor: '$primary300',
+        bg: '$success600',
+        borderColor: '$success600',
 
         ':hover': {
-          bg: '$primary600',
-          borderColor: '$primary400',
+          bg: '$success700',
+          borderColor: '$success700',
         },
 
         ':active': {
-          bg: '$primary700',
-          borderColor: '$primary700',
+          bg: '$success700',
+          borderColor: '$success700',
         },
 
         _text: {
-          color: '$primary600',
+          color: '$success600',
           ':hover': {
-            color: '$primary600',
+            color: '$success700',
           },
           ':active': {
-            color: '$primary700',
+            color: '$success700',
           },
         },
 
         _icon: {
-          color: '$primary600',
+          color: '$success600',
           ':hover': {
-            color: '$primary600',
+            color: '$success600',
           },
           ':active': {
-            color: '$primary700',
+            color: '$success700',
           },
         },
 
         _spinner: {
           props: {
-            color: '$primary600',
+            color: '$success600',
           },
           ':hover': {
             props: {
-              color: '$primary600',
+              color: '$success600',
             },
           },
           ':active': {
             props: {
-              color: '$primary700',
+              color: '$success700',
             },
           },
         },
