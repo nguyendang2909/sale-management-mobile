@@ -18,6 +18,7 @@ export const IconButtonCall: FC<
 
   return (
     <View
+      p={8}
       {...viewProps}
       as={TouchableOpacity}
       // @ts-ignore

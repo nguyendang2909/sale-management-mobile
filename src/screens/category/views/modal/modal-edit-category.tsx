@@ -76,7 +76,7 @@ export const ModalEditCategory: FC<
           showsHorizontalScrollIndicator={false}
           showsVerticalScrollIndicator={false}
         >
-          <View w="$full" mt={16}>
+          <View mt={16}>
             <Controller
               control={control}
               name="title"

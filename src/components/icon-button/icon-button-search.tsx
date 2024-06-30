@@ -1,5 +1,6 @@
-import { CloseIcon, Icon, Pressable, SearchIcon, View } from '@gluestack-ui/themed';
+import { CloseIcon, Icon, SearchIcon, View } from '@gluestack-ui/themed';
 import { FC } from 'react';
+import { TouchableOpacity } from 'react-native';
 import { ViewProps } from 'src/types';
 
 export const IconButtonSearch: FC<
@@ -10,15 +11,16 @@ export const IconButtonSearch: FC<
   }
 > = ({ isSearching, onClose, onOpen, ...viewProps }) => {
   return (
-    <View {...(isSearching ? viewProps : {})}>
+    <View
+      p={8}
+      {...(isSearching ? viewProps : {})}
+      as={TouchableOpacity}
+      onPress={isSearching ? onOpen : onClose}
+    >
       {isSearching ? (
-        <Pressable onPress={onOpen}>
-          <Icon color="$coolGray500" as={CloseIcon} size="lg" />
-        </Pressable>
+        <Icon color="$coolGray500" as={CloseIcon} size="lg" />
       ) : (
-        <Pressable onPress={onClose}>
-          <Icon color="$coolGray500" as={SearchIcon} size="lg" />
-        </Pressable>
+        <Icon color="$coolGray500" as={SearchIcon} size="lg" />
       )}
     </View>
   );
