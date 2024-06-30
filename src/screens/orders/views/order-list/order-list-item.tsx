@@ -95,12 +95,12 @@ export const OrderListItem: FC<FCProps> = ({ order, onCancel }) => {
               <View mt={8}>
                 <HStack columnGap={16} rowGap={16}>
                   <View flex={1}>
-                    <Button variant="outline" onPress={handleCancel} size="sm">
+                    <Button variant="outline" onPress={handleCancel} size="xs">
                       <ButtonText>Huỷ</ButtonText>
                     </Button>
                   </View>
                   <View flex={1}>
-                    <Button onPress={handleDelivery} size="sm">
+                    <Button onPress={handleDelivery} size="xs">
                       <ButtonText>Đã giao</ButtonText>
                     </Button>
                   </View>
