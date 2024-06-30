@@ -6,11 +6,11 @@ import { ChevronLeft } from 'lucide-react-native';
 import { FC, useCallback, useMemo, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import Toast from 'react-native-toast-message';
-import { useFetchAllProductsByCategoryIdQuery, useUpdateCategoryMutation } from 'src/api';
+import { useUpdateCategoryMutation } from 'src/api';
 import { Header, LoadingOverlay, ViewFooter } from 'src/components';
 import { InputSearch } from 'src/components/input/input-search';
 import { HOME_SCREENS, SCREENS } from 'src/constants';
-import { useCategory, useMessages, useSearchProducts } from 'src/hooks';
+import { useCategory, useMessages, useProducts, useProductsByCategoryId } from 'src/hooks';
 import { goBack } from 'src/navigations/navigation-ref';
 import { AppStackScreenProps } from 'src/navigators/main.stack';
 import * as Yup from 'yup';
@@ -33,15 +33,28 @@ export const CategoryAddProductsScreen: FC<AppStackScreenProps<'CATEGORY_ADD_PRO
     isRefreshing: isRefreshingProducts,
     isLoading: isLoadingProducts,
     refresh: refreshProducts,
-  } = useSearchProducts();
+  } = useProducts();
 
   const {
     data: pickedProducts,
     isLoading: isLoadingProductByCategoryId,
+    refresh: refreshProductsByCategoryId,
+    isRefreshing: isRefreshingProductsByCategoryId,
     refetch: refetchProductsByCategoryId,
-  } = useFetchAllProductsByCategoryIdQuery({ categoryId: detail.id });
+  } = useProductsByCategoryId({ categoryId: detail.id }, { refetchOnMountOrArgChange: true });
+
+  const isRefreshing = isRefreshingProducts || isRefreshingProductsByCategoryId;
+
+  const refresh = useCallback(async () => {
+    await Promise.all([refreshProductsByCategoryId(), refreshProducts()]);
+  }, [refreshProducts, refreshProductsByCategoryId]);
 
   const pickedProductsObj = useMemo(() => _.keyBy(pickedProducts, 'id'), [pickedProducts]);
+
+  const productsToAdd = useMemo(
+    () => products.filter(product => !pickedProductsObj[product.id]),
+    [pickedProductsObj, products],
+  );
 
   const onLeftPress = () => {
     goBack(SCREENS.HOME, {
@@ -116,11 +129,11 @@ export const CategoryAddProductsScreen: FC<AppStackScreenProps<'CATEGORY_ADD_PRO
       <View flex={1} mt={16}>
         <LoadingOverlay isLoading={isLoadingProducts || isLoadingProductByCategoryId} />
         <FlashList
-          refreshing={isRefreshingProducts}
-          onRefresh={refreshProducts}
+          refreshing={isRefreshing}
+          onRefresh={refresh}
           showsVerticalScrollIndicator={false}
           numColumns={1}
-          data={products}
+          data={productsToAdd}
           keyExtractor={(item, index) => item.id || index.toString()}
           renderItem={({ item }) => {
             return <PickProductListItem product={item} onPress={handlePressProduct} />;

@@ -9,8 +9,7 @@ import { useUpdateCategoryMutation } from 'src/api';
 import { Header, LoadingOverlay, ViewFooter } from 'src/components';
 import { InputSearch } from 'src/components/input/input-search';
 import { HOME_SCREENS, SCREENS } from 'src/constants';
-import { useCategory, useMessages } from 'src/hooks';
-import { useSearchProductsByCategoryId } from 'src/hooks/use-search-product-by-category-id';
+import { useCategory, useMessages, useSearchProductsByCategoryId } from 'src/hooks';
 import { goBack } from 'src/navigations/navigation-ref';
 import { AppStackScreenProps } from 'src/navigators/main.stack';
 import * as Yup from 'yup';
@@ -34,7 +33,7 @@ export const CategoryDeleteProductsScreen: FC<AppStackScreenProps<'CATEGORY_DELE
     refetch: refetchProducts,
     isRefreshing: isRefreshingProducts,
     refresh: refreshProducts,
-  } = useSearchProductsByCategoryId({ categoryId: detail.id });
+  } = useSearchProductsByCategoryId({ categoryId: detail.id }, { refetchOnMountOrArgChange: true });
 
   const onLeftPress = () => {
     goBack(SCREENS.HOME, {

@@ -1,30 +1,27 @@
 import {
-  Actionsheet,
-  ActionsheetBackdrop,
-  ActionsheetContent,
-  ActionsheetDragIndicator,
-  ActionsheetDragIndicatorWrapper,
   ButtonText,
-  Heading,
+  CloseIcon,
+  KeyboardAvoidingView,
+  ScrollView,
   View,
 } from '@gluestack-ui/themed';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { FC, useEffect, useRef, useState } from 'react';
+import { ComponentProps, FC, useEffect, useRef, useState } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
-import { TextInput } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { Modal, TextInput } from 'react-native';
 import { useLazyFetchCategoryQuery, useUpdateCategoryMutation } from 'src/api';
-import { FormControlInput, LoadingButton } from 'src/components';
+import { FormControlInput, Header, LoadingButton, ViewFooter } from 'src/components';
 import { AlertError } from 'src/components/alert/alert-error';
 import { useMessages } from 'src/hooks';
 import { AppStore, FormParams } from 'src/types';
 import * as Yup from 'yup';
 
-export const CategoryEditActionsheet: FC<{
-  category: AppStore.Category;
-  isOpen: boolean;
-  onClose: () => void;
-}> = ({ isOpen, onClose, category }) => {
+export const ModalEditCategory: FC<
+  ComponentProps<typeof Modal> & {
+    category: AppStore.Category;
+    onClose: () => void;
+  }
+> = ({ onClose, category, ...restModalProps }) => {
   const [updateCategoryMutation] = useUpdateCategoryMutation();
   const [fetchCategory] = useLazyFetchCategoryQuery();
   const { formatErrorMessage } = useMessages();
@@ -48,11 +45,11 @@ export const CategoryEditActionsheet: FC<{
 
   useEffect(() => {
     setTimeout(() => {
-      if (isOpen && textInputRef.current) {
+      if (restModalProps.visible && textInputRef.current) {
         textInputRef.current.focus();
       }
     });
-  }, [isOpen]);
+  }, [restModalProps.visible]);
 
   const onSubmit: SubmitHandler<FormParams.UpdateCategory> = async values => {
     try {
@@ -71,17 +68,14 @@ export const CategoryEditActionsheet: FC<{
   };
 
   return (
-    <Actionsheet isOpen={isOpen} onClose={handleClose}>
-      <ActionsheetBackdrop />
-      <ActionsheetContent height={400} px={16}>
-        <ActionsheetDragIndicatorWrapper>
-          <ActionsheetDragIndicator />
-        </ActionsheetDragIndicatorWrapper>
-        <View w="$full">
-          <View>
-            <Heading textAlign="center">Danh mục</Heading>
-          </View>
-
+    <Modal animationType="slide" {...restModalProps}>
+      <Header leftIcon={CloseIcon} onLeftPress={handleClose} title="Danh mục"></Header>
+      <KeyboardAvoidingView behavior="padding" enabled flex={1}>
+        <ScrollView
+          px={16}
+          showsHorizontalScrollIndicator={false}
+          showsVerticalScrollIndicator={false}
+        >
           <View w="$full" mt={16}>
             <Controller
               control={control}
@@ -109,16 +103,13 @@ export const CategoryEditActionsheet: FC<{
           {!!errorResponse && (
             <AlertError mt={16} description={formatErrorMessage(errorResponse)} />
           )}
-
-          <View mt={24}>
-            <LoadingButton onPress={handleSubmit(onSubmit)} isLoading={isSubmitting}>
-              <ButtonText>Cập nhật</ButtonText>
-            </LoadingButton>
-          </View>
-        </View>
-
-        <SafeAreaView edges={['bottom']} />
-      </ActionsheetContent>
-    </Actionsheet>
+        </ScrollView>
+        <ViewFooter py={16} px={16}>
+          <LoadingButton onPress={handleSubmit(onSubmit)} isLoading={isSubmitting}>
+            <ButtonText>Cập nhật</ButtonText>
+          </LoadingButton>
+        </ViewFooter>
+      </KeyboardAvoidingView>
+    </Modal>
   );
 };

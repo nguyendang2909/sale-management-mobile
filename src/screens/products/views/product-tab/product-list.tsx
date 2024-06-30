@@ -20,7 +20,7 @@ export const ProductList: FC<
         onRefresh={refresh}
         numColumns={1}
         data={products}
-        keyExtractor={(item: AppStore.Product, index) => item.id || index.toString()}
+        keyExtractor={(item, index) => item.id || index.toString()}
         renderItem={({ item }) => <ProductListItem product={item} />}
         estimatedItemSize={1}
         ListFooterComponent={<View mb={100}></View>}

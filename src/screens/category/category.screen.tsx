@@ -1,19 +1,14 @@
-import { Button, ButtonText, ChevronLeftIcon, HStack, View } from '@gluestack-ui/themed';
+import { Button, ButtonText, HStack, View } from '@gluestack-ui/themed';
 import { FC } from 'react';
-import { Header, LoadingOverlay, ViewFooter } from 'src/components';
-import { IconButtonEdit } from 'src/components/icon-button/icon-button-edit';
-import { IconButtonSearch } from 'src/components/icon-button/icon-button-search';
-import { SearchInput } from 'src/components/input/search-input';
-import { HOME_SCREENS, SCREENS } from 'src/constants';
-import { useDisclose, useInit } from 'src/hooks';
+import { LoadingOverlay, ViewFooter } from 'src/components';
+import { SCREENS } from 'src/constants';
+import { useDisclose, useSearchProductsByCategoryId } from 'src/hooks';
 import { useCategory } from 'src/hooks/use-category';
-import { useSearchProductsByCategoryId } from 'src/hooks/use-search-product-by-category-id';
-import { goBack, navigate } from 'src/navigations/navigation-ref';
+import { navigate } from 'src/navigations/navigation-ref';
 import { AppStackScreenProps } from 'src/navigators/main.stack';
 
 import { ProductList } from '../products/views/product-tab/product-list';
-import { CategoryEditActionsheet } from './views/actionsheet/category-edit.actionsheet';
-import { IconButtonDeleteCategory } from './views/delete-category/icon-button-delete-category';
+import { HeaderCategory } from './views/header-category';
 
 export const CategoryScreen: FC<AppStackScreenProps<'CATEGORY'>> = ({
   route: {
@@ -25,32 +20,18 @@ export const CategoryScreen: FC<AppStackScreenProps<'CATEGORY'>> = ({
   const {
     searchText,
     setSearchText,
-    data: products,
+    searchData: searchProducts,
     isLoading,
-    isFetching,
     isRefreshing: isRefreshingProducts,
     refresh: refreshProducts,
-  } = useSearchProductsByCategoryId({ categoryId: detail.id });
+  } = useSearchProductsByCategoryId(
+    { categoryId: detail.id },
+    {
+      refetchOnMountOrArgChange: true,
+    },
+  );
 
   const { isOpen: isSearching, onClose: onOpenSearch, onOpen: onCloseSearch } = useDisclose();
-
-  const {
-    isOpen: isOpenActionSheet,
-    onOpen: onOpenActionSheet,
-    onClose: onCloseActionsheet,
-  } = useDisclose();
-
-  const { isInit: isInitActionsheet } = useInit();
-
-  const handleEditCategory = () => {
-    onOpenActionSheet();
-  };
-
-  const onBack = () => {
-    goBack(SCREENS.HOME, {
-      screen: HOME_SCREENS.PRODUCTS,
-    });
-  };
 
   const handlePressDeleteProducts = () => {
     navigate(SCREENS.CATEGORY_DELETE_PRODUCTS, { detail: category });
@@ -64,43 +45,22 @@ export const CategoryScreen: FC<AppStackScreenProps<'CATEGORY'>> = ({
 
   return (
     <>
-      <Header
-        leftText={category.title || 'Danh mục'}
-        leftIcon={ChevronLeftIcon}
-        onLeftPress={onBack}
-        RightActionComponent={
-          <>
-            <HStack gap={16}>
-              <IconButtonSearch
-                isSearching={isSearching}
-                onOpen={onOpenSearch}
-                onClose={onCloseSearch}
-              />
-              <IconButtonEdit onPress={handleEditCategory} />
-              <IconButtonDeleteCategory category={category} />
-            </HStack>
-          </>
-        }
-      >
-        {!!isSearching && (
-          <View px={16} pb={16}>
-            <SearchInput
-              defaultValue={searchText}
-              value={searchText}
-              placeholder="Tên danh mục"
-              onChangeText={setSearchText}
-            />
-          </View>
-        )}
-      </Header>
+      <HeaderCategory
+        category={category}
+        isSearching={isSearching}
+        onOpenSearch={onOpenSearch}
+        onCloseSearch={onCloseSearch}
+        searchText={searchText}
+        setSearchText={setSearchText}
+      />
 
       <View flex={1}>
         <LoadingOverlay isLoading={isLoading} />
         <ProductList
-          mt={16}
+          mt={8}
           isRefreshing={isRefreshingProducts}
           refresh={refreshProducts}
-          products={products}
+          products={searchProducts}
         />
         <ViewFooter px={16} py={16} bgColor="$white">
           <View>
@@ -119,14 +79,6 @@ export const CategoryScreen: FC<AppStackScreenProps<'CATEGORY'>> = ({
           </View>
         </ViewFooter>
       </View>
-
-      {isInitActionsheet && (
-        <CategoryEditActionsheet
-          isOpen={isOpenActionSheet}
-          onClose={onCloseActionsheet}
-          category={category}
-        />
-      )}
     </>
   );
 };

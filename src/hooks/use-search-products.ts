@@ -11,6 +11,7 @@ import { useAppSelector } from './useAppSelector';
 export const useSearchProducts = () => {
   const dispatch = useAppDispatch();
   const query = useFetchAllProductsQuery({});
+
   const refreshQuery = useRefreshQuery(query.refetch);
   const data = useAppSelector(s => s.product.data);
   const searchText = useAppSelector(s => s.cache.product.searchText);

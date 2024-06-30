@@ -66,24 +66,28 @@ export const ActionSheetSelectCategories: FC<
             <ActionsheetDragIndicatorWrapper>
               <ActionsheetDragIndicator />
             </ActionsheetDragIndicatorWrapper>
-            <View alignItems="center">
-              <Heading>Danh mục</Heading>
-            </View>
-            <View w="$full" flexDirection="row" justifyContent="center" alignItems="center">
-              <View flexGrow={1}>
-                <SearchInput placeholder="Tìm kiếm danh mục" onChangeText={handleSetText} />
+            <View w="$full">
+              <View alignItems="center">
+                <Heading>Danh mục</Heading>
               </View>
-              <View>
-                <View
-                  as={TouchableOpacity}
-                  p={8}
-                  // @ts-ignore
-                  onPress={onOpenCreateCategory}
-                >
-                  <ButtonIcon as={Plus} />
+
+              <View w="$full" flexDirection="row" justifyContent="center" alignItems="center">
+                <View flexGrow={1}>
+                  <SearchInput placeholder="Tìm kiếm danh mục" onChangeText={handleSetText} />
+                </View>
+                <View>
+                  <View
+                    as={TouchableOpacity}
+                    p={8}
+                    // @ts-ignore
+                    onPress={onOpenCreateCategory}
+                  >
+                    <ButtonIcon as={Plus} />
+                  </View>
                 </View>
               </View>
             </View>
+
             <ScrollView
               flexGrow={1}
               mt={16}

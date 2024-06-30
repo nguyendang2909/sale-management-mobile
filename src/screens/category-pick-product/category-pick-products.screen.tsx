@@ -7,11 +7,16 @@ import { ChevronLeft } from 'lucide-react-native';
 import { FC, useCallback, useMemo, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import Toast from 'react-native-toast-message';
-import { useFetchAllProductsByCategoryIdQuery, useUpdateCategoryMutation } from 'src/api';
+import { useUpdateCategoryMutation } from 'src/api';
 import { Header, LoadingOverlay, ViewFooter } from 'src/components';
 import { InputSearch } from 'src/components/input/input-search';
 import { HOME_SCREENS, SCREENS } from 'src/constants';
-import { useCategory, useMessages, useSearchProducts } from 'src/hooks';
+import {
+  useCategory,
+  useMessages,
+  useSearchProducts,
+  useSearchProductsByCategoryId,
+} from 'src/hooks';
 import { goBack } from 'src/navigations/navigation-ref';
 import { AppStackScreenProps } from 'src/navigators/main.stack';
 import * as Yup from 'yup';
@@ -41,7 +46,7 @@ export const CategoryPickProductsScreen: FC<AppStackScreenProps<'CATEGORY_PICK_P
     data: pickedProducts,
     isLoading: isLoadingProductByCategoryId,
     refetch: refetchProductsByCategoryId,
-  } = useFetchAllProductsByCategoryIdQuery({ categoryId: detail.id });
+  } = useSearchProductsByCategoryId({ categoryId: detail.id });
 
   const pickedProductsObj = useMemo(() => _.keyBy(pickedProducts, 'id'), [pickedProducts]);
 
