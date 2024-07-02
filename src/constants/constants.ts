@@ -87,6 +87,7 @@ export const NAVIGATION_CARD_IDS_MAP = {
   REPORTS: 'REPORTS',
   // TABLES: 'TABLES',
   PRODUCTS: 'PRODUCTS',
+  CASH_ITEMS: 'CASH_ITEMS',
 } as const;
 
 export const NAVIGATION_CARD_IDS = Object.values(NAVIGATION_CARD_IDS_MAP);

@@ -16,8 +16,8 @@ const cashItemApi = api.injectEndpoints({
         body,
       }),
     }),
-    fetchAllCashItems: builder.query<
-      ApiResponse.CashItems,
+    fetchAllCashItemsGroupDate: builder.query<
+      ApiResponse.CashItemsGroupDate,
       { shopId: string; params: ApiRequest.FindAllCashItems }
     >({
       query: ({ shopId, params }) => ({
@@ -41,8 +41,8 @@ const cashItemApi = api.injectEndpoints({
 
 export const {
   useCreateCashItemMutation,
-  useFetchAllCashItemsQuery,
-  useLazyFetchAllCashItemsQuery,
+  useFetchAllCashItemsGroupDateQuery,
+  useLazyFetchAllCashItemsGroupDateQuery,
   useFetchCashItemsOverallQuery,
   useLazyFetchCashItemsOverallQuery,
   endpoints: cashItemEndpoints,

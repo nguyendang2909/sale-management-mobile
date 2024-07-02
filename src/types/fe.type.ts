@@ -303,6 +303,8 @@ export declare namespace ApiResponse {
 
   type CashItems = PaginatedResponse<Entity.CashItem>;
 
+  type CashItemsGroupDate = PaginatedResponse<Entity.CashItemGroupDate>;
+
   type CashItem = FetchData<Entity.CashItem>;
 
   type CashItemsOverall = FetchData<

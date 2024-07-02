@@ -74,7 +74,6 @@ export const SaleReportsScreen = () => {
         <ActionsheetDateRange
           isOpen={isOpenActionsheet}
           onClose={onCloseActionsheet}
-          onOpen={onOpenActionSheet}
           dateRange={dateRange}
           setDateRange={setDateRange}
         />

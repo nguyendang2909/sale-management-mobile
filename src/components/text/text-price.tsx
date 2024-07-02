@@ -9,8 +9,9 @@ export const TextPrice: FC<
   TextProps & {
     value?: number | null;
     variant?: 'primary' | 'secondary' | 'highlight' | 'underline' | 'default';
+    showCurrency?: boolean;
   }
-> = ({ value, variant, ...currentTextProps }) => {
+> = ({ value, variant, showCurrency = true, ...currentTextProps }) => {
   if (_.isNil(value)) {
     return null;
   }
@@ -18,7 +19,7 @@ export const TextPrice: FC<
 
   return (
     <Text numberOfLines={1} {...textProps} {...currentTextProps}>
-      <Price value={value} />
+      <Price showCurrency={showCurrency} value={value} />
     </Text>
   );
 };

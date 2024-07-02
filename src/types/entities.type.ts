@@ -293,6 +293,13 @@ export declare namespace Entity {
       at: string;
     }>;
 
+  type CashItemGroupDate = Partial<{
+    cashItems: CashItem[];
+    date: string;
+    expenditureAmount: number;
+    incomeAmount: number;
+  }>;
+
   type CashItemImage = BaseEntity &
     Partial<{
       cashItem?: CashItem;

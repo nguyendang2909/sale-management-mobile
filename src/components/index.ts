@@ -8,6 +8,7 @@ export * from './icon';
 export * from './image';
 export * from './input';
 export * from './linear-gradient';
+export * from './link';
 export * from './menu';
 export * from './overlay';
 export * from './picker';

@@ -190,6 +190,12 @@ export const NAVIGATION_CARDS_MAP: Record<NavigationCardId, NavigationCard> = {
     icon: 'barChart',
     screen: SCREENS.REPORTS_CHILD,
   },
+  [NAVIGATION_CARD_IDS_MAP.CASH_ITEMS]: {
+    id: NAVIGATION_CARD_IDS_MAP.CASH_ITEMS,
+    title: 'Thu chi',
+    icon: 'transaction',
+    screen: SCREENS.CASH_ITEMS_CHILD,
+  },
 };
 
 export const NAVIGATION_CARDS = Object.values(NAVIGATION_CARDS_MAP);
