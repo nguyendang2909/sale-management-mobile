@@ -1,14 +1,13 @@
 import { RefreshControl, ScrollView, View } from '@gluestack-ui/themed';
 import moment from 'moment';
 import { useState } from 'react';
-import { ActionsheetDateRange } from 'src/components';
+import { ActionsheetDateRange, ButtonCalendar } from 'src/components';
 import { TIME_FORMATS } from 'src/constants';
 import { useDisclose, useInit, useSaleOverall, useSaleStatistics } from 'src/hooks';
 import { FormParams } from 'src/types';
 
 import { CardsSaleReports } from './views/cards/cards-sale-reports';
 import { ChartSaleStatistics } from './views/chart/chart-sale-statistics';
-import { ButtonCalendar } from './views/form/button-calendar';
 import { HeaderSaleReports } from './views/header/header-sale-reports';
 
 export const SaleReportsScreen = () => {

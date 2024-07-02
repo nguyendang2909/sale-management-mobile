@@ -17,7 +17,7 @@ export const TextPrice: FC<
   const textProps = getTextProps(variant);
 
   return (
-    <Text {...textProps} {...currentTextProps}>
+    <Text numberOfLines={1} {...textProps} {...currentTextProps}>
       <Price value={value} />
     </Text>
   );

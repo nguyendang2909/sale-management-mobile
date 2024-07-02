@@ -116,5 +116,14 @@ export const API_ENDPOINTS = {
   },
   CASH_ITEMS: {
     INDEX: API_TAGS.CASH_ITEMS,
+    SHOPS: {
+      SHOP_ID: {
+        INDEX: (shopId: string) => API_TAGS.CASH_ITEMS + API_TAGS.SHOPS + '/' + shopId,
+        OVERALL: {
+          GET_INDEX: (shopId: string) =>
+            API_TAGS.CASH_ITEMS + API_TAGS.SHOPS + '/' + shopId + API_TAGS.OVERALL,
+        },
+      },
+    },
   },
 };

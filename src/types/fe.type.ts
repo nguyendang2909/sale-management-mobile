@@ -24,6 +24,11 @@ export declare namespace ApiRequest {
 
   type FindMany<T> = Pagination & T;
 
+  type DateRange = {
+    startDate?: string;
+    endDate?: string;
+  };
+
   type IsExistUser = {
     phoneNumber: string;
   };
@@ -208,9 +213,9 @@ export declare namespace ApiRequest {
 
   type FindManyOrders = FindAllOrders & Pagination;
 
-  type CreateMatch = {
-    targetUserId: string;
-  };
+  type FindAllCashItems = DateRange & {};
+
+  type FindManyCashItems = FindAllCashItems;
 
   type UpdateSignedDevice = {
     refreshToken: string;
@@ -233,11 +238,6 @@ export declare namespace ApiRequest {
     showCustomer?: boolean;
     showNote?: boolean;
   }>;
-
-  type DateRange = {
-    startDate?: string;
-    endDate?: string;
-  };
 
   type FindSaleOverallByShopId = DateRange;
 
@@ -300,6 +300,19 @@ export declare namespace ApiResponse {
   type Order = FetchData<Entity.Order>;
 
   type Orders = PaginatedResponse<Entity.Order>;
+
+  type CashItems = PaginatedResponse<Entity.CashItem>;
+
+  type CashItem = FetchData<Entity.CashItem>;
+
+  type CashItemsOverall = FetchData<
+    Partial<{
+      startDate: string;
+      endDate: string;
+      incomeAmount: number;
+      expenditureAmount: number;
+    }>
+  >;
 
   type SuccessResponse = FetchData<{ success: boolean }>;
 

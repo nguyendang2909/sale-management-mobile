@@ -22,7 +22,6 @@ import { ButtonTagTimeRangeId } from './button-tag-time-range-id';
 export const ActionsheetDateRange: FC<{
   isOpen: boolean;
   onClose: () => void;
-  onOpen: () => void;
   dateRange: FormParams.DateRange;
   setDateRange: (e: FormParams.DateRange) => void;
 }> = ({ isOpen, onClose, dateRange, setDateRange }) => {

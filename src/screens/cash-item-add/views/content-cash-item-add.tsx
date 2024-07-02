@@ -12,8 +12,9 @@ import {
   SCREENS,
   TIME_FORMATS,
 } from 'src/constants';
-import { useMessages } from 'src/hooks';
+import { useAppSelector, useMessages } from 'src/hooks';
 import { goBack } from 'src/navigations';
+import { selectCurrentShopId } from 'src/store/shop';
 import { FormParams } from 'src/types';
 import * as Yup from 'yup';
 
@@ -21,6 +22,7 @@ import { ControlCashItemAmount } from './control/control-cash-item-amount';
 import { ControlCashItemAt } from './control/control-cash-item-at';
 
 export const ContentCashItemAdd = () => {
+  const shopId = useAppSelector(selectCurrentShopId);
   const { formatErrorMessage } = useMessages();
   const [createCashItemMutation] = useCreateCashItemMutation();
 
@@ -53,7 +55,7 @@ export const ContentCashItemAdd = () => {
 
   const onSubmit: SubmitHandler<FormParams.CreateCashItem> = async values => {
     try {
-      await createCashItemMutation(values).unwrap();
+      await createCashItemMutation({ shopId, body: values }).unwrap();
       goBack(SCREENS.HOME, { screen: HOME_SCREENS.CASH_ITEMS });
       Toast.show({
         text1: 'Tạo khoản thu thành công',
