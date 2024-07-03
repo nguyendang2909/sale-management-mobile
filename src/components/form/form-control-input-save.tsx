@@ -1,4 +1,7 @@
 import {
+  Button,
+  ButtonText,
+  CloseCircleIcon,
   FormControl,
   FormControlError,
   FormControlErrorIcon,
@@ -7,19 +10,21 @@ import {
   FormControlLabelText,
   Input,
   InputField,
+  InputIcon,
+  InputSlot,
   View,
 } from '@gluestack-ui/themed';
 import React, { forwardRef, useCallback, useState } from 'react';
-import { InputModeOptions } from 'react-native';
+import { InputModeOptions, TouchableOpacity } from 'react-native';
 import { ViewProps } from 'src/types';
 
 import { MaterialIcons } from '../icon';
-import { InputSlotClear } from './input';
 
 type FCProps = ViewProps & {
   label?: string;
-  onChange: (e: string | null) => void;
   value?: string | null;
+  onChange: (e: string | null) => void;
+  defaultValue?: string | null;
   error?: string;
   maxLength?: number;
   placeholder?: string;
@@ -29,14 +34,14 @@ type FCProps = ViewProps & {
   onBlur?: () => void;
   focusable?: boolean;
   onFocus?: () => void;
+  onSubmit: () => void;
 };
 
-export const FormControlInput = forwardRef(
+export const FormControlInputSave = forwardRef(
   (
     {
       label,
-      onChange,
-      value,
+      defaultValue,
       error,
       maxLength,
       placeholder,
@@ -46,6 +51,9 @@ export const FormControlInput = forwardRef(
       onBlur,
       focusable,
       onFocus,
+      onSubmit,
+      value,
+      onChange,
       ...viewProps
     }: FCProps,
     ref,
@@ -55,14 +63,6 @@ export const FormControlInput = forwardRef(
     const handleClear = useCallback(() => {
       onChange(null);
     }, [onChange]);
-
-    const handleChangeText = (e: string) => {
-      if (e) {
-        onChange(e);
-        return;
-      }
-      onChange(null);
-    };
 
     const handleFocus = useCallback(() => {
       setDisplayInputSlot(true);
@@ -90,8 +90,9 @@ export const FormControlInput = forwardRef(
             <InputField
               focusable={focusable}
               inputMode={inputMode}
+              defaultValue={defaultValue || undefined}
               value={value || undefined}
-              onChangeText={handleChangeText}
+              onChangeText={onChange}
               placeholder={placeholder}
               maxLength={maxLength}
               onBlur={handleBlur}
@@ -99,7 +100,17 @@ export const FormControlInput = forwardRef(
               // @ts-ignore
               ref={ref}
             ></InputField>
-            {!!value && isDisplayInputSlot && <InputSlotClear onPress={handleClear} />}
+            <InputSlot flexDirection="row" gap={8}>
+              {!!value && isDisplayInputSlot && (
+                <TouchableOpacity onPress={handleClear}>
+                  <InputIcon size="xl" as={CloseCircleIcon}></InputIcon>
+                </TouchableOpacity>
+              )}
+
+              <Button size="xs" onPress={onSubmit}>
+                <ButtonText>Lưu</ButtonText>
+              </Button>
+            </InputSlot>
           </Input>
           <View pb={16}>
             <FormControlError position="absolute" left={0} right={0}>

@@ -163,6 +163,7 @@ export const PRODUCT_ATTRIBUTE_TYPES = {
   MATERIAL: 'material',
   TASTE: 'taste',
   ORIGIN: 'origin',
+  DEFAULT: 'default',
 } as const;
 
 export const PRODUCT_COLOR_TYPES = {

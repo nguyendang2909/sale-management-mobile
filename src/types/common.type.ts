@@ -123,3 +123,5 @@ export type UseQuerySubscriptionOptions = SubscriptionOptions & {
    */
   refetchOnMountOrArgChange?: boolean | number;
 };
+
+export type ArrayElement<A> = A extends readonly (infer T)[] ? T : never;

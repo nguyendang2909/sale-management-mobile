@@ -6,6 +6,7 @@ export * from './order-payment.util';
 export * from './price.util';
 export * from './scroll.util';
 export * from './sku.util';
+export * from './specification.util';
 export * from './times.util';
 export * from './update-product-form.util';
 export * from './useSafeAreaInsetsStyle';

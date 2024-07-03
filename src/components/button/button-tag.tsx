@@ -3,12 +3,14 @@ import { FC, useCallback } from 'react';
 
 export const ButtonTag: FC<{
   value: string | boolean;
-  onChange: (e: string | boolean) => void;
+  onChange?: (e: string | boolean) => void;
   isEnabled?: boolean;
   title: string;
 }> = ({ value, onChange, isEnabled, title }) => {
   const handlePress = useCallback(() => {
-    onChange(value);
+    if (onChange) {
+      onChange(value);
+    }
   }, [onChange, value]);
 
   return (

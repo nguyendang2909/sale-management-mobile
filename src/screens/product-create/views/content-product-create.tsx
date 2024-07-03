@@ -7,7 +7,7 @@ import {
   View,
 } from '@gluestack-ui/themed';
 import { StackActions, useNavigation } from '@react-navigation/native';
-import React, { FC, useMemo } from 'react';
+import React, { FC, useCallback, useMemo } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import Toast from 'react-native-toast-message';
 import { useCreateProductMutation, useLazyFetchProductQuery } from 'src/api';
@@ -17,6 +17,7 @@ import { useMessages } from 'src/hooks';
 import { ApiRequest, FormParams } from 'src/types';
 import { createProductFormUtil } from 'src/utils';
 
+import { SectionProductClassification } from './classification/section-product-classification';
 import { ControlProductCategories } from './form/control-product-categories';
 import { FormControlProductAdditional } from './form/form-control-product-additional';
 import { ProductInStockControl } from './form/form-control-product-in-stock';
@@ -30,7 +31,7 @@ import { ProductTitleControl } from './form/product-title.control';
 import { ProductTrackingStockControl } from './form/product-tracking-stock.control';
 import { ProductUnitControl } from './form/product-unit.control';
 
-export const CreateProductForm: FC = () => {
+export const ContentProductCreate: FC = () => {
   const navigation = useNavigation();
   const { formatErrorMessage } = useMessages();
   const [createProduct] = useCreateProductMutation();
@@ -104,6 +105,13 @@ export const CreateProductForm: FC = () => {
     [attributeProperties.skuTotal],
   );
 
+  const setSkus = useCallback(
+    (skusValue: FormParams.CreateProductSku[]) => {
+      setValue('skus', skusValue);
+    },
+    [setValue],
+  );
+
   return (
     <>
       <View flex={1}>
@@ -149,6 +157,7 @@ export const CreateProductForm: FC = () => {
                       <ProductStockControl mt={16} control={control} />
                     )}
                   </View>
+                  <SectionProductClassification mt={16} control={control} setSkus={setSkus} />
                   <View mt={16}>
                     <View px={16}>
                       <View>

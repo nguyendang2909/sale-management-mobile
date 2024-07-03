@@ -1,6 +1,13 @@
 import { Image } from 'react-native-image-crop-picker';
 
-import { CashItemSource, CashItemType, OrderPaymentMethod, OrderStatus } from './data.type';
+import {
+  CashItemSource,
+  CashItemType,
+  OrderPaymentMethod,
+  OrderStatus,
+  ProductAttributeType,
+  ProductSpecificationType,
+} from './data.type';
 import { Entity } from './entities.type';
 import { ApiRequest } from './fe.type';
 
@@ -24,35 +31,6 @@ export declare namespace FormParams {
   type CreateProfile = {
     email: string | null;
     shopTitle: string | null;
-  };
-
-  type CreateProduct = {
-    createMore: boolean;
-    title: string;
-    minWholesalePriceQuantity: number | null;
-    isInStock: boolean | null;
-    description: string | null;
-    label: string | null;
-    unit: string | null;
-    categoryIds: string[];
-    images: Entity.ProductImage[];
-    attributes: {
-      title: string;
-      specifications: {
-        title: string;
-        id: string;
-      }[];
-    }[];
-    skus: {
-      imageId: string | null;
-      code: string | null;
-      price: number | null;
-      capitalPrice: number | null;
-      promotionalPrice: number | null;
-      wholesalePrice: number | null;
-      stock: number | null;
-      specificationIds: string[];
-    }[];
   };
 
   type UpdateProduct = {
@@ -153,5 +131,46 @@ export declare namespace FormParams {
     imageIds: string[];
     at: string | null;
     type: CashItemType;
+  };
+
+  type CreateProductSpecification = {
+    title: string;
+    id: string;
+    type: ProductSpecificationType | null;
+  };
+
+  type CreateProductAttribute = {
+    title: string;
+    type: ProductAttributeType | null;
+    specifications: CreateProductSpecification[];
+  };
+
+  type CreateProductClassification = {
+    attributes: CreateProductAttribute[];
+  };
+
+  type CreateProductSku = {
+    imageId: string | null;
+    code: string | null;
+    price: number | null;
+    capitalPrice: number | null;
+    promotionalPrice: number | null;
+    wholesalePrice: number | null;
+    stock: number | null;
+    specificationIds: string[];
+  };
+
+  type CreateProduct = {
+    createMore: boolean;
+    title: string;
+    minWholesalePriceQuantity: number | null;
+    isInStock: boolean | null;
+    description: string | null;
+    label: string | null;
+    unit: string | null;
+    categoryIds: string[];
+    images: Entity.ProductImage[];
+    attributes: CreateProductAttribute[];
+    skus: CreateProductSku[];
   };
 }

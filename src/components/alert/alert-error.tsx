@@ -1,4 +1,4 @@
-import { Alert, AlertIcon, Text } from '@gluestack-ui/themed';
+import { Alert, AlertIcon, AlertText } from '@gluestack-ui/themed';
 import { CircleAlert } from 'lucide-react-native';
 import { FC } from 'react';
 import { AlertProps } from 'src/types';
@@ -11,9 +11,9 @@ export const AlertError: FC<AlertProps & { description: string }> = ({
     return null;
   }
   return (
-    <Alert variant="outline" {...alertProps} action="error">
+    <Alert {...alertProps} action="error">
       <AlertIcon as={CircleAlert} mr={12} />
-      <Text>{description}</Text>
+      <AlertText color="$error600">{description}</AlertText>
     </Alert>
   );
 };

@@ -1,4 +1,4 @@
-import { HStack, Text, View } from '@gluestack-ui/themed';
+import { View } from '@gluestack-ui/themed';
 import { FlashList } from '@shopify/flash-list';
 import { useCallback } from 'react';
 import { ActionsheetDateRange, ButtonCalendar } from 'src/components';
@@ -12,6 +12,7 @@ import {
 
 import { CashItemActions } from './actions/cash-item-actions';
 import { CashGroupListItem } from './list/cash-group-list-item';
+import { CashListHeader } from './list/cash-list-header';
 import { CashItemOverallSection } from './overall-section/cash-item-overall-section';
 
 export const ContentCashItems = () => {
@@ -73,21 +74,7 @@ export const ContentCashItems = () => {
                 expenditureAmount={expenditureAmount}
                 cashAmount={cashAmount}
               />
-              <View mt={16} px={16}>
-                <HStack>
-                  <View width={150}></View>
-                  <View flex={1}>
-                    <Text textAlign="right" color="$secondary500">
-                      Chi
-                    </Text>
-                  </View>
-                  <View flex={1}>
-                    <Text textAlign="right" color="$secondary500">
-                      Thu
-                    </Text>
-                  </View>
-                </HStack>
-              </View>
+              <CashListHeader />
             </View>
           }
           ListFooterComponent={<View height={100}></View>}

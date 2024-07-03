@@ -1,4 +1,5 @@
 import { yupResolver } from '@hookform/resolvers/yup';
+import { PRODUCT_ATTRIBUTE_TYPES, PRODUCT_SPECIFICATION_TYPES } from 'src/constants';
 import { FormParams } from 'src/types';
 import { v4 as uuidV4 } from 'uuid';
 import * as Yup from 'yup';
@@ -27,10 +28,18 @@ class CreateProductFormUtil {
           .of(
             Yup.object({
               title: Yup.string().required(),
+              type: Yup.string()
+                .oneOf(Object.values(PRODUCT_ATTRIBUTE_TYPES))
+                .required()
+                .nullable(),
               specifications: Yup.array()
                 .of(
                   Yup.object({
                     id: Yup.string().required(),
+                    type: Yup.string()
+                      .oneOf(Object.values(PRODUCT_SPECIFICATION_TYPES))
+                      .required()
+                      .nullable(),
                     title: Yup.string().required(),
                   }),
                 )
@@ -87,10 +96,12 @@ class CreateProductFormUtil {
       attributes: [
         {
           title: 'default',
+          type: PRODUCT_ATTRIBUTE_TYPES.DEFAULT,
           specifications: [
             {
               title: 'default',
               id: defaultSpecificationId,
+              type: null,
             },
           ],
         },
