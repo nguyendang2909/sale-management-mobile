@@ -124,8 +124,8 @@ export const MainStack: React.FC = () => {
           navigationBarColor: colors.background,
           orientation: 'portrait',
         }}
-        initialRouteName={SCREENS.PRODUCT_CREATE}
-        // initialRouteName={SCREENS.SHOPS}
+        // initialRouteName={SCREENS.PRODUCT_CREATE}
+        initialRouteName={SCREENS.SHOPS}
       >
         <Stack.Group>
           <Stack.Screen name={SCREENS.SHOPS} component={ShopsScreen} />
