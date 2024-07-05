@@ -12,7 +12,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import Toast from 'react-native-toast-message';
 import { useCreateProductMutation, useLazyFetchProductQuery } from 'src/api';
 import { ViewFooter } from 'src/components';
-import { HOME_SCREENS, SCREENS } from 'src/constants';
+import { HOME_SCREENS, PRODUCT_ATTRIBUTE_TYPES, SCREENS } from 'src/constants';
 import { useMessages } from 'src/hooks';
 import { ApiRequest, FormParams } from 'src/types';
 import { createProductFormUtil } from 'src/utils';
@@ -100,9 +100,11 @@ export const ContentProductCreate: FC = () => {
       ),
     [attributesValue],
   );
-  const hasOnlyOneSku = useMemo(
-    () => attributeProperties.skuTotal === 1,
-    [attributeProperties.skuTotal],
+  const hasDefaultSku = useMemo(
+    () =>
+      attributeProperties.skuTotal === 1 &&
+      attributesValue[0].type === PRODUCT_ATTRIBUTE_TYPES.DEFAULT,
+    [attributeProperties.skuTotal, attributesValue],
   );
 
   const setSkus = useCallback(
@@ -132,7 +134,7 @@ export const ContentProductCreate: FC = () => {
                   <View px={16} py={8} bgColor="$white" mb={16}>
                     <ProductTitleControl control={control} />
                     <ProductImagesControl mt={16} control={control} />
-                    {hasOnlyOneSku && (
+                    {hasDefaultSku && (
                       <>
                         <View mt={16}>
                           <View flexDirection="row" columnGap={16}>
@@ -153,7 +155,7 @@ export const ContentProductCreate: FC = () => {
                     <ProductSkuControl mt={16} control={control} />
                     {!isTrackingStock && <ProductInStockControl mt={16} control={control} />}
                     <ProductTrackingStockControl mt={16} control={control} />
-                    {isTrackingStock && hasOnlyOneSku && (
+                    {isTrackingStock && hasDefaultSku && (
                       <ProductStockControl mt={16} control={control} />
                     )}
                   </View>

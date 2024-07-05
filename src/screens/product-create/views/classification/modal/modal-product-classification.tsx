@@ -16,7 +16,7 @@ export const ModalProductClassification: FC<
     control: Control<FormParams.CreateProduct, any>;
     onClose: () => void;
     currentAttributes: FormParams.CreateProductAttribute[];
-    setClassification: (e: FormParams.CreateProductAttribute[]) => void;
+    setAttributes: (e: FormParams.CreateProductAttribute[]) => void;
     setSkus: (e: FormParams.CreateProductSku[]) => void;
   }
 > = ({ currentAttributes, onClose, setAttributes, ...modalProps }) => {
@@ -67,9 +67,28 @@ export const ModalProductClassification: FC<
   const onSubmit: SubmitHandler<FormParams.CreateProductClassification> = useCallback(
     values => {
       setAttributes(values.attributes);
+      if (values.attributes.length === 2) {
+        const skus: FormParams.CreateProductSku[] = [];
+        for (let i = 0; i < values.attributes[0].specifications.length; i += 1) {
+          for (let j = 0; j < values.attributes[1].specifications.length; j += 1) {
+            skus.push({
+              code: null,
+              price: 0,
+              capitalPrice: null,
+              promotionalPrice: null,
+              wholesalePrice: null,
+              stock: null,
+              specificationIds: [
+                values.attributes[0].specifications[i].id,
+                values.attributes[1].specifications[j].id,
+              ],
+            });
+          }
+        }
+      }
       onClose();
     },
-    [setAttributes],
+    [onClose, setAttributes],
   );
 
   return (

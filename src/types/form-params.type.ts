@@ -150,7 +150,6 @@ export declare namespace FormParams {
   };
 
   type CreateProductSku = {
-    imageId: string | null;
     code: string | null;
     price: number | null;
     capitalPrice: number | null;

@@ -7,15 +7,15 @@ import { Platform } from 'react-native';
 import Toast from 'react-native-toast-message';
 import { useUpdateProductMutation } from 'src/api';
 import { LoadingOverlay } from 'src/components';
-import { HOME_SCREENS, SCREENS } from 'src/constants';
+import { HOME_SCREENS, PRODUCT_ATTRIBUTE_TYPES, SCREENS } from 'src/constants';
 import { useMessages, useProduct } from 'src/hooks';
 import { ApiRequest, AppStore, FormParams } from 'src/types';
 import { updateProductFormUtil } from 'src/utils';
 import { formParamUtil } from 'src/utils/form-params.util';
 
+import { ControlProductCategories } from './form/control-product-categories';
 import { ProductInStockControl } from './form/form-control-product-in-stock';
 import { ProductCapitalPriceControl } from './form/product-capital-price.control';
-import { ControlProductCategories } from './form/control-product-categories';
 import { ProductImagesControl } from './form/product-images.control';
 import { ProductPriceControl } from './form/product-price.control';
 import { ProductPromotionalPriceControl } from './form/product-promotional-price.control';
@@ -109,9 +109,11 @@ export const ContentProduct: FC<FCProps> = ({ detail }) => {
     [attributesValue],
   );
 
-  const hasOnlyOneSku = useMemo(
-    () => attributeProperties.skuTotal === 1,
-    [attributeProperties.skuTotal],
+  const hasDefaultSku = useMemo(
+    () =>
+      attributeProperties.skuTotal === 1 &&
+      attributesValue[0].type === PRODUCT_ATTRIBUTE_TYPES.DEFAULT,
+    [attributeProperties.skuTotal, attributesValue],
   );
 
   return (
@@ -136,7 +138,7 @@ export const ContentProduct: FC<FCProps> = ({ detail }) => {
                     <View px={16} py={8} bgColor="$white" mb={16}>
                       <ProductTitleControl control={control} />
                       <ProductImagesControl mt={16} control={control} />
-                      {hasOnlyOneSku && (
+                      {hasDefaultSku && (
                         <>
                           <View mt={16}>
                             <View flexDirection="row" columnGap={16}>
@@ -157,7 +159,7 @@ export const ContentProduct: FC<FCProps> = ({ detail }) => {
                       <ProductSkuControl mt={16} control={control} />
                       {!isTrackingStock && <ProductInStockControl mt={16} control={control} />}
                       <ProductTrackingStockControl mt={16} control={control} />
-                      {isTrackingStock && hasOnlyOneSku && (
+                      {isTrackingStock && hasDefaultSku && (
                         <ProductStockControl mt={16} control={control} />
                       )}
                     </View>
