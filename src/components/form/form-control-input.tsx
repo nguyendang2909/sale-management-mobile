@@ -9,12 +9,11 @@ import {
   InputField,
   View,
 } from '@gluestack-ui/themed';
-import React, { forwardRef, useCallback, useState } from 'react';
+import React, { forwardRef } from 'react';
 import { InputModeOptions } from 'react-native';
 import { ViewProps } from 'src/types';
 
 import { MaterialIcons } from '../icon';
-import { InputSlotClear } from './input';
 
 type FCProps = ViewProps & {
   label?: string;
@@ -29,6 +28,7 @@ type FCProps = ViewProps & {
   onBlur?: () => void;
   focusable?: boolean;
   onFocus?: () => void;
+  clearButtonMode?: 'never' | 'while-editing' | 'unless-editing' | 'always' | undefined;
 };
 
 export const FormControlInput = forwardRef(
@@ -46,15 +46,16 @@ export const FormControlInput = forwardRef(
       onBlur,
       focusable,
       onFocus,
+      clearButtonMode,
       ...viewProps
     }: FCProps,
     ref,
   ) => {
-    const [isDisplayInputSlot, setDisplayInputSlot] = useState<boolean>(false);
+    // const [isDisplayInputSlot, setDisplayInputSlot] = useState<boolean>(false);
 
-    const handleClear = useCallback(() => {
-      onChange(null);
-    }, [onChange]);
+    // const handleClear = useCallback(() => {
+    //   onChange(null);
+    // }, [onChange]);
 
     const handleChangeText = (e: string) => {
       if (e) {
@@ -63,20 +64,6 @@ export const FormControlInput = forwardRef(
       }
       onChange(null);
     };
-
-    const handleFocus = useCallback(() => {
-      setDisplayInputSlot(true);
-      if (onFocus) {
-        onFocus();
-      }
-    }, [onFocus]);
-
-    const handleBlur = useCallback(() => {
-      setDisplayInputSlot(false);
-      if (onBlur) {
-        onBlur();
-      }
-    }, [onBlur]);
 
     return (
       <View {...viewProps}>
@@ -94,12 +81,13 @@ export const FormControlInput = forwardRef(
               onChangeText={handleChangeText}
               placeholder={placeholder}
               maxLength={maxLength}
-              onBlur={handleBlur}
-              onFocus={handleFocus}
+              onBlur={onBlur}
+              onFocus={onFocus}
+              clearButtonMode={clearButtonMode || 'while-editing'}
               // @ts-ignore
               ref={ref}
             ></InputField>
-            {!!value && isDisplayInputSlot && <InputSlotClear onPress={handleClear} />}
+            {/* {!!value && isDisplayInputSlot && <InputSlotClear onPress={handleClear} />} */}
           </Input>
           <View pb={16}>
             <FormControlError position="absolute" left={0} right={0}>

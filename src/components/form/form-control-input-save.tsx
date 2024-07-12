@@ -1,7 +1,6 @@
 import {
   Button,
   ButtonText,
-  CloseCircleIcon,
   FormControl,
   FormControlError,
   FormControlErrorIcon,
@@ -10,12 +9,11 @@ import {
   FormControlLabelText,
   Input,
   InputField,
-  InputIcon,
   InputSlot,
   View,
 } from '@gluestack-ui/themed';
-import React, { forwardRef, useCallback, useState } from 'react';
-import { InputModeOptions, TouchableOpacity } from 'react-native';
+import React, { forwardRef } from 'react';
+import { InputModeOptions } from 'react-native';
 import { ViewProps } from 'src/types';
 
 import { MaterialIcons } from '../icon';
@@ -58,25 +56,11 @@ export const FormControlInputSave = forwardRef(
     }: FCProps,
     ref,
   ) => {
-    const [isDisplayInputSlot, setDisplayInputSlot] = useState<boolean>(false);
+    // const [isDisplayInputSlot, setDisplayInputSlot] = useState<boolean>(false);
 
-    const handleClear = useCallback(() => {
-      onChange(null);
-    }, [onChange]);
-
-    const handleFocus = useCallback(() => {
-      setDisplayInputSlot(true);
-      if (onFocus) {
-        onFocus();
-      }
-    }, [onFocus]);
-
-    const handleBlur = useCallback(() => {
-      setDisplayInputSlot(false);
-      if (onBlur) {
-        onBlur();
-      }
-    }, [onBlur]);
+    // const handleClear = useCallback(() => {
+    //   onChange(null);
+    // }, [onChange]);
 
     return (
       <View {...viewProps}>
@@ -95,17 +79,19 @@ export const FormControlInputSave = forwardRef(
               onChangeText={onChange}
               placeholder={placeholder}
               maxLength={maxLength}
-              onBlur={handleBlur}
-              onFocus={handleFocus}
+              onBlur={onBlur}
+              onFocus={onFocus}
+              clearButtonMode="while-editing"
+              onSubmitEditing={onSubmit}
               // @ts-ignore
               ref={ref}
             ></InputField>
             <InputSlot flexDirection="row" gap={8}>
-              {!!value && isDisplayInputSlot && (
+              {/* {!!value && isDisplayInputSlot && (
                 <TouchableOpacity onPress={handleClear}>
                   <InputIcon size="xl" as={CloseCircleIcon}></InputIcon>
                 </TouchableOpacity>
-              )}
+              )} */}
 
               <Button size="xs" onPress={onSubmit}>
                 <ButtonText>Lưu</ButtonText>

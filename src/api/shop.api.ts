@@ -25,48 +25,12 @@ const shopApi = api.injectEndpoints({
         body,
       }),
     }),
-    fetchSaleOverallByShop: builder.query<
-      ApiResponse.SaleOverallByShopId,
-      { shopId: string; params: ApiRequest.FindSaleOverallByShopId }
-    >({
-      query: ({ shopId, params }) => ({
-        url: API_ENDPOINTS.SHOPS.SHOP_ID.SALE.OVERALL(shopId),
-        method: API_METHODS.GET,
-        params,
-      }),
-    }),
-    fetchSaleStatisticsByShop: builder.query<
-      ApiResponse.SaleStatisticsByShopId,
-      { shopId: string; params: ApiRequest.FindSaleOverallByShopId }
-    >({
-      query: ({ shopId, params }) => ({
-        url: API_ENDPOINTS.SHOPS.SHOP_ID.SALE.STATISTICS(shopId),
-        method: API_METHODS.GET,
-        params,
-      }),
-    }),
-    fetchCountOrdersByShop: builder.query<
-      ApiResponse.Count,
-      { shopId: string; params: ApiRequest.FindAllOrders }
-    >({
-      query: ({ shopId, params }) => ({
-        url: API_ENDPOINTS.SHOPS.SHOP_ID.ORDERS.COUNT(shopId),
-        method: API_METHODS.GET,
-        params,
-      }),
-    }),
   }),
 });
 
 export const {
   useFetchAllShopsQuery,
   useLazyFetchAllShopsQuery,
-  useFetchSaleOverallByShopQuery,
-  useLazyFetchSaleOverallByShopQuery,
-  useFetchSaleStatisticsByShopQuery,
-  useLazyFetchSaleStatisticsByShopQuery,
-  useFetchCountOrdersByShopQuery,
-  useLazyFetchCountOrdersByShopQuery,
   useUpdateShopMutation,
   useFetchShopQuery,
   useLazyFetchShopQuery,

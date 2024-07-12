@@ -44,10 +44,13 @@ export const ContentProductCreate: FC = () => {
     control,
     formState: { isSubmitting, errors },
     watch,
+    getValues,
   } = useForm<FormParams.CreateProduct>({
     defaultValues: createProductFormUtil.getDefaultValues(),
     resolver: createProductFormUtil.getResolver(),
   });
+
+  console.log(1111, watch('title'));
 
   console.log(1111, errors);
 
@@ -114,6 +117,10 @@ export const ContentProductCreate: FC = () => {
     [setValue],
   );
 
+  const getSkus = useCallback(() => {
+    return getValues('skus');
+  }, [getValues]);
+
   return (
     <>
       <View flex={1}>
@@ -159,7 +166,13 @@ export const ContentProductCreate: FC = () => {
                       <ProductStockControl mt={16} control={control} />
                     )}
                   </View>
-                  <SectionProductClassification mt={16} control={control} setSkus={setSkus} />
+                  <SectionProductClassification
+                    mt={16}
+                    control={control}
+                    setSkus={setSkus}
+                    getSkus={getSkus}
+                    hasDefaultSku={hasDefaultSku}
+                  />
                   <View mt={16}>
                     <View px={16}>
                       <View>

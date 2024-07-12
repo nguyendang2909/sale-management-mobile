@@ -12,24 +12,8 @@ export const API_ENDPOINTS = {
   SHOPS: {
     INDEX: '/shops',
     ALL: '/shops/all',
-    ORDERS_BY_SHOP_ID: (shopId: string) => {
-      return API_TAGS.SHOPS + '/' + shopId + API_TAGS.ORDERS;
-    },
     SHOP_ID: {
       get: (shopId: string) => API_TAGS.SHOPS + '/' + shopId,
-      ORDERS: {
-        COUNT: (shopId: string) => {
-          return API_TAGS.SHOPS + '/' + shopId + API_TAGS.ORDERS + API_TAGS.COUNT;
-        },
-      },
-      SALE: {
-        OVERALL: (shopId: string) => {
-          return API_TAGS.SHOPS + '/' + shopId + API_TAGS.SALE + API_TAGS.OVERALL;
-        },
-        STATISTICS: (shopId: string) => {
-          return API_TAGS.SHOPS + '/' + shopId + API_TAGS.SALE + API_TAGS.STATISTICS;
-        },
-      },
     },
   },
   LIKES: {
@@ -108,7 +92,43 @@ export const API_ENDPOINTS = {
   },
   ORDERS: {
     INDEX: API_TAGS.ORDERS,
-    ID: (id: string) => API_TAGS.ORDERS + '/' + id,
+    ID: {
+      get: (id: string) => API_TAGS.ORDERS + '/' + id,
+    },
+    SHOPS: {
+      INDEX: '/shops',
+      SHOP_ID: {
+        get: (shopId: string) => API_TAGS.ORDERS + API_TAGS.SHOPS + '/' + shopId,
+        ORDERS: {
+          COUNT: {
+            get: (shopId: string) => {
+              return API_TAGS.ORDERS + API_TAGS.SHOPS + '/' + shopId + API_TAGS.COUNT;
+            },
+          },
+        },
+        SALE: {
+          OVERALL: {
+            get: (shopId: string) => {
+              return (
+                API_TAGS.ORDERS + API_TAGS.SHOPS + '/' + shopId + API_TAGS.SALE + API_TAGS.OVERALL
+              );
+            },
+          },
+          STATISTICS: {
+            get: (shopId: string) => {
+              return (
+                API_TAGS.ORDERS +
+                API_TAGS.SHOPS +
+                '/' +
+                shopId +
+                API_TAGS.SALE +
+                API_TAGS.STATISTICS
+              );
+            },
+          },
+        },
+      },
+    },
   },
   CUSTOMERS: {
     INDEX: API_TAGS.CUSTOMERS,

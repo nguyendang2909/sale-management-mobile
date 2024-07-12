@@ -15,7 +15,6 @@ import React, { forwardRef, useCallback } from 'react';
 import { InputModeOptions } from 'react-native';
 
 import { MaterialIcons } from '../icon';
-import { InputSlotClear } from './input';
 
 type FCProps = {
   label: string;
@@ -29,6 +28,7 @@ type FCProps = {
   inputMode?: InputModeOptions | undefined;
   onBlur?: () => void;
   focusable?: boolean;
+  clearButtonMode?: 'never' | 'while-editing' | 'unless-editing' | 'always' | undefined;
 };
 
 export const IntegerInput = forwardRef(
@@ -45,12 +45,13 @@ export const IntegerInput = forwardRef(
       inputMode,
       onBlur,
       focusable,
+      clearButtonMode,
     }: FCProps,
     ref,
   ) => {
-    const handleClear = useCallback(() => {
-      onChange(null);
-    }, [onChange]);
+    // const handleClear = useCallback(() => {
+    //   onChange(null);
+    // }, [onChange]);
 
     const handleChange = useCallback(
       (e: string) => {
@@ -83,10 +84,11 @@ export const IntegerInput = forwardRef(
               placeholder={placeholder}
               maxLength={maxLength}
               onBlur={onBlur}
+              clearButtonMode={clearButtonMode || 'while-editing'}
               // @ts-ignore
               ref={ref}
             ></InputField>
-            {!!value && <InputSlotClear onPress={handleClear} />}
+            {/* {!!value && <InputSlotClear onPress={handleClear} />} */}
           </Input>
           <View pb={12}>
             <FormControlError position="absolute">

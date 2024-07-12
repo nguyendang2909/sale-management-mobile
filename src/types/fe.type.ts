@@ -118,7 +118,6 @@ export declare namespace ApiRequest {
       }[];
     }[];
     skus: {
-      imageId: string | null;
       code: string | null;
       price: number;
       capitalPrice: number | null;

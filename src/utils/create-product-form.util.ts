@@ -1,8 +1,9 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { PRODUCT_ATTRIBUTE_TYPES, PRODUCT_SPECIFICATION_TYPES } from 'src/constants';
 import { FormParams } from 'src/types';
-import { v4 as uuidV4 } from 'uuid';
 import * as Yup from 'yup';
+
+import { specificationUtil } from './specification.util';
 
 class CreateProductFormUtil {
   getResolver() {
@@ -82,7 +83,7 @@ class CreateProductFormUtil {
   }
 
   getDefaultValues(): FormParams.CreateProduct {
-    const defaultSpecificationId = uuidV4();
+    const defaultSpecificationId = specificationUtil.generateId();
     return {
       title: '',
       minWholesalePriceQuantity: null,
@@ -93,32 +94,39 @@ class CreateProductFormUtil {
       createMore: false,
       categoryIds: [],
       images: [],
-      attributes: [
-        {
-          title: 'default',
-          type: PRODUCT_ATTRIBUTE_TYPES.DEFAULT,
-          specifications: [
-            {
-              title: 'default',
-              id: defaultSpecificationId,
-              type: null,
-            },
-          ],
-        },
-      ],
-      skus: [
-        {
-          imageId: null,
-          code: null,
-          price: null,
-          capitalPrice: null,
-          promotionalPrice: null,
-          wholesalePrice: null,
-          stock: null,
-          specificationIds: [defaultSpecificationId],
-        },
-      ],
+      attributes: this.getDefaultAttributes(defaultSpecificationId),
+      skus: this.getDefaultSkus(defaultSpecificationId),
     };
+  }
+
+  getDefaultAttributes(defaultSpecificationId: string) {
+    return [
+      {
+        title: 'default',
+        type: PRODUCT_ATTRIBUTE_TYPES.DEFAULT,
+        specifications: [
+          {
+            title: 'default',
+            id: defaultSpecificationId,
+            type: null,
+          },
+        ],
+      },
+    ];
+  }
+
+  getDefaultSkus(defaultSpecificationId: string) {
+    return [
+      {
+        code: null,
+        price: null,
+        capitalPrice: null,
+        promotionalPrice: null,
+        wholesalePrice: null,
+        stock: null,
+        specificationIds: [defaultSpecificationId],
+      },
+    ];
   }
 }
 

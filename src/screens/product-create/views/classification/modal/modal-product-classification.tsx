@@ -7,6 +7,7 @@ import { Modal, ModalProps } from 'react-native';
 import { Header, ViewFooter } from 'src/components';
 import { PRODUCT_ATTRIBUTE_TYPES } from 'src/constants';
 import { FormParams } from 'src/types';
+import { createProductFormUtil, specificationUtil } from 'src/utils';
 import { createProductClassificationFormUtil } from 'src/utils/create-product-classification.util';
 
 import { ProductAttributeListItem } from './list/product-attribute-item';
@@ -18,18 +19,20 @@ export const ModalProductClassification: FC<
     currentAttributes: FormParams.CreateProductAttribute[];
     setAttributes: (e: FormParams.CreateProductAttribute[]) => void;
     setSkus: (e: FormParams.CreateProductSku[]) => void;
+    getSkus: () => FormParams.CreateProductSku[];
   }
-> = ({ currentAttributes, onClose, setAttributes, ...modalProps }) => {
+> = ({ currentAttributes, onClose, setAttributes, setSkus, getSkus, ...modalProps }) => {
   const initialAttributes = currentAttributes.filter(
     attribute => attribute.type !== PRODUCT_ATTRIBUTE_TYPES.DEFAULT,
   );
 
   const {
+    reset: resetValueAttribute,
     setValue: setValueAttribute,
     getValues: getValuesAttribute,
     watch: watchAttribute,
     handleSubmit: handleSubmitAttribute,
-    formState: { errors: errorsAttribute },
+    formState: { errors: errorsAttribute, isDirty },
   } = useForm<FormParams.CreateProductClassification>({
     defaultValues: createProductClassificationFormUtil.getDefaultValues({
       attributes: initialAttributes,
@@ -66,35 +69,80 @@ export const ModalProductClassification: FC<
 
   const onSubmit: SubmitHandler<FormParams.CreateProductClassification> = useCallback(
     values => {
-      setAttributes(values.attributes);
-      if (values.attributes.length === 2) {
-        const skus: FormParams.CreateProductSku[] = [];
-        for (let i = 0; i < values.attributes[0].specifications.length; i += 1) {
-          for (let j = 0; j < values.attributes[1].specifications.length; j += 1) {
-            skus.push({
-              code: null,
-              price: 0,
-              capitalPrice: null,
-              promotionalPrice: null,
-              wholesalePrice: null,
-              stock: null,
-              specificationIds: [
-                values.attributes[0].specifications[i].id,
-                values.attributes[1].specifications[j].id,
-              ],
-            });
+      if (isDirty) {
+        if (!values.attributes.length) {
+          if (
+            attributes.length !== 1 ||
+            attributes[0].specifications.length !== 1 ||
+            attributes[0].type !== PRODUCT_ATTRIBUTE_TYPES.DEFAULT
+          ) {
+            const defaultSpecificationId = specificationUtil.generateId();
+            setAttributes(createProductFormUtil.getDefaultAttributes(defaultSpecificationId));
+            setSkus(createProductFormUtil.getDefaultSkus(defaultSpecificationId));
           }
+        } else {
+          setAttributes(values.attributes);
+          const currentSkus = getSkus();
+          if (values.attributes.length === 1) {
+            const skus: FormParams.CreateProductSku[] = [];
+            for (let i = 0; i < values.attributes[0].specifications.length; i += 1) {
+              const sameSku = currentSkus.find(sku =>
+                _.isEqual(sku.specificationIds, values.attributes[0].specifications[i]),
+              );
+              skus.push(
+                sameSku || {
+                  code: null,
+                  price: 0,
+                  capitalPrice: null,
+                  promotionalPrice: null,
+                  wholesalePrice: null,
+                  stock: null,
+                  specificationIds: [values.attributes[0].specifications[i].id],
+                },
+              );
+            }
+            setSkus(skus);
+          }
+          // if (values.attributes.length === 2) {
+          //   const skus: FormParams.CreateProductSku[] = [];
+          //   for (let i = 0; i < values.attributes[0].specifications.length; i += 1) {
+          //     for (let j = 0; j < values.attributes[1].specifications.length; j += 1) {
+          //       skus.push({
+          //         code: null,
+          //         price: 0,
+          //         capitalPrice: null,
+          //         promotionalPrice: null,
+          //         wholesalePrice: null,
+          //         stock: null,
+          //         specificationIds: [
+          //           values.attributes[0].specifications[i].id,
+          //           values.attributes[1].specifications[j].id,
+          //         ],
+          //       });
+          //     }
+          //   }
         }
+        // }
       }
+
       onClose();
     },
-    [onClose, setAttributes],
+    [attributes, onClose, setAttributes, setSkus],
   );
+
+  const handlePressClose = () => {
+    onClose();
+    resetValueAttribute(
+      createProductClassificationFormUtil.getDefaultValues({
+        attributes: initialAttributes,
+      }),
+    );
+  };
 
   return (
     <>
       <Modal animationType="slide" {...modalProps}>
-        <Header leftIcon={CloseIcon} onLeftPress={onClose} title="Phân loại"></Header>
+        <Header leftIcon={CloseIcon} onLeftPress={handlePressClose} title="Phân loại"></Header>
         <View mt={16} flex={1} bgColor="$backgroundLight100">
           <View flex={1} height={100}>
             <FlatList
@@ -123,14 +171,16 @@ export const ModalProductClassification: FC<
               keyboardShouldPersistTaps="handled"
               ListFooterComponent={
                 <View mt={24} px={16} flex={1}>
-                  <Button
-                    variant="outline"
-                    onPress={handleAddAttribute}
-                    disabled={attributes.length >= 2}
-                  >
-                    <ButtonIcon as={Plus}></ButtonIcon>
-                    <ButtonText>Thêm nhóm phân loại</ButtonText>
-                  </Button>
+                  {attributes.length < 2 && (
+                    <Button
+                      variant="outline"
+                      onPress={handleAddAttribute}
+                      disabled={attributes.length >= 2}
+                    >
+                      <ButtonIcon as={Plus}></ButtonIcon>
+                      <ButtonText>Thêm nhóm phân loại</ButtonText>
+                    </Button>
+                  )}
                   {/* <View>
                     <Text>Thêm nhóm phân loại</Text>
                   </View>

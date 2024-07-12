@@ -185,7 +185,7 @@ export const ProductAttributeListItem: FC<{
                   value={value}
                   onChange={onChange}
                   onBlur={onBlur}
-                  placeholder="Ghi chú"
+                  placeholder="Phân loại"
                   error={error?.message}
                 />
               );

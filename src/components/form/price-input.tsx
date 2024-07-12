@@ -11,12 +11,11 @@ import {
   VStack,
 } from '@gluestack-ui/themed';
 import _ from 'lodash';
-import React, { useCallback, useState } from 'react';
+import React, { useCallback } from 'react';
 import { InputModeOptions } from 'react-native';
 import { useMessages } from 'src/hooks';
 
 import { MaterialIcons } from '../icon';
-import { InputSlotClear } from './input';
 
 type FCProps = {
   label: string;
@@ -31,6 +30,7 @@ type FCProps = {
   onBlur?: () => void;
   focusable?: boolean;
   onFocus?: () => void;
+  clearButtonMode?: 'never' | 'while-editing' | 'unless-editing' | 'always' | undefined;
 };
 
 export const PriceInput: React.FC<FCProps> = ({
@@ -46,14 +46,15 @@ export const PriceInput: React.FC<FCProps> = ({
   onBlur,
   focusable,
   onFocus,
+  clearButtonMode,
 }) => {
-  const { formatNumber, locale } = useMessages();
+  const { formatNumber } = useMessages();
 
-  const [isDisplayInputSlot, setDisplayInputSlot] = useState<boolean>(false);
+  // const [isDisplayInputSlot, setDisplayInputSlot] = useState<boolean>(false);
 
-  const handleClear = useCallback(() => {
-    onChange(null);
-  }, [onChange]);
+  // const handleClear = useCallback(() => {
+  //   onChange(null);
+  // }, [onChange]);
 
   const handleChange = useCallback(
     (e: string) => {
@@ -71,19 +72,19 @@ export const PriceInput: React.FC<FCProps> = ({
     [onChange],
   );
 
-  const handleFocus = useCallback(() => {
-    setDisplayInputSlot(true);
-    if (onFocus) {
-      onFocus();
-    }
-  }, [onFocus]);
+  // const handleFocus = useCallback(() => {
+  //   setDisplayInputSlot(true);
+  //   if (onFocus) {
+  //     onFocus();
+  //   }
+  // }, [onFocus]);
 
-  const handleBlur = useCallback(() => {
-    setDisplayInputSlot(false);
-    if (onBlur) {
-      onBlur();
-    }
-  }, [onBlur]);
+  // const handleBlur = useCallback(() => {
+  //   setDisplayInputSlot(false);
+  //   if (onBlur) {
+  //     onBlur();
+  //   }
+  // }, [onBlur]);
 
   const getDisplayValue = (e?: number | null) => {
     if (e) {
@@ -106,10 +107,11 @@ export const PriceInput: React.FC<FCProps> = ({
             onChangeText={handleChange}
             placeholder={placeholder}
             maxLength={maxLength}
-            onBlur={handleBlur}
-            onFocus={handleFocus}
+            onBlur={onBlur}
+            onFocus={onFocus}
+            clearButtonMode={clearButtonMode || 'while-editing'}
           ></InputField>
-          {!!value && isDisplayInputSlot && <InputSlotClear onPress={handleClear} />}
+          {/* {!!value && isDisplayInputSlot && <InputSlotClear onPress={handleClear} />} */}
         </Input>
         <View pb={12}>
           <FormControlError position="absolute">

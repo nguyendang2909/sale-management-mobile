@@ -12,7 +12,7 @@ const productApi = api.injectEndpoints({
       { shopId: string; body: ApiRequest.CreateOrder }
     >({
       query: ({ shopId, body }) => ({
-        url: API_ENDPOINTS.SHOPS.ORDERS_BY_SHOP_ID(shopId),
+        url: API_ENDPOINTS.ORDERS.SHOPS.SHOP_ID.get(shopId),
         method: API_METHODS.POST,
         body,
       }),
@@ -23,7 +23,7 @@ const productApi = api.injectEndpoints({
       { shopId: string; params: ApiRequest.FindManyOrders }
     >({
       query: ({ shopId, params }) => ({
-        url: API_ENDPOINTS.SHOPS.ORDERS_BY_SHOP_ID(shopId),
+        url: API_ENDPOINTS.ORDERS.SHOPS.SHOP_ID.get(shopId),
         method: API_METHODS.GET,
         params,
       }),
@@ -34,7 +34,7 @@ const productApi = api.injectEndpoints({
       { shopId: string; params: ApiRequest.FindManyOrders }
     >({
       query: ({ shopId, params }) => ({
-        url: API_ENDPOINTS.SHOPS.ORDERS_BY_SHOP_ID(shopId),
+        url: API_ENDPOINTS.ORDERS.SHOPS.SHOP_ID.get(shopId),
         method: API_METHODS.GET,
         params: { ...params, status: ORDER_STATUSES.UNCONFIRMED },
       }),
@@ -45,7 +45,7 @@ const productApi = api.injectEndpoints({
       { shopId: string; params: ApiRequest.FindManyOrders }
     >({
       query: ({ shopId, params }) => ({
-        url: API_ENDPOINTS.SHOPS.ORDERS_BY_SHOP_ID(shopId),
+        url: API_ENDPOINTS.ORDERS.SHOPS.SHOP_ID.get(shopId),
         method: API_METHODS.GET,
         params: { ...params, status: ORDER_STATUSES.PROCESSING },
       }),
@@ -56,7 +56,7 @@ const productApi = api.injectEndpoints({
       { shopId: string; params: ApiRequest.FindManyOrders }
     >({
       query: ({ shopId, params }) => ({
-        url: API_ENDPOINTS.SHOPS.ORDERS_BY_SHOP_ID(shopId),
+        url: API_ENDPOINTS.ORDERS.SHOPS.SHOP_ID.get(shopId),
         method: API_METHODS.GET,
         params: { ...params, status: ORDER_STATUSES.DELIVERED },
       }),
@@ -67,7 +67,7 @@ const productApi = api.injectEndpoints({
       { shopId: string; params: ApiRequest.FindManyOrders }
     >({
       query: ({ shopId, params }) => ({
-        url: API_ENDPOINTS.SHOPS.ORDERS_BY_SHOP_ID(shopId),
+        url: API_ENDPOINTS.ORDERS.SHOPS.SHOP_ID.get(shopId),
         method: API_METHODS.GET,
         params: { ...params, status: ORDER_STATUSES.RETURNED },
       }),
@@ -78,7 +78,7 @@ const productApi = api.injectEndpoints({
       { shopId: string; params: ApiRequest.FindManyOrders }
     >({
       query: ({ shopId, params }) => ({
-        url: API_ENDPOINTS.SHOPS.ORDERS_BY_SHOP_ID(shopId),
+        url: API_ENDPOINTS.ORDERS.SHOPS.SHOP_ID.get(shopId),
         method: API_METHODS.GET,
         params: { ...params, status: ORDER_STATUSES.CANCELLED },
       }),
@@ -86,16 +86,47 @@ const productApi = api.injectEndpoints({
 
     fetchOrder: builder.query<ApiResponse.Order, string>({
       query: id => ({
-        url: `${API_ENDPOINTS.ORDERS.INDEX}/${id}`,
+        url: API_ENDPOINTS.ORDERS.ID.get(id),
         method: API_METHODS.GET,
+      }),
+    }),
+
+    fetchCountOrdersByShop: builder.query<
+      ApiResponse.Count,
+      { shopId: string; params: ApiRequest.FindAllOrders }
+    >({
+      query: ({ shopId, params }) => ({
+        url: API_ENDPOINTS.ORDERS.SHOPS.SHOP_ID.ORDERS.COUNT.get(shopId),
+        method: API_METHODS.GET,
+        params,
       }),
     }),
 
     updateOrder: builder.mutation<void, { id: string; body: ApiRequest.UpdateOrder }>({
       query: ({ id, body }) => ({
-        url: API_ENDPOINTS.ORDERS.ID(id),
+        url: API_ENDPOINTS.ORDERS.ID.get(id),
         method: API_METHODS.PATCH,
         body,
+      }),
+    }),
+    fetchSaleOverallByShop: builder.query<
+      ApiResponse.SaleOverallByShopId,
+      { shopId: string; params: ApiRequest.FindSaleOverallByShopId }
+    >({
+      query: ({ shopId, params }) => ({
+        url: API_ENDPOINTS.ORDERS.SHOPS.SHOP_ID.SALE.OVERALL.get(shopId),
+        method: API_METHODS.GET,
+        params,
+      }),
+    }),
+    fetchSaleStatisticsByShop: builder.query<
+      ApiResponse.SaleStatisticsByShopId,
+      { shopId: string; params: ApiRequest.FindSaleOverallByShopId }
+    >({
+      query: ({ shopId, params }) => ({
+        url: API_ENDPOINTS.ORDERS.SHOPS.SHOP_ID.SALE.STATISTICS.get(shopId),
+        method: API_METHODS.GET,
+        params,
       }),
     }),
 
@@ -126,6 +157,12 @@ export const {
   useLazyFetchCancelledOrdersQuery,
   useDeleteOrderMutation,
   useUpdateOrderMutation,
+  useFetchCountOrdersByShopQuery,
+  useLazyFetchCountOrdersByShopQuery,
+  useFetchSaleOverallByShopQuery,
+  useLazyFetchSaleOverallByShopQuery,
+  useFetchSaleStatisticsByShopQuery,
+  useLazyFetchSaleStatisticsByShopQuery,
   endpoints: orderEndpoints,
 } = productApi;
 

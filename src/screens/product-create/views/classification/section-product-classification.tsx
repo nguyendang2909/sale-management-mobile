@@ -6,13 +6,16 @@ import { useDisclose, useInit } from 'src/hooks';
 import { FormParams, ViewProps } from 'src/types';
 
 import { ModalProductClassification } from './modal/modal-product-classification';
+import { SkuList } from './modal/sku-list/sku-list';
 
 export const SectionProductClassification: FC<
   ViewProps & {
     control: Control<FormParams.CreateProduct, any>;
     setSkus: (e: FormParams.CreateProductSku[]) => void;
+    getSkus: () => FormParams.CreateProductSku[];
+    hasDefaultSku: boolean;
   }
-> = ({ control, setSkus, ...viewProps }) => {
+> = ({ control, setSkus, getSkus, hasDefaultSku, ...viewProps }) => {
   const {
     isOpen: isOpenModalClassification,
     onOpen: onOpenModalClassification,
@@ -32,6 +35,18 @@ export const SectionProductClassification: FC<
           <View>
             <Text fontWeight="$bold">Phân loại</Text>
           </View>
+          {!hasDefaultSku && (
+            <View>
+              <Controller
+                control={control}
+                name="skus"
+                rules={{ required: true }}
+                render={({ field: { onChange, value } }) => {
+                  return <SkuList skus={value} />;
+                }}
+              ></Controller>
+            </View>
+          )}
           <View mt={16}>
             <Button variant="outline" onPress={handlePressAddClassification}>
               <ButtonIcon as={Plus} mr={4}></ButtonIcon>
@@ -50,6 +65,7 @@ export const SectionProductClassification: FC<
             return (
               <ModalProductClassification
                 currentAttributes={value}
+                getSkus={getSkus}
                 control={control}
                 onClose={onCloseModalClassification}
                 visible={isOpenModalClassification}
