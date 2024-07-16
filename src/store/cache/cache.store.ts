@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { PRODUCT_SORT_TYPES } from 'src/constants/constants';
-import { AppStore, ProductSortType } from 'src/types';
+import { AppStore, FormParams, ProductSortType } from 'src/types';
 
 import { appActions } from '../app';
 
@@ -13,6 +13,9 @@ const initialState: AppStore.Cache = {
   category: {
     searchText: '',
     isSearching: false,
+  },
+  forms: {
+    createProduct: undefined,
   },
 };
 
@@ -52,6 +55,9 @@ export const cacheSlice = createSlice({
         state.category.searchText = '';
       }
     },
+    setCreateProduct: (state, { payload }: PayloadAction<FormParams.CreateProduct | undefined>) => {
+      state.forms.createProduct = payload;
+    },
   },
   extraReducers: builder => {
     builder.addCase(appActions.logout, state => {
@@ -76,6 +82,7 @@ export const {
   setProductSortType,
   setCategorySearchText,
   setSearchCategories,
+  setCreateProduct,
 } = cacheActions;
 
 export const cacheReducer = cacheSlice.reducer;

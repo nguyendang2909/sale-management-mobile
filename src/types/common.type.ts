@@ -1,4 +1,4 @@
-import { Actionsheet, Alert, Text, View } from '@gluestack-ui/themed';
+import { Actionsheet, Alert, Modal as Dialog, Text, View } from '@gluestack-ui/themed';
 import { SubscriptionOptions } from '@reduxjs/toolkit/query';
 import { ComponentProps } from 'react';
 import { IconTypes } from 'src/components';
@@ -50,6 +50,8 @@ export type ActionsheetProps = ComponentProps<ActionsheetType>;
 export type AlertProps = ComponentProps<typeof Alert>;
 
 export type TextProps = ComponentProps<TextType>;
+
+export type DialogProps = ComponentProps<typeof Dialog>;
 
 export type OrderStoreStatus = ValueOf<typeof ORDER_STORE_STATUSES>;
 

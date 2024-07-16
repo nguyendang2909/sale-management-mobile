@@ -1,7 +1,7 @@
 import { Button, ButtonIcon, ButtonText, Text, View } from '@gluestack-ui/themed';
 import { Plus } from 'lucide-react-native';
 import { FC, useCallback } from 'react';
-import { Control, Controller } from 'react-hook-form';
+import { Control, Controller, UseFormGetValues } from 'react-hook-form';
 import { useDisclose, useInit } from 'src/hooks';
 import { FormParams, ViewProps } from 'src/types';
 
@@ -12,10 +12,22 @@ export const SectionProductClassification: FC<
   ViewProps & {
     control: Control<FormParams.CreateProduct, any>;
     setSkus: (e: FormParams.CreateProductSku[]) => void;
+    setSku: (index: number, skuValue: FormParams.CreateProductSku) => void;
     getSkus: () => FormParams.CreateProductSku[];
+    getProduct: UseFormGetValues<FormParams.CreateProduct>;
     hasDefaultSku: boolean;
+    specificationsMap: Record<string, FormParams.CreateProductSpecification>;
   }
-> = ({ control, setSkus, getSkus, hasDefaultSku, ...viewProps }) => {
+> = ({
+  control,
+  setSkus,
+  setSku,
+  getSkus,
+  hasDefaultSku,
+  specificationsMap,
+  getProduct,
+  ...viewProps
+}) => {
   const {
     isOpen: isOpenModalClassification,
     onOpen: onOpenModalClassification,
@@ -42,7 +54,14 @@ export const SectionProductClassification: FC<
                 name="skus"
                 rules={{ required: true }}
                 render={({ field: { onChange, value } }) => {
-                  return <SkuList skus={value} />;
+                  return (
+                    <SkuList
+                      setSku={setSku}
+                      skus={value}
+                      specificationsMap={specificationsMap}
+                      getProduct={getProduct}
+                    />
+                  );
                 }}
               ></Controller>
             </View>

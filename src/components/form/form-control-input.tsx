@@ -17,7 +17,7 @@ import { MaterialIcons } from '../icon';
 
 type FCProps = ViewProps & {
   label?: string;
-  onChange: (e: string | null) => void;
+  onChange?: (e: string | null) => void;
   value?: string | null;
   error?: string;
   maxLength?: number;
@@ -29,6 +29,7 @@ type FCProps = ViewProps & {
   focusable?: boolean;
   onFocus?: () => void;
   clearButtonMode?: 'never' | 'while-editing' | 'unless-editing' | 'always' | undefined;
+  editable?: boolean;
 };
 
 export const FormControlInput = forwardRef(
@@ -47,6 +48,7 @@ export const FormControlInput = forwardRef(
       focusable,
       onFocus,
       clearButtonMode,
+      editable,
       ...viewProps
     }: FCProps,
     ref,
@@ -58,6 +60,9 @@ export const FormControlInput = forwardRef(
     // }, [onChange]);
 
     const handleChangeText = (e: string) => {
+      if (!onChange) {
+        return;
+      }
       if (e) {
         onChange(e);
         return;
@@ -83,6 +88,7 @@ export const FormControlInput = forwardRef(
               maxLength={maxLength}
               onBlur={onBlur}
               onFocus={onFocus}
+              editable={editable}
               clearButtonMode={clearButtonMode || 'while-editing'}
               // @ts-ignore
               ref={ref}

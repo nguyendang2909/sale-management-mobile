@@ -29,6 +29,7 @@ import { SaleReportsScreen } from 'src/screens/sale-reports/sale-reports.screen'
 import { SettingsScreen } from 'src/screens/settings/settings.screen';
 import { ShopScreen } from 'src/screens/shop/shop.screen';
 import { ShopsScreen } from 'src/screens/shops/shops.screen';
+import { SkuEditScreen } from 'src/screens/sku-edit/sku-edit.screen';
 import { colors } from 'src/theme';
 import { AppStore, Entity, FormParams } from 'src/types';
 
@@ -55,6 +56,12 @@ export type AppStackParamList = {
   Welcome: undefined;
   // Product
   PRODUCT_CREATE: undefined;
+  SKU_EDIT: {
+    sku: FormParams.CreateProductSku;
+    product: {
+      title: string;
+    };
+  };
   PRODUCT: {
     detail: AppStore.Product;
   };
@@ -150,6 +157,8 @@ export const MainStack: React.FC = () => {
           {/* <Stack.Screen name={SCREENS.SUBJECT} component={SubjectScreen} /> */}
           {/* Product */}
           <Stack.Screen name={SCREENS.PRODUCT_CREATE} component={ProductCreateScreen} />
+          <Stack.Screen name={SCREENS.SKU_EDIT} component={SkuEditScreen} />
+
           <Stack.Screen name={SCREENS.PRODUCT} component={ProductScreen} />
           <Stack.Screen name={SCREENS.PRODUCT_SETTING} component={ProductSettingScreen} />
 

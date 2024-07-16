@@ -2,6 +2,7 @@ export * from './action-sheet';
 export * from './box';
 export * from './button';
 export * from './card';
+export * from './dialog';
 export * from './form';
 export * from './header';
 export * from './icon';

@@ -98,7 +98,6 @@ export declare namespace Entity {
       userId: string;
       title: string;
       minWholesalePriceQuantity?: number;
-      isInStock?: boolean;
       isTrackingStock?: boolean;
       description?: string;
       label?: string;
@@ -146,6 +145,7 @@ export declare namespace Entity {
       promotionalPrice?: number;
       wholesalePrice?: number;
       stock?: number | null;
+      isInStock?: boolean | null;
       specifications?: Specification[];
     }>;
 

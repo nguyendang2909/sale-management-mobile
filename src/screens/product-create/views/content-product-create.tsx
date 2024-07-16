@@ -7,13 +7,14 @@ import {
   View,
 } from '@gluestack-ui/themed';
 import { StackActions, useNavigation } from '@react-navigation/native';
-import React, { FC, useCallback, useMemo } from 'react';
+import _ from 'lodash';
+import React, { FC, useCallback, useEffect, useMemo } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import Toast from 'react-native-toast-message';
 import { useCreateProductMutation, useLazyFetchProductQuery } from 'src/api';
 import { ViewFooter } from 'src/components';
 import { HOME_SCREENS, PRODUCT_ATTRIBUTE_TYPES, SCREENS } from 'src/constants';
-import { useMessages } from 'src/hooks';
+import { useAppSelector, useDisclose, useMessages } from 'src/hooks';
 import { ApiRequest, FormParams } from 'src/types';
 import { createProductFormUtil } from 'src/utils';
 
@@ -36,6 +37,13 @@ export const ContentProductCreate: FC = () => {
   const { formatErrorMessage } = useMessages();
   const [createProduct] = useCreateProductMutation();
   const [fetchProduct] = useLazyFetchProductQuery();
+  const createProductData = useAppSelector(s => s.cache.forms.createProduct);
+
+  const {
+    isOpen: shouldCreateMore,
+    onOpen: setCreateMore,
+    onClose: cancelCreateMore,
+  } = useDisclose();
 
   const {
     setValue,
@@ -46,17 +54,17 @@ export const ContentProductCreate: FC = () => {
     watch,
     getValues,
   } = useForm<FormParams.CreateProduct>({
-    defaultValues: createProductFormUtil.getDefaultValues(),
+    defaultValues: createProductFormUtil.getDefaultValues(createProductData),
     resolver: createProductFormUtil.getResolver(),
   });
 
-  console.log(1111, watch('title'));
-
-  console.log(1111, errors);
+  useEffect(() => {
+    reset(createProductFormUtil.getDefaultValues(createProductData));
+  }, [createProductData, reset]);
 
   const onSubmit: SubmitHandler<FormParams.CreateProduct> = async values => {
     try {
-      const { createMore, images, skus, ...restValues } = values;
+      const { images, skus, ...restValues } = values;
       const payload: ApiRequest.CreateProduct = {
         ...restValues,
         skus: skus.map(e => ({ ...e, price: e.price || 0 })),
@@ -66,7 +74,7 @@ export const ContentProductCreate: FC = () => {
       }
       const data = await createProduct(payload).unwrap();
       fetchProduct(data.data.id);
-      if (createMore) {
+      if (shouldCreateMore) {
         reset(createProductFormUtil.getDefaultValues());
         return;
       }
@@ -79,35 +87,35 @@ export const ContentProductCreate: FC = () => {
   };
 
   const handleCreateProduct = async () => {
-    setValue('createMore', false);
+    cancelCreateMore();
     await handleSubmit(onSubmit)();
   };
 
   const handleCreateMoreProduct = async () => {
-    setValue('createMore', true);
+    setCreateMore();
     await handleSubmit(onSubmit)();
   };
 
-  const isInStock = watch('isInStock');
+  const isInStock = watch('skus.0.isInStock');
   const isTrackingStock = useMemo(() => isInStock === null, [isInStock]);
   const attributesValue = watch('attributes');
   const attributeProperties = useMemo(
     () =>
-      attributesValue.reduce<{ skuTotal: number }>(
+      attributesValue.reduce<{ totalSkus: number }>(
         (acc, attr) => {
           return {
-            skuTotal: acc.skuTotal + attr.specifications.length,
+            totalSkus: acc.totalSkus * attr.specifications.length,
           };
         },
-        { skuTotal: 0 },
+        { totalSkus: 1 },
       ),
     [attributesValue],
   );
   const hasDefaultSku = useMemo(
     () =>
-      attributeProperties.skuTotal === 1 &&
+      attributeProperties.totalSkus === 1 &&
       attributesValue[0].type === PRODUCT_ATTRIBUTE_TYPES.DEFAULT,
-    [attributeProperties.skuTotal, attributesValue],
+    [attributeProperties.totalSkus, attributesValue],
   );
 
   const setSkus = useCallback(
@@ -120,6 +128,25 @@ export const ContentProductCreate: FC = () => {
   const getSkus = useCallback(() => {
     return getValues('skus');
   }, [getValues]);
+
+  const setSku = useCallback(
+    (index: number, skuValue: FormParams.CreateProductSku) => {
+      const skusValue = getSkus();
+      skusValue[index] = skuValue;
+      setValue('skus', skusValue);
+    },
+    [getSkus, setValue],
+  );
+
+  const specifications = attributesValue.reduce<FormParams.CreateProductSpecification[]>(
+    (acc, attr) => {
+      const specifications = attr.specifications;
+      return acc.concat(acc.concat(specifications));
+    },
+    [],
+  );
+
+  const specificationsMap = _.keyBy(specifications, 'id');
 
   return (
     <>
@@ -159,9 +186,11 @@ export const ContentProductCreate: FC = () => {
                     <View>
                       <Text fontWeight="$bold">Quản lý tồn kho</Text>
                     </View>
-                    <ProductSkuControl mt={16} control={control} />
-                    {!isTrackingStock && <ProductInStockControl mt={16} control={control} />}
-                    <ProductTrackingStockControl mt={16} control={control} />
+                    {hasDefaultSku && <ProductSkuControl mt={16} control={control} />}
+                    {!isTrackingStock && hasDefaultSku && (
+                      <ProductInStockControl mt={16} control={control} />
+                    )}
+                    {hasDefaultSku && <ProductTrackingStockControl mt={16} control={control} />}
                     {isTrackingStock && hasDefaultSku && (
                       <ProductStockControl mt={16} control={control} />
                     )}
@@ -170,8 +199,11 @@ export const ContentProductCreate: FC = () => {
                     mt={16}
                     control={control}
                     setSkus={setSkus}
+                    setSku={setSku}
                     getSkus={getSkus}
                     hasDefaultSku={hasDefaultSku}
+                    specificationsMap={specificationsMap}
+                    getProduct={getValues}
                   />
                   <View mt={16}>
                     <View px={16}>

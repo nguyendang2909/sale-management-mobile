@@ -104,7 +104,6 @@ export declare namespace ApiRequest {
   type CreateProduct = {
     title: string;
     minWholesalePriceQuantity: number | null;
-    isInStock: boolean | null;
     description: string | null;
     label: string | null;
     unit: string | null;
@@ -124,6 +123,7 @@ export declare namespace ApiRequest {
       promotionalPrice: number | null;
       wholesalePrice: number | null;
       stock: number | null;
+      isInStock: boolean | null;
       specificationIds: string[];
     }[];
   };

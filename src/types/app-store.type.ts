@@ -7,6 +7,7 @@ import { store } from 'src/store/store';
 import { CartItemsObj, OrderStoreStatus, ProductSortType } from './common.type';
 import { Entity } from './entities.type';
 import { ApiResponse } from './fe.type';
+import { FormParams } from './form-params.type';
 
 export declare namespace AppStore {
   type RootState = ReturnType<typeof store.getState>;
@@ -44,6 +45,9 @@ export declare namespace AppStore {
     category: {
       searchText: string;
       isSearching: boolean;
+    };
+    forms: {
+      createProduct?: FormParams.CreateProduct;
     };
   };
 

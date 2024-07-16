@@ -20,6 +20,9 @@ export const productSlice = createSlice({
     deleteProductById: (state, { payload }: PayloadAction<string>) => {
       state.data = state.data.filter(e => e.id !== payload);
     },
+    setCreateProduct: (state, { payload }: PayloadAction<Entity.Product[]>) => {
+      state.data = payload;
+    },
   },
   extraReducers: builder => {
     builder.addCase(appActions.logout, state => {

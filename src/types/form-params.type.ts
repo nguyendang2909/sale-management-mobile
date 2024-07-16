@@ -157,13 +157,12 @@ export declare namespace FormParams {
     wholesalePrice: number | null;
     stock: number | null;
     specificationIds: string[];
+    isInStock: boolean | null;
   };
 
   type CreateProduct = {
-    createMore: boolean;
     title: string;
     minWholesalePriceQuantity: number | null;
-    isInStock: boolean | null;
     description: string | null;
     label: string | null;
     unit: string | null;
@@ -171,5 +170,15 @@ export declare namespace FormParams {
     images: Entity.ProductImage[];
     attributes: CreateProductAttribute[];
     skus: CreateProductSku[];
+  };
+
+  type EditSku = {
+    code: string | null;
+    price: number | null;
+    capitalPrice: number | null;
+    promotionalPrice: number | null;
+    wholesalePrice: number | null;
+    stock: number | null;
+    isInStock: boolean | null;
   };
 }

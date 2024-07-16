@@ -4,14 +4,14 @@ import { Control, Controller } from 'react-hook-form';
 import { FormControlSwitch } from 'src/components';
 import { FormParams } from 'src/types';
 
-export const ProductInStockControl: FC<
-  ComponentProps<typeof View> & { control: Control<FormParams.CreateProduct, any> }
+export const ControlSkuInStock: FC<
+  ComponentProps<typeof View> & { control: Control<FormParams.EditSku, any> }
 > = ({ control, ...viewProps }) => {
   return (
     <>
       <Controller
         control={control}
-        name="skus.0.isInStock"
+        name="isInStock"
         render={({ field }) => (
           <View {...viewProps}>
             <FormControlSwitch

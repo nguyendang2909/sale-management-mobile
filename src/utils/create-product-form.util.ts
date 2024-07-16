@@ -1,4 +1,5 @@
 import { yupResolver } from '@hookform/resolvers/yup';
+import _ from 'lodash';
 import { PRODUCT_ATTRIBUTE_TYPES, PRODUCT_SPECIFICATION_TYPES } from 'src/constants';
 import { FormParams } from 'src/types';
 import * as Yup from 'yup';
@@ -9,12 +10,10 @@ class CreateProductFormUtil {
   getResolver() {
     return yupResolver<FormParams.CreateProduct>(
       Yup.object({
-        createMore: Yup.boolean().required(),
         title: Yup.string()
           .min(1, 'Thông tin bắt buộc')
           .max(200, 'Tên sản phẩm ít hơn 200 ký tự')
           .required('Thông tin bắt buộc'),
-        isInStock: Yup.boolean().required().nullable(),
         sku: Yup.string().max(200).optional(),
         unit: Yup.string().max(50).required().nullable(),
         categoryIds: Yup.array().max(5).required(),
@@ -74,6 +73,7 @@ class CreateProductFormUtil {
                 .required()
                 .nullable(),
               stock: Yup.number().integer().positive().required().nullable(),
+              isInStock: Yup.boolean().required().nullable(),
               specificationIds: Yup.array().of(Yup.string().required()).required(),
             }),
           )
@@ -82,16 +82,17 @@ class CreateProductFormUtil {
     );
   }
 
-  getDefaultValues(): FormParams.CreateProduct {
+  getDefaultValues(initValues?: FormParams.CreateProduct): FormParams.CreateProduct {
+    if (!_.isEmpty(initValues)) {
+      return initValues;
+    }
     const defaultSpecificationId = specificationUtil.generateId();
     return {
       title: '',
       minWholesalePriceQuantity: null,
       description: null,
-      isInStock: true,
       unit: null,
       label: null,
-      createMore: false,
       categoryIds: [],
       images: [],
       attributes: this.getDefaultAttributes(defaultSpecificationId),
@@ -124,6 +125,7 @@ class CreateProductFormUtil {
         promotionalPrice: null,
         wholesalePrice: null,
         stock: null,
+        isInStock: true,
         specificationIds: [defaultSpecificationId],
       },
     ];

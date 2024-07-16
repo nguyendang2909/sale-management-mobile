@@ -69,16 +69,19 @@ export const ModalProductClassification: FC<
 
   const onSubmit: SubmitHandler<FormParams.CreateProductClassification> = useCallback(
     values => {
-      if (isDirty) {
+      if (!_.isEqual(values.attributes, initialAttributes)) {
         if (!values.attributes.length) {
           if (
-            attributes.length !== 1 ||
-            attributes[0].specifications.length !== 1 ||
-            attributes[0].type !== PRODUCT_ATTRIBUTE_TYPES.DEFAULT
+            currentAttributes.length !== 1 ||
+            currentAttributes[0].specifications.length !== 1 ||
+            currentAttributes[0].type !== PRODUCT_ATTRIBUTE_TYPES.DEFAULT
           ) {
             const defaultSpecificationId = specificationUtil.generateId();
-            setAttributes(createProductFormUtil.getDefaultAttributes(defaultSpecificationId));
-            setSkus(createProductFormUtil.getDefaultSkus(defaultSpecificationId));
+            const defaultAttributes =
+              createProductFormUtil.getDefaultAttributes(defaultSpecificationId);
+            const defaultSkus = createProductFormUtil.getDefaultSkus(defaultSpecificationId);
+            setAttributes(defaultAttributes);
+            setSkus(defaultSkus);
           }
         } else {
           setAttributes(values.attributes);
@@ -102,32 +105,31 @@ export const ModalProductClassification: FC<
               );
             }
             setSkus(skus);
+          } else if (values.attributes.length === 2) {
+            const skus: FormParams.CreateProductSku[] = [];
+            for (let i = 0; i < values.attributes[0].specifications.length; i += 1) {
+              for (let j = 0; j < values.attributes[1].specifications.length; j += 1) {
+                skus.push({
+                  code: null,
+                  price: 0,
+                  capitalPrice: null,
+                  promotionalPrice: null,
+                  wholesalePrice: null,
+                  stock: null,
+                  specificationIds: [
+                    values.attributes[0].specifications[i].id,
+                    values.attributes[1].specifications[j].id,
+                  ],
+                });
+              }
+            }
           }
-          // if (values.attributes.length === 2) {
-          //   const skus: FormParams.CreateProductSku[] = [];
-          //   for (let i = 0; i < values.attributes[0].specifications.length; i += 1) {
-          //     for (let j = 0; j < values.attributes[1].specifications.length; j += 1) {
-          //       skus.push({
-          //         code: null,
-          //         price: 0,
-          //         capitalPrice: null,
-          //         promotionalPrice: null,
-          //         wholesalePrice: null,
-          //         stock: null,
-          //         specificationIds: [
-          //           values.attributes[0].specifications[i].id,
-          //           values.attributes[1].specifications[j].id,
-          //         ],
-          //       });
-          //     }
-          //   }
         }
-        // }
       }
 
       onClose();
     },
-    [attributes, onClose, setAttributes, setSkus],
+    [currentAttributes, getSkus, initialAttributes, onClose, setAttributes, setSkus],
   );
 
   const handlePressClose = () => {
