@@ -81,7 +81,7 @@ export const BUSINESS_CATEGORIES = {
   SERVICE: 'service',
 };
 
-export const BUSINESS_SALES = {
+export const BUSINESS_SALE_TYPES_MAP = {
   FOOD_AND_DRINK: 'food_and_drink',
   GROCERY_AND_MINI_SUPERMARKET: 'grocery_and_mini_supermarket',
   AGRICULTURAL_PRODUCT_AND_FOOD: 'agricultural_product_and_food',
@@ -97,7 +97,7 @@ export const BUSINESS_SALES = {
   OTHER_SALE: 'other_sale',
 } as const;
 
-export const BUSINESS_SERVICES = {
+export const BUSINESS_SERVICE_TYPES_MAP = {
   HAIR_AND_SALON: 'hair_and_salon',
   NAIL: 'nail',
   SPA_AND_MASSAGE: 'spa_and_massage',
@@ -107,19 +107,19 @@ export const BUSINESS_SERVICES = {
   OTHER_SERVICE: 'other_service',
 } as const;
 
-export const BUSINESSES = {
-  ...BUSINESS_SALES,
-  ...BUSINESS_SERVICES,
+export const BUSINESSES_TYPES_MAP = {
+  ...BUSINESS_SALE_TYPES_MAP,
+  ...BUSINESS_SERVICE_TYPES_MAP,
 } as const;
 
 export const BUSINESS_LEVELS = [
   {
     category: BUSINESS_CATEGORIES.SALE,
-    types: Object.values(BUSINESS_SALES),
+    types: Object.values(BUSINESS_SALE_TYPES_MAP),
   },
   {
     category: BUSINESS_CATEGORIES.SERVICE,
-    types: Object.values(BUSINESS_SERVICES),
+    types: Object.values(BUSINESS_SERVICE_TYPES_MAP),
   },
 ] as const;
 
@@ -135,7 +135,6 @@ export const AUTH_GRANT_TYPES = {
   PHONE_PASSWORD: 'phone_password',
   PHONE_TOKEN: 'phone_token',
   APPLE: 'apple',
-  GOOGLE: 'google',
 } as const;
 
 export const ORDER_PAYMENT_METHODS = {
@@ -157,7 +156,7 @@ export const INVOICE_SETTING_FONT_SIZES = {
   LARGE: 'large',
 } as const;
 
-export const PRODUCT_ATTRIBUTE_TYPES = {
+export const PRODUCT_ATTRIBUTE_TYPES_MAP = {
   COLOR: 'color',
   SIZE: 'size',
   MATERIAL: 'material',
@@ -166,24 +165,37 @@ export const PRODUCT_ATTRIBUTE_TYPES = {
   DEFAULT: 'default',
 } as const;
 
-export const PRODUCT_COLOR_TYPES = {
+export const PRODUCT_COLOR_TYPES_MAP = {
   RED: 'red',
   BLACK: 'black',
   WHITE: 'white',
 } as const;
 
-export const PRODUCT_SIZE_TYPES = {
+export const PRODUCT_SIZE_TYPES_MAP = {
   SMALL: 'small',
   MEDIUM: 'medium',
   LARGE: 'large',
 } as const;
 
 export const PRODUCT_SPECIFICATION_TYPES = {
-  ...PRODUCT_COLOR_TYPES,
-  ...PRODUCT_SIZE_TYPES,
+  ...PRODUCT_COLOR_TYPES_MAP,
+  ...PRODUCT_SIZE_TYPES_MAP,
 } as const;
 
 export const CASH_ITEM_TYPES = {
   INCOME: 'income',
   EXPENSE: 'expense',
+} as const;
+
+export const SHOP_AMENITIES_MAP = {
+  DELIVERY: 'delivery',
+  CODE_PAYMENT: 'cod_payment',
+  BANK_PAYMENT: 'bank_payment',
+  FREE_RETURN: 'free_return',
+  SUPPORT_24_7: 'support_24_7',
+} as const;
+
+export const DISCOUNT_TYPES_MAP = {
+  PERCENTAGE: 'percentage',
+  FIXED_AMOUNT: 'fixed_amount',
 } as const;

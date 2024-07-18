@@ -1,15 +1,17 @@
 import {
   AUTH_GRANT_TYPES,
-  BUSINESSES,
+  BUSINESSES_TYPES_MAP,
   CASH_ITEM_SOURCES,
   CASH_ITEM_TYPES,
   DEVICE_PLATFORMS,
+  DISCOUNT_TYPES_MAP,
   INVOICE_SETTING_FONT_SIZES,
   ORDER_PAYMENT_METHODS,
   ORDER_STATUSES,
-  PRODUCT_ATTRIBUTE_TYPES,
+  PRODUCT_ATTRIBUTE_TYPES_MAP,
   PRODUCT_SPECIFICATION_TYPES,
   ROLES,
+  SHOP_AMENITIES_MAP,
   USER_STATUSES,
 } from '../constants';
 import { ValueOf } from '.';
@@ -50,19 +52,13 @@ export type Client = AccessTokenSignPayload & {
 
 export type DevicePlatform = ValueOf<typeof DEVICE_PLATFORMS>;
 
-export type Business = ValueOf<typeof BUSINESSES>;
+export type BusinessType = ValueOf<typeof BUSINESSES_TYPES_MAP>;
 
 export type OrderStatus = ValueOf<typeof ORDER_STATUSES>;
 
 export type AuthGrantType = ValueOf<typeof AUTH_GRANT_TYPES>;
 
 export type OrderPaymentMethod = ValueOf<typeof ORDER_PAYMENT_METHODS>;
-
-export type OrderPrice = {
-  amount: number;
-  price: number;
-  promotionalPrice: number;
-};
 
 export type OrderItemSpecification = {
   attribute: {
@@ -79,8 +75,12 @@ export type CashItemSource = ValueOf<typeof CASH_ITEM_SOURCES>;
 
 export type InvoiceSettingFontSize = ValueOf<typeof INVOICE_SETTING_FONT_SIZES>;
 
-export type ProductAttributeType = ValueOf<typeof PRODUCT_ATTRIBUTE_TYPES>;
+export type ProductAttributeType = ValueOf<typeof PRODUCT_ATTRIBUTE_TYPES_MAP>;
 
 export type ProductSpecificationType = ValueOf<typeof PRODUCT_SPECIFICATION_TYPES>;
 
 export type CashItemType = ValueOf<typeof CASH_ITEM_TYPES>;
+
+export type ShopAmenity = ValueOf<typeof SHOP_AMENITIES_MAP>;
+
+export type DiscountType = ValueOf<typeof DISCOUNT_TYPES_MAP>;

@@ -36,7 +36,6 @@ export declare namespace FormParams {
   type UpdateProduct = {
     title: string;
     minWholesalePriceQuantity: number | null;
-    isInStock: boolean | null;
     description: string | null;
     label: string | null;
     unit: string | null;

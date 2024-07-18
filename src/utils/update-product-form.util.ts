@@ -59,7 +59,6 @@ class UpdateProductFormUtil {
   getDefaultValues(product: AppStore.Product): FormParams.UpdateProduct {
     return {
       title: product.title || '',
-      isInStock: product.isInStock || null,
       unit: product.unit || null,
       categoryIds: product.categories?.map(e => e.id) || [],
       images: product.images || [],

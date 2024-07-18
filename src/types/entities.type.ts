@@ -1,6 +1,7 @@
 /* eslint-disable no-use-before-define */
 import {
   CashItemSource,
+  DiscountType,
   InvoiceSettingFontSize,
   OrderItemSpecification,
   OrderPaymentMethod,
@@ -95,17 +96,16 @@ export declare namespace Entity {
   type Product = BaseEntity &
     Partial<{
       user?: User;
-      userId: string;
-      title: string;
+      userId?: string;
+      title?: string;
       minWholesalePriceQuantity?: number;
-      isTrackingStock?: boolean;
       description?: string;
       label?: string;
-      categories?: Category[];
-      images: ProductImage[];
       unit: string;
-      attributes: Attribute[];
-      skus: Sku[];
+      images?: ProductImage[];
+      categories?: Category[];
+      attributes?: Attribute[];
+      skus?: Sku[];
     }>;
 
   type ProductImage = BaseEntity &
@@ -127,18 +127,17 @@ export declare namespace Entity {
   type Specification = BaseEntity &
     Partial<{
       attribute?: Attribute;
-      productToAttributeId: string;
+      attributeId?: string;
+      image?: ProductImage;
+      imageId?: string;
       title: string;
       type: ProductSpecificationType;
-      sort: number;
     }>;
 
   type Sku = BaseEntity &
     Partial<{
       product?: Product;
       productId: string;
-      image?: ProductImage;
-      imageId?: string;
       code?: string;
       price: number;
       capitalPrice?: number;
@@ -165,6 +164,7 @@ export declare namespace Entity {
       method: OrderPaymentMethod;
       amount: number;
       at: Date;
+      note?: string;
     }>;
 
   type Order = BaseEntity &
@@ -174,18 +174,22 @@ export declare namespace Entity {
       customer?: Customer;
       customerId?: string;
       status: OrderStatus;
-      statusUpdatedAt: Date;
+      statusUpdatedAt: string;
+      deliveredAt?: string;
       paymentMethod?: OrderPaymentMethod;
-      price: number;
       amount: number;
-      promotionalPrice?: number;
+      price: number;
+      discountType?: DiscountType;
+      discountValue?: number;
       deliveryMethod?: string;
       deliveryAddress?: string;
+      deliveryFee?: number;
       note?: string;
       code: string;
       at: string;
       items?: OrderItem[];
       payments?: OrderPayment[];
+      noteImages: OrderNoteImage[];
     }>;
 
   type OrderItem = BaseEntity &
@@ -197,13 +201,22 @@ export declare namespace Entity {
       title: string;
       image?: ProductImage;
       imageId?: string;
-      specifications: OrderItemSpecification[];
+      specifications?: OrderItemSpecification[];
       quantity: number;
-      sort: number;
       price: number;
       promotionalPrice?: number;
       wholesalePrice?: number;
       minWholesalePriceQuantity?: number;
+      discountType?: DiscountType;
+      discountValue?: number;
+      note?: string;
+    }>;
+
+  type OrderNoteImage = BaseEntity &
+    Partial<{
+      order?: Order;
+      orderId?: string;
+      path: string;
     }>;
 
   type Customer = BaseEntity &
