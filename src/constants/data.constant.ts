@@ -135,6 +135,7 @@ export const AUTH_GRANT_TYPES = {
   PHONE_PASSWORD: 'phone_password',
   PHONE_TOKEN: 'phone_token',
   APPLE: 'apple',
+  GOOGLE: 'google',
 } as const;
 
 export const ORDER_PAYMENT_METHODS = {
@@ -162,7 +163,6 @@ export const PRODUCT_ATTRIBUTE_TYPES_MAP = {
   MATERIAL: 'material',
   TASTE: 'taste',
   ORIGIN: 'origin',
-  DEFAULT: 'default',
 } as const;
 
 export const PRODUCT_COLOR_TYPES_MAP = {

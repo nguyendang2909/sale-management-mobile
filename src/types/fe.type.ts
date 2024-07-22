@@ -156,6 +156,7 @@ export declare namespace ApiRequest {
   type CreateOrderItem = { skuId: string; quantity: number };
 
   type CreateOrder = {
+    shopId: string;
     status: OrderStatus;
     deliveryMethod?: string;
     items: CreateOrderItem[];
@@ -202,6 +203,7 @@ export declare namespace ApiRequest {
   type FindManyShops = Pagination;
 
   type FindAllOrders = {
+    shopId?: string;
     _next?: string;
     searchText?: string;
     status?: OrderStatus | OrderStatus[];
@@ -238,7 +240,9 @@ export declare namespace ApiRequest {
     showNote?: boolean;
   }>;
 
-  type FindSaleOverallByShopId = DateRange;
+  type FindOrderOverall = DateRange & { shopId?: string };
+
+  type FindOrderStatistics = DateRange & { shopId?: string };
 
   type UpdateShop = {
     title?: string;
@@ -352,12 +356,12 @@ export declare namespace ApiResponse {
     _matchId: string;
   };
 
-  type SaleOverallByShopId = FetchData<{
+  type OrderOverall = FetchData<{
     totalOrders?: number;
     revenue?: number;
   }>;
 
-  type SaleStatisticsByShopId = FetchData<
+  type OrderStatistics = FetchData<
     {
       revenue?: number;
       interval?: string;

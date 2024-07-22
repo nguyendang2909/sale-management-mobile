@@ -17,13 +17,7 @@ export const ContentOrdersTab = ({
   description?: string;
   status?: OrderStoreStatus;
   lazyQuery: UseLazyQuery<
-    QueryDefinition<
-      { shopId: string; params: ApiRequest.FindManyOrders },
-      any,
-      any,
-      ApiResponse.Orders,
-      'api'
-    >
+    QueryDefinition<ApiRequest.FindManyOrders, any, any, ApiResponse.Orders, 'api'>
   >;
 }) => {
   const query = useOrders({

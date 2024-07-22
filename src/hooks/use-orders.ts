@@ -15,16 +15,11 @@ export const useOrders = ({
 }: {
   status?: OrderStoreStatus;
   lazyQuery: UseLazyQuery<
-    QueryDefinition<
-      { shopId: string; params: ApiRequest.FindManyOrders },
-      any,
-      any,
-      ApiResponse.Orders,
-      'api'
-    >
+    QueryDefinition<ApiRequest.FindManyOrders, any, any, ApiResponse.Orders, 'api'>
   >;
 }) => {
   const shopId = useAppSelector(s => s.shop.current.id);
+
   const dispatch = useAppDispatch();
   const { formatErrorMessage } = useMessages();
 
@@ -39,10 +34,8 @@ export const useOrders = ({
   const fetchFirstData = useCallback(async () => {
     try {
       const data = await fetchOrders({
+        status,
         shopId,
-        params: {
-          status,
-        },
       }).unwrap();
       dispatch(orderActions.setOrders({ status, data: data.data }));
       dispatch(orderActions.setPagination({ status, pagination: data.pagination }));
@@ -66,10 +59,8 @@ export const useOrders = ({
     }
     const data = await fetchOrders({
       shopId,
-      params: {
-        status,
-        _next,
-      },
+      status,
+      _next,
     }).unwrap();
     dispatch(orderActions.setOrders({ status, data: data.data }));
     dispatch(orderActions.setPagination({ status, pagination: data.pagination }));
@@ -82,10 +73,8 @@ export const useOrders = ({
     setRefreshing(true);
     try {
       const data = await fetchOrders({
+        status,
         shopId,
-        params: {
-          status,
-        },
       }).unwrap();
       dispatch(orderActions.setOrders({ status, data: data.data }));
       dispatch(orderActions.setPagination({ status, pagination: data.pagination }));

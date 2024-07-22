@@ -68,11 +68,9 @@ export const OrderConfirmForm: FC<{ values: FormParams.CreateOrder }> = ({ value
     try {
       const cartItems = getState().cart.items;
       const { data: createdOrder } = await createOrder({
+        status: ORDER_STATUSES.PROCESSING,
+        items: Object.values(cartItems),
         shopId,
-        body: {
-          status: ORDER_STATUSES.PROCESSING,
-          items: Object.values(cartItems),
-        },
       }).unwrap();
       navigation.navigate(SCREENS.HOME, { screen: HOME_SCREENS.ORDERS });
       const { data: fetchedOrder } = await fetchOrder(createdOrder.id);

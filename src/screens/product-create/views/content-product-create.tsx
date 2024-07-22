@@ -8,12 +8,12 @@ import {
 } from '@gluestack-ui/themed';
 import { StackActions, useNavigation } from '@react-navigation/native';
 import _ from 'lodash';
-import React, { FC, useCallback, useEffect, useMemo } from 'react';
+import React, { FC, useCallback, useMemo } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import Toast from 'react-native-toast-message';
 import { useCreateProductMutation, useLazyFetchProductQuery } from 'src/api';
 import { ViewFooter } from 'src/components';
-import { HOME_SCREENS, PRODUCT_ATTRIBUTE_TYPES, SCREENS } from 'src/constants';
+import { HOME_SCREENS, SCREENS } from 'src/constants';
 import { useAppSelector, useDisclose, useMessages } from 'src/hooks';
 import { ApiRequest, FormParams } from 'src/types';
 import { createProductFormUtil } from 'src/utils';
@@ -58,10 +58,6 @@ export const ContentProductCreate: FC = () => {
     resolver: createProductFormUtil.getResolver(),
   });
 
-  useEffect(() => {
-    reset(createProductFormUtil.getDefaultValues(createProductData));
-  }, [createProductData, reset]);
-
   const onSubmit: SubmitHandler<FormParams.CreateProduct> = async values => {
     try {
       const { images, skus, ...restValues } = values;
@@ -99,24 +95,7 @@ export const ContentProductCreate: FC = () => {
   const isInStock = watch('skus.0.isInStock');
   const isTrackingStock = useMemo(() => isInStock === null, [isInStock]);
   const attributesValue = watch('attributes');
-  const attributeProperties = useMemo(
-    () =>
-      attributesValue.reduce<{ totalSkus: number }>(
-        (acc, attr) => {
-          return {
-            totalSkus: acc.totalSkus * attr.specifications.length,
-          };
-        },
-        { totalSkus: 1 },
-      ),
-    [attributesValue],
-  );
-  const hasDefaultSku = useMemo(
-    () =>
-      attributeProperties.totalSkus === 1 &&
-      attributesValue[0].type === PRODUCT_ATTRIBUTE_TYPES.DEFAULT,
-    [attributeProperties.totalSkus, attributesValue],
-  );
+  const hasDefaultSku = useMemo(() => attributesValue.length === 0, [attributesValue]);
 
   const setSkus = useCallback(
     (skusValue: FormParams.CreateProductSku[]) => {

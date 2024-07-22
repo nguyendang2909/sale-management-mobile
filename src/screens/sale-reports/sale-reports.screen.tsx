@@ -3,7 +3,7 @@ import moment from 'moment';
 import { useState } from 'react';
 import { ActionsheetDateRange, ButtonCalendar } from 'src/components';
 import { TIME_FORMATS } from 'src/constants';
-import { useDisclose, useInit, useSaleOverall, useSaleStatistics } from 'src/hooks';
+import { useDisclose, useInit, useOrderStatistics, useSaleOverall } from 'src/hooks';
 import { FormParams } from 'src/types';
 
 import { CardsSaleReports } from './views/cards/cards-sale-reports';
@@ -34,7 +34,7 @@ export const SaleReportsScreen = () => {
     data: saleStatistics,
     isRefreshing: isRefreshingSaleStatistics,
     refresh: refreshSaleStatistics,
-  } = useSaleStatistics(dateRange);
+  } = useOrderStatistics(dateRange);
 
   const isRefreshing = isRefreshingSaleOverall || isRefreshingSaleStatistics;
 

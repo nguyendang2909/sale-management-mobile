@@ -6,7 +6,6 @@ import {
   OrderPaymentMethod,
   OrderStatus,
   ProductAttributeType,
-  ProductSpecificationType,
 } from './data.type';
 import { Entity } from './entities.type';
 import { ApiRequest } from './fe.type';
@@ -133,9 +132,10 @@ export declare namespace FormParams {
   };
 
   type CreateProductSpecification = {
-    title: string;
     id: string;
-    type: ProductSpecificationType | null;
+    title: string;
+    // type: ProductSpecificationType | null;
+    imageId: string | null;
   };
 
   type CreateProductAttribute = {
@@ -161,10 +161,10 @@ export declare namespace FormParams {
 
   type CreateProduct = {
     title: string;
-    minWholesalePriceQuantity: number | null;
     description: string | null;
     label: string | null;
     unit: string | null;
+    minWholesalePriceQuantity: number | null;
     categoryIds: string[];
     images: Entity.ProductImage[];
     attributes: CreateProductAttribute[];

@@ -1,13 +1,11 @@
 import { Button, ButtonIcon, ButtonText, CloseIcon, FlatList, View } from '@gluestack-ui/themed';
 import _ from 'lodash';
 import { Plus } from 'lucide-react-native';
-import { FC, useCallback } from 'react';
+import { FC, useCallback, useEffect } from 'react';
 import { Control, SubmitHandler, useForm } from 'react-hook-form';
 import { Modal, ModalProps } from 'react-native';
 import { Header, ViewFooter } from 'src/components';
-import { PRODUCT_ATTRIBUTE_TYPES } from 'src/constants';
 import { FormParams } from 'src/types';
-import { createProductFormUtil, specificationUtil } from 'src/utils';
 import { createProductClassificationFormUtil } from 'src/utils/create-product-classification.util';
 
 import { ProductAttributeListItem } from './list/product-attribute-item';
@@ -22,10 +20,6 @@ export const ModalProductClassification: FC<
     getSkus: () => FormParams.CreateProductSku[];
   }
 > = ({ currentAttributes, onClose, setAttributes, setSkus, getSkus, ...modalProps }) => {
-  const initialAttributes = currentAttributes.filter(
-    attribute => attribute.type !== PRODUCT_ATTRIBUTE_TYPES.DEFAULT,
-  );
-
   const {
     reset: resetValueAttribute,
     setValue: setValueAttribute,
@@ -35,23 +29,35 @@ export const ModalProductClassification: FC<
     formState: { errors: errorsAttribute, isDirty },
   } = useForm<FormParams.CreateProductClassification>({
     defaultValues: createProductClassificationFormUtil.getDefaultValues({
-      attributes: initialAttributes,
+      attributes: currentAttributes,
     }),
     resolver: createProductClassificationFormUtil.getResolver(),
   });
+
+  useEffect(() => {
+    if (!_.isEqual(currentAttributes, getValuesAttribute().attributes)) {
+      resetValueAttribute({
+        attributes: currentAttributes,
+      });
+    }
+  }, [currentAttributes, getValuesAttribute, resetValueAttribute]);
 
   const attributes = watchAttribute('attributes');
 
   const handleAddAttribute = useCallback(() => {
     if (attributes.length < 2) {
-      setValueAttribute('attributes', [
-        ...attributes,
-        {
-          title: `Nhom phan loai ${attributes.length + 1}`,
-          type: null,
-          specifications: [],
-        },
-      ]);
+      setValueAttribute(
+        'attributes',
+        [
+          ...attributes,
+          {
+            title: `Nhom phan loai ${attributes.length + 1}`,
+            type: null,
+            specifications: [],
+          },
+        ],
+        { shouldDirty: true },
+      );
     }
   }, [attributes, setValueAttribute]);
 
@@ -62,6 +68,7 @@ export const ModalProductClassification: FC<
         getValuesAttribute().attributes.filter(
           (attribute, attributeIndex) => attributeIndex !== deleteAttributeIndex,
         ),
+        { shouldDirty: true },
       );
     },
     [getValuesAttribute, setValueAttribute],
@@ -69,74 +76,26 @@ export const ModalProductClassification: FC<
 
   const onSubmit: SubmitHandler<FormParams.CreateProductClassification> = useCallback(
     values => {
-      if (!_.isEqual(values.attributes, initialAttributes)) {
-        if (!values.attributes.length) {
-          if (
-            currentAttributes.length !== 1 ||
-            currentAttributes[0].specifications.length !== 1 ||
-            currentAttributes[0].type !== PRODUCT_ATTRIBUTE_TYPES.DEFAULT
-          ) {
-            const defaultSpecificationId = specificationUtil.generateId();
-            const defaultAttributes =
-              createProductFormUtil.getDefaultAttributes(defaultSpecificationId);
-            const defaultSkus = createProductFormUtil.getDefaultSkus(defaultSpecificationId);
-            setAttributes(defaultAttributes);
-            setSkus(defaultSkus);
-          }
-        } else {
-          setAttributes(values.attributes);
-          const currentSkus = getSkus();
-          if (values.attributes.length === 1) {
-            const skus: FormParams.CreateProductSku[] = [];
-            for (let i = 0; i < values.attributes[0].specifications.length; i += 1) {
-              const sameSku = currentSkus.find(sku =>
-                _.isEqual(sku.specificationIds, values.attributes[0].specifications[i]),
-              );
-              skus.push(
-                sameSku || {
-                  code: null,
-                  price: 0,
-                  capitalPrice: null,
-                  promotionalPrice: null,
-                  wholesalePrice: null,
-                  stock: null,
-                  specificationIds: [values.attributes[0].specifications[i].id],
-                },
-              );
-            }
-            setSkus(skus);
-          } else if (values.attributes.length === 2) {
-            const skus: FormParams.CreateProductSku[] = [];
-            for (let i = 0; i < values.attributes[0].specifications.length; i += 1) {
-              for (let j = 0; j < values.attributes[1].specifications.length; j += 1) {
-                skus.push({
-                  code: null,
-                  price: 0,
-                  capitalPrice: null,
-                  promotionalPrice: null,
-                  wholesalePrice: null,
-                  stock: null,
-                  specificationIds: [
-                    values.attributes[0].specifications[i].id,
-                    values.attributes[1].specifications[j].id,
-                  ],
-                });
-              }
-            }
-          }
-        }
-      }
+      if (!_.isEqual(values.attributes, currentAttributes)) {
+        setAttributes(values.attributes);
+        const currentSkus = getSkus();
+        const skus = createProductClassificationFormUtil.getSkusFromAttributes(
+          values.attributes,
+          currentSkus,
+        );
 
+        setSkus(skus);
+      }
       onClose();
     },
-    [currentAttributes, getSkus, initialAttributes, onClose, setAttributes, setSkus],
+    [currentAttributes, getSkus, onClose, setAttributes, setSkus],
   );
 
   const handlePressClose = () => {
     onClose();
     resetValueAttribute(
       createProductClassificationFormUtil.getDefaultValues({
-        attributes: initialAttributes,
+        attributes: currentAttributes,
       }),
     );
   };

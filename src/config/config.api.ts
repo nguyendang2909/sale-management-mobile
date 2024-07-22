@@ -95,40 +95,46 @@ export const API_ENDPOINTS = {
     ID: {
       get: (id: string) => API_TAGS.ORDERS + '/' + id,
     },
-    SHOPS: {
-      INDEX: '/shops',
-      SHOP_ID: {
-        get: (shopId: string) => API_TAGS.ORDERS + API_TAGS.SHOPS + '/' + shopId,
-        ORDERS: {
-          COUNT: {
-            get: (shopId: string) => {
-              return API_TAGS.ORDERS + API_TAGS.SHOPS + '/' + shopId + API_TAGS.COUNT;
-            },
-          },
-        },
-        SALE: {
-          OVERALL: {
-            get: (shopId: string) => {
-              return (
-                API_TAGS.ORDERS + API_TAGS.SHOPS + '/' + shopId + API_TAGS.SALE + API_TAGS.OVERALL
-              );
-            },
-          },
-          STATISTICS: {
-            get: (shopId: string) => {
-              return (
-                API_TAGS.ORDERS +
-                API_TAGS.SHOPS +
-                '/' +
-                shopId +
-                API_TAGS.SALE +
-                API_TAGS.STATISTICS
-              );
-            },
-          },
-        },
-      },
+    OVERALL: {
+      INDEX: API_TAGS.ORDERS + API_TAGS.OVERALL,
     },
+    STATISTICS: {
+      INDEX: API_TAGS.ORDERS + API_TAGS.STATISTICS,
+    },
+    // SHOPS: {
+    //   INDEX: '/shops',
+    //   SHOP_ID: {
+    //     get: (shopId: string) => API_TAGS.ORDERS + API_TAGS.SHOPS + '/' + shopId,
+    //     ORDERS: {
+    //       COUNT: {
+    //         get: (shopId: string) => {
+    //           return API_TAGS.ORDERS + API_TAGS.SHOPS + '/' + shopId + API_TAGS.COUNT;
+    //         },
+    //       },
+    //     },
+    //     SALE: {
+    //       OVERALL: {
+    //         get: (shopId: string) => {
+    //           return (
+    //             API_TAGS.ORDERS + API_TAGS.SHOPS + '/' + shopId + API_TAGS.SALE + API_TAGS.OVERALL
+    //           );
+    //         },
+    //       },
+    //       STATISTICS: {
+    //         get: (shopId: string) => {
+    //           return (
+    //             API_TAGS.ORDERS +
+    //             API_TAGS.SHOPS +
+    //             '/' +
+    //             shopId +
+    //             API_TAGS.SALE +
+    //             API_TAGS.STATISTICS
+    //           );
+    //         },
+    //       },
+    //     },
+    //   },
+    // },
   },
   CUSTOMERS: {
     INDEX: API_TAGS.CUSTOMERS,

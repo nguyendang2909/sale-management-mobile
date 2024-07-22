@@ -1,10 +1,8 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import _ from 'lodash';
-import { PRODUCT_ATTRIBUTE_TYPES, PRODUCT_SPECIFICATION_TYPES } from 'src/constants';
+import { PRODUCT_ATTRIBUTE_TYPES_MAP } from 'src/constants';
 import { FormParams } from 'src/types';
 import * as Yup from 'yup';
-
-import { specificationUtil } from './specification.util';
 
 class CreateProductFormUtil {
   getResolver() {
@@ -29,18 +27,19 @@ class CreateProductFormUtil {
             Yup.object({
               title: Yup.string().required(),
               type: Yup.string()
-                .oneOf(Object.values(PRODUCT_ATTRIBUTE_TYPES))
+                .oneOf(Object.values(PRODUCT_ATTRIBUTE_TYPES_MAP))
                 .required()
                 .nullable(),
               specifications: Yup.array()
                 .of(
                   Yup.object({
                     id: Yup.string().required(),
-                    type: Yup.string()
-                      .oneOf(Object.values(PRODUCT_SPECIFICATION_TYPES))
-                      .required()
-                      .nullable(),
+                    // type: Yup.string()
+                    //   .oneOf(Object.values(PRODUCT_SPECIFICATION_TYPES))
+                    //   .required()
+                    //   .nullable(),
                     title: Yup.string().required(),
+                    imageId: Yup.string().required().nullable(),
                   }),
                 )
                 .required(),
@@ -51,7 +50,6 @@ class CreateProductFormUtil {
           .of(
             Yup.object({
               code: Yup.string().required().nullable(),
-              imageId: Yup.string().required().nullable(),
               price: Yup.number()
                 .positive('Giá không đúng')
                 .notOneOf([0], 'Giá không đúng')
@@ -86,7 +84,6 @@ class CreateProductFormUtil {
     if (!_.isEmpty(initValues)) {
       return initValues;
     }
-    const defaultSpecificationId = specificationUtil.generateId();
     return {
       title: '',
       minWholesalePriceQuantity: null,
@@ -95,28 +92,16 @@ class CreateProductFormUtil {
       label: null,
       categoryIds: [],
       images: [],
-      attributes: this.getDefaultAttributes(defaultSpecificationId),
-      skus: this.getDefaultSkus(defaultSpecificationId),
+      attributes: this.getDefaultAttributes(),
+      skus: this.getDefaultSkus(),
     };
   }
 
-  getDefaultAttributes(defaultSpecificationId: string) {
-    return [
-      {
-        title: 'default',
-        type: PRODUCT_ATTRIBUTE_TYPES.DEFAULT,
-        specifications: [
-          {
-            title: 'default',
-            id: defaultSpecificationId,
-            type: null,
-          },
-        ],
-      },
-    ];
+  getDefaultAttributes() {
+    return [];
   }
 
-  getDefaultSkus(defaultSpecificationId: string) {
+  getDefaultSkus() {
     return [
       {
         code: null,
@@ -126,7 +111,7 @@ class CreateProductFormUtil {
         wholesalePrice: null,
         stock: null,
         isInStock: true,
-        specificationIds: [defaultSpecificationId],
+        specificationIds: [],
       },
     ];
   }

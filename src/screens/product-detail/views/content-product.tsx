@@ -7,7 +7,7 @@ import { Platform } from 'react-native';
 import Toast from 'react-native-toast-message';
 import { useUpdateProductMutation } from 'src/api';
 import { LoadingOverlay } from 'src/components';
-import { HOME_SCREENS, PRODUCT_ATTRIBUTE_TYPES, SCREENS } from 'src/constants';
+import { HOME_SCREENS, SCREENS } from 'src/constants';
 import { useMessages, useProduct } from 'src/hooks';
 import { ApiRequest, AppStore, FormParams } from 'src/types';
 import { updateProductFormUtil } from 'src/utils';
@@ -94,27 +94,7 @@ export const ContentProduct: FC<FCProps> = ({ detail }) => {
 
   const attributesValue = watch('attributes');
 
-  const attributeProperties = useMemo(
-    () =>
-      attributesValue.reduce<{ skuTotal: number }>(
-        (acc, attr) => {
-          return {
-            skuTotal: attr.specifications?.length
-              ? acc.skuTotal + attr.specifications.length
-              : acc.skuTotal,
-          };
-        },
-        { skuTotal: 0 },
-      ),
-    [attributesValue],
-  );
-
-  const hasDefaultSku = useMemo(
-    () =>
-      attributeProperties.skuTotal === 1 &&
-      attributesValue[0].type === PRODUCT_ATTRIBUTE_TYPES.DEFAULT,
-    [attributeProperties.skuTotal, attributesValue],
-  );
+  const hasDefaultSku = useMemo(() => attributesValue.length === 0, [attributesValue]);
 
   return (
     <View flex={1}>

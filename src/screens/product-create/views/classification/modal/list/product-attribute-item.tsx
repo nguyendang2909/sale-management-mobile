@@ -42,20 +42,22 @@ export const ProductAttributeListItem: FC<{
     setError,
     handleSubmit: handleSubmitSpecification,
     setValue: setValueSpecification,
-  } = useForm<{ title: string }>({
+  } = useForm<{ title: string; imageId: string | null }>({
     defaultValues: {
       title: '',
+      imageId: null,
     },
     resolver: yupResolver(
       Yup.object({
         title: Yup.string().min(1, 'Thông tin bắt buộc').required('Thông tin bắt buộc'),
+        imageId: Yup.string().required().nullable(),
       }),
     ),
   });
 
   const handleChangeTitle = useCallback(
     (e: string | null) => {
-      setValue(`attributes.${index}.title`, e || '');
+      setValue(`attributes.${index}.title`, e || '', { shouldDirty: true });
       onCloseEditAttributeTitle();
     },
     [index, onCloseEditAttributeTitle, setValue],
@@ -90,6 +92,7 @@ export const ProductAttributeListItem: FC<{
           }
           return spec;
         }),
+        { shouldDirty: true },
       );
       setEditSpecificationId(null);
     } else {
@@ -98,8 +101,9 @@ export const ProductAttributeListItem: FC<{
         attribute.specifications.concat({
           title: specificationTitle || '',
           id: specificationUtil.generateId(),
-          type: null,
+          imageId: null,
         }),
+        { shouldDirty: true },
       );
     }
     setValueSpecification('title', '');
@@ -110,6 +114,7 @@ export const ProductAttributeListItem: FC<{
       setValue(
         `attributes.${index}.specifications`,
         attribute.specifications.filter(spec => spec.id !== id),
+        { shouldDirty: true },
       );
       if (editingSpecificationId === id) {
         setEditSpecificationId(null);
