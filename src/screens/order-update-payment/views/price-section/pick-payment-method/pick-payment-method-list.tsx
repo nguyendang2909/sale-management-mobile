@@ -4,10 +4,10 @@ import { TouchableOpacity } from 'react-native';
 import { TextCapitalize } from 'src/components';
 import { ORDER_PAYMENT_METHOD_ARR } from 'src/constants';
 import { useMessages } from 'src/hooks';
-import { OrderPaymentMethod, ViewProps } from 'src/types';
+import { PaymentMethod, ViewProps } from 'src/types';
 
 export const PickPaymentMethodList: FC<
-  ViewProps & { value: OrderPaymentMethod; onChange: (e: OrderPaymentMethod) => void }
+  ViewProps & { value: PaymentMethod; onChange: (e: PaymentMethod) => void }
 > = ({ value, onChange, ...viewProps }) => {
   const { formatMessage } = useMessages();
 

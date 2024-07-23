@@ -54,7 +54,7 @@ export const ContentProduct: FC<FCProps> = ({ detail }) => {
 
   console.log(errors);
 
-  const isInStock = watch('isInStock');
+  const isInStock = watch('skus.0.isInStock');
   const isTrackingStock = useMemo(() => isInStock === null, [isInStock]);
 
   const defaultValues = useMemo(() => updateProductFormUtil.getDefaultValues(product), [product]);

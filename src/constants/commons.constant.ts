@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-import { ORDER_STATUSES, PAYMENT_METHODS_MAP } from './data.constant';
+import { ORDER_STATUSES_MAP, PAYMENT_METHODS_MAP } from './data.constant';
 
 export const SCREENS = {
   CREATE_BASIC_PROFILE: 'CREATE_BASIC_PROFILE',
@@ -68,7 +68,13 @@ export const CURRENCIES = {
 } as const;
 
 export const ORDER_TABS = {
-  ..._.pick(ORDER_STATUSES, ['UNCONFIRMED', 'PROCESSING', 'DELIVERED', 'RETURNED', 'CANCELLED']),
+  ..._.pick(ORDER_STATUSES_MAP, [
+    'UNCONFIRMED',
+    'PROCESSING',
+    'DELIVERED',
+    'RETURNED',
+    'CANCELLED',
+  ]),
   ALL: 'all',
 } as const;
 

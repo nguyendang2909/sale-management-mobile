@@ -11,7 +11,7 @@ export const ProductInStockControl: FC<
     <>
       <Controller
         control={control}
-        name="isInStock"
+        name="skus.0.isInStock"
         render={({ field }) => (
           <View {...viewProps}>
             <FormControlSwitch

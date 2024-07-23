@@ -8,7 +8,7 @@ import { Entity, ViewProps } from 'src/types';
 
 import { PaymentStatusTag } from './tag/tag-order-status';
 
-export const Payments: FC<ViewProps & { payments: Entity.OrderPayment[]; debt: number }> = ({
+export const Payments: FC<ViewProps & { payments: Entity.Payment[]; debt: number }> = ({
   payments,
   debt,
   ...viewProps

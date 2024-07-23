@@ -4,7 +4,6 @@ import React, { FC, useEffect } from 'react';
 import Toast from 'react-native-toast-message';
 import { useSignInMutation } from 'src/api';
 import { FontAwesome } from 'src/components';
-import { AUTH_GRANT_TYPES } from 'src/constants';
 import { useMessages } from 'src/hooks';
 import { appActions } from 'src/store/app/app.store';
 import { dispatch } from 'src/store/store';
@@ -37,7 +36,7 @@ export const SignInWithGoogleButton: FC<FCProps> = ({ setLoading }) => {
       }
       const signInResponse = await signIn({
         token: idToken,
-        grantType: AUTH_GRANT_TYPES.GOOGLE,
+        grantType: 'google' as any,
       }).unwrap();
       dispatch(appActions.updateAccessToken(signInResponse.data));
     } catch (error) {

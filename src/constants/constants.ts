@@ -8,7 +8,7 @@
 import _ from 'lodash';
 import { OrderSettingKey, ProductSettingKey } from 'src/types';
 
-import { ORDER_STATUSES } from './data.constant';
+import { ORDER_STATUSES_MAP } from './data.constant';
 
 export const DATE_FORMATS = {
   DATE: 'YYYY-MM-DD',
@@ -223,11 +223,11 @@ export const SIZES = {
   MD: 'md',
 } as const;
 
-export const ORDER_UNDELIVERED_STATUSES = _.pick(ORDER_STATUSES, ['PROCESSING', 'UNCONFIRMED']);
+export const ORDER_UNDELIVERED_STATUSES = _.pick(ORDER_STATUSES_MAP, ['PROCESSING', 'UNCONFIRMED']);
 
 export const ORDER_UNDELIVERED_STATUS_ARR = Object.values(ORDER_UNDELIVERED_STATUSES);
 
-export const ORDER_STORE_STATUSES = _.pick(ORDER_STATUSES, [
+export const ORDER_STORE_STATUSES = _.pick(ORDER_STATUSES_MAP, [
   'UNCONFIRMED',
   'PROCESSING',
   'DELIVERED',

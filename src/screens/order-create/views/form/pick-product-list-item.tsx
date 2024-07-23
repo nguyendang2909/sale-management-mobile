@@ -50,14 +50,14 @@ export const PickProduct: FC<FCProps> = ({ product, skusObj }) => {
   const handleAdd = useCallback(() => {
     if (skuLength === 1) {
       if (firstSku && firstSkuId && cartItemsObj[firstSkuId]) {
-        if (!_.isNil(product.isInStock)) {
-          if (!product.isInStock) {
+        if (!_.isNil(firstSku.isInStock)) {
+          if (!firstSku.isInStock) {
             Toast.show({ text1: 'Sản phẩm hết hàng', type: 'error' });
             return;
           }
         } else if (
-          !_.isNil(firstSku.stock) &&
-          firstSku.stock <= cartItemsObj[firstSkuId].quantity
+          !_.isUndefined(firstSku.stock) &&
+          (firstSku.stock || 0) <= cartItemsObj[firstSkuId].quantity
         ) {
           Toast.show({ text1: 'Vượt quá số lượng sản phẩm tồn kho', type: 'error' });
           return;
@@ -65,7 +65,7 @@ export const PickProduct: FC<FCProps> = ({ product, skusObj }) => {
         dispatch(cartActions.addCartItem(skuIds[0]));
       }
     }
-  }, [cartItemsObj, dispatch, firstSku, firstSkuId, product.isInStock, skuIds, skuLength]);
+  }, [cartItemsObj, dispatch, firstSku, firstSkuId, skuIds, skuLength]);
 
   const handleSubtract = useCallback(() => {
     if (skuLength === 1) {

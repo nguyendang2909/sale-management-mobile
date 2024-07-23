@@ -5,7 +5,7 @@ import Toast from 'react-native-toast-message';
 import { useDispatch } from 'react-redux';
 import { useSignInMutation } from 'src/api';
 import { FontAwesome } from 'src/components';
-import { AUTH_GRANT_TYPES } from 'src/constants';
+import { AUTH_GRANT_TYPES_MAP } from 'src/constants';
 import { useAfterLogin, useMessages } from 'src/hooks';
 import { appActions } from 'src/store/app/app.store';
 
@@ -47,7 +47,7 @@ export const SignInWithAppleButton: FC<FCProps> = ({ setLoading }) => {
       ) {
         const signInResponse = await signIn({
           token: appleAuthRequestResponse.identityToken,
-          grantType: AUTH_GRANT_TYPES.APPLE,
+          grantType: AUTH_GRANT_TYPES_MAP.APPLE,
         }).unwrap();
         dispatch(appActions.updateAccessToken(signInResponse.data));
         handleAfterLogin();

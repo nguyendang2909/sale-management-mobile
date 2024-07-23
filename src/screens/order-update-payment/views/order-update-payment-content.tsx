@@ -6,7 +6,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import Toast from 'react-native-toast-message';
 import { useUpdateOrderMutation } from 'src/api';
 import { LoadingOverlay, ViewFooter } from 'src/components';
-import { HOME_SCREENS, ORDER_PAYMENT_METHODS, ORDER_STATUSES_MAP, SCREENS } from 'src/constants';
+import { HOME_SCREENS, ORDER_STATUSES_MAP, PAYMENT_METHODS_MAP, SCREENS } from 'src/constants';
 import { useMessages, useOrder } from 'src/hooks';
 import { goBack } from 'src/navigations';
 import { ControlPaymentAmount } from 'src/screens/order-update-payment/views/control/control-payment-amount';
@@ -36,7 +36,7 @@ export const OrderUpdatePaymentContent: FC<{
   const defaultValues = useMemo(
     () => ({
       amount: currentMissingAmount || 0,
-      paymentMethod: ORDER_PAYMENT_METHODS.BANK,
+      paymentMethod: PAYMENT_METHODS_MAP.BANK,
     }),
     [currentMissingAmount],
   );
@@ -51,7 +51,7 @@ export const OrderUpdatePaymentContent: FC<{
     resolver: yupResolver(
       Yup.object({
         amount: Yup.number().required().nullable(),
-        paymentMethod: Yup.string().oneOf(Object.values(ORDER_PAYMENT_METHODS)).required(),
+        paymentMethod: Yup.string().oneOf(Object.values(PAYMENT_METHODS_MAP)).required(),
       }),
     ),
   });

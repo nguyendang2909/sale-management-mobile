@@ -19,7 +19,7 @@ import { useSignInMutation } from 'src/api';
 import { LoadingOverlay } from 'src/components';
 import { LoadingButton } from 'src/components/button';
 import { AnimatedOtpInput } from 'src/components/input/animated-otp-input';
-import { AUTH_GRANT_TYPES, SCREENS } from 'src/constants';
+import { AUTH_GRANT_TYPES_MAP, SCREENS } from 'src/constants';
 import { BackIconButton } from 'src/containers/IconButton/BackIconButton';
 import { useAfterLogin, useAppDispatch, useMessages, useUserData } from 'src/hooks';
 import { goBack } from 'src/navigations/navigation-ref';
@@ -72,7 +72,7 @@ export const SignInWithOtpPhoneNumberScreen: FC<FCProps> = props => {
       const idToken = await credential.user.getIdToken();
       const signInResponse = await signIn({
         token: idToken,
-        grantType: AUTH_GRANT_TYPES.PHONE_TOKEN,
+        grantType: AUTH_GRANT_TYPES_MAP.PHONE_TOKEN,
       }).unwrap();
       dispatch(appActions.updateAccessToken(signInResponse.data));
       handleAfterLogin();

@@ -42,6 +42,7 @@
       "noImplicitThis": true,
       "baseUrl": "./",
       "experimentalDecorators": true,
+      "incremental": true
     },
     "exclude": [
       "node_modules",

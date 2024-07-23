@@ -12,11 +12,14 @@ export const ProductTrackingStockControl: FC<
     <>
       <Controller
         control={control}
-        name="isInStock"
+        name="skus.0.isInStock"
         rules={{ required: true }}
         render={({ field }) => (
           <View {...viewProps}>
-            <ProductTrackingStockSwitch value={field.value} onChange={field.onChange} />
+            <ProductTrackingStockSwitch
+              value={field.value as boolean | null}
+              onChange={field.onChange}
+            />
           </View>
         )}
       ></Controller>
