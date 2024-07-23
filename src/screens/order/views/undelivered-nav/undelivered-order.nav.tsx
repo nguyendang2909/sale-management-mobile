@@ -3,7 +3,7 @@ import { FC, useCallback } from 'react';
 import Toast from 'react-native-toast-message';
 import { UpdateOrderMutation } from 'src/api';
 import { ViewFooter } from 'src/components';
-import { ORDER_STATUSES, SCREENS } from 'src/constants';
+import { ORDER_STATUSES_MAP, SCREENS } from 'src/constants';
 import { RefetchOrder, useMessages } from 'src/hooks';
 import { navigate } from 'src/navigations';
 import { AppStore, ViewProps } from 'src/types';
@@ -28,7 +28,7 @@ export const UndeliveredOrderNav: FC<
       await updateOrderMutation({
         id: order.id,
         body: {
-          status: ORDER_STATUSES.DELIVERED,
+          status: ORDER_STATUSES_MAP.DELIVERED,
         },
       }).unwrap();
       await refetchOrder();

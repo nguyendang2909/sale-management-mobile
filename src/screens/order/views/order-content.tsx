@@ -3,7 +3,7 @@ import _ from 'lodash';
 import { FC, useMemo } from 'react';
 import { useUpdateOrderMutation } from 'src/api';
 import { LoadingOverlay } from 'src/components';
-import { ORDER_STATUSES, ORDER_UNDELIVERED_STATUS_ARR } from 'src/constants';
+import { ORDER_STATUSES_MAP, ORDER_UNDELIVERED_STATUS_ARR } from 'src/constants';
 import { RefetchOrder } from 'src/hooks';
 import { Entity, ViewProps } from 'src/types';
 import { orderPaymentUtil, orderUtil } from 'src/utils';
@@ -26,8 +26,8 @@ export const OrderContent: FC<ViewProps & { order: Entity.Order; refetchOrder: R
   const paymentsAmount = orderPaymentUtil.getAllAmount(payments);
   const debt = orderAmount - paymentsAmount;
   const shouldPay = debt > 0;
-  const orderStatus = useMemo(() => order.status || ORDER_STATUSES.UNCONFIRMED, [order.status]);
-  const showPayment = orderStatus === ORDER_STATUSES.DELIVERED || !!payments.length;
+  const orderStatus = useMemo(() => order.status || ORDER_STATUSES_MAP.UNCONFIRMED, [order.status]);
+  const showPayment = orderStatus === ORDER_STATUSES_MAP.DELIVERED || !!payments.length;
 
   const isLoadingOverlay = isUpdatingOrder;
 

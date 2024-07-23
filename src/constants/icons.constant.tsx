@@ -15,5 +15,5 @@ export const NAVIGATION_ICONS = {
   CUSTOMER: Users,
   REPORTS: AreaChart,
   MANAGEMENT: Home,
-  CASH_ITEMS: ArrowLeftRight,
+  PAYMENTS: ArrowLeftRight,
 } as const;

@@ -4,7 +4,7 @@ import { Entity } from 'src/types';
 import { BaseUtil } from './base/base.util';
 
 class OrderPaymentUtil extends BaseUtil {
-  getAllAmount(payments: Entity.OrderPayment[]): number {
+  getAllAmount(payments: Entity.Payment[]): number {
     return _.sumBy(payments, 'amount') || 0;
   }
 

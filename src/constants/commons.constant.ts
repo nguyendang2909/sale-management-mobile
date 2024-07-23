@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-import { ORDER_PAYMENT_METHODS, ORDER_STATUSES } from './data.constant';
+import { ORDER_STATUSES, PAYMENT_METHODS_MAP } from './data.constant';
 
 export const SCREENS = {
   CREATE_BASIC_PROFILE: 'CREATE_BASIC_PROFILE',
@@ -36,9 +36,9 @@ export const SCREENS = {
   NOTIFICATIONS: 'NOTIFICATIONS',
   INVOICE: 'INVOICE',
   SHOP: 'SHOP',
-  CASH_ITEMS_CHILD: 'CASH_ITEMS_CHILD',
-  CASH_ITEM_ADD: 'CASH_ITEM_ADD',
-  CASH_ITEM_SUBTRACT: 'CASH_ITEM_SUBTRACT',
+  PAYMENTS_CHILD: 'PAYMENTS_CHILD',
+  PAYMENT_ADD: 'PAYMENT_ADD',
+  PAYMENT_SUBTRACT: 'PAYMENT_SUBTRACT',
 } as const;
 
 export const HOME_SCREENS = {
@@ -48,7 +48,7 @@ export const HOME_SCREENS = {
   TABLES: 'TABLES',
   SELL: 'SELL',
   PAY_BOOK: 'PAY_BOOK',
-  CASH_ITEMS: 'CASH_ITEMS',
+  PAYMENTS: 'PAYMENTS',
   // ONLINE_STORE: undefined,
   CUSTOMERS: 'CUSTOMERS',
   WAREHOUSE: 'WAREHOUSE',
@@ -72,7 +72,7 @@ export const ORDER_TABS = {
   ALL: 'all',
 } as const;
 
-export const ORDER_PAYMENT_METHOD_ARR = Object.values(ORDER_PAYMENT_METHODS);
+export const ORDER_PAYMENT_METHOD_ARR = Object.values(PAYMENT_METHODS_MAP);
 
 export const PRODUCTS_SCREEN_TAB_IDS_MAP = {
   PRODUCT: 'product',

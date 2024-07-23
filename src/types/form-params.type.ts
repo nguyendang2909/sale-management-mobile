@@ -1,12 +1,6 @@
 import { Image } from 'react-native-image-crop-picker';
 
-import {
-  CashItemSource,
-  CashItemType,
-  OrderPaymentMethod,
-  OrderStatus,
-  ProductAttributeType,
-} from './data.type';
+import { OrderStatus, PaymentMethod, PaymentType, ProductAttributeType } from './data.type';
 import { Entity } from './entities.type';
 import { ApiRequest } from './fe.type';
 
@@ -46,7 +40,7 @@ export declare namespace FormParams {
 
   type CreateOrderPaymentDto = {
     amount: number;
-    method?: OrderPaymentMethod;
+    method?: PaymentMethod;
   };
 
   type CreateOrder = {
@@ -69,7 +63,7 @@ export declare namespace FormParams {
 
   type UpdateOrderPayment = {
     amount: number | null;
-    paymentMethod: OrderPaymentMethod;
+    paymentMethod: PaymentMethod;
   };
 
   type CreateCategory = {
@@ -121,14 +115,14 @@ export declare namespace FormParams {
     closeTime: string;
   };
 
-  type CreateCashItem = {
+  type CreatePayment = {
     amount: number;
     title: string | null;
-    source: CashItemSource;
+    method: PaymentMethod | null;
     note: string | null;
     imageIds: string[];
     at: string | null;
-    type: CashItemType;
+    type: PaymentType;
   };
 
   type CreateProductSpecification = {

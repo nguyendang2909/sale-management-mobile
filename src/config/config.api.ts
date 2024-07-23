@@ -140,16 +140,10 @@ export const API_ENDPOINTS = {
     INDEX: API_TAGS.CUSTOMERS,
     ALL: `${API_TAGS.CUSTOMERS}${API_TAGS.ALL}`,
   },
-  CASH_ITEMS: {
-    INDEX: API_TAGS.CASH_ITEMS,
-    SHOPS: {
-      SHOP_ID: {
-        INDEX: (shopId: string) => API_TAGS.CASH_ITEMS + API_TAGS.SHOPS + '/' + shopId,
-        OVERALL: {
-          GET_INDEX: (shopId: string) =>
-            API_TAGS.CASH_ITEMS + API_TAGS.SHOPS + '/' + shopId + API_TAGS.OVERALL,
-        },
-      },
+  PAYMENTS: {
+    INDEX: API_TAGS.PAYMENTS,
+    OVERALL: {
+      INDEX: API_TAGS.PAYMENTS + API_TAGS.OVERALL,
     },
   },
 };

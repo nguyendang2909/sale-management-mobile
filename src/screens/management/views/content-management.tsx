@@ -1,5 +1,5 @@
 import { RefreshControl, ScrollView } from '@gluestack-ui/themed';
-import { ORDER_STATUSES } from 'src/constants';
+import { ORDER_STATUSES_MAP } from 'src/constants';
 import { useCountOrders, useSaleOverall } from 'src/hooks';
 import { timeUtil } from 'src/utils';
 
@@ -22,7 +22,7 @@ export const ContentManagement = () => {
     isRefreshing: isRefreshingUnconfirmedOrders,
     refresh: refreshUnconfirmedOrders,
   } = useCountOrders({
-    status: ORDER_STATUSES.UNCONFIRMED,
+    status: ORDER_STATUSES_MAP.UNCONFIRMED,
   });
 
   const {
@@ -30,7 +30,7 @@ export const ContentManagement = () => {
     isRefreshing: isRefreshingProcessingOrders,
     refresh: refreshProcessingOrders,
   } = useCountOrders({
-    status: ORDER_STATUSES.PROCESSING,
+    status: ORDER_STATUSES_MAP.PROCESSING,
   });
 
   const isRefreshing =

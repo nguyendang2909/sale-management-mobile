@@ -1,6 +1,6 @@
 export * from './api';
 export * from './auth.api';
-export * from './cash-item.api';
+export * from './payment.api';
 export * from './category.api';
 export * from './customer.api';
 export * from './order.api';

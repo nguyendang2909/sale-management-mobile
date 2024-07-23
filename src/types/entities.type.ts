@@ -1,11 +1,10 @@
 /* eslint-disable no-use-before-define */
 import {
-  CashItemSource,
   DiscountType,
   InvoiceSettingFontSize,
   OrderItemSpecification,
-  OrderPaymentMethod,
   OrderStatus,
+  PaymentMethod,
   ProductAttributeType,
   ProductSpecificationType,
   Role,
@@ -157,16 +156,6 @@ export declare namespace Entity {
       totalProducts: number;
     }>;
 
-  type OrderPayment = BaseEntity &
-    Partial<{
-      order?: Order;
-      orderId: string;
-      method: OrderPaymentMethod;
-      amount: number;
-      at: Date;
-      note?: string;
-    }>;
-
   type Order = BaseEntity &
     Partial<{
       shop?: Shop;
@@ -176,7 +165,6 @@ export declare namespace Entity {
       status: OrderStatus;
       statusUpdatedAt: string;
       deliveredAt?: string;
-      paymentMethod?: OrderPaymentMethod;
       amount: number;
       price: number;
       discountType?: DiscountType;
@@ -188,7 +176,7 @@ export declare namespace Entity {
       code: string;
       at: string;
       items?: OrderItem[];
-      payments?: OrderPayment[];
+      payments?: Payment[];
       noteImages: OrderNoteImage[];
     }>;
 
@@ -294,29 +282,31 @@ export declare namespace Entity {
       footerNote: string;
     }>;
 
-  type CashItem = BaseEntity &
+  type Payment = BaseEntity &
     Partial<{
-      user?: User;
-      userId: string;
+      shop?: Shop;
+      shopId: string;
+      order: Order;
+      orderId: string;
       amount: number;
       title?: string | null;
-      source?: CashItemSource;
+      method?: PaymentMethod;
       note?: string;
-      images?: CashItemImage[];
+      images?: PaymentImage[];
       at: string;
     }>;
 
-  type CashItemGroupDate = Partial<{
-    cashItems: CashItem[];
+  type PaymentGroupDate = Partial<{
     date: string;
     expenditureAmount: number;
     incomeAmount: number;
+    payments: Payment[];
   }>;
 
-  type CashItemImage = BaseEntity &
+  type PaymentImage = BaseEntity &
     Partial<{
-      cashItem?: CashItem;
-      cashItemId?: string;
+      payment?: Payment;
+      paymentId?: string;
       path: string;
     }>;
 }

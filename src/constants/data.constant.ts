@@ -1,16 +1,16 @@
-export const ROLES = {
+export const ROLES_MAP = {
   ADMIN: 'admin',
   SHOP: 'shop',
   STAFF: 'staff',
 } as const;
 
-export const USER_STATUSES = {
+export const USER_STATUSES_MAP = {
   ACTIVATED: 'activated',
   DEACTIVATED: 'deactivated',
   BANNED: 'banned',
 } as const;
 
-export const DEVICE_PLATFORMS = {
+export const DEVICE_PLATFORMS_MAP = {
   OTHER: 'other',
   WEB: 'web',
   IOS: 'ios',
@@ -67,7 +67,6 @@ export const API_TAGS = {
   SKUS: '/skus',
   ITEMS: '/items',
   NOTIFICATIONS: '/notifications',
-  CASH_ITEMS: '/cash-items',
   INVOICES: '/invoices',
   PACKAGES: '/packages',
   PACKAGES_GROUPS: '/package-groups',
@@ -76,7 +75,7 @@ export const API_TAGS = {
   CANCEL: '/cancel',
 } as const;
 
-export const BUSINESS_CATEGORIES = {
+export const BUSINESS_CATEGORIES_MAP = {
   SALE: 'sale',
   SERVICE: 'service',
 };
@@ -114,16 +113,16 @@ export const BUSINESSES_TYPES_MAP = {
 
 export const BUSINESS_LEVELS = [
   {
-    category: BUSINESS_CATEGORIES.SALE,
+    category: BUSINESS_CATEGORIES_MAP.SALE,
     types: Object.values(BUSINESS_SALE_TYPES_MAP),
   },
   {
-    category: BUSINESS_CATEGORIES.SERVICE,
+    category: BUSINESS_CATEGORIES_MAP.SERVICE,
     types: Object.values(BUSINESS_SERVICE_TYPES_MAP),
   },
 ] as const;
 
-export const ORDER_STATUSES = {
+export const ORDER_STATUSES_MAP = {
   UNCONFIRMED: 'unconfirmed',
   PROCESSING: 'processing',
   DELIVERED: 'delivered',
@@ -131,27 +130,20 @@ export const ORDER_STATUSES = {
   CANCELLED: 'cancelled',
 } as const;
 
-export const AUTH_GRANT_TYPES = {
+export const AUTH_GRANT_TYPES_MAP = {
   PHONE_PASSWORD: 'phone_password',
   PHONE_TOKEN: 'phone_token',
   APPLE: 'apple',
-  GOOGLE: 'google',
 } as const;
 
-export const ORDER_PAYMENT_METHODS = {
+export const PAYMENT_METHODS_MAP = {
   CASH: 'cash',
   DIGITAL_WALLET: 'digital_wallet',
   BANK: 'bank',
   QR_CODE: 'qr_code',
 } as const;
 
-export const CASH_ITEM_SOURCES = {
-  CASH: 'cash',
-  DIGITAL_WALLET: 'digital_wallet',
-  BANK: 'bank',
-} as const;
-
-export const INVOICE_SETTING_FONT_SIZES = {
+export const INVOICE_SETTING_FONT_SIZES_MAP = {
   SMALL: 'small',
   MEDIUM: 'medium',
   LARGE: 'large',
@@ -177,12 +169,12 @@ export const PRODUCT_SIZE_TYPES_MAP = {
   LARGE: 'large',
 } as const;
 
-export const PRODUCT_SPECIFICATION_TYPES = {
+export const PRODUCT_SPECIFICATION_TYPES_MAP = {
   ...PRODUCT_COLOR_TYPES_MAP,
   ...PRODUCT_SIZE_TYPES_MAP,
 } as const;
 
-export const CASH_ITEM_TYPES = {
+export const PAYMENT_TYPES_MAP = {
   INCOME: 'income',
   EXPENSE: 'expense',
 } as const;

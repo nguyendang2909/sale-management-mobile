@@ -1,7 +1,6 @@
 export * from './usAppDispatch';
 export * from './use-after-login';
-export * from './use-cash-items';
-export * from './use-cash-items-overall';
+export * from './use-payments-overall';
 export * from './use-category';
 export * from './use-count-orders';
 export * from './use-customers';
@@ -10,6 +9,7 @@ export * from './use-init';
 export * from './use-order';
 export * from './use-order-settings';
 export * from './use-orders';
+export * from './use-payments';
 export * from './use-product';
 export * from './use-product-settings';
 export * from './use-products';

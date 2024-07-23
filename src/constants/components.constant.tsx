@@ -1,9 +1,9 @@
 import { FC } from 'react';
 import { HomeTabParamList } from 'src/navigators/home-navigator';
-import { CashItemScreen } from 'src/screens/cash-items/cash-items.screen';
 import { CustomersScreen } from 'src/screens/customers/customers.screen';
 import { ManagementScreen } from 'src/screens/management/management.screen';
 import { OrdersScreen } from 'src/screens/orders/orders.screen';
+import { PaymentsScreen } from 'src/screens/payments/payments.screen';
 import { ProductsScreen } from 'src/screens/products/products.screen';
 import { ReportsScreen } from 'src/screens/reports/reports.screen';
 import { BottomNavigatorName, NavigationCard, NavigationCardId } from 'src/types';
@@ -81,12 +81,12 @@ export const NAVIGATOR_DATA: Record<
     icon: NAVIGATION_ICONS.ORDER,
     isShow: false,
   },
-  CASH_ITEMS: {
-    id: BOTTOM_NAVIGATOR_NAMES.CASH_ITEMS,
-    name: BOTTOM_NAVIGATOR_NAMES.CASH_ITEMS,
+  PAYMENTS: {
+    id: BOTTOM_NAVIGATOR_NAMES.PAYMENTS,
+    name: BOTTOM_NAVIGATOR_NAMES.PAYMENTS,
     title: 'Thu chi',
-    screen: CashItemScreen,
-    icon: NAVIGATION_ICONS.CASH_ITEMS,
+    screen: PaymentsScreen,
+    icon: NAVIGATION_ICONS.PAYMENTS,
     isShow: false,
   },
   CUSTOMERS: {
@@ -190,11 +190,11 @@ export const NAVIGATION_CARDS_MAP: Record<NavigationCardId, NavigationCard> = {
     icon: 'barChart',
     screen: SCREENS.REPORTS_CHILD,
   },
-  [NAVIGATION_CARD_IDS_MAP.CASH_ITEMS]: {
-    id: NAVIGATION_CARD_IDS_MAP.CASH_ITEMS,
+  [NAVIGATION_CARD_IDS_MAP.PAYMENTS]: {
+    id: NAVIGATION_CARD_IDS_MAP.PAYMENTS,
     title: 'Thu chi',
     icon: 'transaction',
-    screen: SCREENS.CASH_ITEMS_CHILD,
+    screen: SCREENS.PAYMENTS_CHILD,
   },
 };
 

@@ -2,7 +2,7 @@ import { Button, ButtonText } from '@gluestack-ui/themed';
 import { FC, useCallback } from 'react';
 import Toast from 'react-native-toast-message';
 import { useLazyFetchOrderQuery, useUpdateOrderMutation } from 'src/api';
-import { HOME_SCREENS, ORDER_STATUSES, SCREENS } from 'src/constants';
+import { HOME_SCREENS, ORDER_STATUSES_MAP, SCREENS } from 'src/constants';
 import { useDisclose, useMessages } from 'src/hooks';
 import { goBack } from 'src/navigations/navigation-ref';
 
@@ -16,7 +16,7 @@ export const ButtonCancelOrder: FC<{ orderId: string }> = ({ orderId }) => {
 
   const handleSubmit = useCallback(async () => {
     try {
-      await updateOrder({ id: orderId, body: { status: ORDER_STATUSES.CANCELLED } }).unwrap();
+      await updateOrder({ id: orderId, body: { status: ORDER_STATUSES_MAP.CANCELLED } }).unwrap();
       await fetchOrder(orderId);
       goBack(SCREENS.HOME, {
         screen: HOME_SCREENS.ORDERS,

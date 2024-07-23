@@ -3,13 +3,7 @@ import { ORDER_SETTINGS, PRODUCT_SETTINGS } from 'src/constants/constants';
 
 import { AppStore } from './app-store.type';
 import { ValueOf } from './common.type';
-import {
-  AuthGrantType,
-  CashItemSource,
-  DevicePlatform,
-  OrderPaymentMethod,
-  OrderStatus,
-} from './data.type';
+import { AuthGrantType, DevicePlatform, OrderStatus, PaymentMethod } from './data.type';
 import { Entity } from './entities.type';
 
 export declare namespace ApiRequest {
@@ -165,7 +159,7 @@ export declare namespace ApiRequest {
 
   type AddPayment = {
     amount: number;
-    method?: OrderPaymentMethod;
+    method?: PaymentMethod;
     at?: string;
   };
 
@@ -177,7 +171,6 @@ export declare namespace ApiRequest {
 
   type UpdateOrder = {
     status?: OrderStatus;
-    paymentMethod?: OrderPaymentMethod;
     deliveryMethod?: string;
     items?: UpdateOrderItem[];
     addPayment?: AddPayment;
@@ -203,20 +196,22 @@ export declare namespace ApiRequest {
   type FindManyShops = Pagination;
 
   type FindAllOrders = {
-    shopId?: string;
+    shopId: string;
     _next?: string;
     searchText?: string;
     status?: OrderStatus | OrderStatus[];
     startDate?: string;
     endDate?: string;
-    paymentMethod?: OrderPaymentMethod;
+    paymentMethod?: PaymentMethod;
   };
 
   type FindManyOrders = FindAllOrders & Pagination;
 
-  type FindAllCashItems = DateRange & {};
+  type FindAllPayments = DateRange & {
+    shopId: string;
+  };
 
-  type FindManyCashItems = FindAllCashItems;
+  type FindManyPayments = FindAllPayments;
 
   type UpdateSignedDevice = {
     refreshToken: string;
@@ -254,10 +249,11 @@ export declare namespace ApiRequest {
     businessTypes?: string[] | null;
   };
 
-  type CreateCashItem = {
+  type CreatePayment = {
+    shopId: string;
     amount: number;
     title?: string | null;
-    source?: CashItemSource | null;
+    method?: PaymentMethod | null;
     note?: string | null;
     imageIds?: string[];
     at?: string | null;
@@ -304,13 +300,13 @@ export declare namespace ApiResponse {
 
   type Orders = PaginatedResponse<Entity.Order>;
 
-  type CashItems = PaginatedResponse<Entity.CashItem>;
+  type Payments = PaginatedResponse<Entity.PaymentGroupDate>;
 
-  type CashItemsGroupDate = PaginatedResponse<Entity.CashItemGroupDate>;
+  type PaymentsGroupDate = PaginatedResponse<Entity.PaymentGroupDate>;
 
-  type CashItem = FetchData<Entity.CashItem>;
+  type Payment = FetchData<Entity.Payment>;
 
-  type CashItemsOverall = FetchData<
+  type PaymentsOverall = FetchData<
     Partial<{
       startDate: string;
       endDate: string;

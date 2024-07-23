@@ -6,7 +6,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import Toast from 'react-native-toast-message';
 import { useUpdateOrderMutation } from 'src/api';
 import { LoadingOverlay, ViewFooter } from 'src/components';
-import { HOME_SCREENS, ORDER_PAYMENT_METHODS, ORDER_STATUSES, SCREENS } from 'src/constants';
+import { HOME_SCREENS, ORDER_PAYMENT_METHODS, ORDER_STATUSES_MAP, SCREENS } from 'src/constants';
 import { useMessages, useOrder } from 'src/hooks';
 import { goBack } from 'src/navigations';
 import { ControlPaymentAmount } from 'src/screens/order-update-payment/views/control/control-payment-amount';
@@ -72,7 +72,7 @@ export const OrderUpdatePaymentContent: FC<{
           };
         }
         if (updateStatusDelivered) {
-          body.status = ORDER_STATUSES.DELIVERED;
+          body.status = ORDER_STATUSES_MAP.DELIVERED;
         }
         await updateOrder({
           id: order.id,

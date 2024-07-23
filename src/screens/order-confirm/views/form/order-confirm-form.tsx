@@ -9,7 +9,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import Toast from 'react-native-toast-message';
 import { useCreateOrderMutation, useLazyFetchOrderQuery } from 'src/api';
 import { Header } from 'src/components';
-import { HOME_SCREENS, ORDER_STATUSES, SCREENS } from 'src/constants';
+import { HOME_SCREENS, ORDER_STATUSES_MAP, SCREENS } from 'src/constants';
 import { FormControlOrderAdditional } from 'src/containers/form-control/order/form-control-order-additional';
 import { FormControlOrderNote } from 'src/containers/form-control/order/form-control-order-note';
 import { useAppDispatch, useAppSelector, useMessages, useProducts } from 'src/hooks';
@@ -68,7 +68,7 @@ export const OrderConfirmForm: FC<{ values: FormParams.CreateOrder }> = ({ value
     try {
       const cartItems = getState().cart.items;
       const { data: createdOrder } = await createOrder({
-        status: ORDER_STATUSES.PROCESSING,
+        status: ORDER_STATUSES_MAP.PROCESSING,
         items: Object.values(cartItems),
         shopId,
       }).unwrap();

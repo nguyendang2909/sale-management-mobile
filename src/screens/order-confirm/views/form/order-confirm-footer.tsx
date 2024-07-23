@@ -37,7 +37,7 @@
 //       const { data: createdOrder } = await createOrder({
 //         shopId,
 //         body: {
-//           status: ORDER_STATUSES.PROCESSING,
+//           status: ORDER_STATUSES_MAP.PROCESSING,
 //           items: Object.values(cartItems),
 //         },
 //       }).unwrap();

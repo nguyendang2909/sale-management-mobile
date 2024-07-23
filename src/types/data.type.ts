@@ -1,26 +1,25 @@
 import {
-  AUTH_GRANT_TYPES,
+  AUTH_GRANT_TYPES_MAP,
   BUSINESSES_TYPES_MAP,
-  CASH_ITEM_SOURCES,
-  CASH_ITEM_TYPES,
-  DEVICE_PLATFORMS,
+  DEVICE_PLATFORMS_MAP,
   DISCOUNT_TYPES_MAP,
-  INVOICE_SETTING_FONT_SIZES,
-  ORDER_PAYMENT_METHODS,
-  ORDER_STATUSES,
+  INVOICE_SETTING_FONT_SIZES_MAP,
+  ORDER_STATUSES_MAP,
+  PAYMENT_METHODS_MAP,
+  PAYMENT_TYPES_MAP,
   PRODUCT_ATTRIBUTE_TYPES_MAP,
-  PRODUCT_SPECIFICATION_TYPES,
-  ROLES,
+  PRODUCT_SPECIFICATION_TYPES_MAP,
+  ROLES_MAP,
   SHOP_AMENITIES_MAP,
-  USER_STATUSES,
+  USER_STATUSES_MAP,
 } from '../constants';
 import { ValueOf } from '.';
 
-export type RoleType = typeof ROLES;
+export type RoleType = typeof ROLES_MAP;
 
 export type Role = ValueOf<RoleType>;
 
-export type UserStatusType = typeof USER_STATUSES;
+export type UserStatusType = typeof USER_STATUSES_MAP;
 
 export type UserStatus = ValueOf<UserStatusType>;
 
@@ -50,15 +49,15 @@ export type Client = AccessTokenSignPayload & {
   iat: number;
 };
 
-export type DevicePlatform = ValueOf<typeof DEVICE_PLATFORMS>;
+export type DevicePlatform = ValueOf<typeof DEVICE_PLATFORMS_MAP>;
 
 export type BusinessType = ValueOf<typeof BUSINESSES_TYPES_MAP>;
 
-export type OrderStatus = ValueOf<typeof ORDER_STATUSES>;
+export type OrderStatus = ValueOf<typeof ORDER_STATUSES_MAP>;
 
-export type AuthGrantType = ValueOf<typeof AUTH_GRANT_TYPES>;
+export type AuthGrantType = ValueOf<typeof AUTH_GRANT_TYPES_MAP>;
 
-export type OrderPaymentMethod = ValueOf<typeof ORDER_PAYMENT_METHODS>;
+export type PaymentMethod = ValueOf<typeof PAYMENT_METHODS_MAP>;
 
 export type OrderItemSpecification = {
   attribute: {
@@ -71,15 +70,13 @@ export type OrderItemSpecification = {
   type: string | null;
 };
 
-export type CashItemSource = ValueOf<typeof CASH_ITEM_SOURCES>;
-
-export type InvoiceSettingFontSize = ValueOf<typeof INVOICE_SETTING_FONT_SIZES>;
+export type InvoiceSettingFontSize = ValueOf<typeof INVOICE_SETTING_FONT_SIZES_MAP>;
 
 export type ProductAttributeType = ValueOf<typeof PRODUCT_ATTRIBUTE_TYPES_MAP>;
 
-export type ProductSpecificationType = ValueOf<typeof PRODUCT_SPECIFICATION_TYPES>;
+export type ProductSpecificationType = ValueOf<typeof PRODUCT_SPECIFICATION_TYPES_MAP>;
 
-export type CashItemType = ValueOf<typeof CASH_ITEM_TYPES>;
+export type PaymentType = ValueOf<typeof PAYMENT_TYPES_MAP>;
 
 export type ShopAmenity = ValueOf<typeof SHOP_AMENITIES_MAP>;
 

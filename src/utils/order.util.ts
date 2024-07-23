@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import moment from 'moment';
-import { ORDER_STATUSES } from 'src/constants';
+import { ORDER_STATUSES_MAP } from 'src/constants';
 import { AppStore, Entity, OrderStatus } from 'src/types';
 
 import { BaseUtil } from './base/base.util';
@@ -8,15 +8,15 @@ import { BaseUtil } from './base/base.util';
 class OrderUtil extends BaseUtil {
   getOrderStatusTagTranslation(status?: OrderStatus) {
     switch (status) {
-      case ORDER_STATUSES.UNCONFIRMED:
+      case ORDER_STATUSES_MAP.UNCONFIRMED:
         return 'Chờ xác nhận';
-      case ORDER_STATUSES.PROCESSING:
+      case ORDER_STATUSES_MAP.PROCESSING:
         return 'Đang xử lý';
-      case ORDER_STATUSES.DELIVERED:
+      case ORDER_STATUSES_MAP.DELIVERED:
         return 'Hoàn thành';
-      case ORDER_STATUSES.RETURNED:
+      case ORDER_STATUSES_MAP.RETURNED:
         return 'Trả hàng';
-      case ORDER_STATUSES.CANCELLED:
+      case ORDER_STATUSES_MAP.CANCELLED:
         return 'Huỷ';
       default:
         return '';

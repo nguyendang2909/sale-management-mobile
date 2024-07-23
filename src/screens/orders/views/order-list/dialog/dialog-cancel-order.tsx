@@ -17,7 +17,7 @@ import { FC, useCallback } from 'react';
 import Toast from 'react-native-toast-message';
 import { useLazyFetchOrderQuery, useUpdateOrderMutation } from 'src/api';
 import { LoadingOverlay } from 'src/components';
-import { ORDER_STATUSES } from 'src/constants';
+import { ORDER_STATUSES_MAP } from 'src/constants';
 import { useMessages } from 'src/hooks';
 
 export const DialogCancelOrder: FC<{
@@ -34,7 +34,7 @@ export const DialogCancelOrder: FC<{
         await updateOrder({
           id: cancelOrderId,
           body: {
-            status: ORDER_STATUSES.CANCELLED,
+            status: ORDER_STATUSES_MAP.CANCELLED,
           },
         }).unwrap();
         fetchOrder(cancelOrderId);
