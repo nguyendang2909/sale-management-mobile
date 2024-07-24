@@ -3,7 +3,7 @@ import { ComponentProps, FC } from 'react';
 import { Control, Controller } from 'react-hook-form';
 import { FormParams } from 'src/types';
 
-import { ProductTitleInput } from './form/product-title-input';
+import { InputProductTitle } from './form/input-product-title';
 
 export const ControlProductTitle: FC<
   ComponentProps<typeof View> & { control: Control<FormParams.CreateProduct, any> }
@@ -16,7 +16,7 @@ export const ControlProductTitle: FC<
         rules={{ required: true }}
         render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
           <View {...viewProps}>
-            <ProductTitleInput
+            <InputProductTitle
               onChange={onChange}
               onBlur={onBlur}
               value={value}

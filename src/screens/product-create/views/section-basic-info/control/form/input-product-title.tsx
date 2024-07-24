@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { FormControlInput } from 'src/components';
 
-export const ProductTitleInput: FC<{
+export const InputProductTitle: FC<{
   value: string;
   onChange: (e: string | null) => void;
   onBlur?: () => void;
