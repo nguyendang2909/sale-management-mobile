@@ -13,7 +13,7 @@ import { Menu } from 'lucide-react-native';
 import { FC, useCallback } from 'react';
 import { TouchableOpacity } from 'react-native';
 import { FontAwesome } from 'src/components';
-import { ActionSheetSelectCategories } from 'src/containers/actionsheet/select-category-item';
+import { ActionSheetSelectCategories } from 'src/containers';
 import { ModalCreateCategory } from 'src/containers/modal/modal-create-category';
 import { SelectCategoriesCheckbox } from 'src/containers/select/select-categories';
 import { useDisclose, useInit } from 'src/hooks';

@@ -1,1 +1,1 @@
-export * from './select-category-item';
+export * from './actionsheet-select-category-item';
