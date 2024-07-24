@@ -98,7 +98,7 @@ class CreateProductClassificationFormUtil {
     for (let i = 0; i < attributes[0].specifications.length; i += 1) {
       skus.push(
         this.getSkuFromSpecificationWithAttributesLength1(
-          attributes[0].specifications[0],
+          attributes[0].specifications[i],
           currentSkus,
         ),
       );
@@ -121,16 +121,7 @@ class CreateProductClassificationFormUtil {
         specificationIds: [specification.id],
       });
     }
-    return {
-      code: null,
-      price: currentSkus[0]?.price || null,
-      capitalPrice: currentSkus[0]?.capitalPrice || null,
-      promotionalPrice: currentSkus[0]?.promotionalPrice || null,
-      wholesalePrice: currentSkus[0]?.wholesalePrice || null,
-      stock: null,
-      specificationIds: [specification.id],
-      isInStock: true,
-    };
+    return this.getSku({ ...currentSkus[0], specificationIds: [specification.id] });
   }
 
   getSkusFromAttributesLength2(
@@ -187,15 +178,16 @@ class CreateProductClassificationFormUtil {
   }
 
   getSku(defaultSku: FormParams.CreateProductSku): FormParams.CreateProductSku {
+    const isInStock = !_.isUndefined(defaultSku.isInStock) ? defaultSku.isInStock : true;
     return {
       code: defaultSku.code || null,
       price: defaultSku.price || null,
       capitalPrice: defaultSku.capitalPrice || null,
       promotionalPrice: defaultSku.promotionalPrice || null,
       wholesalePrice: defaultSku.wholesalePrice || null,
-      stock: defaultSku.stock || null,
+      stock: _.isNull(isInStock) ? defaultSku.stock || 0 : null,
       specificationIds: defaultSku.specificationIds || [],
-      isInStock: defaultSku.isInStock || null,
+      isInStock,
     };
   }
 }

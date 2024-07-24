@@ -35,14 +35,15 @@ class EditSkuFormUtil {
   }
 
   getDefaultValues(initValues?: FormParams.CreateProductSku): FormParams.EditSku {
+    const isInStock = initValues?.isInStock !== undefined ? initValues?.isInStock : true;
     return {
       code: initValues?.code || null,
       price: initValues?.price || null,
       capitalPrice: initValues?.capitalPrice || null,
       promotionalPrice: initValues?.promotionalPrice || null,
       wholesalePrice: initValues?.wholesalePrice || null,
-      stock: initValues?.stock || null,
-      isInStock: _.isUndefined(initValues?.isInStock) ? true : null,
+      stock: _.isNull(isInStock) ? initValues?.stock || 0 : null,
+      isInStock,
     };
   }
 }
