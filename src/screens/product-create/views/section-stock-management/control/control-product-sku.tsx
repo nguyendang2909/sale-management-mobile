@@ -5,7 +5,9 @@ import { FormControlInput } from 'src/components';
 import { FormParams } from 'src/types';
 
 export const ControlProductSku: FC<
-  ComponentProps<typeof View> & { control: Control<FormParams.CreateProduct, any> }
+  ComponentProps<typeof View> & {
+    control: Control<FormParams.CreateProduct | FormParams.UpdateProduct, any>;
+  }
 > = ({ control, ...viewProps }) => {
   return (
     <Controller

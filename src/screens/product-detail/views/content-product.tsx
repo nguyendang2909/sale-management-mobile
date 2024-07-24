@@ -1,4 +1,4 @@
-import { KeyboardAvoidingView, ScrollView, Text, View } from '@gluestack-ui/themed';
+import { KeyboardAvoidingView, ScrollView, View } from '@gluestack-ui/themed';
 import { useNavigation } from '@react-navigation/native';
 import _ from 'lodash';
 import React, { FC, useEffect, useMemo, useState } from 'react';
@@ -8,21 +8,13 @@ import { useUpdateProductMutation } from 'src/api';
 import { LoadingOverlay } from 'src/components';
 import { HOME_SCREENS, SCREENS } from 'src/constants';
 import { useMessages, useProduct } from 'src/hooks';
+import { SectionAdditional } from 'src/screens/product-create/views/section-additional/section-additional';
+import { SectionProductBasicInfo } from 'src/screens/product-create/views/section-basic-info/section-product-basic-info';
+import { SectionStockManagement } from 'src/screens/product-create/views/section-stock-management/section-stock-management';
 import { ApiRequest, AppStore, FormParams } from 'src/types';
 import { updateProductFormUtil } from 'src/utils';
 import { formParamUtil } from 'src/utils/form-params.util';
 
-import { ControlProductCategories } from './form/control-product-categories';
-import { ProductInStockControl } from './form/form-control-product-in-stock';
-import { ProductCapitalPriceControl } from './form/product-capital-price.control';
-import { ProductImagesControl } from './form/product-images.control';
-import { ProductPriceControl } from './form/product-price.control';
-import { ProductPromotionalPriceControl } from './form/product-promotional-price.control';
-import { ProductSkuControl } from './form/product-sku.control';
-import { ProductStockControl } from './form/product-stock.control';
-import { ProductTitleControl } from './form/product-title.control';
-import { ProductTrackingStockControl } from './form/product-tracking-stock.control';
-import { ProductUnitControl } from './form/product-unit.control';
 import { ProductDetailFooter } from './product-detail-footer';
 
 type FCProps = {
@@ -52,9 +44,6 @@ export const ContentProduct: FC<FCProps> = ({ detail }) => {
   });
 
   console.log(errors);
-
-  const isInStock = watch('skus.0.isInStock');
-  const isTrackingStock = useMemo(() => isInStock === null, [isInStock]);
 
   const defaultValues = useMemo(() => updateProductFormUtil.getDefaultValues(product), [product]);
 
@@ -91,8 +80,9 @@ export const ContentProduct: FC<FCProps> = ({ detail }) => {
     }
   };
 
+  const isInStock = watch('skus.0.isInStock');
+  const isTrackingStock = useMemo(() => isInStock === null, [isInStock]);
   const attributesValue = watch('attributes');
-
   const hasDefaultSku = useMemo(() => attributesValue.length === 0, [attributesValue]);
 
   return (
@@ -105,34 +95,18 @@ export const ContentProduct: FC<FCProps> = ({ detail }) => {
             showsVerticalScrollIndicator={false}
             keyboardShouldPersistTaps="handled"
           >
-            <View px={16} py={8} bgColor="$white" mb={16}>
-              <ProductTitleControl control={control} />
-              <ProductImagesControl mt={16} control={control} />
-              {hasDefaultSku && (
-                <>
-                  <View mt={16}>
-                    <View flexDirection="row" columnGap={16}>
-                      <ProductPriceControl flex={1} control={control} />
-                      <ProductCapitalPriceControl flex={1} control={control} />
-                    </View>
-                  </View>
-                  <ProductPromotionalPriceControl mt={16} control={control} />
-                </>
-              )}
-              <ProductUnitControl mt={16} control={control} />
-              <ControlProductCategories mt={16} control={control} />
-            </View>
-            <View px={16} py={16} bgColor="$white">
-              <View>
-                <Text fontWeight="$bold">Quản lý tồn kho</Text>
-              </View>
-              <ProductSkuControl mt={16} control={control} />
-              {!isTrackingStock && <ProductInStockControl mt={16} control={control} />}
-              <ProductTrackingStockControl mt={16} control={control} />
-              {isTrackingStock && hasDefaultSku && (
-                <ProductStockControl mt={16} control={control} />
-              )}
-            </View>
+            <SectionProductBasicInfo
+              hasDefaultSku={hasDefaultSku}
+              // @ts-ignore
+              control={control}
+            />
+            <SectionStockManagement
+              mt={16}
+              isEnabled={hasDefaultSku}
+              isTrackingStock={isTrackingStock}
+              control={control}
+            />
+            <SectionAdditional mt={16} />
           </ScrollView>
           <ProductDetailFooter
             bgColor="$white"

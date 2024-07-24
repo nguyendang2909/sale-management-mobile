@@ -6,7 +6,9 @@ import { IntegerInput } from 'src/components/form/integer-input';
 import { FormParams } from 'src/types';
 
 export const ControlProductStock: FC<
-  ComponentProps<typeof View> & { control: Control<FormParams.CreateProduct, any> }
+  ComponentProps<typeof View> & {
+    control: Control<FormParams.CreateProduct | FormParams.UpdateProduct, any>;
+  }
 > = ({ control, ...viewProps }) => {
   const textInputRef = useRef<TextInput>();
 

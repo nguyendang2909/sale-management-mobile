@@ -1,21 +1,18 @@
 import { View } from '@gluestack-ui/themed';
 import { FC } from 'react';
 import { Control } from 'react-hook-form';
+import { ControlProductPrice } from 'src/screens/product-create/views/section-basic-info/control/control-product-price';
 import { FormParams, ViewProps } from 'src/types';
 
-import { ControlProductCapitalPrice } from './control/control-product-capital-price';
-import { ControlProductCategories } from './control/control-product-categories';
+import { ControlProductCategories } from '../form/control-product-categories';
+import { ProductCapitalPriceControl } from '../form/product-capital-price.control';
+import { ProductPromotionalPriceControl } from '../form/product-promotional-price.control';
+import { ProductUnitControl } from '../form/product-unit.control';
 import { ControlProductImages } from './control/control-product-images';
-import { ControlProductPrice } from './control/control-product-price';
 import { ControlProductTitle } from './control/control-product-title';
-import { ControlProductUnit } from './control/control-product-unit';
-import { ControlProductPromotionPrice } from './control/control-promotional-price';
 
 export const SectionProductBasicInfo: FC<
-  ViewProps & {
-    control: Control<FormParams.CreateProduct | FormParams.UpdateProduct, any>;
-    hasDefaultSku: boolean;
-  }
+  ViewProps & { control: Control<FormParams.UpdateProduct, any>; hasDefaultSku: boolean }
 > = ({ control, hasDefaultSku, ...viewProps }) => {
   return (
     <>
@@ -27,13 +24,13 @@ export const SectionProductBasicInfo: FC<
             <View mt={16}>
               <View flexDirection="row" columnGap={16}>
                 <ControlProductPrice flex={1} control={control} />
-                <ControlProductCapitalPrice flex={1} control={control} />
+                <ProductCapitalPriceControl flex={1} control={control} />
               </View>
             </View>
-            <ControlProductPromotionPrice mt={16} control={control} />
+            <ProductPromotionalPriceControl mt={16} control={control} />
           </>
         )}
-        <ControlProductUnit mt={16} control={control} />
+        <ProductUnitControl mt={16} control={control} />
         <ControlProductCategories mt={16} control={control} />
       </View>
     </>

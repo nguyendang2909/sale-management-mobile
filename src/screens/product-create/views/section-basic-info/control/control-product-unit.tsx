@@ -6,7 +6,9 @@ import { useAppSelector } from 'src/hooks';
 import { FormParams } from 'src/types';
 
 export const ControlProductUnit: FC<
-  ComponentProps<typeof View> & { control: Control<FormParams.CreateProduct, any> }
+  ComponentProps<typeof View> & {
+    control: Control<FormParams.CreateProduct | FormParams.UpdateProduct, any>;
+  }
 > = ({ control, ...viewProps }) => {
   const showUnit = useAppSelector(s => s.app.productSettings.showUnit);
   return (

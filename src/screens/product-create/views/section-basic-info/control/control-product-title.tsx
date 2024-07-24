@@ -6,7 +6,9 @@ import { FormParams } from 'src/types';
 import { InputProductTitle } from './form/input-product-title';
 
 export const ControlProductTitle: FC<
-  ComponentProps<typeof View> & { control: Control<FormParams.CreateProduct, any> }
+  ComponentProps<typeof View> & {
+    control: Control<FormParams.CreateProduct | FormParams.UpdateProduct, any>;
+  }
 > = ({ control, ...viewProps }) => {
   return (
     <>

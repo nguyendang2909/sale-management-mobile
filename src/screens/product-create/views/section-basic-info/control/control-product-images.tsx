@@ -7,7 +7,9 @@ import { FormParams } from 'src/types';
 import { FormProductImages } from './form/form-product-images';
 
 export const ControlProductImages: FC<
-  ComponentProps<typeof View> & { control: Control<FormParams.CreateProduct, any> }
+  ComponentProps<typeof View> & {
+    control: Control<FormParams.CreateProduct | FormParams.UpdateProduct, any>;
+  }
 > = ({ control, ...viewProps }) => {
   const showImage = useAppSelector(s => s.app.productSettings.showImage);
 

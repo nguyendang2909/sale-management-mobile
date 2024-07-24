@@ -5,7 +5,9 @@ import { FormControlSwitch } from 'src/components';
 import { FormParams } from 'src/types';
 
 export const ControlProductInStock: FC<
-  ComponentProps<typeof View> & { control: Control<FormParams.CreateProduct, any> }
+  ComponentProps<typeof View> & {
+    control: Control<FormParams.CreateProduct | FormParams.UpdateProduct, any>;
+  }
 > = ({ control, ...viewProps }) => {
   return (
     <>

@@ -10,7 +10,7 @@ import { ControlProductTrackingStock } from './control/control-product-tracking-
 
 export const SectionStockManagement: FC<
   ViewProps & {
-    control: Control<FormParams.CreateProduct, any>;
+    control: Control<FormParams.CreateProduct | FormParams.UpdateProduct, any>;
     isEnabled: boolean;
     isTrackingStock: boolean;
   }

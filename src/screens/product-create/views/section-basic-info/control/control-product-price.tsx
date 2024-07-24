@@ -5,7 +5,9 @@ import { PriceInput } from 'src/components/form/price-input';
 import { FormParams } from 'src/types';
 
 export const ControlProductPrice: FC<
-  ComponentProps<typeof View> & { control: Control<FormParams.CreateProduct, any> }
+  ComponentProps<typeof View> & {
+    control: Control<FormParams.CreateProduct | FormParams.UpdateProduct, any>;
+  }
 > = ({ control, ...viewProps }) => {
   return (
     <>
