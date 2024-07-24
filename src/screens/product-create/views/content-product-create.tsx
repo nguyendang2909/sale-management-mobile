@@ -5,6 +5,7 @@ import React, { FC, useCallback, useMemo } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import Toast from 'react-native-toast-message';
 import { useCreateProductMutation, useLazyFetchProductQuery } from 'src/api';
+import { LoadingOverlay } from 'src/components';
 import { HOME_SCREENS, SCREENS } from 'src/constants';
 import { useAppSelector, useDisclose, useMessages } from 'src/hooks';
 import { ApiRequest, FormParams } from 'src/types';
@@ -114,6 +115,7 @@ export const ContentProductCreate: FC = () => {
   return (
     <>
       <View flex={1}>
+        <LoadingOverlay isLoading={isSubmitting} />
         <KeyboardAvoidingView flex={1} behavior="padding" enabled keyboardVerticalOffset={120}>
           <ScrollView
             flex={1}
@@ -142,6 +144,7 @@ export const ContentProductCreate: FC = () => {
         </KeyboardAvoidingView>
 
         <SectionFooter
+          isSubmitting={isSubmitting}
           onCreate={handleCreateProduct}
           onCreateMore={handleCreateMoreProduct}
           px={16}

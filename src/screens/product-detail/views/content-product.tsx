@@ -3,7 +3,6 @@ import { useNavigation } from '@react-navigation/native';
 import _ from 'lodash';
 import React, { FC, useEffect, useMemo, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { Platform } from 'react-native';
 import Toast from 'react-native-toast-message';
 import { useUpdateProductMutation } from 'src/api';
 import { LoadingOverlay } from 'src/components';
@@ -79,7 +78,7 @@ export const ContentProduct: FC<FCProps> = ({ detail }) => {
       if (images?.length) {
         body.imageIds = images.map(e => e.id);
       }
-      await updateProductMutation({ id: product.id, body }).unwrap();
+      // await updateProductMutation({ id: product.id, body }).unwrap();
       await refetchProduct();
       Toast.show({ text1: 'Cập nhật sản phẩm thành công', type: 'success' });
       navigation.navigate(SCREENS.HOME, {
@@ -98,69 +97,54 @@ export const ContentProduct: FC<FCProps> = ({ detail }) => {
 
   return (
     <View flex={1}>
-      <LoadingOverlay isLoading={isLoading || isLoadingProduct} />
-      <View flex={1}>
-        <View flex={1}>
-          <View flex={1}>
-            <View flex={1}>
-              <View flex={1}>
-                <KeyboardAvoidingView
-                  style={{ flex: 1, flexDirection: 'column', justifyContent: 'center' }}
-                  behavior="padding"
-                  enabled
-                  keyboardVerticalOffset={100}
-                >
-                  <ScrollView
-                    flex={1}
-                    showsVerticalScrollIndicator={false}
-                    keyboardShouldPersistTaps="handled"
-                  >
-                    <View px={16} py={8} bgColor="$white" mb={16}>
-                      <ProductTitleControl control={control} />
-                      <ProductImagesControl mt={16} control={control} />
-                      {hasDefaultSku && (
-                        <>
-                          <View mt={16}>
-                            <View flexDirection="row" columnGap={16}>
-                              <ProductPriceControl flex={1} control={control} />
-                              <ProductCapitalPriceControl flex={1} control={control} />
-                            </View>
-                          </View>
-                          <ProductPromotionalPriceControl mt={16} control={control} />
-                        </>
-                      )}
-                      <ProductUnitControl mt={16} control={control} />
-                      <ControlProductCategories mt={16} control={control} />
+      <LoadingOverlay isLoading={isLoading || isLoadingProduct || isSubmitting} />
+      <KeyboardAvoidingView flex={1} behavior="padding" enabled keyboardVerticalOffset={120}>
+        <KeyboardAvoidingView flex={1} behavior="padding" enabled keyboardVerticalOffset={120}>
+          <ScrollView
+            flex={1}
+            showsVerticalScrollIndicator={false}
+            keyboardShouldPersistTaps="handled"
+          >
+            <View px={16} py={8} bgColor="$white" mb={16}>
+              <ProductTitleControl control={control} />
+              <ProductImagesControl mt={16} control={control} />
+              {hasDefaultSku && (
+                <>
+                  <View mt={16}>
+                    <View flexDirection="row" columnGap={16}>
+                      <ProductPriceControl flex={1} control={control} />
+                      <ProductCapitalPriceControl flex={1} control={control} />
                     </View>
-                    <View px={16} py={16} bgColor="$white">
-                      <View>
-                        <Text fontWeight="$bold">Quản lý tồn kho</Text>
-                      </View>
-                      <ProductSkuControl mt={16} control={control} />
-                      {!isTrackingStock && <ProductInStockControl mt={16} control={control} />}
-                      <ProductTrackingStockControl mt={16} control={control} />
-                      {isTrackingStock && hasDefaultSku && (
-                        <ProductStockControl mt={16} control={control} />
-                      )}
-                    </View>
-                  </ScrollView>
-                </KeyboardAvoidingView>
-
-                <ProductDetailFooter
-                  bgColor="$white"
-                  onUpdate={handleSubmit(onSubmit)}
-                  product={product}
-                  setLoading={setLoading}
-                  isLoading={isSubmitting}
-                  px={16}
-                  py={16}
-                />
-              </View>
+                  </View>
+                  <ProductPromotionalPriceControl mt={16} control={control} />
+                </>
+              )}
+              <ProductUnitControl mt={16} control={control} />
+              <ControlProductCategories mt={16} control={control} />
             </View>
-          </View>
-          {Platform.OS === 'android' && <KeyboardAvoidingView behavior={'padding'} />}
-        </View>
-      </View>
+            <View px={16} py={16} bgColor="$white">
+              <View>
+                <Text fontWeight="$bold">Quản lý tồn kho</Text>
+              </View>
+              <ProductSkuControl mt={16} control={control} />
+              {!isTrackingStock && <ProductInStockControl mt={16} control={control} />}
+              <ProductTrackingStockControl mt={16} control={control} />
+              {isTrackingStock && hasDefaultSku && (
+                <ProductStockControl mt={16} control={control} />
+              )}
+            </View>
+          </ScrollView>
+          <ProductDetailFooter
+            bgColor="$white"
+            onUpdate={handleSubmit(onSubmit)}
+            product={product}
+            setLoading={setLoading}
+            isLoading={isSubmitting}
+            px={16}
+            py={16}
+          />
+        </KeyboardAvoidingView>
+      </KeyboardAvoidingView>
     </View>
   );
 };
