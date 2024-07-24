@@ -1,7 +1,7 @@
 import { View } from '@gluestack-ui/themed';
 import { ComponentProps, FC } from 'react';
 import { Control, Controller } from 'react-hook-form';
-import { PickerProductCategories } from 'src/screens/product-create/views/form/form/picker-product-categories';
+import { PickerProductCategories } from 'src/screens/product-create/views/section-basic-info/control/picker/picker-product-categories';
 import { FormParams } from 'src/types';
 
 export const ControlProductCategories: FC<

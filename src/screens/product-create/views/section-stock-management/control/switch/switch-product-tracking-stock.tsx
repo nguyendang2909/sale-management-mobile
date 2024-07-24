@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { FormControlSwitch } from 'src/components';
 
-export const ProductTrackingStockSwitch: FC<{
+export const SwitchProductTrackingStock: FC<{
   value: boolean | null;
   onChange: (e: boolean | null) => void;
 }> = ({ value, onChange }) => {

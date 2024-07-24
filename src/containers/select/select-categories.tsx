@@ -12,12 +12,7 @@ type FCProps = {
 
 export const SelectCategoriesCheckbox: FC<FCProps> = ({ categories, value, onPress }) => {
   return (
-    <View
-      flexDirection="row"
-      columnGap={8}
-      rowGap={8}
-      //  flexWrap="wrap"
-    >
+    <View flexDirection="row" columnGap={8} rowGap={8} flexWrap="wrap">
       {categories.map(category => {
         return (
           <SelectCategoryCheckbox

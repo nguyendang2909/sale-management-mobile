@@ -3,7 +3,7 @@ import { ComponentProps, FC } from 'react';
 import { Control, Controller } from 'react-hook-form';
 import { FormParams } from 'src/types';
 
-import { ProductTrackingStockSwitch } from './form/product-tracking-stock.switch';
+import { SwitchProductTrackingStock } from './switch/switch-product-tracking-stock';
 
 export const ControlProductTrackingStock: FC<
   ComponentProps<typeof View> & { control: Control<FormParams.CreateProduct, any> }
@@ -16,7 +16,7 @@ export const ControlProductTrackingStock: FC<
         rules={{ required: true }}
         render={({ field }) => (
           <View {...viewProps}>
-            <ProductTrackingStockSwitch value={field.value} onChange={field.onChange} />
+            <SwitchProductTrackingStock value={field.value} onChange={field.onChange} />
           </View>
         )}
       ></Controller>
