@@ -11,9 +11,9 @@ import { useAppSelector, useDisclose, useMessages } from 'src/hooks';
 import { ApiRequest, FormParams } from 'src/types';
 import { createProductFormUtil } from 'src/utils';
 
-import { SectionAdditional } from './additional/section-additional';
-import { SectionProductBasicInfo } from './basic-info/section-product-basic-info';
-import { SectionProductClassification } from './classification/section-product-classification';
+import { SectionAdditional } from './section-additional/section-additional';
+import { SectionProductBasicInfo } from './section-basic-info/section-product-basic-info';
+import { SectionProductClassification } from './section-classification/section-product-classification';
 import { SectionFooter } from './footer/section-footer';
 import { SectionStockManagement } from './section-stock-management/section-stock-management';
 

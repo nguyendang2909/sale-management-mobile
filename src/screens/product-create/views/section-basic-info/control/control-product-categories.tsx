@@ -3,22 +3,23 @@ import { ComponentProps, FC } from 'react';
 import { Control, Controller } from 'react-hook-form';
 import { FormParams } from 'src/types';
 
-import { ProductTrackingStockSwitch } from './form/product-tracking-stock.switch';
+import { PickerProductCategories } from '../../form/form/picker-product-categories';
 
-export const ProductTrackingStockControl: FC<
+export const ControlProductCategories: FC<
   ComponentProps<typeof View> & { control: Control<FormParams.CreateProduct, any> }
 > = ({ control, ...viewProps }) => {
   return (
     <>
       <Controller
         control={control}
-        name="skus.0.isInStock"
-        rules={{ required: true }}
-        render={({ field }) => (
-          <View {...viewProps}>
-            <ProductTrackingStockSwitch value={field.value} onChange={field.onChange} />
-          </View>
-        )}
+        name="categoryIds"
+        render={({ field }) => {
+          return (
+            <View {...viewProps}>
+              <PickerProductCategories value={field.value} onChange={field.onChange} />
+            </View>
+          );
+        }}
       ></Controller>
     </>
   );

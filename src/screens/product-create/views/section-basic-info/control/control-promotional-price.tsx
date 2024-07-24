@@ -5,7 +5,7 @@ import { PriceInput } from 'src/components/form/price-input';
 import { useAppSelector } from 'src/hooks';
 import { FormParams } from 'src/types';
 
-export const ProductPromotionalPriceControl: FC<
+export const ControlProductPromotionPrice: FC<
   ComponentProps<typeof View> & { control: Control<FormParams.CreateProduct, any> }
 > = ({ control, ...viewProps }) => {
   const showPromotionalPrice = useAppSelector(s => s.app.productSettings.showPromotionalPrice);

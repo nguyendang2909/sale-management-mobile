@@ -4,7 +4,7 @@ import { Control, Controller } from 'react-hook-form';
 import { PriceInput } from 'src/components/form/price-input';
 import { FormParams } from 'src/types';
 
-export const ProductPriceControl: FC<
+export const ControlProductPrice: FC<
   ComponentProps<typeof View> & { control: Control<FormParams.CreateProduct, any> }
 > = ({ control, ...viewProps }) => {
   return (

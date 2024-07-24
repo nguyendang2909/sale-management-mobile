@@ -3,7 +3,7 @@ import { ComponentProps, FC } from 'react';
 import { CreateProductImageCards } from 'src/components/card/product/create-product-image-cards';
 import { Entity } from 'src/types';
 
-export const ProductImagesForm: FC<
+export const FormProductImages: FC<
   ComponentProps<typeof View> & {
     onChange: (e: Entity.ProductImage[]) => void;
     value: Entity.ProductImage[];

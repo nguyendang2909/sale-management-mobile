@@ -3,10 +3,10 @@ import { FC } from 'react';
 import { Control } from 'react-hook-form';
 import { FormParams, ViewProps } from 'src/types';
 
-import { ProductInStockControl } from '../form/form-control-product-in-stock';
-import { ProductSkuControl } from '../form/product-sku.control';
-import { ProductStockControl } from '../form/product-stock.control';
-import { ProductTrackingStockControl } from '../form/product-tracking-stock.control';
+import { ControlProductInStock } from './control/control-product-in-stock';
+import { ControlProductSku } from './control/control-product-sku';
+import { ControlProductStock } from './control/control-product-stock';
+import { ControlProductTrackingStock } from './control/control-product-tracking-stock';
 
 export const SectionStockManagement: FC<
   ViewProps & {
@@ -24,10 +24,10 @@ export const SectionStockManagement: FC<
         <View>
           <Text fontWeight="$bold">Quản lý tồn kho</Text>
         </View>
-        <ProductSkuControl mt={16} control={control} />
-        {!isTrackingStock && <ProductInStockControl mt={16} control={control} />}
-        <ProductTrackingStockControl mt={16} control={control} />
-        {isTrackingStock && <ProductStockControl mt={16} control={control} />}
+        <ControlProductSku mt={16} control={control} />
+        {!isTrackingStock && <ControlProductInStock mt={16} control={control} />}
+        <ControlProductTrackingStock mt={16} control={control} />
+        {isTrackingStock && <ControlProductStock mt={16} control={control} />}
       </View>
     </>
   );

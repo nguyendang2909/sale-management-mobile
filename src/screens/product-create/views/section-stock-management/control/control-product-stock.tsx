@@ -5,7 +5,7 @@ import { TextInput } from 'react-native';
 import { IntegerInput } from 'src/components/form/integer-input';
 import { FormParams } from 'src/types';
 
-export const ProductStockControl: FC<
+export const ControlProductStock: FC<
   ComponentProps<typeof View> & { control: Control<FormParams.CreateProduct, any> }
 > = ({ control, ...viewProps }) => {
   const textInputRef = useRef<TextInput>();

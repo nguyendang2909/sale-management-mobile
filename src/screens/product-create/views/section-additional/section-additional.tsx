@@ -2,7 +2,7 @@ import { Text, View } from '@gluestack-ui/themed';
 import { FC } from 'react';
 import { ViewProps } from 'src/types';
 
-import { FormControlProductAdditional } from '../form/form-control-product-additional';
+import { FormControlProductAdditional } from './control/form-control-product-additional';
 
 export const SectionAdditional: FC<ViewProps> = () => {
   return (

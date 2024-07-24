@@ -4,9 +4,9 @@ import { Control, Controller } from 'react-hook-form';
 import { useAppSelector } from 'src/hooks';
 import { FormParams } from 'src/types';
 
-import { ProductImagesForm } from './form/product-images-form';
+import { FormProductImages } from './form/form-product-images';
 
-export const ProductImagesControl: FC<
+export const ControlProductImages: FC<
   ComponentProps<typeof View> & { control: Control<FormParams.CreateProduct, any> }
 > = ({ control, ...viewProps }) => {
   const showImage = useAppSelector(s => s.app.productSettings.showImage);
@@ -18,7 +18,7 @@ export const ProductImagesControl: FC<
         name="images"
         render={({ field: { value, onChange } }) => {
           if (!!showImage || !!value?.length) {
-            return <ProductImagesForm {...viewProps} value={value} onChange={onChange} />;
+            return <FormProductImages {...viewProps} value={value} onChange={onChange} />;
           }
           return <></>;
         }}
