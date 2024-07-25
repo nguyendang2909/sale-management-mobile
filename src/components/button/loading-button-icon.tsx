@@ -21,7 +21,7 @@ export const LoadingButtonIcon: React.FC<LoadingButtonIconProps> = ({
       rounded={100}
       bgColor="$red600"
       {...buttonProps}
-      disabled={isLoading}
+      isDisabled={isLoading}
     >
       {isLoading ? <ButtonSpinner /> : <>{children}</>}
     </Button>

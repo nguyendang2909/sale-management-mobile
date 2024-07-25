@@ -1,45 +1,29 @@
 import { Button, ButtonIcon, ButtonText, Text, View } from '@gluestack-ui/themed';
 import { Plus } from 'lucide-react-native';
-import { FC, useCallback } from 'react';
+import { FC } from 'react';
 import { Control, Controller, UseFormGetValues } from 'react-hook-form';
-import { useDisclose, useInit } from 'src/hooks';
 import { FormParams, ViewProps } from 'src/types';
 
-import { ModalProductClassification } from './modal/modal-product-classification';
 import { SkuList } from './modal/sku-list/sku-list';
 
 export const SectionProductClassification: FC<
   ViewProps & {
     control: Control<FormParams.CreateProduct, any>;
-    setSkus: (e: FormParams.CreateProductSku[]) => void;
     setSku: (index: number, skuValue: FormParams.CreateProductSku) => void;
-    getSkus: () => FormParams.CreateProductSku[];
     getProduct: UseFormGetValues<FormParams.CreateProduct>;
     hasDefaultSku: boolean;
     specificationsMap: Record<string, FormParams.CreateProductSpecification>;
+    onOpenModal: () => void;
   }
 > = ({
   control,
-  setSkus,
   setSku,
-  getSkus,
   hasDefaultSku,
   specificationsMap,
   getProduct,
+  onOpenModal,
   ...viewProps
 }) => {
-  const {
-    isOpen: isOpenModalClassification,
-    onOpen: onOpenModalClassification,
-    onClose: onCloseModalClassification,
-  } = useDisclose();
-
-  const handlePressAddClassification = useCallback(() => {
-    onOpenModalClassification();
-  }, [onOpenModalClassification]);
-
-  const { isInit } = useInit();
-
   return (
     <>
       <View {...viewProps}>
@@ -53,7 +37,7 @@ export const SectionProductClassification: FC<
                 control={control}
                 name="skus"
                 rules={{ required: true }}
-                render={({ field: { onChange, value } }) => {
+                render={({ field: { value } }) => {
                   return (
                     <SkuList
                       setSku={setSku}
@@ -67,34 +51,13 @@ export const SectionProductClassification: FC<
             </View>
           )}
           <View mt={16}>
-            <Button variant="outline" onPress={handlePressAddClassification}>
+            <Button variant="outline" onPress={onOpenModal}>
               <ButtonIcon as={Plus} mr={4}></ButtonIcon>
               <ButtonText>Thêm phân loại</ButtonText>
             </Button>
           </View>
         </View>
       </View>
-
-      {isInit && (
-        <Controller
-          control={control}
-          name="attributes"
-          rules={{ required: true }}
-          render={({ field: { onChange, value } }) => {
-            return (
-              <ModalProductClassification
-                currentAttributes={value}
-                getSkus={getSkus}
-                control={control}
-                onClose={onCloseModalClassification}
-                visible={isOpenModalClassification}
-                setAttributes={onChange}
-                setSkus={setSkus}
-              />
-            );
-          }}
-        ></Controller>
-      )}
     </>
   );
 };

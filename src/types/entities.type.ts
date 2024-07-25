@@ -144,7 +144,8 @@ export declare namespace Entity {
       wholesalePrice?: number;
       stock?: number | null;
       isInStock?: boolean | null;
-      specifications?: Specification[];
+      // specifications?: Specification[];
+      specificationIds?: string[];
     }>;
 
   type Category = BaseEntity &

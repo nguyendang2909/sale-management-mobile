@@ -12,13 +12,9 @@ class CreateProductFormUtil {
           .min(1, 'Thông tin bắt buộc')
           .max(200, 'Tên sản phẩm ít hơn 200 ký tự')
           .required('Thông tin bắt buộc'),
-        sku: Yup.string().max(200).optional(),
         unit: Yup.string().max(50).required().nullable(),
         categoryIds: Yup.array().max(5).required(),
         images: Yup.array().max(6).required(),
-        // minWholesalePriceQuantity: Yup.number().integer('Số lượng sản phẩm không đúng').optional(),
-        barcode: Yup.string().optional(),
-        inventory: Yup.number().integer('Số lượng tồn kho không đúng').nullable().optional(),
         description: Yup.string().max(10000).required().nullable(),
         label: Yup.string().required().nullable(),
         minWholesalePriceQuantity: Yup.number().required().nullable(),

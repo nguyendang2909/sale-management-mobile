@@ -32,7 +32,7 @@ export const ButtonCancelOrder: FC<{ orderId: string }> = ({ orderId }) => {
 
   return (
     <>
-      <Button variant="outline" disabled={isUpdatingOrder || isFetchingOrder} onPress={onOpen}>
+      <Button variant="outline" isDisabled={isUpdatingOrder || isFetchingOrder} onPress={onOpen}>
         <ButtonText>Huỷ</ButtonText>
       </Button>
 

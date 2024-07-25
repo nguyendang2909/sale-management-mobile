@@ -10,6 +10,7 @@ type FCProps = ViewProps & {
   onUpdate: () => void;
   setLoading: (e: boolean) => void;
   isLoading: boolean;
+  isDirty: boolean;
 };
 
 export const ProductDetailFooter: FC<FCProps> = ({
@@ -17,6 +18,7 @@ export const ProductDetailFooter: FC<FCProps> = ({
   onUpdate,
   setLoading,
   isLoading,
+  isDirty,
   ...viewProps
 }) => {
   return (
@@ -26,7 +28,7 @@ export const ProductDetailFooter: FC<FCProps> = ({
           <DeleteProductButton product={product} setLoading={setLoading} isLoading={isLoading} />
         </View>
         <View flex={1}>
-          <Button onPress={onUpdate} disabled={isLoading}>
+          <Button onPress={onUpdate} isDisabled={isLoading || !isDirty}>
             <ButtonText>Cập nhật</ButtonText>
           </Button>
         </View>

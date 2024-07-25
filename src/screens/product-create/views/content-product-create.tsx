@@ -2,18 +2,19 @@ import { KeyboardAvoidingView, ScrollView, View } from '@gluestack-ui/themed';
 import { StackActions, useNavigation } from '@react-navigation/native';
 import _ from 'lodash';
 import React, { FC, useCallback, useMemo } from 'react';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import Toast from 'react-native-toast-message';
 import { useCreateProductMutation, useLazyFetchProductQuery } from 'src/api';
 import { LoadingOverlay } from 'src/components';
 import { HOME_SCREENS, SCREENS } from 'src/constants';
-import { useAppSelector, useDisclose, useMessages } from 'src/hooks';
+import { useDisclose, useInit, useMessages } from 'src/hooks';
 import { ApiRequest, FormParams } from 'src/types';
 import { createProductFormUtil } from 'src/utils';
 
 import { SectionFooter } from './footer/section-footer';
 import { SectionAdditional } from './section-additional/section-additional';
 import { SectionProductBasicInfo } from './section-basic-info/section-product-basic-info';
+import { ModalProductClassification } from './section-classification/modal/modal-product-classification';
 import { SectionProductClassification } from './section-classification/section-product-classification';
 import { SectionStockManagement } from './section-stock-management/section-stock-management';
 
@@ -22,13 +23,20 @@ export const ContentProductCreate: FC = () => {
   const { formatErrorMessage } = useMessages();
   const [createProduct] = useCreateProductMutation();
   const [fetchProduct] = useLazyFetchProductQuery();
-  const createProductData = useAppSelector(s => s.cache.forms.createProduct);
 
   const {
     isOpen: shouldCreateMore,
     onOpen: setCreateMore,
     onClose: cancelCreateMore,
   } = useDisclose();
+
+  const {
+    isOpen: isOpenModalAttributes,
+    onOpen: onOpenModalAttributes,
+    onClose: onCloseModalAttributes,
+  } = useDisclose();
+
+  const { isInit: isInitModalAttributes } = useInit();
 
   const {
     setValue,
@@ -39,9 +47,22 @@ export const ContentProductCreate: FC = () => {
     watch,
     getValues,
   } = useForm<FormParams.CreateProduct>({
-    defaultValues: createProductFormUtil.getDefaultValues(createProductData),
+    defaultValues: createProductFormUtil.getDefaultValues(),
     resolver: createProductFormUtil.getResolver(),
   });
+
+  const isInStock = watch('skus.0.isInStock');
+  const isTrackingStock = useMemo(() => isInStock === null, [isInStock]);
+  const attributesValue = watch('attributes');
+  const hasDefaultSku = useMemo(() => attributesValue.length === 0, [attributesValue]);
+  const specifications = attributesValue.reduce<FormParams.CreateProductSpecification[]>(
+    (acc, attr) => {
+      const specifications = attr.specifications;
+      return acc.concat(acc.concat(specifications));
+    },
+    [],
+  );
+  const specificationsMap = _.keyBy(specifications, 'id');
 
   const onSubmit: SubmitHandler<FormParams.CreateProduct> = async values => {
     try {
@@ -77,11 +98,6 @@ export const ContentProductCreate: FC = () => {
     await handleSubmit(onSubmit)();
   };
 
-  const isInStock = watch('skus.0.isInStock');
-  const isTrackingStock = useMemo(() => isInStock === null, [isInStock]);
-  const attributesValue = watch('attributes');
-  const hasDefaultSku = useMemo(() => attributesValue.length === 0, [attributesValue]);
-
   const setSkus = useCallback(
     (skusValue: FormParams.CreateProductSku[]) => {
       setValue('skus', skusValue);
@@ -101,16 +117,6 @@ export const ContentProductCreate: FC = () => {
     },
     [getSkus, setValue],
   );
-
-  const specifications = attributesValue.reduce<FormParams.CreateProductSpecification[]>(
-    (acc, attr) => {
-      const specifications = attr.specifications;
-      return acc.concat(acc.concat(specifications));
-    },
-    [],
-  );
-
-  const specificationsMap = _.keyBy(specifications, 'id');
 
   return (
     <>
@@ -136,12 +142,11 @@ export const ContentProductCreate: FC = () => {
             <SectionProductClassification
               mt={16}
               control={control}
-              setSkus={setSkus}
               setSku={setSku}
-              getSkus={getSkus}
               hasDefaultSku={hasDefaultSku}
               specificationsMap={specificationsMap}
               getProduct={getValues}
+              onOpenModal={onOpenModalAttributes}
             />
             <SectionAdditional mt={16} />
           </ScrollView>
@@ -155,6 +160,26 @@ export const ContentProductCreate: FC = () => {
           py={16}
         />
       </View>
+      {isInitModalAttributes && (
+        <Controller
+          control={control}
+          name="attributes"
+          rules={{ required: true }}
+          render={({ field: { onChange, value } }) => {
+            return (
+              <ModalProductClassification
+                currentAttributes={value}
+                getSkus={getSkus}
+                control={control}
+                onClose={onCloseModalAttributes}
+                visible={isOpenModalAttributes}
+                setAttributes={onChange}
+                setSkus={setSkus}
+              />
+            );
+          }}
+        ></Controller>
+      )}
     </>
   );
 };

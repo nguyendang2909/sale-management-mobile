@@ -114,7 +114,7 @@ export const OrderUpdatePaymentContent: FC<{
           </ScrollView>
 
           <ViewFooter px={16} py={16} bgColor="#fff">
-            <Button onPress={handleSubmit(onSubmit)} disabled={isSubmitting}>
+            <Button onPress={handleSubmit(onSubmit)} isDisabled={isSubmitting}>
               <ButtonText>Thanh toán</ButtonText>
             </Button>
           </ViewFooter>

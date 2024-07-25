@@ -67,7 +67,7 @@ export const DeleteProductButton: FC<FCProps> = ({ product, setLoading, isLoadin
 
   return (
     <>
-      <Button variant="outline" onPress={handleOpenDelete} disabled={isLoading}>
+      <Button variant="outline" onPress={handleOpenDelete} isDisabled={isLoading}>
         <ButtonText>Xoá</ButtonText>
       </Button>
       {isInit && (

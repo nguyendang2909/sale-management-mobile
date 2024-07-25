@@ -19,7 +19,7 @@ export const HeaderSave: React.FC<FCProps> = ({ onSave, isLoading, ...props }) =
     <Header
       onLeftPress={goBack}
       RightActionComponent={
-        <Button variant="link" onPress={onSave} disabled={isLoading}>
+        <Button variant="link" onPress={onSave} isDisabled={isLoading}>
           {formatMessage('Save')}
         </Button>
       }

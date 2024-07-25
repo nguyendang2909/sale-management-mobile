@@ -1,15 +1,16 @@
 import { KeyboardAvoidingView, ScrollView, View } from '@gluestack-ui/themed';
 import { useNavigation } from '@react-navigation/native';
 import _ from 'lodash';
-import React, { FC, useEffect, useMemo, useState } from 'react';
+import React, { FC, useCallback, useEffect, useMemo, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import Toast from 'react-native-toast-message';
 import { useUpdateProductMutation } from 'src/api';
 import { LoadingOverlay } from 'src/components';
 import { HOME_SCREENS, SCREENS } from 'src/constants';
-import { useMessages, useProduct } from 'src/hooks';
+import { useDisclose, useInit, useMessages, useProduct } from 'src/hooks';
 import { SectionAdditional } from 'src/screens/product-create/views/section-additional/section-additional';
 import { SectionProductBasicInfo } from 'src/screens/product-create/views/section-basic-info/section-product-basic-info';
+import { SectionProductClassification } from 'src/screens/product-create/views/section-classification/section-product-classification';
 import { SectionStockManagement } from 'src/screens/product-create/views/section-stock-management/section-stock-management';
 import { ApiRequest, AppStore, FormParams } from 'src/types';
 import { updateProductFormUtil } from 'src/utils';
@@ -22,30 +23,53 @@ type FCProps = {
 };
 export const ContentProduct: FC<FCProps> = ({ detail }) => {
   const navigation = useNavigation();
+  const { formatErrorMessage } = useMessages();
+  const [updateProductMutation] = useUpdateProductMutation();
   const {
     data: product,
     isLoading: isLoadingProduct,
     refetch: refetchProduct,
   } = useProduct({ detail });
 
-  const { formatErrorMessage } = useMessages();
-  const [updateProductMutation] = useUpdateProductMutation();
   const [isLoading, setLoading] = useState<boolean>(false);
 
   const {
+    isOpen: isOpenModalAttributes,
+    onOpen: onOpenModalAttributes,
+    onClose: onCloseModalAttributes,
+  } = useDisclose();
+
+  const { isInit: isInitModalAttributes } = useInit();
+
+  const defaultValues = useMemo(() => updateProductFormUtil.getDefaultValues(product), [product]);
+
+  const {
+    setValue,
     reset,
     handleSubmit,
     control,
-    formState: { isSubmitting, errors },
+    formState: { isSubmitting, errors, isDirty },
     watch,
+    getValues,
   } = useForm<FormParams.UpdateProduct>({
-    defaultValues: updateProductFormUtil.getDefaultValues(product),
+    defaultValues,
     resolver: updateProductFormUtil.getResolver(),
   });
 
-  console.log(errors);
+  const isInStock = watch('skus.0.isInStock');
+  const isTrackingStock = useMemo(() => isInStock === null, [isInStock]);
+  const attributesValue = watch('attributes');
+  const hasDefaultSku = useMemo(() => attributesValue.length === 0, [attributesValue]);
+  const specifications = attributesValue.reduce<FormParams.CreateProductSpecification[]>(
+    (acc, attr) => {
+      const specifications = attr.specifications;
+      return acc.concat(acc.concat(specifications));
+    },
+    [],
+  );
+  const specificationsMap = _.keyBy(specifications, 'id');
 
-  const defaultValues = useMemo(() => updateProductFormUtil.getDefaultValues(product), [product]);
+  console.log(errors);
 
   useEffect(() => {
     reset(defaultValues);
@@ -67,7 +91,7 @@ export const ContentProduct: FC<FCProps> = ({ detail }) => {
       if (images?.length) {
         body.imageIds = images.map(e => e.id);
       }
-      // await updateProductMutation({ id: product.id, body }).unwrap();
+      await updateProductMutation({ id: product.id, body }).unwrap();
       await refetchProduct();
       Toast.show({ text1: 'Cập nhật sản phẩm thành công', type: 'success' });
       navigation.navigate(SCREENS.HOME, {
@@ -80,10 +104,25 @@ export const ContentProduct: FC<FCProps> = ({ detail }) => {
     }
   };
 
-  const isInStock = watch('skus.0.isInStock');
-  const isTrackingStock = useMemo(() => isInStock === null, [isInStock]);
-  const attributesValue = watch('attributes');
-  const hasDefaultSku = useMemo(() => attributesValue.length === 0, [attributesValue]);
+  const setSkus = useCallback(
+    (skusValue: FormParams.CreateProductSku[]) => {
+      setValue('skus', skusValue);
+    },
+    [setValue],
+  );
+
+  const getSkus = useCallback(() => {
+    return getValues('skus');
+  }, [getValues]);
+
+  const setSku = useCallback(
+    (index: number, skuValue: FormParams.CreateProductSku) => {
+      const skusValue = getSkus();
+      skusValue[index] = skuValue;
+      setValue('skus', skusValue);
+    },
+    [getSkus, setValue],
+  );
 
   return (
     <View flex={1}>
@@ -106,6 +145,15 @@ export const ContentProduct: FC<FCProps> = ({ detail }) => {
               isTrackingStock={isTrackingStock}
               control={control}
             />
+            <SectionProductClassification
+              mt={16}
+              control={control}
+              setSku={setSku}
+              hasDefaultSku={hasDefaultSku}
+              specificationsMap={specificationsMap}
+              getProduct={getValues}
+              onOpenModal={onOpenModalAttributes}
+            />
             <SectionAdditional mt={16} />
           </ScrollView>
           <ProductDetailFooter
@@ -114,6 +162,7 @@ export const ContentProduct: FC<FCProps> = ({ detail }) => {
             product={product}
             setLoading={setLoading}
             isLoading={isSubmitting}
+            isDirty={isDirty}
             px={16}
             py={16}
           />

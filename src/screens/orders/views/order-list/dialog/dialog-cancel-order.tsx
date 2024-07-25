@@ -77,7 +77,7 @@ export const DialogCancelOrder: FC<{
             <ButtonText>Quay lại</ButtonText>
           </Button>
 
-          <Button borderWidth="$0" onPress={handleSubmit} disabled={isLoading}>
+          <Button borderWidth="$0" onPress={handleSubmit} isDisabled={isLoading}>
             <ButtonText>Xác nhận</ButtonText>
           </Button>
         </ModalFooter>

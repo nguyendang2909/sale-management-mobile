@@ -122,7 +122,33 @@ export declare namespace ApiRequest {
     }[];
   };
 
-  type UpdateProduct = Partial<CreateProduct>;
+  type UpdateProduct = Partial<{
+    title: string;
+    minWholesalePriceQuantity: number | null;
+    description: string | null;
+    label: string | null;
+    unit: string | null;
+    categoryIds?: string[];
+    imageIds?: string[];
+    attributes: {
+      id?: string;
+      title: string;
+      specifications: {
+        title: string;
+        id: string;
+      }[];
+    }[];
+    skus: {
+      code: string | null;
+      price: number;
+      capitalPrice: number | null;
+      promotionalPrice: number | null;
+      wholesalePrice: number | null;
+      stock: number | null;
+      isInStock: boolean | null;
+      specificationIds: string[];
+    }[];
+  }>;
 
   type CreateCustomer = {
     fullName: string;
