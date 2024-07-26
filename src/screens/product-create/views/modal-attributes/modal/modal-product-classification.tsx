@@ -26,7 +26,7 @@ export const ModalProductClassification: FC<
     getValues: getValuesAttribute,
     watch: watchAttribute,
     handleSubmit: handleSubmitAttribute,
-    formState: { errors: errorsAttribute, isDirty },
+    formState: { errors: errorsAttribute },
   } = useForm<FormParams.CreateProductClassification>({
     defaultValues: createProductClassificationFormUtil.getDefaultValues({
       attributes: currentAttributes,
@@ -51,6 +51,7 @@ export const ModalProductClassification: FC<
         [
           ...attributes,
           {
+            id: null,
             title: `Nhóm ${attributes.length + 1}`,
             type: null,
             specifications: [],

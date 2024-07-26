@@ -11,6 +11,7 @@ class CreateProductClassificationFormUtil {
         attributes: Yup.array()
           .of(
             Yup.object({
+              id: Yup.string().required().nullable(),
               title: Yup.string().required(),
               type: Yup.string()
                 .oneOf(Object.values(PRODUCT_ATTRIBUTE_TYPES_MAP))
@@ -166,20 +167,22 @@ class CreateProductClassificationFormUtil {
       });
     }
     return {
-      code: null,
+      id: currentSkus[0].id || null,
+      code: currentSkus[0]?.code || null,
       price: currentSkus[0]?.price || null,
       capitalPrice: currentSkus[0]?.capitalPrice || null,
       promotionalPrice: currentSkus[0]?.promotionalPrice || null,
       wholesalePrice: currentSkus[0]?.wholesalePrice || null,
-      stock: null,
+      stock: currentSkus[0].stock || null,
       specificationIds: [firstSpecification.id, secondSpecification.id],
-      isInStock: true,
+      isInStock: currentSkus[0].isInStock || true,
     };
   }
 
   getSku(defaultSku: FormParams.CreateProductSku): FormParams.CreateProductSku {
     const isInStock = !_.isUndefined(defaultSku.isInStock) ? defaultSku.isInStock : true;
     return {
+      id: defaultSku.id || null,
       code: defaultSku.code || null,
       price: defaultSku.price || null,
       capitalPrice: defaultSku.capitalPrice || null,

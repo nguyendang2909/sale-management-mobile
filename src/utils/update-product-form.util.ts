@@ -5,7 +5,7 @@ import * as Yup from 'yup';
 
 class UpdateProductFormUtil {
   getResolver() {
-    return yupResolver<FormParams.UpdateProduct>(
+    return yupResolver<FormParams.CreateProduct>(
       Yup.object({
         title: Yup.string()
           .min(1, 'Thông tin bắt buộc')
@@ -77,7 +77,7 @@ class UpdateProductFormUtil {
     );
   }
 
-  getDefaultSkus(product: AppStore.Product): FormParams.UpdateProductSku[] {
+  getDefaultSkus(product: AppStore.Product): FormParams.CreateProductSku[] {
     return product.skus?.length
       ? product.skus.map(sku => {
           return {
@@ -95,7 +95,7 @@ class UpdateProductFormUtil {
       : [];
   }
 
-  getDefaultAttributes(product: AppStore.Product): FormParams.UpdateProductAttribute[] {
+  getDefaultAttributes(product: AppStore.Product): FormParams.CreateProductAttribute[] {
     return product.attributes?.length
       ? product.attributes.map(attribute => {
           return {
@@ -117,7 +117,7 @@ class UpdateProductFormUtil {
       : [];
   }
 
-  getDefaultValues(product: AppStore.Product): FormParams.UpdateProduct {
+  getDefaultValues(product: AppStore.Product): FormParams.CreateProduct {
     return {
       title: product.title || '',
       unit: product.unit || null,

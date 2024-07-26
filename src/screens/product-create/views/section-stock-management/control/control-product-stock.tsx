@@ -7,7 +7,7 @@ import { FormParams } from 'src/types';
 
 export const ControlProductStock: FC<
   ComponentProps<typeof View> & {
-    control: Control<FormParams.CreateProduct | FormParams.UpdateProduct, any>;
+    control: Control<FormParams.CreateProduct, any>;
   }
 > = ({ control, ...viewProps }) => {
   const textInputRef = useRef<TextInput>();

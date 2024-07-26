@@ -121,12 +121,6 @@ export declare namespace FormParams {
   };
 
   type CreateProductAttribute = {
-    title: string;
-    type: ProductAttributeType | null;
-    specifications: CreateProductSpecification[];
-  };
-
-  type UpdateProductAttribute = {
     id: string | null;
     title: string;
     type: ProductAttributeType | null;
@@ -137,22 +131,7 @@ export declare namespace FormParams {
     attributes: CreateProductAttribute[];
   };
 
-  type UpdateProductClassification = {
-    attributes: UpdateProductAttribute[];
-  };
-
   type CreateProductSku = {
-    code: string | null;
-    price: number | null;
-    capitalPrice: number | null;
-    promotionalPrice: number | null;
-    wholesalePrice: number | null;
-    stock: number | null;
-    specificationIds: string[];
-    isInStock: boolean | null;
-  };
-
-  type UpdateProductSku = {
     id: string | null;
     code: string | null;
     price: number | null;
@@ -176,19 +155,8 @@ export declare namespace FormParams {
     skus: CreateProductSku[];
   };
 
-  type UpdateProduct = {
-    title: string;
-    description: string | null;
-    label: string | null;
-    unit: string | null;
-    minWholesalePriceQuantity: number | null;
-    categoryIds: string[];
-    images: Entity.ProductImage[];
-    attributes: UpdateProductAttribute[];
-    skus: UpdateProductSku[];
-  };
-
   type EditSku = {
+    id: string | null;
     code: string | null;
     price: number | null;
     capitalPrice: number | null;

@@ -13,7 +13,7 @@ import { ControlProductPromotionPrice } from './control/control-promotional-pric
 
 export const SectionProductBasicInfo: FC<
   ViewProps & {
-    control: Control<FormParams.CreateProduct | FormParams.UpdateProduct, any>;
+    control: Control<FormParams.CreateProduct, any>;
     hasDefaultSku: boolean;
   }
 > = ({ control, hasDefaultSku, ...viewProps }) => {

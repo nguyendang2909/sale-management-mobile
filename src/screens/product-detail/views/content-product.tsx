@@ -57,7 +57,7 @@ export const ContentProduct: FC<FCProps> = ({ detail }) => {
     formState: { isSubmitting, errors, isDirty },
     watch,
     getValues,
-  } = useForm<FormParams.UpdateProduct>({
+  } = useForm<FormParams.CreateProduct>({
     defaultValues,
     resolver: updateProductFormUtil.getResolver(),
   });
@@ -81,7 +81,7 @@ export const ContentProduct: FC<FCProps> = ({ detail }) => {
     reset(defaultValues);
   }, [defaultValues, reset]);
 
-  const onSubmit: SubmitHandler<FormParams.UpdateProduct> = async values => {
+  const onSubmit: SubmitHandler<FormParams.CreateProduct> = async values => {
     try {
       const { images, skus, attributes, ...restValues } = values;
       const body: ApiRequest.UpdateProduct = {
@@ -111,7 +111,7 @@ export const ContentProduct: FC<FCProps> = ({ detail }) => {
   };
 
   const setSkus = useCallback(
-    (skusValue: FormParams.UpdateProductSku[]) => {
+    (skusValue: FormParams.CreateProductSku[]) => {
       setValue('skus', skusValue);
     },
     [setValue],
@@ -122,7 +122,7 @@ export const ContentProduct: FC<FCProps> = ({ detail }) => {
   }, [getValues]);
 
   const setSku = useCallback(
-    (index: number, skuValue: FormParams.UpdateProductSku) => {
+    (index: number, skuValue: FormParams.CreateProductSku) => {
       const skusValue = getSkus();
       skusValue[index] = skuValue;
       setValue('skus', skusValue, { shouldDirty: true });

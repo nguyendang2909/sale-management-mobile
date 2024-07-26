@@ -7,6 +7,7 @@ class EditSkuFormUtil {
   getResolver() {
     return yupResolver<FormParams.EditSku>(
       Yup.object({
+        id: Yup.string().required().nullable(),
         code: Yup.string().required().nullable(),
         price: Yup.number()
           .positive('Giá không đúng')
@@ -37,6 +38,7 @@ class EditSkuFormUtil {
   getDefaultValues(initValues?: FormParams.CreateProductSku): FormParams.EditSku {
     const isInStock = initValues?.isInStock !== undefined ? initValues?.isInStock : true;
     return {
+      id: initValues?.id || null,
       code: initValues?.code || null,
       price: initValues?.price || null,
       capitalPrice: initValues?.capitalPrice || null,

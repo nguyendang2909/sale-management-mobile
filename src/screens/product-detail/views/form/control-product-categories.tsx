@@ -5,7 +5,7 @@ import { PickerProductCategories } from 'src/screens/product-create/views/sectio
 import { FormParams } from 'src/types';
 
 export const ControlProductCategories: FC<
-  ComponentProps<typeof View> & { control: Control<FormParams.UpdateProduct, any> }
+  ComponentProps<typeof View> & { control: Control<FormParams.CreateProduct, any> }
 > = ({ control, ...viewProps }) => {
   return (
     <>

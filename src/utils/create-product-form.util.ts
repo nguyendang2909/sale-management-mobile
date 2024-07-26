@@ -21,6 +21,7 @@ class CreateProductFormUtil {
         attributes: Yup.array()
           .of(
             Yup.object({
+              id: Yup.string().required().nullable(),
               title: Yup.string().required(),
               type: Yup.string()
                 .oneOf(Object.values(PRODUCT_ATTRIBUTE_TYPES_MAP))
@@ -45,6 +46,7 @@ class CreateProductFormUtil {
         skus: Yup.array()
           .of(
             Yup.object({
+              id: Yup.string().required().nullable(),
               code: Yup.string().required().nullable(),
               price: Yup.number()
                 .positive('Giá không đúng')
@@ -100,6 +102,7 @@ class CreateProductFormUtil {
   getDefaultSkus() {
     return [
       {
+        id: null,
         code: null,
         price: null,
         capitalPrice: null,

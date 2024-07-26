@@ -7,7 +7,7 @@ import { PickerProductCategories } from './picker/picker-product-categories';
 
 export const ControlProductCategories: FC<
   ComponentProps<typeof View> & {
-    control: Control<FormParams.CreateProduct | FormParams.UpdateProduct, any>;
+    control: Control<FormParams.CreateProduct, any>;
   }
 > = ({ control, ...viewProps }) => {
   return (

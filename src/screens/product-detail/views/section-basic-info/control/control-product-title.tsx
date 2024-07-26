@@ -5,7 +5,7 @@ import { InputProductTitle } from 'src/screens/product-create/views/section-basi
 import { FormParams } from 'src/types';
 
 export const ControlProductTitle: FC<
-  ComponentProps<typeof View> & { control: Control<FormParams.UpdateProduct, any> }
+  ComponentProps<typeof View> & { control: Control<FormParams.CreateProduct, any> }
 > = ({ control, ...viewProps }) => {
   return (
     <>

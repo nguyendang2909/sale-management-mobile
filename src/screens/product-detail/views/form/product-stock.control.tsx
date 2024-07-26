@@ -5,7 +5,7 @@ import { IntegerInput } from 'src/components/form/integer-input';
 import { FormParams } from 'src/types';
 
 export const ProductStockControl: FC<
-  ComponentProps<typeof View> & { control: Control<FormParams.UpdateProduct, any> }
+  ComponentProps<typeof View> & { control: Control<FormParams.CreateProduct, any> }
 > = ({ control, ...viewProps }) => {
   return (
     <>

@@ -7,7 +7,7 @@ import { FormParams } from 'src/types';
 
 export const ControlProductPromotionPrice: FC<
   ComponentProps<typeof View> & {
-    control: Control<FormParams.CreateProduct | FormParams.UpdateProduct, any>;
+    control: Control<FormParams.CreateProduct, any>;
   }
 > = ({ control, ...viewProps }) => {
   const showPromotionalPrice = useAppSelector(s => s.app.productSettings.showPromotionalPrice);

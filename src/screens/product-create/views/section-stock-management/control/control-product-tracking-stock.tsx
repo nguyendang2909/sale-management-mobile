@@ -7,7 +7,7 @@ import { SwitchProductTrackingStock } from './switch/switch-product-tracking-sto
 
 export const ControlProductTrackingStock: FC<
   ComponentProps<typeof View> & {
-    control: Control<FormParams.CreateProduct | FormParams.UpdateProduct, any>;
+    control: Control<FormParams.CreateProduct, any>;
   }
 > = ({ control, ...viewProps }) => {
   return (

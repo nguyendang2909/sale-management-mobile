@@ -7,7 +7,7 @@ import { InputProductTitle } from './form/input-product-title';
 
 export const ControlProductTitle: FC<
   ComponentProps<typeof View> & {
-    control: Control<FormParams.CreateProduct | FormParams.UpdateProduct, any>;
+    control: Control<FormParams.CreateProduct, any>;
   }
 > = ({ control, ...viewProps }) => {
   return (

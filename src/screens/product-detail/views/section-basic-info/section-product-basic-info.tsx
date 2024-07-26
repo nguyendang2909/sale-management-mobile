@@ -12,7 +12,7 @@ import { ControlProductImages } from './control/control-product-images';
 import { ControlProductTitle } from './control/control-product-title';
 
 export const SectionProductBasicInfo: FC<
-  ViewProps & { control: Control<FormParams.UpdateProduct, any>; hasDefaultSku: boolean }
+  ViewProps & { control: Control<FormParams.CreateProduct, any>; hasDefaultSku: boolean }
 > = ({ control, hasDefaultSku, ...viewProps }) => {
   return (
     <>
