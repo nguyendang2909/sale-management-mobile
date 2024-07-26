@@ -72,6 +72,22 @@ class SkuUtil extends BaseUtil {
   getPriceByCartItem(cartItem: CartItem, sku: Entity.Sku) {
     return (sku.price || 0) * cartItem.quantity;
   }
+
+  getStockText({
+    isInStock,
+    stock,
+  }: {
+    isInStock?: boolean | null;
+    stock?: number | null;
+  }): string {
+    if (isInStock === null) {
+      return stock ? `Tồn kho: ${stock}` : '';
+    }
+    if (!isInStock) {
+      return 'Hết hàng';
+    }
+    return 'Còn hàng';
+  }
 }
 
 export const skuUtil = new SkuUtil();

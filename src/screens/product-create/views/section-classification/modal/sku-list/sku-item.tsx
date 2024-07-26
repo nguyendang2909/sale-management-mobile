@@ -2,10 +2,12 @@ import { Divider, HStack, Text, View } from '@gluestack-ui/themed';
 import { FC, useCallback } from 'react';
 import { UseFormGetValues } from 'react-hook-form';
 import { TouchableOpacity } from 'react-native';
+import { TextPrice } from 'src/components/text/text-price';
 import { SCREENS } from 'src/constants';
 import { navigate } from 'src/navigations';
 import { editSkuScreenService } from 'src/services/screens/edit-sku.screen.service';
 import { FormParams } from 'src/types';
+import { skuUtil } from 'src/utils';
 
 export const SkuItem: FC<{
   index: number;
@@ -21,6 +23,8 @@ export const SkuItem: FC<{
   });
 
   const specificationTitles = specifications.map(e => e?.title).join(' - ');
+
+  const stockText = skuUtil.getStockText(sku);
 
   const handleSetSku = useCallback(
     (value: FormParams.CreateProductSku) => {
@@ -42,13 +46,22 @@ export const SkuItem: FC<{
     <View>
       <TouchableOpacity onPress={handlePress}>
         <HStack py={8}>
-          <View flexGrow={1}>
+          <View flexGrow={1} justifyContent="center">
             <Text>{specificationTitles}</Text>
           </View>
-          <View>
-            <Text size="xs" color="$textLight600">
-              Còn hàng {sku.code}
-            </Text>
+          <View justifyContent="center">
+            <View>
+              <Text size="xs" color="$textLight600">
+                {stockText}
+              </Text>
+            </View>
+            <View>
+              <TextPrice
+                value={sku.promotionalPrice || sku.price}
+                color="$warning600"
+                fontWeight="$semibold"
+              />
+            </View>
           </View>
         </HStack>
       </TouchableOpacity>

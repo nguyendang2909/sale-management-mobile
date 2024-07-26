@@ -19,7 +19,7 @@ export const SkuList: FC<{
         {skus.map((sku, index) => {
           return (
             <SkuItem
-              key={sku.specificationIds.toString()}
+              key={sku.id || sku.specificationIds.toString()}
               sku={sku}
               setSku={setSku}
               skusLength={skusLength}
