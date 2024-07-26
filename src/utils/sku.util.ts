@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import { AppStore, CartItem, CartItemsObj, Entity, SkusObj } from 'src/types';
 
 import { BaseUtil } from './base/base.util';
@@ -81,7 +82,7 @@ class SkuUtil extends BaseUtil {
     stock?: number | null;
   }): string {
     if (isInStock === null) {
-      return stock ? `Tồn kho: ${stock}` : '';
+      return !_.isNil(stock) ? `Tồn kho: ${stock}` : '';
     }
     if (!isInStock) {
       return 'Hết hàng';

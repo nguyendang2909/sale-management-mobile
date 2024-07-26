@@ -51,12 +51,13 @@ export const SkuItem: FC<{
           </View>
           <View justifyContent="center">
             <View>
-              <Text size="xs" color="$textLight600">
+              <Text size="xs" color="$textLight600" textAlign="right">
                 {stockText}
               </Text>
             </View>
             <View>
               <TextPrice
+                textAlign="right"
                 value={sku.promotionalPrice || sku.price}
                 color="$warning600"
                 fontWeight="$semibold"
