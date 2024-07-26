@@ -100,7 +100,7 @@ export const ContentProductCreate: FC = () => {
 
   const setSkus = useCallback(
     (skusValue: FormParams.CreateProductSku[]) => {
-      setValue('skus', skusValue);
+      setValue('skus', skusValue, { shouldDirty: true });
     },
     [setValue],
   );
@@ -113,7 +113,7 @@ export const ContentProductCreate: FC = () => {
     (index: number, skuValue: FormParams.CreateProductSku) => {
       const skusValue = getSkus();
       skusValue[index] = skuValue;
-      setValue('skus', skusValue);
+      setValue('skus', skusValue, { shouldDirty: true });
     },
     [getSkus, setValue],
   );

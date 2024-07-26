@@ -51,7 +51,7 @@ export const ModalProductClassification: FC<
         [
           ...attributes,
           {
-            title: `Nhom phan loai ${attributes.length + 1}`,
+            title: `Nhóm ${attributes.length + 1}`,
             type: null,
             specifications: [],
           },

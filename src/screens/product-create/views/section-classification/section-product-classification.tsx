@@ -31,25 +31,26 @@ export const SectionProductClassification: FC<
           <View>
             <Text fontWeight="$bold">Phân loại</Text>
           </View>
-          {!hasDefaultSku && (
-            <View>
-              <Controller
-                control={control}
-                name="skus"
-                rules={{ required: true }}
-                render={({ field: { value } }) => {
-                  return (
-                    <SkuList
-                      setSku={setSku}
-                      skus={value}
-                      specificationsMap={specificationsMap}
-                      getProduct={getProduct}
-                    />
-                  );
-                }}
-              ></Controller>
-            </View>
-          )}
+          <View>
+            <Controller
+              control={control}
+              name="skus"
+              rules={{ required: true }}
+              render={({ field: { value } }) => {
+                if (hasDefaultSku) {
+                  return <></>;
+                }
+                return (
+                  <SkuList
+                    setSku={setSku}
+                    skus={value}
+                    specificationsMap={specificationsMap}
+                    getProduct={getProduct}
+                  />
+                );
+              }}
+            ></Controller>
+          </View>
           <View mt={16}>
             <Button variant="outline" onPress={onOpenModal}>
               <ButtonIcon as={Plus} mr={4}></ButtonIcon>
