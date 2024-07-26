@@ -16,7 +16,6 @@ export const ProductListItem: FC<FCProps> = ({ product }) => {
 
   const navigation = useNavigation();
   const handlePress = () => {
-    console.log(111);
     navigation.navigate(SCREENS.PRODUCT, { detail: product });
   };
 

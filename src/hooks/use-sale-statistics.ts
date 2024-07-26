@@ -14,7 +14,6 @@ export const useOrderStatistics = ({
   endDate: string;
 }) => {
   const shopId = useAppSelector(selectCurrentShopId);
-  console.log(111, shopId);
   const todayDate = moment().format(TIME_FORMATS.DATE);
 
   const query = useFetchOrderStatisticsQuery({

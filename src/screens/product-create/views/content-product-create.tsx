@@ -2,7 +2,7 @@ import { KeyboardAvoidingView, ScrollView, View } from '@gluestack-ui/themed';
 import { StackActions, useNavigation } from '@react-navigation/native';
 import _ from 'lodash';
 import React, { FC, useCallback, useMemo } from 'react';
-import { Controller, SubmitHandler, useForm } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import Toast from 'react-native-toast-message';
 import { useCreateProductMutation, useLazyFetchProductQuery } from 'src/api';
 import { LoadingOverlay } from 'src/components';
@@ -12,9 +12,9 @@ import { ApiRequest, FormParams } from 'src/types';
 import { createProductFormUtil } from 'src/utils';
 
 import { SectionFooter } from './footer/section-footer';
+import { ModalAttributes } from './modal-attributes/modal-attributes';
 import { SectionAdditional } from './section-additional/section-additional';
 import { SectionProductBasicInfo } from './section-basic-info/section-product-basic-info';
-import { ModalProductClassification } from './section-classification/modal/modal-product-classification';
 import { SectionProductClassification } from './section-classification/section-product-classification';
 import { SectionStockManagement } from './section-stock-management/section-stock-management';
 
@@ -160,26 +160,13 @@ export const ContentProductCreate: FC = () => {
           py={16}
         />
       </View>
-      {isInitModalAttributes && (
-        <Controller
-          control={control}
-          name="attributes"
-          rules={{ required: true }}
-          render={({ field: { onChange, value } }) => {
-            return (
-              <ModalProductClassification
-                currentAttributes={value}
-                getSkus={getSkus}
-                control={control}
-                onClose={onCloseModalAttributes}
-                visible={isOpenModalAttributes}
-                setAttributes={onChange}
-                setSkus={setSkus}
-              />
-            );
-          }}
-        ></Controller>
-      )}
+      <ModalAttributes
+        control={control}
+        getSkus={getSkus}
+        onClose={onCloseModalAttributes}
+        isOpen={isOpenModalAttributes}
+        setSkus={setSkus}
+      />
     </>
   );
 };

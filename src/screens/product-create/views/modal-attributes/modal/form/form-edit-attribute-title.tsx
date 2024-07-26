@@ -18,7 +18,6 @@ export const FormEditAttributeTitle: FC<{
   const {
     control: controlAttribute,
     setError,
-    handleSubmit: handleSubmitSpecification,
     setValue: setValueSpecification,
     handleSubmit,
   } = useForm<{ title: string }>({

@@ -20,7 +20,7 @@ class UpdateProductFormUtil {
         attributes: Yup.array()
           .of(
             Yup.object({
-              id: Yup.string().optional(),
+              id: Yup.string().required().nullable(),
               title: Yup.string().required(),
               type: Yup.string()
                 .oneOf(Object.values(PRODUCT_ATTRIBUTE_TYPES_MAP))
@@ -45,6 +45,7 @@ class UpdateProductFormUtil {
         skus: Yup.array()
           .of(
             Yup.object({
+              id: Yup.string().required().nullable(),
               code: Yup.string().required().nullable(),
               price: Yup.number()
                 .positive('Giá không đúng')
@@ -76,6 +77,46 @@ class UpdateProductFormUtil {
     );
   }
 
+  getDefaultSkus(product: AppStore.Product): FormParams.UpdateProductSku[] {
+    return product.skus?.length
+      ? product.skus.map(sku => {
+          return {
+            id: sku.id || null,
+            code: sku.code || null,
+            price: sku.price || null,
+            capitalPrice: sku.capitalPrice || null,
+            promotionalPrice: sku.promotionalPrice || null,
+            wholesalePrice: sku.wholesalePrice || null,
+            stock: sku.stock || null,
+            specificationIds: sku.specificationIds || [],
+            isInStock: sku.isInStock || null,
+          };
+        })
+      : [];
+  }
+
+  getDefaultAttributes(product: AppStore.Product): FormParams.UpdateProductAttribute[] {
+    return product.attributes?.length
+      ? product.attributes.map(attribute => {
+          return {
+            id: attribute.id || null,
+            title: attribute.title || '',
+            type: attribute.type || null,
+            specifications: attribute.specifications?.length
+              ? attribute.specifications.map(specification => {
+                  return {
+                    id: specification.id,
+                    title: specification.title || '',
+                    // type: ProductSpecificationType | null;
+                    imageId: specification.imageId || null,
+                  };
+                })
+              : [],
+          };
+        })
+      : [];
+  }
+
   getDefaultValues(product: AppStore.Product): FormParams.UpdateProduct {
     return {
       title: product.title || '',
@@ -85,40 +126,8 @@ class UpdateProductFormUtil {
       minWholesalePriceQuantity: product.minWholesalePriceQuantity || null,
       description: product.description || null,
       label: product.label || null,
-      skus: product.skus?.length
-        ? product.skus.map(sku => {
-            return {
-              id: sku.id,
-              code: sku.code || null,
-              price: sku.price || null,
-              capitalPrice: sku.capitalPrice || null,
-              promotionalPrice: sku.promotionalPrice || null,
-              wholesalePrice: sku.wholesalePrice || null,
-              stock: sku.stock || null,
-              specificationIds: sku.specificationIds || [],
-              isInStock: sku.isInStock || null,
-            };
-          })
-        : [],
-      attributes: product.attributes?.length
-        ? product.attributes.map(attribute => {
-            return {
-              id: attribute.id,
-              title: attribute.title || '',
-              type: attribute.type || null,
-              specifications: attribute.specifications?.length
-                ? attribute.specifications.map(specification => {
-                    return {
-                      id: specification.id,
-                      title: specification.title || '',
-                      // type: ProductSpecificationType | null;
-                      imageId: specification.imageId || null,
-                    };
-                  })
-                : [],
-            };
-          })
-        : [],
+      skus: this.getDefaultSkus(product),
+      attributes: this.getDefaultAttributes(product),
     };
   }
 }

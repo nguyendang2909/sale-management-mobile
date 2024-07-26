@@ -127,7 +127,7 @@ export declare namespace FormParams {
   };
 
   type UpdateProductAttribute = {
-    id?: string;
+    id: string | null;
     title: string;
     type: ProductAttributeType | null;
     specifications: CreateProductSpecification[];
@@ -135,6 +135,10 @@ export declare namespace FormParams {
 
   type CreateProductClassification = {
     attributes: CreateProductAttribute[];
+  };
+
+  type UpdateProductClassification = {
+    attributes: UpdateProductAttribute[];
   };
 
   type CreateProductSku = {
@@ -149,7 +153,7 @@ export declare namespace FormParams {
   };
 
   type UpdateProductSku = {
-    id?: string;
+    id: string | null;
     code: string | null;
     price: number | null;
     capitalPrice: number | null;

@@ -83,7 +83,6 @@ export const ModalProductClassification: FC<
           values.attributes,
           currentSkus,
         );
-
         setSkus(skus);
       }
       onClose();

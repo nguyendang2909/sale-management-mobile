@@ -10,7 +10,6 @@ import { HOME_SCREENS, SCREENS } from 'src/constants';
 import { useDisclose, useInit, useMessages, useProduct } from 'src/hooks';
 import { SectionAdditional } from 'src/screens/product-create/views/section-additional/section-additional';
 import { SectionProductBasicInfo } from 'src/screens/product-create/views/section-basic-info/section-product-basic-info';
-import { SectionProductClassification } from 'src/screens/product-create/views/section-classification/section-product-classification';
 import { SectionStockManagement } from 'src/screens/product-create/views/section-stock-management/section-stock-management';
 import { ApiRequest, AppStore, FormParams } from 'src/types';
 import { updateProductFormUtil } from 'src/utils';
@@ -40,6 +39,13 @@ export const ContentProduct: FC<FCProps> = ({ detail }) => {
   } = useDisclose();
 
   const { isInit: isInitModalAttributes } = useInit();
+
+  const defaultSkus = useMemo(() => updateProductFormUtil.getDefaultSkus(product), [product]);
+
+  const defaultAttributes = useMemo(
+    () => updateProductFormUtil.getDefaultAttributes(product),
+    [product],
+  );
 
   const defaultValues = useMemo(() => updateProductFormUtil.getDefaultValues(product), [product]);
 
@@ -105,7 +111,7 @@ export const ContentProduct: FC<FCProps> = ({ detail }) => {
   };
 
   const setSkus = useCallback(
-    (skusValue: FormParams.CreateProductSku[]) => {
+    (skusValue: FormParams.UpdateProductSku[]) => {
       setValue('skus', skusValue);
     },
     [setValue],
@@ -116,58 +122,72 @@ export const ContentProduct: FC<FCProps> = ({ detail }) => {
   }, [getValues]);
 
   const setSku = useCallback(
-    (index: number, skuValue: FormParams.CreateProductSku) => {
+    (index: number, skuValue: FormParams.UpdateProductSku) => {
       const skusValue = getSkus();
       skusValue[index] = skuValue;
-      setValue('skus', skusValue);
+      setValue('skus', skusValue, { shouldDirty: true });
     },
     [getSkus, setValue],
   );
 
   return (
-    <View flex={1}>
-      <LoadingOverlay isLoading={isLoading || isLoadingProduct || isSubmitting} />
-      <KeyboardAvoidingView flex={1} behavior="padding" enabled keyboardVerticalOffset={120}>
+    <>
+      <View flex={1}>
+        <LoadingOverlay isLoading={isLoading || isLoadingProduct || isSubmitting} />
         <KeyboardAvoidingView flex={1} behavior="padding" enabled keyboardVerticalOffset={120}>
-          <ScrollView
-            flex={1}
-            showsVerticalScrollIndicator={false}
-            keyboardShouldPersistTaps="handled"
-          >
-            <SectionProductBasicInfo
-              hasDefaultSku={hasDefaultSku}
-              // @ts-ignore
-              control={control}
+          <KeyboardAvoidingView flex={1} behavior="padding" enabled keyboardVerticalOffset={120}>
+            <ScrollView
+              flex={1}
+              showsVerticalScrollIndicator={false}
+              keyboardShouldPersistTaps="handled"
+            >
+              <SectionProductBasicInfo
+                hasDefaultSku={hasDefaultSku}
+                // @ts-ignore
+                control={control}
+              />
+              <SectionStockManagement
+                mt={16}
+                isEnabled={hasDefaultSku}
+                isTrackingStock={isTrackingStock}
+                // @ts-ignore
+                control={control}
+              />
+              {/* <SectionProductClassification
+                mt={16}
+                setSku={setSku}
+                hasDefaultSku={hasDefaultSku}
+                specificationsMap={specificationsMap}
+                onOpenModal={onOpenModalAttributes}
+                // @ts-ignore
+                getProduct={getValues}
+                // @ts-ignore
+                control={control}
+              /> */}
+              <SectionAdditional mt={16} />
+            </ScrollView>
+            <ProductDetailFooter
+              bgColor="$white"
+              onUpdate={handleSubmit(onSubmit)}
+              product={product}
+              setLoading={setLoading}
+              isLoading={isSubmitting}
+              isDirty={isDirty}
+              px={16}
+              py={16}
             />
-            <SectionStockManagement
-              mt={16}
-              isEnabled={hasDefaultSku}
-              isTrackingStock={isTrackingStock}
-              control={control}
-            />
-            <SectionProductClassification
-              mt={16}
-              control={control}
-              setSku={setSku}
-              hasDefaultSku={hasDefaultSku}
-              specificationsMap={specificationsMap}
-              getProduct={getValues}
-              onOpenModal={onOpenModalAttributes}
-            />
-            <SectionAdditional mt={16} />
-          </ScrollView>
-          <ProductDetailFooter
-            bgColor="$white"
-            onUpdate={handleSubmit(onSubmit)}
-            product={product}
-            setLoading={setLoading}
-            isLoading={isSubmitting}
-            isDirty={isDirty}
-            px={16}
-            py={16}
-          />
+          </KeyboardAvoidingView>
         </KeyboardAvoidingView>
-      </KeyboardAvoidingView>
-    </View>
+      </View>
+      {/* {isInitModalAttributes && (
+        <ModalAttributes
+          control={control}
+          getSkus={getSkus}
+          onClose={onCloseModalAttributes}
+          isOpen={isOpenModalAttributes}
+          setSkus={setSkus}
+        />
+      )} */}
+    </>
   );
 };
