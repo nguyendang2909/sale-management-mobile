@@ -122,6 +122,19 @@ export declare namespace ApiRequest {
     }[];
   };
 
+  type UpdateProductSku = {
+    id?: string;
+    code?: string | null;
+    price?: number;
+    capitalPrice?: number | null;
+    promotionalPrice?: number | null;
+    wholesalePrice?: number | null;
+    stock?: number | null;
+    isInStock?: boolean | null;
+    isEnabled?: boolean | null;
+    specificationIds?: string[];
+  };
+
   type UpdateProduct = Partial<{
     title: string;
     minWholesalePriceQuantity: number | null;
@@ -138,16 +151,7 @@ export declare namespace ApiRequest {
         id: string;
       }[];
     }[];
-    skus: {
-      code: string | null;
-      price: number;
-      capitalPrice: number | null;
-      promotionalPrice: number | null;
-      wholesalePrice: number | null;
-      stock: number | null;
-      isInStock: boolean | null;
-      specificationIds: string[];
-    }[];
+    skus: UpdateProductSku[];
   }>;
 
   type CreateCustomer = {

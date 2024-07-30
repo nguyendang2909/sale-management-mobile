@@ -8,8 +8,10 @@ import { useUpdateProductMutation } from 'src/api';
 import { LoadingOverlay } from 'src/components';
 import { HOME_SCREENS, SCREENS } from 'src/constants';
 import { useDisclose, useInit, useMessages, useProduct } from 'src/hooks';
+import { ModalAttributes } from 'src/screens/product-create/views/modal-attributes/modal-attributes';
 import { SectionAdditional } from 'src/screens/product-create/views/section-additional/section-additional';
 import { SectionProductBasicInfo } from 'src/screens/product-create/views/section-basic-info/section-product-basic-info';
+import { SectionProductClassification } from 'src/screens/product-create/views/section-classification/section-product-classification';
 import { SectionStockManagement } from 'src/screens/product-create/views/section-stock-management/section-stock-management';
 import { ApiRequest, AppStore, FormParams } from 'src/types';
 import { updateProductFormUtil } from 'src/utils';
@@ -41,6 +43,7 @@ export const ContentProduct: FC<FCProps> = ({ detail }) => {
   const { isInit: isInitModalAttributes } = useInit();
 
   const defaultSkus = useMemo(() => updateProductFormUtil.getDefaultSkus(product), [product]);
+  const defaultSkusMap = useMemo(() => _.keyBy(defaultSkus, 'id'), [defaultSkus]);
 
   const defaultAttributes = useMemo(
     () => updateProductFormUtil.getDefaultAttributes(product),
@@ -87,15 +90,15 @@ export const ContentProduct: FC<FCProps> = ({ detail }) => {
       const body: ApiRequest.UpdateProduct = {
         ...formParamUtil.getDifferent(restValues, defaultValues),
       };
-      if (images) {
-        const imageIds = images.map(image => image.id);
-        const defaultImageIds = defaultValues.images.map(image => image.id);
-        if (!_.isEqual(imageIds, defaultImageIds)) {
-          body.imageIds = imageIds;
-        }
+      const imageIds = images.map(image => image.id);
+      const defaultImageIds = defaultValues.images.map(image => image.id);
+      if (!_.isEqual(imageIds, defaultImageIds)) {
+        body.imageIds = imageIds;
       }
-      if (images?.length) {
-        body.imageIds = images.map(e => e.id);
+      if (!_.isEqual(skus, defaultSkus)) {
+        body.skus = skus.map(skuValue => {
+          return updateProductFormUtil.getSkuPayload(skuValue, defaultSkusMap);
+        });
       }
       await updateProductMutation({ id: product.id, body }).unwrap();
       await refetchProduct();
@@ -112,7 +115,7 @@ export const ContentProduct: FC<FCProps> = ({ detail }) => {
 
   const setSkus = useCallback(
     (skusValue: FormParams.CreateProductSku[]) => {
-      setValue('skus', skusValue);
+      setValue('skus', skusValue, { shouldDirty: true });
     },
     [setValue],
   );
@@ -141,29 +144,22 @@ export const ContentProduct: FC<FCProps> = ({ detail }) => {
               showsVerticalScrollIndicator={false}
               keyboardShouldPersistTaps="handled"
             >
-              <SectionProductBasicInfo
-                hasDefaultSku={hasDefaultSku}
-                // @ts-ignore
-                control={control}
-              />
+              <SectionProductBasicInfo hasDefaultSku={hasDefaultSku} control={control} />
               <SectionStockManagement
                 mt={16}
                 isEnabled={hasDefaultSku}
                 isTrackingStock={isTrackingStock}
-                // @ts-ignore
                 control={control}
               />
-              {/* <SectionProductClassification
+              <SectionProductClassification
                 mt={16}
+                control={control}
                 setSku={setSku}
                 hasDefaultSku={hasDefaultSku}
                 specificationsMap={specificationsMap}
-                onOpenModal={onOpenModalAttributes}
-                // @ts-ignore
                 getProduct={getValues}
-                // @ts-ignore
-                control={control}
-              /> */}
+                onOpenModal={onOpenModalAttributes}
+              />
               <SectionAdditional mt={16} />
             </ScrollView>
             <ProductDetailFooter
@@ -179,15 +175,15 @@ export const ContentProduct: FC<FCProps> = ({ detail }) => {
           </KeyboardAvoidingView>
         </KeyboardAvoidingView>
       </View>
-      {/* {isInitModalAttributes && (
-        <ModalAttributes
-          control={control}
-          getSkus={getSkus}
-          onClose={onCloseModalAttributes}
-          isOpen={isOpenModalAttributes}
-          setSkus={setSkus}
-        />
-      )} */}
+      <ModalAttributes
+        control={control}
+        getSkus={getSkus}
+        onClose={onCloseModalAttributes}
+        isOpen={isOpenModalAttributes}
+        setSkus={setSkus}
+        defaultAttributes={defaultAttributes}
+        defaultSkus={defaultSkus}
+      />
     </>
   );
 };

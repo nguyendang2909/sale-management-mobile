@@ -10,7 +10,9 @@ export const ModalAttributes: FC<{
   onClose: () => void;
   isOpen: boolean;
   setSkus: (e: FormParams.CreateProductSku[]) => void;
-}> = ({ control, getSkus, onClose, isOpen, setSkus }) => {
+  defaultSkus?: FormParams.CreateProductSku[];
+  defaultAttributes?: FormParams.CreateProductAttribute[];
+}> = ({ control, getSkus, onClose, isOpen, setSkus, defaultAttributes, defaultSkus }) => {
   return (
     <>
       <Controller
@@ -27,6 +29,8 @@ export const ModalAttributes: FC<{
               visible={isOpen}
               setAttributes={onChange}
               setSkus={setSkus}
+              defaultAttributes={defaultAttributes}
+              defaultSkus={defaultSkus}
             />
           );
         }}

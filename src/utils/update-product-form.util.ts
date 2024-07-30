@@ -1,7 +1,9 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { PRODUCT_ATTRIBUTE_TYPES_MAP } from 'src/constants';
-import { AppStore, FormParams } from 'src/types';
+import { ApiRequest, AppStore, FormParams } from 'src/types';
 import * as Yup from 'yup';
+
+import { formParamUtil } from './form-params.util';
 
 class UpdateProductFormUtil {
   getResolver() {
@@ -129,6 +131,29 @@ class UpdateProductFormUtil {
       skus: this.getDefaultSkus(product),
       attributes: this.getDefaultAttributes(product),
     };
+  }
+
+  getSkuPayload(
+    sku: FormParams.CreateProductSku,
+    defaultSkusMap: Record<string, FormParams.CreateProductSku>,
+  ): ApiRequest.UpdateProductSku {
+    const { id, price, ...restValue } = sku;
+    if (id) {
+      const defaultSku = defaultSkusMap[id];
+      if (!defaultSku) {
+        throw new Error('Sản phẩm không đúng, vui lòng thử lại');
+      }
+      const { price: formSkuPriceValue, ...formSkuValue } = formParamUtil.getDifferent(
+        sku,
+        defaultSku,
+      );
+      return {
+        ...formSkuValue,
+        id,
+        ...(formSkuPriceValue && { price: formSkuPriceValue }),
+      };
+    }
+    return { ...restValue, ...(price && { price }) };
   }
 }
 

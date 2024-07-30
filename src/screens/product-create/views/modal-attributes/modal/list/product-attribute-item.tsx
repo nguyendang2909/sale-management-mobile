@@ -13,7 +13,7 @@ import { AlertError } from 'src/components/alert/alert-error';
 import { IconButtonDelete, IconButtonEdit } from 'src/components/icon-button';
 import { useDisclose } from 'src/hooks';
 import { FormParams } from 'src/types';
-import { specificationUtil } from 'src/utils/specification.util';
+import { createProductClassificationFormUtil } from 'src/utils/create-product-classification.util';
 import * as Yup from 'yup';
 
 import { FormEditAttributeTitle } from '../form/form-edit-attribute-title';
@@ -25,8 +25,19 @@ export const ProductAttributeListItem: FC<{
   getValues: UseFormGetValues<FormParams.CreateProductClassification>;
   index: number;
   onDeleteAttribute: (e: number) => void;
+  currentSpecifications?: FormParams.CreateProductSpecification[];
   errorText?: string;
-}> = ({ attribute, setValue, index, onDeleteAttribute, errorText, getValues }) => {
+  defaultSpecifications?: FormParams.CreateProductSpecification[];
+}> = ({
+  attribute,
+  setValue,
+  index,
+  onDeleteAttribute,
+  getValues,
+  errorText,
+  defaultSpecifications,
+  currentSpecifications,
+}) => {
   const {
     isOpen: isEdittingAttributeTitle,
     onOpen: editAttributeTitle,
@@ -69,6 +80,7 @@ export const ProductAttributeListItem: FC<{
 
   const onSubmitSpecification: SubmitHandler<{ title: string }> = async values => {
     const specificationTitle = values.title;
+
     if (
       specifications.find(e => {
         if (editingSpecificationId) {
@@ -98,11 +110,19 @@ export const ProductAttributeListItem: FC<{
     } else {
       setValue(
         `attributes.${index}.specifications`,
-        attribute.specifications.concat({
-          title: specificationTitle || '',
-          id: specificationUtil.generateId(),
-          imageId: null,
-        }),
+        attribute.specifications.concat(
+          createProductClassificationFormUtil.getNewSpecification(
+            { title: specificationTitle },
+            attribute.specifications,
+            currentSpecifications,
+            defaultSpecifications,
+          ),
+          //   {
+          //   title: specificationTitle || '',
+          //   id: specificationUtil.generateId(),
+          //   imageId: null,
+          // }
+        ),
         { shouldDirty: true },
       );
     }

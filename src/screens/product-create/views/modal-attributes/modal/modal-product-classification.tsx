@@ -18,8 +18,19 @@ export const ModalProductClassification: FC<
     setAttributes: (e: FormParams.CreateProductAttribute[]) => void;
     setSkus: (e: FormParams.CreateProductSku[]) => void;
     getSkus: () => FormParams.CreateProductSku[];
+    defaultSkus?: FormParams.CreateProductSku[];
+    defaultAttributes?: FormParams.CreateProductAttribute[];
   }
-> = ({ currentAttributes, onClose, setAttributes, setSkus, getSkus, ...modalProps }) => {
+> = ({
+  currentAttributes,
+  onClose,
+  setAttributes,
+  setSkus,
+  getSkus,
+  defaultAttributes,
+  defaultSkus,
+  ...modalProps
+}) => {
   const {
     reset: resetValueAttribute,
     setValue: setValueAttribute,
@@ -45,22 +56,22 @@ export const ModalProductClassification: FC<
   const attributes = watchAttribute('attributes');
 
   const handleAddAttribute = useCallback(() => {
-    if (attributes.length < 2) {
-      setValueAttribute(
-        'attributes',
-        [
-          ...attributes,
-          {
-            id: null,
-            title: `Nhóm ${attributes.length + 1}`,
-            type: null,
-            specifications: [],
-          },
-        ],
-        { shouldDirty: true },
-      );
+    if (attributes.length >= 2) {
+      return;
     }
-  }, [attributes, setValueAttribute]);
+    setValueAttribute(
+      'attributes',
+      [
+        ...attributes,
+        createProductClassificationFormUtil.getNewAttribute(
+          attributes,
+          currentAttributes,
+          defaultAttributes,
+        ),
+      ],
+      { shouldDirty: true },
+    );
+  }, [attributes, currentAttributes, defaultAttributes, setValueAttribute]);
 
   const handleDeleteAttributeByIndex = useCallback(
     (deleteAttributeIndex: number) => {
@@ -83,12 +94,13 @@ export const ModalProductClassification: FC<
         const skus = createProductClassificationFormUtil.getSkusFromAttributes(
           values.attributes,
           currentSkus,
+          defaultSkus,
         );
         setSkus(skus);
       }
       onClose();
     },
-    [currentAttributes, getSkus, onClose, setAttributes, setSkus],
+    [currentAttributes, defaultSkus, getSkus, onClose, setAttributes, setSkus],
   );
 
   const handlePressClose = () => {
@@ -126,6 +138,16 @@ export const ModalProductClassification: FC<
                       errorsAttribute,
                       `attributes[${index}].specifications.message`,
                     )}
+                    defaultSpecifications={
+                      defaultAttributes && defaultAttributes[index]
+                        ? defaultAttributes[index].specifications
+                        : undefined
+                    }
+                    currentSpecifications={
+                      currentAttributes && currentAttributes[index]
+                        ? currentAttributes[index].specifications
+                        : undefined
+                    }
                   />
                 );
               }}
