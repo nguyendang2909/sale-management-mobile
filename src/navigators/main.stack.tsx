@@ -57,7 +57,7 @@ export type AppStackParamList = {
   // Product
   PRODUCT_CREATE: undefined;
   SKU_EDIT: {
-    sku: FormParams.CreateProductVariant;
+    sku: FormParams.CreateProductSku;
     product: {
       title: string;
     };
