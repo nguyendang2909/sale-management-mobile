@@ -12,7 +12,7 @@ import { ApiRequest, FormParams } from 'src/types';
 import { createProductFormUtil } from 'src/utils';
 
 import { SectionFooter } from './footer/section-footer';
-import { ModalAttributes } from './modal-attributes/modal-attributes';
+import { ModalProductOptions } from './modal-attributes/modal-attributes';
 import { SectionAdditional } from './section-additional/section-additional';
 import { SectionProductBasicInfo } from './section-basic-info/section-product-basic-info';
 import { SectionProductClassification } from './section-classification/section-product-classification';
@@ -31,12 +31,12 @@ export const ContentProductCreate: FC = () => {
   } = useDisclose();
 
   const {
-    isOpen: isOpenModalAttributes,
-    onOpen: onOpenModalAttributes,
-    onClose: onCloseModalAttributes,
+    isOpen: isOpenModalProductOptions,
+    onOpen: onOpenModalProductOptions,
+    onClose: onCloseModalProductOptions,
   } = useDisclose();
 
-  const { isInit: isInitModalAttributes } = useInit();
+  const { isInit: isInitModalProductOptions } = useInit();
 
   const {
     setValue,
@@ -142,7 +142,7 @@ export const ContentProductCreate: FC = () => {
               hasDefaultSku={hasDefaultSku}
               specificationsMap={specificationsMap}
               getProduct={getValues}
-              onOpenModal={onOpenModalAttributes}
+              onOpenModal={onOpenModalProductOptions}
             />
             <SectionAdditional mt={16} />
           </ScrollView>
@@ -156,11 +156,11 @@ export const ContentProductCreate: FC = () => {
           py={16}
         />
       </View>
-      <ModalAttributes
+      <ModalProductOptions
         control={control}
         getSkus={getSkus}
-        onClose={onCloseModalAttributes}
-        isOpen={isOpenModalAttributes}
+        onClose={onCloseModalProductOptions}
+        isOpen={isOpenModalProductOptions}
         setSkus={setSkus}
       />
     </>

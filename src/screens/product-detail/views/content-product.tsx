@@ -8,7 +8,7 @@ import { useUpdateProductMutation } from 'src/api';
 import { LoadingOverlay } from 'src/components';
 import { HOME_SCREENS, SCREENS } from 'src/constants';
 import { useDisclose, useInit, useMessages, useProduct } from 'src/hooks';
-import { ModalAttributes } from 'src/screens/product-create/views/modal-attributes/modal-attributes';
+import { ModalProductOptions } from 'src/screens/product-create/views/modal-attributes/modal-attributes';
 import { SectionAdditional } from 'src/screens/product-create/views/section-additional/section-additional';
 import { SectionProductBasicInfo } from 'src/screens/product-create/views/section-basic-info/section-product-basic-info';
 import { SectionProductClassification } from 'src/screens/product-create/views/section-classification/section-product-classification';
@@ -35,12 +35,12 @@ export const ContentProduct: FC<FCProps> = ({ detail }) => {
   const [isLoading, setLoading] = useState<boolean>(false);
 
   const {
-    isOpen: isOpenModalAttributes,
-    onOpen: onOpenModalAttributes,
-    onClose: onCloseModalAttributes,
+    isOpen: isOpenModalProductOptions,
+    onOpen: onOpenModalProductOptions,
+    onClose: onCloseModalProductOptions,
   } = useDisclose();
 
-  const { isInit: isInitModalAttributes } = useInit();
+  const { isInit: isInitModalProductOptions } = useInit();
 
   const defaultSkus = useMemo(() => updateProductFormUtil.getDefaultSkus(product), [product]);
   const defaultSkusMap = useMemo(() => _.keyBy(defaultSkus, 'id'), [defaultSkus]);
@@ -158,7 +158,7 @@ export const ContentProduct: FC<FCProps> = ({ detail }) => {
                 hasDefaultSku={hasDefaultSku}
                 specificationsMap={specificationsMap}
                 getProduct={getValues}
-                onOpenModal={onOpenModalAttributes}
+                onOpenModal={onOpenModalProductOptions}
               />
               <SectionAdditional mt={16} />
             </ScrollView>
@@ -175,11 +175,11 @@ export const ContentProduct: FC<FCProps> = ({ detail }) => {
           </KeyboardAvoidingView>
         </KeyboardAvoidingView>
       </View>
-      <ModalAttributes
+      <ModalProductOptions
         control={control}
         getSkus={getSkus}
-        onClose={onCloseModalAttributes}
-        isOpen={isOpenModalAttributes}
+        onClose={onCloseModalProductOptions}
+        isOpen={isOpenModalProductOptions}
         setSkus={setSkus}
         defaultAttributes={defaultAttributes}
         defaultSkus={defaultSkus}

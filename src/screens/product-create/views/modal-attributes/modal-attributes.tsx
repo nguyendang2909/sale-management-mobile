@@ -4,7 +4,7 @@ import { FormParams } from 'src/types';
 
 import { ModalProductClassification } from './modal/modal-product-classification';
 
-export const ModalAttributes: FC<{
+export const ModalProductOptions: FC<{
   control: Control<FormParams.CreateProduct, any>;
   getSkus: () => FormParams.CreateProductSku[];
   onClose: () => void;
