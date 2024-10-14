@@ -8,7 +8,7 @@ const orderApi = api.injectEndpoints({
   endpoints: builder => ({
     fetchProductSettings: builder.query<ApiResponse.ProductSetting, void>({
       query: () => ({
-        url: API_ENDPOINTS.ME.SETTINGS.PRODUCTS.INDEX,
+        url: API_ENDPOINTS.PRODUCTS.SETTINGS.INDEX,
         method: API_METHODS.GET,
       }),
     }),
@@ -17,7 +17,7 @@ const orderApi = api.injectEndpoints({
       ApiRequest.UpdateProductSettings
     >({
       query: body => ({
-        url: API_ENDPOINTS.ME.SETTINGS.PRODUCTS.INDEX,
+        url: API_ENDPOINTS.PRODUCTS.SETTINGS.INDEX,
         method: API_METHODS.PATCH,
         body,
       }),

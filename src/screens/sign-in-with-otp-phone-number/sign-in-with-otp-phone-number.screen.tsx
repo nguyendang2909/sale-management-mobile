@@ -15,11 +15,11 @@ import { CircleAlert } from 'lucide-react-native';
 import React, { FC, useEffect, useState } from 'react';
 import { Keyboard, Pressable } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useSignInMutation } from 'src/api';
+import { useSignInByPhoneNumberMutation } from 'src/api';
 import { LoadingOverlay } from 'src/components';
 import { LoadingButton } from 'src/components/button';
 import { AnimatedOtpInput } from 'src/components/input/animated-otp-input';
-import { AUTH_GRANT_TYPES_MAP, SCREENS } from 'src/constants';
+import { SCREENS } from 'src/constants';
 import { BackIconButton } from 'src/containers/IconButton/BackIconButton';
 import { useAfterLogin, useAppDispatch, useMessages, useUserData } from 'src/hooks';
 import { goBack } from 'src/navigations/navigation-ref';
@@ -44,7 +44,7 @@ const OTP_MAX_LENGTH = 6;
 export const SignInWithOtpPhoneNumberScreen: FC<FCProps> = props => {
   const { formatMessage } = useMessages();
   const { otpConfirm, user } = props.route.params;
-  const [signIn] = useSignInMutation();
+  const [signIn] = useSignInByPhoneNumberMutation();
   const dispatch = useAppDispatch();
 
   const [isSubmiting, setIsSubmitting] = useState<boolean>(false);
@@ -72,7 +72,6 @@ export const SignInWithOtpPhoneNumberScreen: FC<FCProps> = props => {
       const idToken = await credential.user.getIdToken();
       const signInResponse = await signIn({
         token: idToken,
-        grantType: AUTH_GRANT_TYPES_MAP.PHONE_TOKEN,
       }).unwrap();
       dispatch(appActions.updateAccessToken(signInResponse.data));
       handleAfterLogin();

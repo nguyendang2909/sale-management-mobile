@@ -6,9 +6,23 @@ import { api } from './api';
 
 const authApi = api.injectEndpoints({
   endpoints: builder => ({
-    signIn: builder.mutation<ApiResponse.Logged, ApiRequest.SignIn>({
+    signInByPhoneNumber: builder.mutation<ApiResponse.Logged, ApiRequest.SignInByPhoneNumber>({
       query: body => ({
-        url: API_ENDPOINTS.AUTH.SIGN_IN,
+        url: API_ENDPOINTS.AUTH.SIGN_IN.PHONE.INDEX,
+        method: 'POST',
+        body,
+      }),
+    }),
+    signInByApple: builder.mutation<ApiResponse.Logged, ApiRequest.SignInByApple>({
+      query: body => ({
+        url: API_ENDPOINTS.AUTH.SIGN_IN.APPLE.INDEX,
+        method: 'POST',
+        body,
+      }),
+    }),
+    signInByGoogle: builder.mutation<ApiResponse.Logged, ApiRequest.SignInByGoogle>({
+      query: body => ({
+        url: API_ENDPOINTS.AUTH.SIGN_IN.GOOGLE.INDEX,
         method: 'POST',
         body,
       }),
@@ -16,7 +30,7 @@ const authApi = api.injectEndpoints({
 
     logout: builder.mutation<void, ApiRequest.Logout>({
       query: body => ({
-        url: API_ENDPOINTS.AUTH.LOGOUT,
+        url: API_ENDPOINTS.AUTH.LOGOUT.INDEX,
         method: 'POST',
         body,
       }),
@@ -24,7 +38,7 @@ const authApi = api.injectEndpoints({
 
     refreshTokens: builder.mutation<ApiResponse.RefreshAccessToken, ApiRequest.RefreshAccessToken>({
       query: body => ({
-        url: API_ENDPOINTS.AUTH.REFRESH_TOKENS,
+        url: API_ENDPOINTS.AUTH.REFRESH_TOKENS.INDEX,
         method: API_METHODS.POST,
         body,
       }),
@@ -33,7 +47,9 @@ const authApi = api.injectEndpoints({
 });
 
 export const {
-  useSignInMutation,
+  useSignInByGoogleMutation,
+  useSignInByAppleMutation,
+  useSignInByPhoneNumberMutation,
   useLogoutMutation,
   useRefreshTokensMutation,
   endpoints: authEndpoints,

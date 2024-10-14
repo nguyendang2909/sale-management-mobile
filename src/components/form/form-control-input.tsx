@@ -30,6 +30,7 @@ type FCProps = ViewProps & {
   onFocus?: () => void;
   clearButtonMode?: 'never' | 'while-editing' | 'unless-editing' | 'always' | undefined;
   editable?: boolean;
+  autoCapitalize?: 'none' | 'sentences' | 'words' | 'characters' | undefined;
 };
 
 export const FormControlInput = forwardRef(
@@ -49,6 +50,7 @@ export const FormControlInput = forwardRef(
       onFocus,
       clearButtonMode,
       editable,
+      autoCapitalize,
       ...viewProps
     }: FCProps,
     ref,
@@ -90,6 +92,7 @@ export const FormControlInput = forwardRef(
               onFocus={onFocus}
               editable={editable}
               clearButtonMode={clearButtonMode || 'while-editing'}
+              autoCapitalize={autoCapitalize}
               // @ts-ignore
               ref={ref}
             ></InputField>

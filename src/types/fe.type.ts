@@ -3,7 +3,7 @@ import { ORDER_SETTINGS, PRODUCT_SETTINGS } from 'src/constants/constants';
 
 import { AppStore } from './app-store.type';
 import { ValueOf } from './common.type';
-import { AuthGrantType, DevicePlatform, OrderStatus, PaymentMethod } from './data.type';
+import { DevicePlatform, OrderStatus, PaymentMethod } from './data.type';
 import { Entity } from './entities.type';
 
 export declare namespace ApiRequest {
@@ -27,12 +27,20 @@ export declare namespace ApiRequest {
     phoneNumber: string;
   };
 
-  type SignIn = {
-    grantType: AuthGrantType;
-    token?: string;
+  type BaseSignIn = {
+    deviceType?: DevicePlatform;
+    deviceToken?: string;
   };
 
-  type SignInWithGoogle = {
+  type SignInByPhoneNumber = BaseSignIn & {
+    token: string;
+  };
+
+  type SignInByApple = BaseSignIn & {
+    token: string;
+  };
+
+  type SignInByGoogle = BaseSignIn & {
     token: string;
   };
 

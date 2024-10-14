@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import moment from 'moment';
 import { orderSettingEndpoints, productSettingEndpoints } from 'src/api';
 import { meEndpoints } from 'src/api/me.api';
+import { DEFAULT_ORDER_SETTINGS, DEFAULT_PRODUCT_SETTINGS } from 'src/constants';
 import { ApiResponse, AppStore, Entity } from 'src/types';
 
 const initialState: AppStore.AppState = {
@@ -11,8 +12,8 @@ const initialState: AppStore.AppState = {
   socket: {
     connectedAt: moment().toISOString(),
   },
-  productSettings: {},
-  orderSettings: {},
+  productSettings: DEFAULT_PRODUCT_SETTINGS,
+  orderSettings: DEFAULT_ORDER_SETTINGS,
   isLoading: false,
 };
 
@@ -38,8 +39,9 @@ export const appSlice = createSlice({
       state.refreshToken = undefined;
       state.user = {};
       state.socket = {};
-      state.productSettings = {};
-      state.orderSettings = {};
+      state.productSettings = DEFAULT_PRODUCT_SETTINGS;
+      state.orderSettings = DEFAULT_ORDER_SETTINGS;
+      // state.orderInvoiceSettings = DEFAULT_ORDER_INVOICE_SETTINGS;
       state.isLoading = false;
     },
 

@@ -46,7 +46,7 @@ export const api = createApi({
           const refreshResult = (await baseQuery(
             {
               method: API_METHODS.POST,
-              url: API_ENDPOINTS.AUTH.REFRESH_TOKENS,
+              url: API_ENDPOINTS.AUTH.REFRESH_TOKENS.INDEX,
               body: {
                 refreshToken,
               },

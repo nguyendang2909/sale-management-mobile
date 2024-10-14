@@ -2,7 +2,7 @@ import { Button, ButtonIcon, ButtonText, View } from '@gluestack-ui/themed';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import React, { FC, useEffect } from 'react';
 import Toast from 'react-native-toast-message';
-import { useSignInMutation } from 'src/api';
+import { useSignInByGoogleMutation } from 'src/api';
 import { FontAwesome } from 'src/components';
 import { useMessages } from 'src/hooks';
 import { appActions } from 'src/store/app/app.store';
@@ -14,7 +14,7 @@ type FCProps = {
 
 export const SignInWithGoogleButton: FC<FCProps> = ({ setLoading }) => {
   const { formatMessage } = useMessages();
-  const [signIn] = useSignInMutation();
+  const [signIn] = useSignInByGoogleMutation();
 
   useEffect(() => {
     GoogleSignin.configure({
@@ -36,7 +36,6 @@ export const SignInWithGoogleButton: FC<FCProps> = ({ setLoading }) => {
       }
       const signInResponse = await signIn({
         token: idToken,
-        grantType: 'google' as any,
       }).unwrap();
       dispatch(appActions.updateAccessToken(signInResponse.data));
     } catch (error) {

@@ -20,6 +20,7 @@ export const InputProfileEmail: FC<
       onBlur={onBlur}
       error={errorMessage}
       inputMode="email"
+      autoCapitalize="none"
       {...viewProps}
     />
   );

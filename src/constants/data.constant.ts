@@ -73,6 +73,13 @@ export const API_TAGS = {
   SALE: '/sale',
   OVERALL: '/overall',
   CANCEL: '/cancel',
+  WAREHOUSE_ORDERS: '/warehouse-orders',
+  IMPORTS: '/imports',
+  EXPORTS: '/exports',
+  NOTES: '/notes',
+  PHONE: '/phone',
+  PHONE_PASSWORD: '/phone-password',
+  APPLE: '/apple',
 } as const;
 
 export const BUSINESS_CATEGORIES_MAP = {
@@ -122,10 +129,14 @@ export const BUSINESS_LEVELS = [
   },
 ] as const;
 
-export const ORDER_STATUSES_MAP = {
+export const CREATE_ORDER_STATUSES_MAP = {
   UNCONFIRMED: 'unconfirmed',
   PROCESSING: 'processing',
   DELIVERED: 'delivered',
+} as const;
+
+export const ORDER_STATUSES_MAP = {
+  ...CREATE_ORDER_STATUSES_MAP,
   RETURNED: 'returned',
   CANCELLED: 'cancelled',
 } as const;
@@ -190,4 +201,52 @@ export const SHOP_AMENITIES_MAP = {
 export const DISCOUNT_TYPES_MAP = {
   PERCENTAGE: 'percentage',
   FIXED_AMOUNT: 'fixed_amount',
+} as const;
+
+export const DEFAULT_PRODUCT_SETTINGS = {
+  showTrackingStockNotification: true,
+  showImage: true,
+  showUnit: false,
+  showDescription: false,
+  showPromotionalPrice: true,
+  showWholesalePrice: false,
+  showTrackingStock: true,
+  showBarcode: false,
+} as const;
+
+export const DEFAULT_ORDER_INVOICE_SETTINGS = {
+  fontSize: INVOICE_SETTING_FONT_SIZES_MAP.MEDIUM,
+  title: null,
+  phoneCode: null,
+  phoneNumber: null,
+  showPhoneNumber: true,
+  showAddress: true,
+  showQRCode: true,
+  description: null,
+  showShopDescription: false,
+  showCustomerName: true,
+  showCustomerPhone: true,
+  showCustomerPoint: false,
+  showCustomerAddress: false,
+  showOrderCode: true,
+  showOrderNote: true,
+  showEmployee: false,
+  showDiningTable: false,
+  showTime: false,
+  showPromotionalPrice: true,
+  showVatRate: false,
+  vatRate: null,
+  showPayout: true,
+  showDebt: false,
+  showBankAccount: true,
+  showBankQR: false,
+  showShopNote: true,
+  showShopLogo: true,
+  showFooterNote: true,
+  footerNote: null,
+} as const;
+
+export const DEFAULT_ORDER_SETTINGS = {
+  showCustomer: false,
+  showNote: false,
 } as const;

@@ -8,13 +8,13 @@ const invoiceSettingApi = api.injectEndpoints({
   endpoints: builder => ({
     fetchInvoiceSettings: builder.query<ApiResponse.InvoiceSetting, void>({
       query: () => ({
-        url: API_ENDPOINTS.ME.SETTINGS.INVOICES.INDEX,
+        url: API_ENDPOINTS.ORDERS.INVOICES.SETTINGS.INDEX,
         method: API_METHODS.GET,
       }),
     }),
     updateInvoiceSettings: builder.mutation<void, ApiRequest.UpdateProductSettings>({
       query: body => ({
-        url: API_ENDPOINTS.ME.SETTINGS.PRODUCTS.INDEX,
+        url: API_ENDPOINTS.ORDERS.INVOICES.SETTINGS.INDEX,
         method: API_METHODS.PATCH,
         body,
       }),

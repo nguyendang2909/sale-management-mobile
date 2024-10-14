@@ -8,14 +8,14 @@ const orderApi = api.injectEndpoints({
   endpoints: builder => ({
     fetchOrderSettings: builder.query<ApiResponse.OrderSetting, void>({
       query: () => ({
-        url: API_ENDPOINTS.ME.SETTINGS.ORDERS.INDEX,
+        url: API_ENDPOINTS.ORDERS.SETTINGS.INDEX,
         method: API_METHODS.GET,
       }),
     }),
     updateOrderSettings: builder.mutation<ApiResponse.OrderSetting, ApiRequest.UpdateOrderSettings>(
       {
         query: body => ({
-          url: API_ENDPOINTS.ME.SETTINGS.ORDERS.INDEX,
+          url: API_ENDPOINTS.ORDERS.SETTINGS.INDEX,
           method: API_METHODS.PATCH,
           body,
         }),
