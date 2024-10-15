@@ -149,7 +149,7 @@ export declare namespace FormParams {
     variants: CreateProductVariant[];
   };
 
-  type EditSku = {
+  type EditVariant = {
     id: string | null;
     code: string | null;
     price: number | null;

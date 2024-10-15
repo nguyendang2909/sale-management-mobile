@@ -1,5 +1,4 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { PRODUCT_ATTRIBUTE_TYPES_MAP } from 'src/constants';
 import { ApiRequest, AppStore, FormParams } from 'src/types';
 import * as Yup from 'yup';
 
@@ -24,10 +23,6 @@ class UpdateProductFormUtil {
             Yup.object({
               id: Yup.string().required().nullable(),
               title: Yup.string().required(),
-              type: Yup.string()
-                .oneOf(Object.values(PRODUCT_ATTRIBUTE_TYPES_MAP))
-                .required()
-                .nullable(),
               values: Yup.array().min(1).of(Yup.string().required()).required(),
             }),
           )
@@ -113,24 +108,24 @@ class UpdateProductFormUtil {
     };
   }
 
-  getSkuPayload(
+  getVariantPayload(
     variant: FormParams.CreateProductVariant,
-    defaultSkusMap: Record<string, FormParams.CreateProductVariant>,
+    defaultVariantsMap: Record<string, FormParams.CreateProductVariant>,
   ): ApiRequest.UpdateProductVariant {
     const { id, price, ...restValue } = variant;
     if (id) {
-      const defaultSku = defaultSkusMap[id];
-      if (!defaultSku) {
+      const defaultVariant = defaultVariantsMap[id];
+      if (!defaultVariant) {
         throw new Error('Sản phẩm không đúng, vui lòng thử lại');
       }
-      const { price: formSkuPriceValue, ...formSkuValue } = formParamUtil.getDifferent(
+      const { price: formVariantPriceValue, ...formVariantValue } = formParamUtil.getDifferent(
         variant,
-        defaultSku,
+        defaultVariant,
       );
       return {
-        ...formSkuValue,
+        ...formVariantValue,
         id,
-        ...(formSkuPriceValue && { price: formSkuPriceValue }),
+        ...(formVariantPriceValue && { price: formVariantPriceValue }),
       };
     }
     return { ...restValue, ...(price && { price }) };

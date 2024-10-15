@@ -124,7 +124,7 @@ export const ContentProductCreate: FC = () => {
             showsVerticalScrollIndicator={false}
             keyboardShouldPersistTaps="handled"
           >
-            <SectionProductBasicInfo hasDefaultSku={hasDefaultVariant} control={control} />
+            <SectionProductBasicInfo hasDefaultVariant={hasDefaultVariant} control={control} />
             <SectionStockManagement
               mt={16}
               isEnabled={hasDefaultVariant}

@@ -27,7 +27,7 @@ export const ProductOptionListItem: FC<{
   onDeleteProductOption: (e: number) => void;
   currentProductOptionValues?: string[];
   errorText?: string;
-  defaultSpecifications?: string[];
+  defaultOptionValues?: string[];
 }> = ({ productOption, setValue, index, onDeleteProductOption, getValues, errorText }) => {
   const {
     isOpen: isEditingProductTitle,
@@ -43,7 +43,7 @@ export const ProductOptionListItem: FC<{
   const {
     control: productOptionValueControl,
     setError,
-    handleSubmit: handleSubmitSpecification,
+    handleSubmit: handleSubmitOptionValue,
     setValue: setProductOptionValue,
   } = useForm<{ value: string }>({
     defaultValues: {
@@ -181,7 +181,7 @@ export const ProductOptionListItem: FC<{
             render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => {
               return (
                 <FormControlInputSave
-                  onSubmit={handleSubmitSpecification(onSubmitProductOptionValue)}
+                  onSubmit={handleSubmitOptionValue(onSubmitProductOptionValue)}
                   value={value}
                   onChange={onChange}
                   onBlur={onBlur}

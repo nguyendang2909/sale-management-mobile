@@ -5,7 +5,7 @@ import { FormControlInput } from 'src/components';
 import { FormParams } from 'src/types';
 
 export const ControlVariantCode: FC<
-  ComponentProps<typeof View> & { control: Control<FormParams.EditSku, any> }
+  ComponentProps<typeof View> & { control: Control<FormParams.EditVariant, any> }
 > = ({ control, ...viewProps }) => {
   return (
     <Controller

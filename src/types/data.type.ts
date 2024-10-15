@@ -7,8 +7,7 @@ import {
   ORDER_STATUSES_MAP,
   PAYMENT_METHODS_MAP,
   PAYMENT_TYPES_MAP,
-  PRODUCT_ATTRIBUTE_TYPES_MAP,
-  PRODUCT_SPECIFICATION_TYPES_MAP,
+  PRODUCT_OPTION_TYPES_MAP,
   ROLES_MAP,
   SHOP_AMENITIES_MAP,
   USER_STATUSES_MAP,
@@ -29,8 +28,9 @@ export type SignInData = {
 };
 
 export type TokenSignPayload = {
-  id: string;
+  organizationId: string;
   sub: string;
+  userId: string;
 };
 
 export type SignInTokens = {
@@ -59,22 +59,17 @@ export type AuthGrantType = ValueOf<typeof AUTH_GRANT_TYPES_MAP>;
 
 export type PaymentMethod = ValueOf<typeof PAYMENT_METHODS_MAP>;
 
-export type OrderItemSpecification = {
-  option1: string | null;
-  option2: string | null;
-  id: string;
-  title: string | null;
-  type: string | null;
-};
-
 export type InvoiceSettingFontSize = ValueOf<typeof INVOICE_SETTING_FONT_SIZES_MAP>;
 
-export type ProductAttributeType = ValueOf<typeof PRODUCT_ATTRIBUTE_TYPES_MAP>;
-
-export type ProductSpecificationType = ValueOf<typeof PRODUCT_SPECIFICATION_TYPES_MAP>;
+export type ProductOptionType = ValueOf<typeof PRODUCT_OPTION_TYPES_MAP>;
 
 export type PaymentType = ValueOf<typeof PAYMENT_TYPES_MAP>;
 
 export type ShopAmenity = ValueOf<typeof SHOP_AMENITIES_MAP>;
 
 export type DiscountType = ValueOf<typeof DISCOUNT_TYPES_MAP>;
+
+export type Phone = {
+  phoneCode: string;
+  phoneNumber: string;
+};

@@ -6,7 +6,7 @@ import { useAppSelector } from 'src/hooks';
 import { FormParams } from 'src/types';
 
 export const ControlVariantPromotionalPrice: FC<
-  ComponentProps<typeof View> & { control: Control<FormParams.EditSku, any> }
+  ComponentProps<typeof View> & { control: Control<FormParams.EditVariant, any> }
 > = ({ control, ...viewProps }) => {
   const showPromotionalPrice = useAppSelector(s => s.app.productSettings.showPromotionalPrice);
   return (

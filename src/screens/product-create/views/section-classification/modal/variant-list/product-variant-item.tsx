@@ -5,7 +5,7 @@ import { TouchableOpacity } from 'react-native';
 import { TextPrice } from 'src/components/text/text-price';
 import { SCREENS } from 'src/constants';
 import { navigate } from 'src/navigations';
-import { editSkuScreenService } from 'src/services/screens/edit-variant.screen.service';
+import { editVariantScreenService } from 'src/services/screens/edit-variant.screen.service';
 import { FormParams } from 'src/types';
 import { productVariantUtil } from 'src/utils';
 
@@ -31,7 +31,7 @@ export const ProductVariantItem: FC<{
 
   const handlePress = useCallback(() => {
     const product = getProduct();
-    editSkuScreenService.appendSetSku(handleSetVariant);
+    editVariantScreenService.appendSetVariant(handleSetVariant);
     navigate(SCREENS.PRODUCT_VARIANT_EDIT, {
       variant,
       product: { title: product.title },

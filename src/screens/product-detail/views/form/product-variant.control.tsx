@@ -4,7 +4,7 @@ import { Control, Controller } from 'react-hook-form';
 import { FormControlInput } from 'src/components';
 import { FormParams } from 'src/types';
 
-export const ProductSkuControl: FC<
+export const ProductVariantControl: FC<
   ComponentProps<typeof View> & { control: Control<FormParams.CreateProduct, any> }
 > = ({ control, ...viewProps }) => {
   return (

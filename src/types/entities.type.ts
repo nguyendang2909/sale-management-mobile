@@ -4,7 +4,6 @@ import {
   InvoiceSettingFontSize,
   OrderStatus,
   PaymentMethod,
-  ProductAttributeType,
   Role,
   UserStatus,
 } from './data.type';
@@ -113,7 +112,6 @@ export declare namespace Entity {
   type ProductOption = BaseEntity &
     Partial<{
       title: string;
-      type?: ProductAttributeType;
       values?: string[];
     }>;
 

@@ -6,7 +6,7 @@ import { FormParams } from 'src/types';
 import { SwitchVariantTrackingStock } from './switch/switch-variant-tracking-stock';
 
 export const ControlVariantTrackingStock: FC<
-  ComponentProps<typeof View> & { control: Control<FormParams.EditSku, any> }
+  ComponentProps<typeof View> & { control: Control<FormParams.EditVariant, any> }
 > = ({ control, ...viewProps }) => {
   return (
     <>

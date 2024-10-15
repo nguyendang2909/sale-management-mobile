@@ -39,7 +39,7 @@ export const OrderConfirmForm: FC<{ values: FormParams.CreateOrder }> = ({ value
     }, {});
   }, _.isEqual);
   const pickedVariants = useMemo(
-    () => productVariantUtil.getPickedSkusFromProducts(products, variantItemsMap),
+    () => productVariantUtil.getPickedVariantsFromProducts(products, variantItemsMap),
     [variantItemsMap, products],
   );
 

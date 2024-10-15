@@ -65,7 +65,7 @@ class CreateProductClassificationFormUtil {
     const variantIdFlagsMap: Record<string, boolean> = {};
     for (let i = 0; i < options[0].values.length; i += 1) {
       for (let j = 0; j < options[1].values.length; j += 1) {
-        const variant = this.getSkuFromSpecificationWithAttributesLength2({
+        const variant = this.getVariantFromOptionValuesWithOptionsLength2({
           option1: options[0].values[i],
           option2: options[1].values[j],
           currentVariants,
@@ -81,7 +81,7 @@ class CreateProductClassificationFormUtil {
     return variants;
   }
 
-  getSkuFromSpecificationWithAttributesLength2({
+  getVariantFromOptionValuesWithOptionsLength2({
     option1,
     option2,
     currentVariants,
@@ -129,13 +129,13 @@ class CreateProductClassificationFormUtil {
         option2,
       });
     }
-    const firstCurrentSku = currentVariants[0];
-    if (firstCurrentSku) {
+    const firstCurrentVariant = currentVariants[0];
+    if (firstCurrentVariant) {
       return {
-        ...firstCurrentSku,
-        id: this.hasVariantIdInFlagsMap(firstCurrentSku, variantIdFlagsMap)
+        ...firstCurrentVariant,
+        id: this.hasVariantIdInFlagsMap(firstCurrentVariant, variantIdFlagsMap)
           ? null
-          : firstCurrentSku.id,
+          : firstCurrentVariant.id,
         option1,
         option2,
       };
@@ -155,20 +155,20 @@ class CreateProductClassificationFormUtil {
     });
   }
 
-  getVariant(defaultSku: FormParams.CreateProductVariant): FormParams.CreateProductVariant {
-    const isInStock = !_.isUndefined(defaultSku.isInStock) ? defaultSku.isInStock : true;
+  getVariant(defaultVariant: FormParams.CreateProductVariant): FormParams.CreateProductVariant {
+    const isInStock = !_.isUndefined(defaultVariant.isInStock) ? defaultVariant.isInStock : true;
     return {
-      id: defaultSku.id || null,
-      code: defaultSku.code || null,
-      price: defaultSku.price || null,
-      capitalPrice: defaultSku.capitalPrice || null,
-      promotionalPrice: defaultSku.promotionalPrice || null,
-      wholesalePrice: defaultSku.wholesalePrice || null,
-      stock: _.isNull(isInStock) ? defaultSku.stock || 0 : null,
+      id: defaultVariant.id || null,
+      code: defaultVariant.code || null,
+      price: defaultVariant.price || null,
+      capitalPrice: defaultVariant.capitalPrice || null,
+      promotionalPrice: defaultVariant.promotionalPrice || null,
+      wholesalePrice: defaultVariant.wholesalePrice || null,
+      stock: _.isNull(isInStock) ? defaultVariant.stock || 0 : null,
       isInStock,
       isEnabled: true,
-      option1: !_.isUndefined(defaultSku.option1) ? defaultSku.option1 : null,
-      option2: !_.isUndefined(defaultSku.option2) ? defaultSku.option2 : null,
+      option1: !_.isUndefined(defaultVariant.option1) ? defaultVariant.option1 : null,
+      option2: !_.isUndefined(defaultVariant.option2) ? defaultVariant.option2 : null,
     };
   }
 
@@ -179,20 +179,20 @@ class CreateProductClassificationFormUtil {
   ): FormParams.CreateProductOption {
     const newIndex = valueOptions.length;
     if (defaultOptions?.length) {
-      const defaultAttribute = defaultOptions[newIndex];
-      if (defaultAttribute) {
+      const defaultOption = defaultOptions[newIndex];
+      if (defaultOption) {
         return {
-          id: defaultAttribute.id,
+          id: defaultOption.id,
           title: `Nhóm ${newIndex + 1}`,
           values: [],
         };
       }
     }
     if (currentOptions.length) {
-      const currentAttribute = currentOptions[newIndex];
-      if (currentAttribute) {
+      const currentOption = currentOptions[newIndex];
+      if (currentOption) {
         return {
-          id: currentAttribute.id,
+          id: currentOption.id,
           title: `Nhóm ${newIndex + 1}`,
           values: [],
         };
@@ -208,19 +208,19 @@ class CreateProductClassificationFormUtil {
   getNewOptionValue(
     value: string,
     valueOptionValues: string[],
-    currentSpecifications?: string[],
-    defaultSpecifications?: string[],
+    currentOptionValues?: string[],
+    defaultOptionValues?: string[],
   ): string {
     const newIndex = valueOptionValues.length;
-    if (defaultSpecifications?.length) {
-      const defaultSpecification = defaultSpecifications[newIndex];
-      if (defaultSpecification) {
+    if (defaultOptionValues?.length) {
+      const defaultOptionValue = defaultOptionValues[newIndex];
+      if (defaultOptionValue) {
         return value;
       }
     }
-    if (currentSpecifications?.length) {
-      const currentSpecification = currentSpecifications[newIndex];
-      if (currentSpecification) {
+    if (currentOptionValues?.length) {
+      const currentOptionValue = currentOptionValues[newIndex];
+      if (currentOptionValue) {
         return value;
       }
     }

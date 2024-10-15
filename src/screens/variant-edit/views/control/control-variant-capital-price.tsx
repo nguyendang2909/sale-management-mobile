@@ -5,7 +5,7 @@ import { PriceInput } from 'src/components/form/price-input';
 import { FormParams } from 'src/types';
 
 export const ControlVariantCapitalPrice: FC<
-  ComponentProps<typeof View> & { control: Control<FormParams.EditSku, any> }
+  ComponentProps<typeof View> & { control: Control<FormParams.EditVariant, any> }
 > = ({ control, ...viewProps }) => {
   return (
     <>

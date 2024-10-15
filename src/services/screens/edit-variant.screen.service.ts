@@ -1,15 +1,15 @@
 import { FormParams } from 'src/types';
 
 class EditVariantScreenService {
-  setSku: ((valueProductVariant: FormParams.CreateProductVariant) => void) | null;
+  setVariant: ((valueProductVariant: FormParams.CreateProductVariant) => void) | null;
 
   constructor() {
-    this.setSku = null;
+    this.setVariant = null;
   }
 
-  appendSetSku(func: ((valueProductVariant: FormParams.CreateProductVariant) => void) | null) {
-    this.setSku = func;
+  appendSetVariant(func: ((valueProductVariant: FormParams.CreateProductVariant) => void) | null) {
+    this.setVariant = func;
   }
 }
 
-export const editSkuScreenService = new EditVariantScreenService();
+export const editVariantScreenService = new EditVariantScreenService();

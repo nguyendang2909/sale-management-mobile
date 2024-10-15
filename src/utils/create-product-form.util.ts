@@ -1,6 +1,5 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import _ from 'lodash';
-import { PRODUCT_ATTRIBUTE_TYPES_MAP } from 'src/constants';
 import { FormParams } from 'src/types';
 import * as Yup from 'yup';
 
@@ -23,10 +22,6 @@ class CreateProductFormUtil {
             Yup.object({
               id: Yup.string().required().nullable(),
               title: Yup.string().required(),
-              type: Yup.string()
-                .oneOf(Object.values(PRODUCT_ATTRIBUTE_TYPES_MAP))
-                .required()
-                .nullable(),
               values: Yup.array().min(1).of(Yup.string().required()).required(),
             }),
           )

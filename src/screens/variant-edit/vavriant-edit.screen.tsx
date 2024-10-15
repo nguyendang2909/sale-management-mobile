@@ -14,7 +14,7 @@ import { SCREENS } from 'src/constants';
 import { useDisclose } from 'src/hooks';
 import { goBack } from 'src/navigations';
 import { AppStackScreenProps } from 'src/navigators/main.stack';
-import { editSkuScreenService } from 'src/services/screens/edit-variant.screen.service';
+import { editVariantScreenService } from 'src/services/screens/edit-variant.screen.service';
 import { FormParams } from 'src/types';
 import { editVariantFormUtil } from 'src/utils/edit-variant-form.util';
 
@@ -50,7 +50,7 @@ export const ProductVariantEditScreen: FC<AppStackScreenProps<'PRODUCT_VARIANT_E
     control,
     watch,
     handleSubmit,
-  } = useForm<FormParams.EditSku>({
+  } = useForm<FormParams.EditVariant>({
     defaultValues: editVariantFormUtil.getDefaultValues(variant),
     resolver: editVariantFormUtil.getResolver(),
   });
@@ -63,22 +63,22 @@ export const ProductVariantEditScreen: FC<AppStackScreenProps<'PRODUCT_VARIANT_E
     goBack(SCREENS.PRODUCT_CREATE);
   }, []);
 
-  const onSubmit: SubmitHandler<FormParams.EditSku> = useCallback(
+  const onSubmit: SubmitHandler<FormParams.EditVariant> = useCallback(
     values => {
-      if (editSkuScreenService.setSku) {
-        editSkuScreenService.setSku({
+      if (editVariantScreenService.setVariant) {
+        editVariantScreenService.setVariant({
           ...variant,
           ...values,
         });
       }
-      editSkuScreenService.appendSetSku(null);
+      editVariantScreenService.appendSetVariant(null);
       goBack(SCREENS.PRODUCT_CREATE);
     },
     [variant],
   );
 
   useEffect(() => {
-    if (!editSkuScreenService.setSku) {
+    if (!editVariantScreenService.setVariant) {
       goBack(SCREENS.PRODUCT_CREATE);
     }
   }, []);

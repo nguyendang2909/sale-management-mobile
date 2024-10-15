@@ -12,14 +12,14 @@ import { ControlProductImages } from './control/control-product-images';
 import { ControlProductTitle } from './control/control-product-title';
 
 export const SectionProductBasicInfo: FC<
-  ViewProps & { control: Control<FormParams.CreateProduct, any>; hasDefaultSku: boolean }
-> = ({ control, hasDefaultSku, ...viewProps }) => {
+  ViewProps & { control: Control<FormParams.CreateProduct, any>; hasDefaultVariant: boolean }
+> = ({ control, hasDefaultVariant, ...viewProps }) => {
   return (
     <>
       <View px={16} py={8} bgColor="$white" {...viewProps}>
         <ControlProductTitle control={control} />
         <ControlProductImages mt={16} control={control} />
-        {hasDefaultSku && (
+        {hasDefaultVariant && (
           <>
             <View mt={16}>
               <View flexDirection="row" columnGap={16}>

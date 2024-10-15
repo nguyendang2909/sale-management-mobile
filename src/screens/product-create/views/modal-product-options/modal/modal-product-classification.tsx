@@ -36,7 +36,7 @@ export const ModalProductClassification: FC<
     setValue: setValueOption,
     getValues: getValuesOption,
     watch: watchProductOption,
-    handleSubmit: handleSubmitAttribute,
+    handleSubmit: handleSubmitProductOption,
     formState: { errors: errorsProductOption },
   } = useForm<FormParams.CreateProductClassification>({
     defaultValues: {
@@ -131,16 +131,6 @@ export const ModalProductClassification: FC<
                     getValues={getValuesOption}
                     onDeleteProductOption={handleDeleteOptionByIndex}
                     errorText={_.get(errorsProductOption, `options[${index}].values.message`)}
-                    // defaultSpecifications={
-                    //   defaultOptions && defaultOptions[index]
-                    //     ? defaultOptions[index].values
-                    //     : undefined
-                    // }
-                    // currentSpecifications={
-                    //   currentAttributes && currentAttributes[index]
-                    //     ? currentAttributes[index].values
-                    //     : undefined
-                    // }
                   />
                 );
               }}
@@ -168,7 +158,7 @@ export const ModalProductClassification: FC<
                       <Button variant="outline">
                         <ButtonText>Size</ButtonText>
                       </Button>
-                      <Button variant="outline" onPress={handleAddAttribute}>
+                      <Button variant="outline" onPress={handleAddOption}>
                         <ButtonText>Khác</ButtonText>
                       </Button>
                     </HStack>
@@ -179,7 +169,7 @@ export const ModalProductClassification: FC<
           </View>
         </View>
         <ViewFooter py={16} px={16}>
-          <Button onPress={handleSubmitAttribute(onSubmit)}>
+          <Button onPress={handleSubmitProductOption(onSubmit)}>
             <ButtonText>Xác nhận</ButtonText>
           </Button>
         </ViewFooter>

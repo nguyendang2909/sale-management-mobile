@@ -92,7 +92,7 @@ export const ContentProduct: FC<FCProps> = ({ detail }) => {
       }
       if (!_.isEqual(variants, defaultVariants)) {
         body.variants = variants.map(valueOption => {
-          return updateProductFormUtil.getSkuPayload(valueOption, defaultVariantsMap);
+          return updateProductFormUtil.getVariantPayload(valueOption, defaultVariantsMap);
         });
       }
       await updateProductMutation({ id: product.id, body }).unwrap();
@@ -139,7 +139,7 @@ export const ContentProduct: FC<FCProps> = ({ detail }) => {
               showsVerticalScrollIndicator={false}
               keyboardShouldPersistTaps="handled"
             >
-              <SectionProductBasicInfo hasDefaultSku={hasDefaultVariant} control={control} />
+              <SectionProductBasicInfo hasDefaultVariant={hasDefaultVariant} control={control} />
               <SectionStockManagement
                 mt={16}
                 isEnabled={hasDefaultVariant}

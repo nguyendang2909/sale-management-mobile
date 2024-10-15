@@ -38,7 +38,7 @@ export const PickProduct: FC<FCProps> = ({ product, variantsMap }) => {
     [product.id, product.variants],
   );
   const firstVariantId = useMemo(() => productAndVariantIds[0].variantId, [productAndVariantIds]);
-  const firstSku = useMemo(() => variantsMap[firstVariantId], [firstVariantId, variantsMap]);
+  const firstVariant = useMemo(() => variantsMap[firstVariantId], [firstVariantId, variantsMap]);
   const variantsLength = useMemo(() => product.variants?.length || 0, [product.variants]);
   const cartItemsObj: CartItemsObj = useAppSelector(s => {
     const itemsObj = s.cart.items;
@@ -59,15 +59,15 @@ export const PickProduct: FC<FCProps> = ({ product, variantsMap }) => {
 
   const handleAdd = useCallback(() => {
     if (variantsLength === 1) {
-      if (firstSku && firstVariantId && cartItemsObj[firstVariantId]) {
-        if (!_.isNil(firstSku.isInStock)) {
-          if (!firstSku.isInStock) {
+      if (firstVariant && firstVariantId && cartItemsObj[firstVariantId]) {
+        if (!_.isNil(firstVariant.isInStock)) {
+          if (!firstVariant.isInStock) {
             Toast.show({ text1: 'Sản phẩm hết hàng', type: 'error' });
             return;
           }
         } else if (
-          !_.isUndefined(firstSku.stock) &&
-          (firstSku.stock || 0) <= cartItemsObj[firstVariantId].quantity
+          !_.isUndefined(firstVariant.stock) &&
+          (firstVariant.stock || 0) <= cartItemsObj[firstVariantId].quantity
         ) {
           Toast.show({ text1: 'Vượt quá số lượng sản phẩm tồn kho', type: 'error' });
           return;
@@ -75,7 +75,7 @@ export const PickProduct: FC<FCProps> = ({ product, variantsMap }) => {
         dispatch(cartActions.addCartItem(productAndVariantIds[0]));
       }
     }
-  }, [cartItemsObj, dispatch, firstSku, firstVariantId, productAndVariantIds, variantsLength]);
+  }, [cartItemsObj, dispatch, firstVariant, firstVariantId, productAndVariantIds, variantsLength]);
 
   const handleSubtract = useCallback(() => {
     if (variantsLength === 1) {

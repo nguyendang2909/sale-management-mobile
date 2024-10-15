@@ -69,16 +69,18 @@ class ProductVariantUtil extends BaseUtil {
     }, {});
   }
 
-  getPickedSkusFromProducts(products: AppStore.Product[], cartItemsObj: CartItemsObj) {
+  getPickedVariantsFromProducts(products: AppStore.Product[], cartItemsObj: CartItemsObj) {
     return products.reduce<(Entity.ProductVariant & { product: Entity.Product })[]>(
       (result, product) => {
         const { variants, ...restProduct } = product;
-        const existSkus = variants?.reduce<(Entity.ProductVariant & { product: Entity.Product })[]>(
+        const existVariants = variants?.reduce<
+          (Entity.ProductVariant & { product: Entity.Product })[]
+        >(
           (acc, variant) =>
             cartItemsObj[variant.id] ? acc.concat({ ...variant, product: restProduct }) : acc,
           [],
         );
-        return existSkus?.length ? result.concat(...existSkus) : result;
+        return existVariants?.length ? result.concat(...existVariants) : result;
       },
       [],
     );

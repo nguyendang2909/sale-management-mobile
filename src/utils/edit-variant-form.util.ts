@@ -5,7 +5,7 @@ import * as Yup from 'yup';
 
 class EditVariantFormUtil {
   getResolver() {
-    return yupResolver<FormParams.EditSku>(
+    return yupResolver<FormParams.EditVariant>(
       Yup.object({
         id: Yup.string().required().nullable(),
         code: Yup.string().required().nullable(),
@@ -35,7 +35,7 @@ class EditVariantFormUtil {
     );
   }
 
-  getDefaultValues(initValues?: FormParams.CreateProductVariant): FormParams.EditSku {
+  getDefaultValues(initValues?: FormParams.CreateProductVariant): FormParams.EditVariant {
     const isInStock = initValues?.isInStock !== undefined ? initValues?.isInStock : true;
     return {
       id: initValues?.id || null,

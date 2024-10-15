@@ -14,15 +14,15 @@ import { ControlProductPromotionPrice } from './control/control-promotional-pric
 export const SectionProductBasicInfo: FC<
   ViewProps & {
     control: Control<FormParams.CreateProduct, any>;
-    hasDefaultSku: boolean;
+    hasDefaultVariant: boolean;
   }
-> = ({ control, hasDefaultSku, ...viewProps }) => {
+> = ({ control, hasDefaultVariant, ...viewProps }) => {
   return (
     <>
       <View px={16} py={8} bgColor="$white" {...viewProps}>
         <ControlProductTitle control={control} />
         <ControlProductImages mt={16} control={control} />
-        {hasDefaultSku && (
+        {hasDefaultVariant && (
           <>
             <View mt={16}>
               <View flexDirection="row" columnGap={16}>

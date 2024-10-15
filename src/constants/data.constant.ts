@@ -23,6 +23,7 @@ export const SHOP_ID = 'shop_id';
 export const ORDER_ID = 'order_id';
 export const CATEGORY_ID = 'category_id';
 export const PRODUCT_ID = 'product_id';
+export const ORDER_PAYMENT_ID = 'order_payment_id';
 
 export const API_TAGS = {
   ID: ID_PATH + ID,
@@ -64,7 +65,7 @@ export const API_TAGS = {
   PAYMENTS: '/payments',
   QR_CODE: '/qr-code',
   STATISTICS: '/statistics',
-  SKUS: '/variants',
+  productVariants: '/productVariants',
   ITEMS: '/items',
   NOTIFICATIONS: '/notifications',
   INVOICES: '/invoices',
@@ -160,29 +161,12 @@ export const INVOICE_SETTING_FONT_SIZES_MAP = {
   LARGE: 'large',
 } as const;
 
-export const PRODUCT_ATTRIBUTE_TYPES_MAP = {
+export const PRODUCT_OPTION_TYPES_MAP = {
   COLOR: 'color',
   SIZE: 'size',
   MATERIAL: 'material',
   TASTE: 'taste',
   ORIGIN: 'origin',
-} as const;
-
-export const PRODUCT_COLOR_TYPES_MAP = {
-  RED: 'red',
-  BLACK: 'black',
-  WHITE: 'white',
-} as const;
-
-export const PRODUCT_SIZE_TYPES_MAP = {
-  SMALL: 'small',
-  MEDIUM: 'medium',
-  LARGE: 'large',
-} as const;
-
-export const PRODUCT_SPECIFICATION_TYPES_MAP = {
-  ...PRODUCT_COLOR_TYPES_MAP,
-  ...PRODUCT_SIZE_TYPES_MAP,
 } as const;
 
 export const PAYMENT_TYPES_MAP = {

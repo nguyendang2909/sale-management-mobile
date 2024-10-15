@@ -18,7 +18,7 @@ export const FormEditProductOptionTitle: FC<{
   const {
     control: controlProductOption,
     setError,
-    setValue: setValueSpecification,
+    setValue: setValueOptionValue,
     handleSubmit,
   } = useForm<{ title: string }>({
     defaultValues: {
@@ -43,7 +43,7 @@ export const FormEditProductOptionTitle: FC<{
       return;
     }
     setValue(values.title);
-    setValueSpecification('title', '');
+    setValueOptionValue('title', '');
   };
 
   useEffect(() => {
