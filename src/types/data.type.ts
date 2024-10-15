@@ -60,11 +60,8 @@ export type AuthGrantType = ValueOf<typeof AUTH_GRANT_TYPES_MAP>;
 export type PaymentMethod = ValueOf<typeof PAYMENT_METHODS_MAP>;
 
 export type OrderItemSpecification = {
-  attribute: {
-    id: string;
-    title: string | null;
-    type: string | null;
-  };
+  option1: string | null;
+  option2: string | null;
   id: string;
   title: string | null;
   type: string | null;

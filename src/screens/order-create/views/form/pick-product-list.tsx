@@ -16,7 +16,7 @@ import { Price } from 'src/components/text/formatted-price';
 import { SCREENS } from 'src/constants';
 import { useAppSelector, useSearchProducts } from 'src/hooks';
 import { FormParams } from 'src/types';
-import { skuUtil } from 'src/utils';
+import { productVariantUtil } from 'src/utils';
 
 import { PickProduct } from './pick-product-list-item';
 
@@ -26,11 +26,11 @@ export const PickProducts: FC<{ values: FormParams.CreateOrder }> = ({ values })
   const cartItemsObj = useAppSelector(s => s.cart.items);
   const cartItems = useMemo(() => Object.values(cartItemsObj), [cartItemsObj]);
 
-  const skusObj = useMemo(() => skuUtil.getObjFromProducts(products), [products]);
+  const variantsMap = useMemo(() => productVariantUtil.getObjFromProducts(products), [products]);
 
-  const { skuTotal, skuAmount } = useMemo(
-    () => skuUtil.getTotalAndAmountByCartItems(cartItems, skusObj),
-    [cartItems, skusObj],
+  const { totalVariants, variantAmount } = useMemo(
+    () => productVariantUtil.getTotalAndAmountByCartItems(cartItems, variantsMap),
+    [cartItems, variantsMap],
   );
 
   const handlePressNext = () => {
@@ -50,12 +50,12 @@ export const PickProducts: FC<{ values: FormParams.CreateOrder }> = ({ values })
         //   cartItems,
         // }}
         renderItem={({ item }) => {
-          return <PickProduct product={item} skusObj={skusObj} />;
+          return <PickProduct product={item} variantsMap={variantsMap} />;
         }}
         estimatedItemSize={100}
         ListFooterComponent={<View height={100}></View>}
       ></FlashList>
-      {!!skuTotal && (
+      {!!totalVariants && (
         <View
           position="absolute"
           left={0}
@@ -90,7 +90,7 @@ export const PickProducts: FC<{ values: FormParams.CreateOrder }> = ({ values })
                     alignItems="center"
                   >
                     <BadgeText color="$white" size="2xs">
-                      {skuTotal > 99 ? '99+' : skuTotal}
+                      {totalVariants > 99 ? '99+' : totalVariants}
                     </BadgeText>
                   </Badge>
 
@@ -98,7 +98,7 @@ export const PickProducts: FC<{ values: FormParams.CreateOrder }> = ({ values })
                 </View>
                 <View flex={1}>
                   <ButtonText>
-                    <Price value={skuAmount} />
+                    <Price value={variantAmount} />
                   </ButtonText>
                 </View>
                 <View>

@@ -2,11 +2,9 @@
 import {
   DiscountType,
   InvoiceSettingFontSize,
-  OrderItemSpecification,
   OrderStatus,
   PaymentMethod,
   ProductAttributeType,
-  ProductSpecificationType,
   Role,
   UserStatus,
 } from './data.type';
@@ -103,40 +101,24 @@ export declare namespace Entity {
       unit: string;
       images?: ProductImage[];
       categories?: Category[];
-      attributes?: Attribute[];
-      skus?: Sku[];
+      options?: ProductOption[];
+      variants?: ProductVariant[];
     }>;
 
   type ProductImage = BaseEntity &
     Partial<{
-      product?: Product;
-      productId?: string;
       path: string;
     }>;
 
-  type Attribute = BaseEntity &
+  type ProductOption = BaseEntity &
     Partial<{
-      product?: Product;
-      productId: string;
       title: string;
       type?: ProductAttributeType;
-      specifications?: Specification[];
+      values?: string[];
     }>;
 
-  type Specification = BaseEntity &
+  type ProductVariant = BaseEntity &
     Partial<{
-      attribute?: Attribute;
-      attributeId?: string;
-      image?: ProductImage;
-      imageId?: string;
-      title: string;
-      type: ProductSpecificationType;
-    }>;
-
-  type Sku = BaseEntity &
-    Partial<{
-      product?: Product;
-      productId: string;
       code?: string;
       price: number;
       capitalPrice?: number;
@@ -144,9 +126,9 @@ export declare namespace Entity {
       wholesalePrice?: number;
       stock?: number | null;
       isInStock?: boolean | null;
-      // specifications?: Specification[];
-      specificationIds?: string[];
     }>;
+
+  type ProductVariantWithProduct = ProductVariant & { product: Product };
 
   type Category = BaseEntity &
     Partial<{
@@ -183,14 +165,9 @@ export declare namespace Entity {
 
   type OrderItem = BaseEntity &
     Partial<{
-      sku?: Sku;
-      skuId: string;
-      order?: Order;
-      orderId: string;
+      variantId: string;
       title: string;
-      image?: ProductImage;
-      imageId?: string;
-      specifications?: OrderItemSpecification[];
+      imagePath?: string;
       quantity: number;
       price: number;
       promotionalPrice?: number;
@@ -199,6 +176,8 @@ export declare namespace Entity {
       discountType?: DiscountType;
       discountValue?: number;
       note?: string;
+      option1?: string;
+      option2?: string;
     }>;
 
   type OrderNoteImage = BaseEntity &

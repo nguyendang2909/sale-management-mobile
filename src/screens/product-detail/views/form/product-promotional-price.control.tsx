@@ -13,7 +13,7 @@ export const ProductPromotionalPriceControl: FC<
     <>
       <Controller
         control={control}
-        name="skus.0.promotionalPrice"
+        name="variants.0.promotionalPrice"
         render={({ field, fieldState }) => {
           if (!!showPromotionalPrice || !!field.value) {
             return (

@@ -15,31 +15,33 @@ export const cartSlice = createSlice({
   name: 'cart',
   initialState,
   reducers: {
-    addCartItem: (state, { payload: skuId }: PayloadAction<string>) => {
-      if (state.items[skuId]) {
-        state.items[skuId].quantity += 1;
+    addCartItem: (state, { payload }: PayloadAction<{ productId: string; variantId: string }>) => {
+      const { variantId } = payload;
+      if (state.items[variantId]) {
+        state.items[variantId].quantity += 1;
         return;
       }
-      state.items[skuId] = {
+      state.items[variantId] = {
         quantity: 1,
-        skuId,
+        variantId,
+        productId: payload.productId,
       };
     },
-    subtractCartItem: (state, { payload: skuId }: PayloadAction<string>) => {
-      if (!state.items[skuId]) {
+    subtractCartItem: (state, { payload: variantId }: PayloadAction<string>) => {
+      if (!state.items[variantId]) {
         return;
       }
-      if (state.items[skuId].quantity === 1) {
-        state.items = _.omit(state.items, skuId);
+      if (state.items[variantId].quantity === 1) {
+        state.items = _.omit(state.items, variantId);
         return;
       }
-      state.items[skuId].quantity -= 1;
+      state.items[variantId].quantity -= 1;
     },
-    deleteCartItem: (state, { payload: skuId }: PayloadAction<string>) => {
-      delete state.items[skuId];
+    deleteCartItem: (state, { payload: variantId }: PayloadAction<string>) => {
+      delete state.items[variantId];
     },
     setCartItem: (state, { payload }: PayloadAction<CartItem>) => {
-      state.items[payload.skuId] = payload;
+      state.items[payload.variantId] = payload;
     },
     setCartItems: (state, { payload }: PayloadAction<CartItemsObj>) => {
       state.items = payload;

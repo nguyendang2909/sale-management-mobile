@@ -18,27 +18,37 @@ import { ProductPrices } from 'src/components/text/product-prices';
 import { ProductIconBox } from 'src/containers/icon/product-icon-box';
 import { useAppDispatch, useAppSelector } from 'src/hooks';
 import { cartActions } from 'src/store/cart';
-import { AppStore, CartItemsObj, SkusObj } from 'src/types';
+import { AppStore, CartItemsObj, VariantsMap } from 'src/types';
 
 type FCProps = {
   product: AppStore.Product;
-  skusObj: SkusObj;
+  variantsMap: VariantsMap;
 };
 
-export const PickProduct: FC<FCProps> = ({ product, skusObj }) => {
+export const PickProduct: FC<FCProps> = ({ product, variantsMap }) => {
   const dispatch = useAppDispatch();
-  const skuIds = useMemo(() => product.skus?.map(sku => sku.id) || [], [product.skus]);
-  const firstSkuId = useMemo(() => skuIds[0], [skuIds]);
-  const firstSku = useMemo(() => skusObj[firstSkuId], [firstSkuId, skusObj]);
-  const skuLength = useMemo(() => product.skus?.length || 0, [product.skus]);
+  const productAndVariantIds = useMemo(
+    () =>
+      product.variants?.map(variant => {
+        return {
+          variantId: variant.id,
+          productId: product.id,
+        };
+      }) || [],
+    [product.id, product.variants],
+  );
+  const firstVariantId = useMemo(() => productAndVariantIds[0].variantId, [productAndVariantIds]);
+  const firstSku = useMemo(() => variantsMap[firstVariantId], [firstVariantId, variantsMap]);
+  const variantsLength = useMemo(() => product.variants?.length || 0, [product.variants]);
   const cartItemsObj: CartItemsObj = useAppSelector(s => {
     const itemsObj = s.cart.items;
-    return skuIds.reduce<CartItemsObj>((result, skuId) => {
+    return productAndVariantIds.reduce<CartItemsObj>((result, productAndVariantId) => {
       return {
         ...result,
-        [skuId]: itemsObj[skuId] || {
+        [productAndVariantId.variantId]: itemsObj[productAndVariantId.variantId] || {
           quantity: 0,
-          skuId,
+          variantId: productAndVariantId.variantId,
+          productId: productAndVariantId.productId,
         },
       };
     }, {});
@@ -48,8 +58,8 @@ export const PickProduct: FC<FCProps> = ({ product, skusObj }) => {
   const imagePath = _.first(product.images);
 
   const handleAdd = useCallback(() => {
-    if (skuLength === 1) {
-      if (firstSku && firstSkuId && cartItemsObj[firstSkuId]) {
+    if (variantsLength === 1) {
+      if (firstSku && firstVariantId && cartItemsObj[firstVariantId]) {
         if (!_.isNil(firstSku.isInStock)) {
           if (!firstSku.isInStock) {
             Toast.show({ text1: 'Sản phẩm hết hàng', type: 'error' });
@@ -57,37 +67,38 @@ export const PickProduct: FC<FCProps> = ({ product, skusObj }) => {
           }
         } else if (
           !_.isUndefined(firstSku.stock) &&
-          (firstSku.stock || 0) <= cartItemsObj[firstSkuId].quantity
+          (firstSku.stock || 0) <= cartItemsObj[firstVariantId].quantity
         ) {
           Toast.show({ text1: 'Vượt quá số lượng sản phẩm tồn kho', type: 'error' });
           return;
         }
-        dispatch(cartActions.addCartItem(skuIds[0]));
+        dispatch(cartActions.addCartItem(productAndVariantIds[0]));
       }
     }
-  }, [cartItemsObj, dispatch, firstSku, firstSkuId, skuIds, skuLength]);
+  }, [cartItemsObj, dispatch, firstSku, firstVariantId, productAndVariantIds, variantsLength]);
 
   const handleSubtract = useCallback(() => {
-    if (skuLength === 1) {
-      dispatch(cartActions.subtractCartItem(skuIds[0]));
+    if (variantsLength === 1) {
+      dispatch(cartActions.subtractCartItem(productAndVariantIds[0].variantId));
     }
-  }, [dispatch, skuIds, skuLength]);
+  }, [dispatch, productAndVariantIds, variantsLength]);
 
   const handleSet = useCallback(
     (e: string) => {
-      if (skuLength === 1) {
+      if (variantsLength === 1) {
         const eNumber = +e;
         if (_.isNumber(eNumber) && eNumber >= 0) {
           dispatch(
             cartActions.setCartItem({
               quantity: _.round(eNumber, 0),
-              skuId: _.get(product, 'sku[0].id', ''),
+              variantId: _.get(product, 'variant[0].id', ''),
+              productId: product.id,
             }),
           );
         }
       }
     },
-    [dispatch, product, skuLength],
+    [dispatch, product, variantsLength],
   );
 
   return (

@@ -1,6 +1,6 @@
 import { Image } from 'react-native-image-crop-picker';
 
-import { OrderStatus, PaymentMethod, PaymentType, ProductAttributeType } from './data.type';
+import { OrderStatus, PaymentMethod, PaymentType } from './data.type';
 import { Entity } from './entities.type';
 import { ApiRequest } from './fe.type';
 
@@ -113,25 +113,17 @@ export declare namespace FormParams {
     type: PaymentType;
   };
 
-  type CreateProductSpecification = {
-    id: string;
-    title: string;
-    // type: ProductSpecificationType | null;
-    imageId: string | null;
-  };
-
-  type CreateProductAttribute = {
+  type CreateProductOption = {
     id: string | null;
     title: string;
-    type: ProductAttributeType | null;
-    specifications: CreateProductSpecification[];
+    values: string[];
   };
 
   type CreateProductClassification = {
-    attributes: CreateProductAttribute[];
+    options: CreateProductOption[];
   };
 
-  type CreateProductSku = {
+  type CreateProductVariant = {
     id: string | null;
     code: string | null;
     price: number | null;
@@ -139,8 +131,10 @@ export declare namespace FormParams {
     promotionalPrice: number | null;
     wholesalePrice: number | null;
     stock: number | null;
-    specificationIds: string[];
     isInStock: boolean | null;
+    isEnabled: boolean;
+    option1?: string | null;
+    option2?: string | null;
   };
 
   type CreateProduct = {
@@ -151,8 +145,8 @@ export declare namespace FormParams {
     minWholesalePriceQuantity: number | null;
     categoryIds: string[];
     images: Entity.ProductImage[];
-    attributes: CreateProductAttribute[];
-    skus: CreateProductSku[];
+    options: CreateProductOption[];
+    variants: CreateProductVariant[];
   };
 
   type EditSku = {

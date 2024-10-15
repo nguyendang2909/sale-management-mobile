@@ -28,14 +28,15 @@ export type ProductWithQuantity = Entity.Product & { quantity: number; productId
 
 export type CartItem = {
   quantity: number;
-  skuId: string;
+  variantId: string;
+  productId: string;
 };
 
 export type CartItemsObj = Record<string, CartItem>;
 
 export type Size = ValueOf<typeof SIZES>;
 
-export type SkusObj = Record<string, Entity.Sku>;
+export type VariantsMap = Record<string, Entity.ProductVariant & { product: Entity.Product }>;
 
 export type ViewType = typeof View;
 

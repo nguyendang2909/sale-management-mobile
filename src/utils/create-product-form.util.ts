@@ -18,7 +18,7 @@ class CreateProductFormUtil {
         description: Yup.string().max(10000).required().nullable(),
         label: Yup.string().required().nullable(),
         minWholesalePriceQuantity: Yup.number().required().nullable(),
-        attributes: Yup.array()
+        options: Yup.array()
           .of(
             Yup.object({
               id: Yup.string().required().nullable(),
@@ -27,23 +27,11 @@ class CreateProductFormUtil {
                 .oneOf(Object.values(PRODUCT_ATTRIBUTE_TYPES_MAP))
                 .required()
                 .nullable(),
-              specifications: Yup.array()
-                .of(
-                  Yup.object({
-                    id: Yup.string().required(),
-                    // type: Yup.string()
-                    //   .oneOf(Object.values(PRODUCT_SPECIFICATION_TYPES))
-                    //   .required()
-                    //   .nullable(),
-                    title: Yup.string().required(),
-                    imageId: Yup.string().required().nullable(),
-                  }),
-                )
-                .required(),
+              values: Yup.array().min(1).of(Yup.string().required()).required(),
             }),
           )
           .required(),
-        skus: Yup.array()
+        variants: Yup.array()
           .of(
             Yup.object({
               id: Yup.string().required().nullable(),
@@ -70,7 +58,9 @@ class CreateProductFormUtil {
                 .nullable(),
               stock: Yup.number().integer().positive().required().nullable(),
               isInStock: Yup.boolean().required().nullable(),
-              specificationIds: Yup.array().of(Yup.string().required()).required(),
+              option1: Yup.string().required().nullable(),
+              option2: Yup.string().required().nullable(),
+              isEnabled: Yup.boolean().required(),
             }),
           )
           .required(),
@@ -90,16 +80,16 @@ class CreateProductFormUtil {
       label: null,
       categoryIds: [],
       images: [],
-      attributes: this.getDefaultAttributes(),
-      skus: this.getDefaultSkus(),
+      options: this.getDefaultOptions(),
+      variants: this.getDefaultVariants(),
     };
   }
 
-  getDefaultAttributes() {
+  getDefaultOptions() {
     return [];
   }
 
-  getDefaultSkus() {
+  getDefaultVariants() {
     return [
       {
         id: null,
@@ -110,7 +100,9 @@ class CreateProductFormUtil {
         wholesalePrice: null,
         stock: null,
         isInStock: true,
-        specificationIds: [],
+        option1: null,
+        option2: null,
+        isEnabled: true,
       },
     ];
   }

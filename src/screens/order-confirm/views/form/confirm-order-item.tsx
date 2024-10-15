@@ -16,57 +16,64 @@ import _ from 'lodash';
 import { MinusCircle, PlusCircle } from 'lucide-react-native';
 import React, { FC, useCallback, useMemo } from 'react';
 import { TouchableHighlight } from 'react-native';
-import { SkuPrice } from 'src/components/text/sku-price';
+import { ProductVariantPrice } from 'src/components/text/variant-price';
 import { ProductIconBox } from 'src/containers/icon/product-icon-box';
 import { useAppDispatch, useAppSelector } from 'src/hooks';
 import { cartActions } from 'src/store/cart';
 import { CartItem, Entity } from 'src/types';
 
 type FCProps = {
-  sku: Entity.Sku;
+  variant: Entity.ProductVariant;
+  product: Entity.Product;
   // onAdd: (productId: string) => void;
   // onSubtract: (productId: string) => void;
   // onSet: (item: PickedOrderItem) => void;
   // onDelete: (productId: string) => void;
 };
 
-export const ConfirmOrderItem: FC<FCProps> = ({ sku }) => {
+export const ConfirmOrderItem: FC<FCProps> = ({ variant, product }) => {
   const dispatch = useAppDispatch();
-  const skuId = useMemo(() => sku.id, [sku.id]);
-  const imagePath = _.first(sku.product?.images)?.path;
+  const variantId = useMemo(() => variant.id, [variant.id]);
+  const imagePath = _.first(product.images)?.path;
   const cartItem: CartItem = useAppSelector(
     e =>
-      e.cart.items[skuId] || {
+      e.cart.items[variantId] || {
         quantity: 0,
-        skuId,
+        variantId,
       },
   );
 
   const handleAdd = useCallback(() => {
-    // if (!_.isNil(sku.product?.isInStock)) {
-    //   if (!sku.product.isInStock) {
+    // if (!_.isNil(variant.product?.isInStock)) {
+    //   if (!variant.product.isInStock) {
     //     Toast.show({ text1: 'Sản phẩm hết hàng', type: 'error' });
     //     return;
     //   }
-    // } else if (!_.isNil(sku.stock) && sku.stock <= cartItem.quantity) {
+    // } else if (!_.isNil(variant.stock) && variant.stock <= cartItem.quantity) {
     //   Toast.show({ text1: 'Vượt quá số lượng sản phẩm tồn kho', type: 'error' });
     //   return;
     // }
-    dispatch(cartActions.addCartItem(skuId));
-  }, [dispatch, skuId]);
+    dispatch(cartActions.addCartItem({ variantId, productId: product.id }));
+  }, [dispatch, product.id, variantId]);
 
   const handleSubtract = useCallback(() => {
-    dispatch(cartActions.subtractCartItem(skuId));
-  }, [dispatch, skuId]);
+    dispatch(cartActions.subtractCartItem(variantId));
+  }, [dispatch, variantId]);
 
   const handleSet = useCallback(
     (e: string) => {
       const eNumber = +e;
       if (_.isNumber(eNumber) && eNumber >= 0) {
-        dispatch(cartActions.setCartItem({ skuId, quantity: _.round(eNumber, 0) }));
+        dispatch(
+          cartActions.setCartItem({
+            variantId,
+            productId: product.id,
+            quantity: _.round(eNumber, 0),
+          }),
+        );
       }
     },
-    [dispatch, skuId],
+    [dispatch, product.id, variantId],
   );
 
   const handleDelete = useCallback(
@@ -109,7 +116,7 @@ export const ConfirmOrderItem: FC<FCProps> = ({ sku }) => {
           <VStack>
             <View height={22}>
               <Text lineHeight={22} numberOfLines={1}>
-                {sku.product?.title}
+                {product.title}
               </Text>
             </View>
             <View height={21}>
@@ -117,7 +124,7 @@ export const ConfirmOrderItem: FC<FCProps> = ({ sku }) => {
             </View>
             <View height={21}>
               <Text lineHeight={21} color="$red600">
-                <SkuPrice sku={sku} />
+                <ProductVariantPrice variant={variant} />
               </Text>
             </View>
           </VStack>

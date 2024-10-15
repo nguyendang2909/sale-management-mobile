@@ -1,6 +1,5 @@
 import { KeyboardAvoidingView, ScrollView, View } from '@gluestack-ui/themed';
 import { StackActions, useNavigation } from '@react-navigation/native';
-import _ from 'lodash';
 import React, { FC, useCallback, useMemo } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import Toast from 'react-native-toast-message';
@@ -12,7 +11,7 @@ import { ApiRequest, FormParams } from 'src/types';
 import { createProductFormUtil } from 'src/utils';
 
 import { SectionFooter } from './footer/section-footer';
-import { ModalProductOptions } from './modal-attributes/modal-attributes';
+import { ModalProductOptions } from './modal-product-options/modal-product-options';
 import { SectionAdditional } from './section-additional/section-additional';
 import { SectionProductBasicInfo } from './section-basic-info/section-product-basic-info';
 import { SectionProductClassification } from './section-classification/section-product-classification';
@@ -51,25 +50,22 @@ export const ContentProductCreate: FC = () => {
     resolver: createProductFormUtil.getResolver(),
   });
 
-  const isInStock = watch('skus.0.isInStock');
+  const isInStock = watch('variants.0.isInStock');
   const isTrackingStock = useMemo(() => isInStock === null, [isInStock]);
-  const attributesValue = watch('attributes');
-  const hasDefaultSku = useMemo(() => attributesValue.length === 0, [attributesValue]);
-  const specifications = attributesValue.reduce<FormParams.CreateProductSpecification[]>(
-    (acc, attr) => {
-      const specifications = attr.specifications;
-      return acc.concat(acc.concat(specifications));
-    },
-    [],
-  );
-  const specificationsMap = _.keyBy(specifications, 'id');
+  const valueProductOptions = watch('options');
+  const hasDefaultVariant = useMemo(() => valueProductOptions.length === 0, [valueProductOptions]);
+  const productOptionValues = valueProductOptions.reduce<string[]>((acc, productOption) => {
+    const optionValue = productOption.values;
+    return acc.concat(acc.concat(optionValue));
+  }, []);
+  const productOptionsSet = new Set(...productOptionValues);
 
   const onSubmit: SubmitHandler<FormParams.CreateProduct> = async values => {
     try {
-      const { images, skus, ...restValues } = values;
+      const { images, variants, ...restValues } = values;
       const payload: ApiRequest.CreateProduct = {
         ...restValues,
-        skus: skus.map(e => ({ ...e, price: e.price || 0 })),
+        variants: variants.map(e => ({ ...e, price: e.price || 0 })),
       };
       if (images.length) {
         payload.imageIds = images.map(e => e.id);
@@ -98,24 +94,24 @@ export const ContentProductCreate: FC = () => {
     await handleSubmit(onSubmit)();
   };
 
-  const setSkus = useCallback(
-    (skusValue: FormParams.CreateProductSku[]) => {
-      setValue('skus', skusValue, { shouldDirty: true });
+  const setVariants = useCallback(
+    (valueVariants: FormParams.CreateProductVariant[]) => {
+      setValue('variants', valueVariants, { shouldDirty: true });
     },
     [setValue],
   );
 
-  const getSkus = useCallback(() => {
-    return getValues('skus');
+  const getVariants = useCallback(() => {
+    return getValues('variants');
   }, [getValues]);
 
-  const setSku = useCallback(
-    (index: number, skuValue: FormParams.CreateProductSku) => {
-      const skusValue = getSkus();
-      skusValue[index] = skuValue;
-      setValue('skus', skusValue, { shouldDirty: true });
+  const setVariant = useCallback(
+    (index: number, valueVariant: FormParams.CreateProductVariant) => {
+      const valueVariants = getVariants();
+      valueVariants[index] = valueVariant;
+      setValue('variants', valueVariants, { shouldDirty: true });
     },
-    [getSkus, setValue],
+    [getVariants, setValue],
   );
 
   return (
@@ -128,19 +124,18 @@ export const ContentProductCreate: FC = () => {
             showsVerticalScrollIndicator={false}
             keyboardShouldPersistTaps="handled"
           >
-            <SectionProductBasicInfo hasDefaultSku={hasDefaultSku} control={control} />
+            <SectionProductBasicInfo hasDefaultSku={hasDefaultVariant} control={control} />
             <SectionStockManagement
               mt={16}
-              isEnabled={hasDefaultSku}
+              isEnabled={hasDefaultVariant}
               isTrackingStock={isTrackingStock}
               control={control}
             />
             <SectionProductClassification
               mt={16}
               control={control}
-              setSku={setSku}
-              hasDefaultSku={hasDefaultSku}
-              specificationsMap={specificationsMap}
+              setVariant={setVariant}
+              hasDefaultVariant={hasDefaultVariant}
               getProduct={getValues}
               onOpenModal={onOpenModalProductOptions}
             />
@@ -158,10 +153,10 @@ export const ContentProductCreate: FC = () => {
       </View>
       <ModalProductOptions
         control={control}
-        getSkus={getSkus}
+        getVariants={getVariants}
         onClose={onCloseModalProductOptions}
         isOpen={isOpenModalProductOptions}
-        setSkus={setSkus}
+        setVariants={setVariants}
       />
     </>
   );

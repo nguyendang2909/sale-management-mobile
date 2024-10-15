@@ -14,7 +14,7 @@ export const ControlProductTrackingStock: FC<
     <>
       <Controller
         control={control}
-        name="skus.0.isInStock"
+        name="variants.0.isInStock"
         rules={{ required: true }}
         render={({ field }) => (
           <View {...viewProps}>

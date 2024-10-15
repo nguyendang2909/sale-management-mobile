@@ -110,14 +110,14 @@ class ProductUtil extends BaseUtil {
   getPriceRange(product: AppStore.Product) {
     let minPrice = Infinity;
     let maxPrice = 0;
-    product.skus?.forEach(sku => {
-      const skuPrice = sku.promotionalPrice || sku.price;
-      if (skuPrice) {
-        if (minPrice > skuPrice) {
-          minPrice = skuPrice;
+    product.variants?.forEach(variant => {
+      const variantPrice = variant.promotionalPrice || variant.price;
+      if (variantPrice) {
+        if (minPrice > variantPrice) {
+          minPrice = variantPrice;
         }
-        if (maxPrice < skuPrice) {
-          maxPrice = skuPrice;
+        if (maxPrice < variantPrice) {
+          maxPrice = variantPrice;
         }
       }
     });

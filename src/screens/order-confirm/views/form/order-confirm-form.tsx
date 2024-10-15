@@ -18,7 +18,7 @@ import { getState } from 'src/store';
 import { cartActions } from 'src/store/cart';
 import { selectCurrentShopId } from 'src/store/shop';
 import { FormParams } from 'src/types';
-import { createOrderFormUtil, skuUtil } from 'src/utils';
+import { createOrderFormUtil, productVariantUtil } from 'src/utils';
 
 import { ConfirmOrderItem } from './confirm-order-item';
 import { ConfirmOrderPrices } from './confirm-order-prices';
@@ -33,14 +33,14 @@ export const OrderConfirmForm: FC<{ values: FormParams.CreateOrder }> = ({ value
 
   const { data: products } = useProducts();
   const settings = useAppSelector(s => s.app.orderSettings);
-  const skuItemsObj = useAppSelector(s => {
+  const variantItemsMap = useAppSelector(s => {
     return Object.values(s.cart.items).reduce((acc, item) => {
-      return { ...acc, [item.skuId]: item.skuId };
+      return { ...acc, [item.variantId]: item.variantId };
     }, {});
   }, _.isEqual);
-  const pickedSkus = useMemo(
-    () => skuUtil.getPickedSkusFromProducts(products, skuItemsObj),
-    [skuItemsObj, products],
+  const pickedVariants = useMemo(
+    () => productVariantUtil.getPickedSkusFromProducts(products, variantItemsMap),
+    [variantItemsMap, products],
   );
 
   const defaultValues = useMemo(() => {
@@ -100,7 +100,7 @@ export const OrderConfirmForm: FC<{ values: FormParams.CreateOrder }> = ({ value
           <FlashList
             showsVerticalScrollIndicator={false}
             numColumns={1}
-            data={pickedSkus}
+            data={pickedVariants}
             keyExtractor={(item, index) => item.id || index.toString()}
             // extraData={{
             //   a: 1,
@@ -108,7 +108,8 @@ export const OrderConfirmForm: FC<{ values: FormParams.CreateOrder }> = ({ value
             renderItem={({ item }) => {
               return (
                 <ConfirmOrderItem
-                  sku={item}
+                  variant={item}
+                  product={item.product}
                   // onAdd={handleAdd}
                   // onSubtract={handleSubtract}
                   // onSet={handleSet}
@@ -168,7 +169,7 @@ export const OrderConfirmForm: FC<{ values: FormParams.CreateOrder }> = ({ value
         px={16}
       >
         <View>
-          <ConfirmOrderPrices pickedSkus={pickedSkus} />
+          <ConfirmOrderPrices pickedVariants={pickedVariants} />
         </View>
         <View mt={16}>
           <HStack columnGap={16} flex={1}>

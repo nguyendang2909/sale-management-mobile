@@ -111,14 +111,11 @@ export declare namespace ApiRequest {
     unit: string | null;
     categoryIds?: string[];
     imageIds?: string[];
-    attributes: {
+    options: {
       title: string;
-      specifications: {
-        title: string;
-        id: string;
-      }[];
+      values: string[];
     }[];
-    skus: {
+    variants: {
       code: string | null;
       price: number;
       capitalPrice: number | null;
@@ -126,11 +123,11 @@ export declare namespace ApiRequest {
       wholesalePrice: number | null;
       stock: number | null;
       isInStock: boolean | null;
-      specificationIds: string[];
+      isEnabled: boolean;
     }[];
   };
 
-  type UpdateProductSku = {
+  type UpdateProductVariant = {
     id?: string;
     code?: string | null;
     price?: number;
@@ -140,7 +137,8 @@ export declare namespace ApiRequest {
     stock?: number | null;
     isInStock?: boolean | null;
     isEnabled?: boolean | null;
-    specificationIds?: string[];
+    option1?: string | null;
+    option2?: string | null;
   };
 
   type UpdateProduct = Partial<{
@@ -151,15 +149,12 @@ export declare namespace ApiRequest {
     unit: string | null;
     categoryIds?: string[];
     imageIds?: string[];
-    attributes: {
+    options: {
       id?: string;
       title: string;
-      specifications: {
-        title: string;
-        id: string;
-      }[];
+      values: string[];
     }[];
-    skus: UpdateProductSku[];
+    variants: UpdateProductVariant[];
   }>;
 
   type CreateCustomer = {
@@ -185,7 +180,7 @@ export declare namespace ApiRequest {
     searchText?: string;
   };
 
-  type CreateOrderItem = { skuId: string; quantity: number };
+  type CreateOrderItem = { productId: string; variantId: string; quantity: number };
 
   type CreateOrder = {
     shopId: string;
@@ -203,7 +198,7 @@ export declare namespace ApiRequest {
 
   type UpdateOrderItem = {
     id?: string;
-    skuId?: string;
+    variantId?: string;
     quantity: string;
   };
 

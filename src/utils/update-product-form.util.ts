@@ -19,7 +19,7 @@ class UpdateProductFormUtil {
         description: Yup.string().max(10000).required().nullable(),
         label: Yup.string().required().nullable(),
         minWholesalePriceQuantity: Yup.number().required().nullable(),
-        attributes: Yup.array()
+        options: Yup.array()
           .of(
             Yup.object({
               id: Yup.string().required().nullable(),
@@ -28,23 +28,11 @@ class UpdateProductFormUtil {
                 .oneOf(Object.values(PRODUCT_ATTRIBUTE_TYPES_MAP))
                 .required()
                 .nullable(),
-              specifications: Yup.array()
-                .of(
-                  Yup.object({
-                    id: Yup.string().required(),
-                    // type: Yup.string()
-                    //   .oneOf(Object.values(PRODUCT_SPECIFICATION_TYPES))
-                    //   .required()
-                    //   .nullable(),
-                    title: Yup.string().required(),
-                    imageId: Yup.string().required().nullable(),
-                  }),
-                )
-                .required(),
+              values: Yup.array().min(1).of(Yup.string().required()).required(),
             }),
           )
           .required(),
-        skus: Yup.array()
+        variants: Yup.array()
           .of(
             Yup.object({
               id: Yup.string().required().nullable(),
@@ -71,7 +59,7 @@ class UpdateProductFormUtil {
                 .nullable(),
               stock: Yup.number().integer().positive().required().nullable(),
               isInStock: Yup.boolean().required().nullable(),
-              specificationIds: Yup.array().of(Yup.string().required()).required(),
+              isEnabled: Yup.boolean().required(),
             }),
           )
           .required(),
@@ -79,41 +67,33 @@ class UpdateProductFormUtil {
     );
   }
 
-  getDefaultSkus(product: AppStore.Product): FormParams.CreateProductSku[] {
-    return product.skus?.length
-      ? product.skus.map(sku => {
+  getDefaultVariants(product: AppStore.Product): FormParams.CreateProductVariant[] {
+    return product.variants?.length
+      ? product.variants.map(variant => {
           return {
-            id: sku.id || null,
-            code: sku.code || null,
-            price: sku.price || null,
-            capitalPrice: sku.capitalPrice || null,
-            promotionalPrice: sku.promotionalPrice || null,
-            wholesalePrice: sku.wholesalePrice || null,
-            stock: sku.stock || null,
-            specificationIds: sku.specificationIds || [],
-            isInStock: sku.isInStock || null,
+            id: variant.id || null,
+            code: variant.code || null,
+            price: variant.price || null,
+            capitalPrice: variant.capitalPrice || null,
+            promotionalPrice: variant.promotionalPrice || null,
+            wholesalePrice: variant.wholesalePrice || null,
+            stock: variant.stock || null,
+            isInStock: variant.isInStock || null,
+            isEnabled: true,
+            option1: null,
+            option2: null,
           };
         })
       : [];
   }
 
-  getDefaultAttributes(product: AppStore.Product): FormParams.CreateProductAttribute[] {
-    return product.attributes?.length
-      ? product.attributes.map(attribute => {
+  getDefaultOptions(product: AppStore.Product): FormParams.CreateProductOption[] {
+    return product.options?.length
+      ? product.options.map(option => {
           return {
-            id: attribute.id || null,
-            title: attribute.title || '',
-            type: attribute.type || null,
-            specifications: attribute.specifications?.length
-              ? attribute.specifications.map(specification => {
-                  return {
-                    id: specification.id,
-                    title: specification.title || '',
-                    // type: ProductSpecificationType | null;
-                    imageId: specification.imageId || null,
-                  };
-                })
-              : [],
+            id: option.id || null,
+            title: option.title || '',
+            values: option.values || [],
           };
         })
       : [];
@@ -128,23 +108,23 @@ class UpdateProductFormUtil {
       minWholesalePriceQuantity: product.minWholesalePriceQuantity || null,
       description: product.description || null,
       label: product.label || null,
-      skus: this.getDefaultSkus(product),
-      attributes: this.getDefaultAttributes(product),
+      variants: this.getDefaultVariants(product),
+      options: this.getDefaultOptions(product),
     };
   }
 
   getSkuPayload(
-    sku: FormParams.CreateProductSku,
-    defaultSkusMap: Record<string, FormParams.CreateProductSku>,
-  ): ApiRequest.UpdateProductSku {
-    const { id, price, ...restValue } = sku;
+    variant: FormParams.CreateProductVariant,
+    defaultSkusMap: Record<string, FormParams.CreateProductVariant>,
+  ): ApiRequest.UpdateProductVariant {
+    const { id, price, ...restValue } = variant;
     if (id) {
       const defaultSku = defaultSkusMap[id];
       if (!defaultSku) {
         throw new Error('Sản phẩm không đúng, vui lòng thử lại');
       }
       const { price: formSkuPriceValue, ...formSkuValue } = formParamUtil.getDifferent(
-        sku,
+        variant,
         defaultSku,
       );
       return {

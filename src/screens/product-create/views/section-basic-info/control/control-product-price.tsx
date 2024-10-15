@@ -13,7 +13,7 @@ export const ControlProductPrice: FC<
     <>
       <Controller
         control={control}
-        name="skus.0.price"
+        name="variants.0.price"
         rules={{ required: true }}
         render={({ field, fieldState }) => {
           return (

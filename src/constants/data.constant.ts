@@ -64,7 +64,7 @@ export const API_TAGS = {
   PAYMENTS: '/payments',
   QR_CODE: '/qr-code',
   STATISTICS: '/statistics',
-  SKUS: '/skus',
+  SKUS: '/variants',
   ITEMS: '/items',
   NOTIFICATIONS: '/notifications',
   INVOICES: '/invoices',

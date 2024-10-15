@@ -8,7 +8,7 @@ import { useUpdateProductMutation } from 'src/api';
 import { LoadingOverlay } from 'src/components';
 import { HOME_SCREENS, SCREENS } from 'src/constants';
 import { useDisclose, useInit, useMessages, useProduct } from 'src/hooks';
-import { ModalProductOptions } from 'src/screens/product-create/views/modal-attributes/modal-attributes';
+import { ModalProductOptions } from 'src/screens/product-create/views/modal-product-options/modal-product-options';
 import { SectionAdditional } from 'src/screens/product-create/views/section-additional/section-additional';
 import { SectionProductBasicInfo } from 'src/screens/product-create/views/section-basic-info/section-product-basic-info';
 import { SectionProductClassification } from 'src/screens/product-create/views/section-classification/section-product-classification';
@@ -42,13 +42,13 @@ export const ContentProduct: FC<FCProps> = ({ detail }) => {
 
   const { isInit: isInitModalProductOptions } = useInit();
 
-  const defaultSkus = useMemo(() => updateProductFormUtil.getDefaultSkus(product), [product]);
-  const defaultSkusMap = useMemo(() => _.keyBy(defaultSkus, 'id'), [defaultSkus]);
-
-  const defaultAttributes = useMemo(
-    () => updateProductFormUtil.getDefaultAttributes(product),
+  const defaultVariants = useMemo(
+    () => updateProductFormUtil.getDefaultVariants(product),
     [product],
   );
+  const defaultVariantsMap = useMemo(() => _.keyBy(defaultVariants, 'id'), [defaultVariants]);
+
+  const defaultOptions = useMemo(() => updateProductFormUtil.getDefaultOptions(product), [product]);
 
   const defaultValues = useMemo(() => updateProductFormUtil.getDefaultValues(product), [product]);
 
@@ -65,18 +65,13 @@ export const ContentProduct: FC<FCProps> = ({ detail }) => {
     resolver: updateProductFormUtil.getResolver(),
   });
 
-  const isInStock = watch('skus.0.isInStock');
+  const isInStock = watch('variants.0.isInStock');
   const isTrackingStock = useMemo(() => isInStock === null, [isInStock]);
-  const attributesValue = watch('attributes');
-  const hasDefaultSku = useMemo(() => attributesValue.length === 0, [attributesValue]);
-  const specifications = attributesValue.reduce<FormParams.CreateProductSpecification[]>(
-    (acc, attr) => {
-      const specifications = attr.specifications;
-      return acc.concat(acc.concat(specifications));
-    },
-    [],
-  );
-  const specificationsMap = _.keyBy(specifications, 'id');
+  const valueOptions = watch('options');
+  const hasDefaultVariant = useMemo(() => valueOptions.length === 0, [valueOptions]);
+  const optionValues = valueOptions.reduce<string[]>((acc, option) => {
+    return acc.concat(acc.concat(option.values));
+  }, []);
 
   console.log(errors);
 
@@ -86,7 +81,7 @@ export const ContentProduct: FC<FCProps> = ({ detail }) => {
 
   const onSubmit: SubmitHandler<FormParams.CreateProduct> = async values => {
     try {
-      const { images, skus, attributes, ...restValues } = values;
+      const { images, variants, options, ...restValues } = values;
       const body: ApiRequest.UpdateProduct = {
         ...formParamUtil.getDifferent(restValues, defaultValues),
       };
@@ -95,9 +90,9 @@ export const ContentProduct: FC<FCProps> = ({ detail }) => {
       if (!_.isEqual(imageIds, defaultImageIds)) {
         body.imageIds = imageIds;
       }
-      if (!_.isEqual(skus, defaultSkus)) {
-        body.skus = skus.map(skuValue => {
-          return updateProductFormUtil.getSkuPayload(skuValue, defaultSkusMap);
+      if (!_.isEqual(variants, defaultVariants)) {
+        body.variants = variants.map(valueOption => {
+          return updateProductFormUtil.getSkuPayload(valueOption, defaultVariantsMap);
         });
       }
       await updateProductMutation({ id: product.id, body }).unwrap();
@@ -113,24 +108,24 @@ export const ContentProduct: FC<FCProps> = ({ detail }) => {
     }
   };
 
-  const setSkus = useCallback(
-    (skusValue: FormParams.CreateProductSku[]) => {
-      setValue('skus', skusValue, { shouldDirty: true });
+  const setVariants = useCallback(
+    (valueVariants: FormParams.CreateProductVariant[]) => {
+      setValue('variants', valueVariants, { shouldDirty: true });
     },
     [setValue],
   );
 
-  const getSkus = useCallback(() => {
-    return getValues('skus');
+  const getVariants = useCallback(() => {
+    return getValues('variants');
   }, [getValues]);
 
-  const setSku = useCallback(
-    (index: number, skuValue: FormParams.CreateProductSku) => {
-      const skusValue = getSkus();
-      skusValue[index] = skuValue;
-      setValue('skus', skusValue, { shouldDirty: true });
+  const setVariant = useCallback(
+    (index: number, valueProductVariant: FormParams.CreateProductVariant) => {
+      const valueVariants = getVariants();
+      valueVariants[index] = valueProductVariant;
+      setValue('variants', valueVariants, { shouldDirty: true });
     },
-    [getSkus, setValue],
+    [getVariants, setValue],
   );
 
   return (
@@ -144,19 +139,18 @@ export const ContentProduct: FC<FCProps> = ({ detail }) => {
               showsVerticalScrollIndicator={false}
               keyboardShouldPersistTaps="handled"
             >
-              <SectionProductBasicInfo hasDefaultSku={hasDefaultSku} control={control} />
+              <SectionProductBasicInfo hasDefaultSku={hasDefaultVariant} control={control} />
               <SectionStockManagement
                 mt={16}
-                isEnabled={hasDefaultSku}
+                isEnabled={hasDefaultVariant}
                 isTrackingStock={isTrackingStock}
                 control={control}
               />
               <SectionProductClassification
                 mt={16}
                 control={control}
-                setSku={setSku}
-                hasDefaultSku={hasDefaultSku}
-                specificationsMap={specificationsMap}
+                setVariant={setVariant}
+                hasDefaultVariant={hasDefaultVariant}
                 getProduct={getValues}
                 onOpenModal={onOpenModalProductOptions}
               />
@@ -177,12 +171,12 @@ export const ContentProduct: FC<FCProps> = ({ detail }) => {
       </View>
       <ModalProductOptions
         control={control}
-        getSkus={getSkus}
+        getVariants={getVariants}
         onClose={onCloseModalProductOptions}
         isOpen={isOpenModalProductOptions}
-        setSkus={setSkus}
-        defaultAttributes={defaultAttributes}
-        defaultSkus={defaultSkus}
+        setVariants={setVariants}
+        defaultOptions={defaultOptions}
+        defaultVariants={defaultVariants}
       />
     </>
   );

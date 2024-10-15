@@ -11,7 +11,7 @@ export const ProductCapitalPriceControl: FC<
     <>
       <Controller
         control={control}
-        name="skus.0.capitalPrice"
+        name="variants.0.capitalPrice"
         render={({ field, fieldState }) => (
           <View {...viewProps}>
             <PriceInput

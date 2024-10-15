@@ -22,7 +22,7 @@ export const ControlProductStock: FC<
     <>
       <Controller
         control={control}
-        name="skus.0.stock"
+        name="variants.0.stock"
         render={({ field }) => (
           <View {...viewProps}>
             <IntegerInput

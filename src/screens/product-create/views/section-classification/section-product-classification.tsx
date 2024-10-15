@@ -4,26 +4,17 @@ import { FC } from 'react';
 import { Control, Controller, UseFormGetValues } from 'react-hook-form';
 import { FormParams, ViewProps } from 'src/types';
 
-import { SkuList } from './modal/sku-list/sku-list';
+import { ProductVariantList } from './modal/variant-list/product-variant-list';
 
 export const SectionProductClassification: FC<
   ViewProps & {
     control: Control<FormParams.CreateProduct, any>;
-    setSku: (index: number, skuValue: FormParams.CreateProductSku) => void;
+    setVariant: (index: number, variantValue: FormParams.CreateProductVariant) => void;
     getProduct: UseFormGetValues<FormParams.CreateProduct>;
-    hasDefaultSku: boolean;
-    specificationsMap: Record<string, FormParams.CreateProductSpecification>;
+    hasDefaultVariant: boolean;
     onOpenModal: () => void;
   }
-> = ({
-  control,
-  setSku,
-  hasDefaultSku,
-  specificationsMap,
-  getProduct,
-  onOpenModal,
-  ...viewProps
-}) => {
+> = ({ control, setVariant, hasDefaultVariant, getProduct, onOpenModal, ...viewProps }) => {
   return (
     <>
       <View {...viewProps}>
@@ -34,17 +25,16 @@ export const SectionProductClassification: FC<
           <View>
             <Controller
               control={control}
-              name="skus"
+              name="variants"
               rules={{ required: true }}
               render={({ field: { value } }) => {
-                if (hasDefaultSku) {
+                if (hasDefaultVariant) {
                   return <></>;
                 }
                 return (
-                  <SkuList
-                    setSku={setSku}
-                    skus={value}
-                    specificationsMap={specificationsMap}
+                  <ProductVariantList
+                    setVariant={setVariant}
+                    variants={value}
                     getProduct={getProduct}
                   />
                 );

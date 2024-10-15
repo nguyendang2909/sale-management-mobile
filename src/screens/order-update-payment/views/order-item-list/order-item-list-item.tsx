@@ -12,14 +12,14 @@ type FCProps = {
 export const OrderItemListItem: FC<FCProps> = ({ orderItem }) => {
   const dispatch = useAppDispatch();
 
-  const { quantity, image } = orderItem;
+  const { quantity, imagePath } = orderItem;
 
   return (
     <View>
       <View bg="$white" px={16}>
         <HStack columnGap={8} py={8}>
           <View>
-            <ProductIconBox url={image?.path} />
+            <ProductIconBox url={imagePath} />
           </View>
           <VStack flex={1}>
             <View height={22}>
