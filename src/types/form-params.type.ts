@@ -125,7 +125,7 @@ export declare namespace FormParams {
 
   type CreateProductVariant = {
     id: string | null;
-    code: string | null;
+    sku: string | null;
     price: number | null;
     capitalPrice: number | null;
     promotionalPrice: number | null;
@@ -151,7 +151,7 @@ export declare namespace FormParams {
 
   type EditVariant = {
     id: string | null;
-    code: string | null;
+    sku: string | null;
     price: number | null;
     capitalPrice: number | null;
     promotionalPrice: number | null;

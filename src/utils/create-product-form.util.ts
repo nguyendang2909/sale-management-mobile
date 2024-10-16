@@ -30,7 +30,7 @@ class CreateProductFormUtil {
           .of(
             Yup.object({
               id: Yup.string().required().nullable(),
-              code: Yup.string().required().nullable(),
+              sku: Yup.string().required().nullable(),
               price: Yup.number()
                 .positive('Giá không đúng')
                 .notOneOf([0], 'Giá không đúng')
@@ -88,7 +88,7 @@ class CreateProductFormUtil {
     return [
       {
         id: null,
-        code: null,
+        sku: null,
         price: null,
         capitalPrice: null,
         promotionalPrice: null,

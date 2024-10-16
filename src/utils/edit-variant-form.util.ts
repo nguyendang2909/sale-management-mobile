@@ -8,7 +8,7 @@ class EditVariantFormUtil {
     return yupResolver<FormParams.EditVariant>(
       Yup.object({
         id: Yup.string().required().nullable(),
-        code: Yup.string().required().nullable(),
+        sku: Yup.string().required().nullable(),
         price: Yup.number()
           .positive('Giá không đúng')
           .notOneOf([0], 'Giá không đúng')
@@ -39,7 +39,7 @@ class EditVariantFormUtil {
     const isInStock = initValues?.isInStock !== undefined ? initValues?.isInStock : true;
     return {
       id: initValues?.id || null,
-      code: initValues?.code || null,
+      sku: initValues?.sku || null,
       price: initValues?.price || null,
       capitalPrice: initValues?.capitalPrice || null,
       promotionalPrice: initValues?.promotionalPrice || null,

@@ -116,7 +116,7 @@ export declare namespace ApiRequest {
       values: string[];
     }[];
     variants: {
-      code: string | null;
+      sku: string | null;
       price: number;
       capitalPrice: number | null;
       promotionalPrice: number | null;

@@ -142,7 +142,7 @@ class CreateProductClassificationFormUtil {
     }
     return this.getVariant({
       id: null,
-      code: null,
+      sku: null,
       price: null,
       capitalPrice: null,
       promotionalPrice: null,
@@ -159,7 +159,7 @@ class CreateProductClassificationFormUtil {
     const isInStock = !_.isUndefined(defaultVariant.isInStock) ? defaultVariant.isInStock : true;
     return {
       id: defaultVariant.id || null,
-      code: defaultVariant.code || null,
+      sku: defaultVariant.sku || null,
       price: defaultVariant.price || null,
       capitalPrice: defaultVariant.capitalPrice || null,
       promotionalPrice: defaultVariant.promotionalPrice || null,

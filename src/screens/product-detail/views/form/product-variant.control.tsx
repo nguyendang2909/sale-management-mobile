@@ -10,7 +10,7 @@ export const ProductVariantControl: FC<
   return (
     <Controller
       control={control}
-      name="variants.0.code"
+      name="variants.0.sku"
       render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
         <View {...viewProps}>
           <FormControlInput

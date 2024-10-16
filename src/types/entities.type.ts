@@ -117,7 +117,7 @@ export declare namespace Entity {
 
   type ProductVariant = BaseEntity &
     Partial<{
-      code?: string;
+      sku?: string;
       price: number;
       capitalPrice?: number;
       promotionalPrice?: number;
@@ -176,6 +176,7 @@ export declare namespace Entity {
       note?: string;
       option1?: string;
       option2?: string;
+      sku?: string;
     }>;
 
   type OrderNoteImage = BaseEntity &

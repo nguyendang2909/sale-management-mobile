@@ -31,7 +31,7 @@ class UpdateProductFormUtil {
           .of(
             Yup.object({
               id: Yup.string().required().nullable(),
-              code: Yup.string().required().nullable(),
+              sku: Yup.string().required().nullable(),
               price: Yup.number()
                 .positive('Giá không đúng')
                 .notOneOf([0], 'Giá không đúng')
@@ -67,7 +67,7 @@ class UpdateProductFormUtil {
       ? product.variants.map(variant => {
           return {
             id: variant.id || null,
-            code: variant.code || null,
+            sku: variant.sku || null,
             price: variant.price || null,
             capitalPrice: variant.capitalPrice || null,
             promotionalPrice: variant.promotionalPrice || null,
