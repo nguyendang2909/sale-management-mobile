@@ -8,8 +8,9 @@ import { SwitchProductTrackingStock } from './switch/switch-product-tracking-sto
 export const ControlProductTrackingStock: FC<
   ComponentProps<typeof View> & {
     control: Control<FormParams.CreateProduct, any>;
+    setStock: (value: number | null) => void;
   }
-> = ({ control, ...viewProps }) => {
+> = ({ control, setStock, ...viewProps }) => {
   return (
     <>
       <Controller
@@ -18,7 +19,11 @@ export const ControlProductTrackingStock: FC<
         rules={{ required: true }}
         render={({ field }) => (
           <View {...viewProps}>
-            <SwitchProductTrackingStock value={field.value} onChange={field.onChange} />
+            <SwitchProductTrackingStock
+              value={field.value}
+              onChange={field.onChange}
+              setStock={setStock}
+            />
           </View>
         )}
       ></Controller>

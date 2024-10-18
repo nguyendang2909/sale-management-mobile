@@ -13,8 +13,9 @@ export const SectionStockManagement: FC<
     control: Control<FormParams.CreateProduct, any>;
     isEnabled: boolean;
     isTrackingStock: boolean;
+    setStock: (value: number | null) => void;
   }
-> = ({ control, isEnabled, isTrackingStock, ...viewProps }) => {
+> = ({ control, isEnabled, isTrackingStock, setStock, ...viewProps }) => {
   if (!isEnabled) {
     return null;
   }
@@ -26,7 +27,7 @@ export const SectionStockManagement: FC<
         </View>
         <ControlProductVariant mt={16} control={control} />
         {!isTrackingStock && <ControlProductInStock mt={16} control={control} />}
-        <ControlProductTrackingStock mt={16} control={control} />
+        <ControlProductTrackingStock mt={16} control={control} setStock={setStock} />
         {isTrackingStock && <ControlProductStock mt={16} control={control} />}
       </View>
     </>

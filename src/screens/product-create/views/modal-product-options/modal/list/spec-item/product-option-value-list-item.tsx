@@ -20,8 +20,9 @@ export const ProductOptionValueListItem: FC<{
       <Button variant="outline" size="xs" onPress={handlePress}>
         <ButtonText>{productOptionValue}</ButtonText>
         <View
+          ml={16}
           as={TouchableOpacity}
-          p={4}
+          // p={4}
           // @ts-ignore
           onPress={handleDelete}
         >

@@ -131,14 +131,14 @@ class CreateProductClassificationFormUtil {
     }
     const firstCurrentVariant = currentVariants[0];
     if (firstCurrentVariant) {
-      return {
+      return this.getVariant({
         ...firstCurrentVariant,
         id: this.hasVariantIdInFlagsMap(firstCurrentVariant, variantIdFlagsMap)
           ? null
           : firstCurrentVariant.id,
         option1,
         option2,
-      };
+      });
     }
     return this.getVariant({
       id: null,
@@ -157,7 +157,7 @@ class CreateProductClassificationFormUtil {
 
   getVariant(defaultVariant: FormParams.CreateProductVariant): FormParams.CreateProductVariant {
     const isInStock = !_.isUndefined(defaultVariant.isInStock) ? defaultVariant.isInStock : true;
-    return {
+    const variant = {
       id: defaultVariant.id || null,
       sku: defaultVariant.sku || null,
       price: defaultVariant.price || null,
@@ -170,6 +170,7 @@ class CreateProductClassificationFormUtil {
       option1: !_.isUndefined(defaultVariant.option1) ? defaultVariant.option1 : null,
       option2: !_.isUndefined(defaultVariant.option2) ? defaultVariant.option2 : null,
     };
+    return variant;
   }
 
   getNewOption(

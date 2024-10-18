@@ -31,10 +31,7 @@ class CreateProductFormUtil {
             Yup.object({
               id: Yup.string().required().nullable(),
               sku: Yup.string().required().nullable(),
-              price: Yup.number()
-                .positive('Giá không đúng')
-                .notOneOf([0], 'Giá không đúng')
-                .required('Thông tin bắt buộc'),
+              price: Yup.number().positive('Giá không đúng').required('Thông tin bắt buộc'),
               capitalPrice: Yup.number()
                 .positive('Giá không đúng')
                 .notOneOf([0], 'Giá không đúng')

@@ -21,6 +21,7 @@ import { editVariantFormUtil } from 'src/utils/edit-variant-form.util';
 import { ControlVariantCapitalPrice } from './views/control/control-variant-capital-price';
 import { ControlVariantCode } from './views/control/control-variant-code';
 import { ControlVariantInStock } from './views/control/control-variant-in-stock';
+import { ControlVariantIsEnabled } from './views/control/control-variant-is-enabled';
 import { ControlVariantPrice } from './views/control/control-variant-price';
 import { ControlVariantPromotionalPrice } from './views/control/control-variant-promotional-price';
 import { ControlVariantStock } from './views/control/control-variant-stock';
@@ -46,7 +47,7 @@ export const ProductVariantEditScreen: FC<AppStackScreenProps<'PRODUCT_VARIANT_E
   };
 
   const {
-    formState: { isDirty },
+    formState: { isDirty, errors },
     control,
     watch,
     handleSubmit,
@@ -122,14 +123,21 @@ export const ProductVariantEditScreen: FC<AppStackScreenProps<'PRODUCT_VARIANT_E
                     </View>
                     <ControlVariantPromotionalPrice mt={16} control={control} />
                   </View>
-                  <View px={16} py={16} bgColor="$white">
+                  <View px={16} py={16} bgColor="$white" mb={16}>
                     <View>
                       <Text fontWeight="$bold">Quản lý tồn kho</Text>
                     </View>
                     <ControlVariantCode mt={16} control={control} />
                     {!isTrackingStock && <ControlVariantInStock mt={16} control={control} />}
                     <ControlVariantTrackingStock mt={16} control={control} />
+                    {isTrackingStock && <ControlVariantStock mt={16} control={control} />}
+                  </View>
 
+                  <View px={16} py={16} bgColor="$white" mb={16}>
+                    <View>
+                      <Text fontWeight="$bold">Hiển thị sản phẩm</Text>
+                    </View>
+                    <ControlVariantIsEnabled mt={16} control={control} />
                     {isTrackingStock && <ControlVariantStock mt={16} control={control} />}
                   </View>
                 </ScrollView>

@@ -71,7 +71,7 @@ export const ProductOptionListItem: FC<{
   const onSubmitProductOptionValue: SubmitHandler<{ value: string }> = async values => {
     const newProductOptionValue = values.value;
     const isDuplicateProductOptionValue = productOptionValues.find((e, index) => {
-      if (edittingProductOptionValueIndex) {
+      if (!_.isNil(edittingProductOptionValueIndex)) {
         return index !== edittingProductOptionValueIndex && e === newProductOptionValue;
       }
       return e === newProductOptionValue;
@@ -80,17 +80,17 @@ export const ProductOptionListItem: FC<{
       setError('value', { type: 'custom', message: 'Phân loại đã tồn tại trong nhóm' });
       return;
     }
-    if (edittingProductOptionValueIndex) {
-      setValue(
-        `options.${index}.values`,
-        productOption.values.map((productOptionValue, index) => {
-          if (index === edittingProductOptionValueIndex) {
-            return newProductOptionValue;
-          }
-          return productOptionValue;
-        }),
-        { shouldDirty: true },
+    if (!_.isNil(edittingProductOptionValueIndex)) {
+      const currentOptionValue = getValues(
+        `options.${index}.values.${edittingProductOptionValueIndex}`,
       );
+      if (newProductOptionValue !== currentOptionValue) {
+        setValue(
+          `options.${index}.values.${edittingProductOptionValueIndex}`,
+          newProductOptionValue,
+          { shouldDirty: true },
+        );
+      }
       setEditProductOptionValueIndex(null);
     } else {
       setValue(`options.${index}.values`, productOption.values.concat(newProductOptionValue), {
@@ -116,11 +116,10 @@ export const ProductOptionListItem: FC<{
 
   const handlePressProductOptionValue = useCallback(
     (productOptionValue: string) => {
-      console.log(222223333);
       const productOptionValueIndex = productOptionValues.findIndex(
         value => value === productOptionValue,
       );
-      if (productOptionValueIndex) {
+      if (_.isNil(productOptionValueIndex)) {
         setEditProductOptionValueIndex(null);
         setProductOptionValue('value', '');
       } else {

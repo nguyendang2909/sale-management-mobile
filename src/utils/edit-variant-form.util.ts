@@ -29,8 +29,11 @@ class EditVariantFormUtil {
           .notOneOf([0], 'Giá không đúng')
           .required()
           .nullable(),
-        stock: Yup.number().integer().positive().required().nullable(),
+        stock: Yup.number().integer().min(0).required().nullable(),
         isInStock: Yup.boolean().required().nullable(),
+        option1: Yup.string().required().nullable(),
+        option2: Yup.string().required().nullable(),
+        isEnabled: Yup.boolean().required(),
       }),
     );
   }
@@ -46,6 +49,9 @@ class EditVariantFormUtil {
       wholesalePrice: initValues?.wholesalePrice || null,
       stock: _.isNull(isInStock) ? initValues?.stock || 0 : null,
       isInStock,
+      isEnabled: !!initValues?.isEnabled,
+      option1: initValues?.option1 || null,
+      option2: initValues?.option2 || null,
     };
   }
 }

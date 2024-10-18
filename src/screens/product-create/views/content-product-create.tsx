@@ -114,6 +114,13 @@ export const ContentProductCreate: FC = () => {
     [getVariants, setValue],
   );
 
+  const setStock = useCallback(
+    (valueStock: number | null) => {
+      setValue('variants.0.stock', valueStock);
+    },
+    [setValue],
+  );
+
   return (
     <>
       <View flex={1}>
@@ -130,6 +137,7 @@ export const ContentProductCreate: FC = () => {
               isEnabled={hasDefaultVariant}
               isTrackingStock={isTrackingStock}
               control={control}
+              setStock={setStock}
             />
             <SectionProductClassification
               mt={16}

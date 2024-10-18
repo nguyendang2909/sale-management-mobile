@@ -79,7 +79,7 @@ export const IntegerInput = forwardRef(
             <InputField
               focusable={focusable}
               inputMode={inputMode}
-              value={value ? value.toString() : '0'}
+              value={value?.toString()}
               onChangeText={handleChange}
               placeholder={placeholder}
               maxLength={maxLength}

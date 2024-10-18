@@ -27,7 +27,7 @@ export const ControlProductStock: FC<
           <View {...viewProps}>
             <IntegerInput
               label="Tồn kho"
-              value={field.value || 0}
+              value={field.value}
               onChange={field.onChange}
               focusable={true}
               ref={textInputRef}

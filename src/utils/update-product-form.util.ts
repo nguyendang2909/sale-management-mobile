@@ -55,6 +55,8 @@ class UpdateProductFormUtil {
               stock: Yup.number().integer().positive().required().nullable(),
               isInStock: Yup.boolean().required().nullable(),
               isEnabled: Yup.boolean().required(),
+              option1: Yup.string().required().nullable(),
+              option2: Yup.string().required().nullable(),
             }),
           )
           .required(),

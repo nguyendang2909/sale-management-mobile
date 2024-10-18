@@ -158,5 +158,8 @@ export declare namespace FormParams {
     wholesalePrice: number | null;
     stock: number | null;
     isInStock: boolean | null;
+    isEnabled: boolean;
+    option1: string | null;
+    option2: string | null;
   };
 }
