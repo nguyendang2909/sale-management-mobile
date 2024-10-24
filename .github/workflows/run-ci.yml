@@ -14,7 +14,7 @@ jobs:
     - name: Install modules
       run: yarn
     - name: Run type check Typescript
-      run: yarn checkTs
+      run: yarn check-ts
     - name: Run ESLint
       run: yarn lint
     - name: Run build
