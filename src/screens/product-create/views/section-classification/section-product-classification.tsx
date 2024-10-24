@@ -28,6 +28,7 @@ export const SectionProductClassification: FC<
               name="variants"
               rules={{ required: true }}
               render={({ field: { value } }) => {
+                console.log(111, value);
                 if (hasDefaultVariant) {
                   return <></>;
                 }

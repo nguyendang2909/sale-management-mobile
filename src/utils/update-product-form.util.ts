@@ -77,8 +77,8 @@ class UpdateProductFormUtil {
             stock: variant.stock || null,
             isInStock: variant.isInStock || null,
             isEnabled: true,
-            option1: null,
-            option2: null,
+            option1: variant.option1 || null,
+            option2: variant.option2 || null,
           };
         })
       : [];

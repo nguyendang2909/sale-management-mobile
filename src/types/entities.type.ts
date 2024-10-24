@@ -124,6 +124,8 @@ export declare namespace Entity {
       wholesalePrice?: number;
       stock?: number | null;
       isInStock?: boolean | null;
+      option1?: string | null;
+      option2?: string | null;
     }>;
 
   type ProductVariantWithProduct = ProductVariant & { product: Product };
