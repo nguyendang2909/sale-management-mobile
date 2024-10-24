@@ -1,0 +1,18 @@
+# name: SSH Pull Code
+
+# on:
+#   push:
+#     branches:
+#       - develop
+# jobs:
+#   deploy:
+#     runs-on: ubuntu-latest
+
+#     steps:
+#       - name: Setup SSH key
+#         uses: longaodai/ssh-server@v2.0.0
+#         with:
+#           host: ${{ secrets.HOST }}
+#           username: ${{ secrets.USERNAME }}
+#           ssh-private-key: ${{ secrets.SSHKEY }}
+#           commands: 'mkdir aaaaa'
