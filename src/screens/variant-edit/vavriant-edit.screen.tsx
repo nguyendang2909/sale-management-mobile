@@ -47,7 +47,10 @@ export const ProductVariantEditScreen: FC<AppStackScreenProps<'PRODUCT_VARIANT_E
   };
 
   const {
-    formState: { isDirty, errors },
+    formState: {
+      isDirty,
+      // errors
+    },
     control,
     watch,
     handleSubmit,

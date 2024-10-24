@@ -234,7 +234,7 @@ export const AnimatedOtpInput = ({
     }
   };
   if (otpCount < 4 && otpCount > 6) {
-    throw 'OTP Count min is 4 and max is 6';
+    throw new Error('OTP Count min is 4 and max is 6');
   }
   const inputProps = {
     inputRef,

@@ -6,7 +6,6 @@ import ImageCropPicker from 'react-native-image-crop-picker';
 import { check, PERMISSIONS, request, RESULTS } from 'react-native-permissions';
 import Toast from 'react-native-toast-message';
 import { useUploadProductImageMutation } from 'src/api';
-import { useMessages } from 'src/hooks';
 import { ProductImageCard } from 'src/screens/product-create/views/form/product-image-card';
 import { Entity } from 'src/types';
 
@@ -19,7 +18,6 @@ type FCProps = {
 };
 
 export const CreateProductImageCards: React.FC<FCProps> = ({ images, addImage, deleteImage }) => {
-  const { formatMessage, formatErrorMessage } = useMessages();
   const [uploadProductImage] = useUploadProductImageMutation();
   const [isLoading, setLoading] = useState<boolean>(false);
 

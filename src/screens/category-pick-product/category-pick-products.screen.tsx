@@ -2,9 +2,8 @@ import { Button, ButtonText, View } from '@gluestack-ui/themed';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { StackActions, useNavigation } from '@react-navigation/native';
 import { FlashList } from '@shopify/flash-list';
-import _ from 'lodash';
 import { ChevronLeft } from 'lucide-react-native';
-import { FC, useCallback, useMemo, useState } from 'react';
+import { FC, useCallback, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import Toast from 'react-native-toast-message';
 import { useUpdateCategoryMutation } from 'src/api';
@@ -43,12 +42,12 @@ export const CategoryPickProductsScreen: FC<AppStackScreenProps<'CATEGORY_PICK_P
   } = useSearchProducts();
 
   const {
-    data: pickedProducts,
+    // data: pickedProducts,
     isLoading: isLoadingProductByCategoryId,
     refetch: refetchProductsByCategoryId,
   } = useSearchProductsByCategoryId({ categoryId: detail.id });
 
-  const pickedProductsObj = useMemo(() => _.keyBy(pickedProducts, 'id'), [pickedProducts]);
+  // const pickedProductsObj = useMemo(() => _.keyBy(pickedProducts, 'id'), [pickedProducts]);
 
   const onLeftPress = () => {
     goBack(SCREENS.HOME, {

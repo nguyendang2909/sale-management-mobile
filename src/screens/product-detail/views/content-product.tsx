@@ -7,7 +7,7 @@ import Toast from 'react-native-toast-message';
 import { useUpdateProductMutation } from 'src/api';
 import { LoadingOverlay } from 'src/components';
 import { HOME_SCREENS, SCREENS } from 'src/constants';
-import { useDisclose, useInit, useMessages, useProduct } from 'src/hooks';
+import { useDisclose, useMessages, useProduct } from 'src/hooks';
 import { ModalProductOptions } from 'src/screens/product-create/views/modal-product-options/modal-product-options';
 import { SectionAdditional } from 'src/screens/product-create/views/section-additional/section-additional';
 import { SectionProductBasicInfo } from 'src/screens/product-create/views/section-basic-info/section-product-basic-info';
@@ -40,8 +40,6 @@ export const ContentProduct: FC<FCProps> = ({ detail }) => {
     onClose: onCloseModalProductOptions,
   } = useDisclose();
 
-  const { isInit: isInitModalProductOptions } = useInit();
-
   const defaultVariants = useMemo(
     () => updateProductFormUtil.getDefaultVariants(product),
     [product],
@@ -69,9 +67,6 @@ export const ContentProduct: FC<FCProps> = ({ detail }) => {
   const isTrackingStock = useMemo(() => isInStock === null, [isInStock]);
   const valueOptions = watch('options');
   const hasDefaultVariant = useMemo(() => valueOptions.length === 0, [valueOptions]);
-  const optionValues = valueOptions.reduce<string[]>((acc, option) => {
-    return acc.concat(acc.concat(option.values));
-  }, []);
 
   console.log(errors);
 

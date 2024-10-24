@@ -1,10 +1,8 @@
 import { Icon, Text } from '@gluestack-ui/themed';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import React, { FC } from 'react';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { DEFAULT_NAVIGATOR, NAVIGATOR_DATA } from 'src/constants';
 import { BOTTOM_NAVIGATOR_NAMES } from 'src/constants/constants';
-import { useMessages } from 'src/hooks';
 import { colors } from 'src/theme';
 
 import { AppStackScreenProps } from './main.stack';
@@ -31,10 +29,6 @@ export type HomeTabParamList = {
 const Tab = createBottomTabNavigator<HomeTabParamList>();
 
 export const HomeNavigator: FC<FCProps> = () => {
-  const { formatMessage } = useMessages();
-
-  const { bottom } = useSafeAreaInsets();
-
   const screens = [
     BOTTOM_NAVIGATOR_NAMES.PRODUCTS,
     BOTTOM_NAVIGATOR_NAMES.CUSTOMERS,

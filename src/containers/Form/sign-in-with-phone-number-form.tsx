@@ -19,13 +19,12 @@ import _ from 'lodash';
 import React, { FC, useState } from 'react';
 import { LoadingOverlay, MaterialIcons } from 'src/components';
 import { SCREENS } from 'src/constants';
-import { useAppDispatch, useMessages } from 'src/hooks';
+import { useMessages } from 'src/hooks';
 import messages from 'src/locales/messages';
 import { widthFull } from 'src/styles';
 import { FormParams, TxKey, ViewProps } from 'src/types';
 
 export const SignInWithPhoneNumberForm: FC<ViewProps> = ({ ...viewProps }) => {
-  const dispatch = useAppDispatch();
   const { formatMessage } = useMessages();
   const { navigate } = useNavigation();
   const [errorCode, setErrorCode] = useState<TxKey | undefined>();

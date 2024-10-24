@@ -6,7 +6,7 @@ import Toast from 'react-native-toast-message';
 import { useCreateProductMutation, useLazyFetchProductQuery } from 'src/api';
 import { LoadingOverlay } from 'src/components';
 import { HOME_SCREENS, SCREENS } from 'src/constants';
-import { useDisclose, useInit, useMessages } from 'src/hooks';
+import { useDisclose, useMessages } from 'src/hooks';
 import { ApiRequest, FormParams } from 'src/types';
 import { createProductFormUtil } from 'src/utils';
 
@@ -35,14 +35,12 @@ export const ContentProductCreate: FC = () => {
     onClose: onCloseModalProductOptions,
   } = useDisclose();
 
-  const { isInit: isInitModalProductOptions } = useInit();
-
   const {
     setValue,
     reset,
     handleSubmit,
     control,
-    formState: { isSubmitting, errors },
+    formState: { isSubmitting },
     watch,
     getValues,
   } = useForm<FormParams.CreateProduct>({
@@ -54,11 +52,6 @@ export const ContentProductCreate: FC = () => {
   const isTrackingStock = useMemo(() => isInStock === null, [isInStock]);
   const valueProductOptions = watch('options');
   const hasDefaultVariant = useMemo(() => valueProductOptions.length === 0, [valueProductOptions]);
-  const productOptionValues = valueProductOptions.reduce<string[]>((acc, productOption) => {
-    const optionValue = productOption.values;
-    return acc.concat(acc.concat(optionValue));
-  }, []);
-  const productOptionsSet = new Set(...productOptionValues);
 
   const onSubmit: SubmitHandler<FormParams.CreateProduct> = async values => {
     try {

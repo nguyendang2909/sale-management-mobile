@@ -78,7 +78,7 @@ interface IconProps extends TouchableOpacityProps {
 }
 
 export function BaseIcon(props: IconProps) {
-  const { icon, color, size } = props;
+  const { icon, size } = props;
 
   return (
     <ImageBackground

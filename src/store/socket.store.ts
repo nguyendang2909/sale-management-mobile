@@ -38,7 +38,10 @@ export function* initializeWebSocket() {
     const socketChannel: ActionPattern = yield call(createSocketChannel);
     while (true) {
       try {
-        const { type, data } = yield take(socketChannel);
+        const {
+          type,
+          // data
+        } = yield take(socketChannel);
 
         switch (type) {
           case 'connect':
@@ -158,12 +161,10 @@ export const socketActionTypes = {
 };
 
 export function* sendMessage(data: PayloadAction<SocketRequest.SendMessage>) {
-  const { payload } = data;
-
+  console.log(111, data);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   // socket.emit(SOCKET_TO_SERVER_EVENTS.SEND_MESSAGE, payload);
-
   // const currentUserId: string = yield select(state => state.app.profile._id);
-
   // yield put(
   //   messageActions.sendMsg({
   //     _id: payload.uuid,
@@ -177,6 +178,8 @@ export function* sendMessage(data: PayloadAction<SocketRequest.SendMessage>) {
 
 export function* readMessage(data: PayloadAction<SocketRequest.ReadMessage>) {
   const { payload } = data;
+
+  console.log(111, payload);
 
   // socket.emit(SOCKET_TO_SERVER_EVENTS.READ_MESSAGE, payload);
 

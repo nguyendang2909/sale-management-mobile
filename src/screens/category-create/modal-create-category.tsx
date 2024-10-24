@@ -22,7 +22,7 @@ export const ModalCreateCategory: FC<FCProps> = ({ onClose, isVisible, onChange 
   const navigation = useNavigation();
   const { formatErrorMessage } = useMessages();
   const [createCategory] = useCreateCategoryMutation();
-  const [errorResponse, setErrorResponse] = useState<any>();
+  const [errorResponse, setErrorResponse] = useState<unknown>();
   const defaultValues = {
     title: '',
   };

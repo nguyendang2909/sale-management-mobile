@@ -2,7 +2,6 @@ import { Divider, HStack, Text, View, VStack } from '@gluestack-ui/themed';
 import React, { FC } from 'react';
 import { OrderItemPrices } from 'src/components/text/order-item-prices';
 import { ProductIconBox } from 'src/containers/icon/product-icon-box';
-import { useAppDispatch } from 'src/hooks';
 import { Entity } from 'src/types';
 
 type FCProps = {
@@ -10,8 +9,6 @@ type FCProps = {
 };
 
 export const OrderItemListItem: FC<FCProps> = ({ orderItem }) => {
-  const dispatch = useAppDispatch();
-
   const { quantity, imagePath } = orderItem;
 
   return (

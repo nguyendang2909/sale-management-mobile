@@ -18,6 +18,7 @@ export const ProductImageCard: React.FC<FCProps> = ({ onPress, image }) => {
     <TouchableHighlight
       onPress={handlePress}
       style={[
+        // eslint-disable-next-line react-native/no-inline-styles
         { padding: 4, width: 100 },
         borderColor('#d4d8de'),
         borderRadius(20),

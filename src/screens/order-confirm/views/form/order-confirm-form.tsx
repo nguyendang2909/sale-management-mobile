@@ -47,7 +47,12 @@ export const OrderConfirmForm: FC<{ values: FormParams.CreateOrder }> = ({ value
     return createOrderFormUtil.getDefaultValues(values);
   }, [values]);
 
-  const { reset, handleSubmit, control, getValues } = useForm<FormParams.CreateOrder>({
+  const {
+    reset,
+    // handleSubmit,
+    control,
+    getValues,
+  } = useForm<FormParams.CreateOrder>({
     defaultValues,
     resolver: createOrderFormUtil.getResolver(),
   });
